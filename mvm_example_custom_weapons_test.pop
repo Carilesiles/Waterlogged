@@ -1,0 +1,532 @@
+#base robot_standard.pop
+#base robot_giant.pop
+
+tomboy
+{
+	StartingCurrency 1984
+	CanBotsAttackWhileInSpawnRoom no
+	RespawnWaveTime 0
+    
+    LuaScript"function vitasawOnHit(_, activat, calle) local teamCheckInstance = ents.FindByName('vitasaw_team_check'); teamCheckInstance:AcceptInput('TestActivator',_,calle,activat); activat:SetName('vitasaw_caller');
+    end"
+
+	PointTemplates
+	{
+        FreelanceMercenary_Logic
+        {
+            OnSpawnOutput 
+            {
+                Target "freelance_action_check"
+                Action "Trigger"
+                Delay 0
+            }
+
+            OnSpawnOutput 
+            {
+                Target "!activator"
+                Action "$GetVar$PreFreelanceSwitchHealth"
+                Param "apply_last_health|$SetKey$CompareValue|-1"
+                Delay 0
+            }
+
+            OnSpawnOutput 
+            {
+                Target "apply_last_health"
+                Action "Compare"
+                Delay 0.06
+            }
+
+            //apply health from previous class if switched
+            logic_compare
+            {
+                "targetname" "apply_last_health"
+
+                "InitialValue" "-1"
+
+                "OnNotEqualTo" "!activator,$SetKey$health,$$=!activator.PreFreelanceSwitchHealth,-1,-1"
+                "OnNotEqualTo" "!activator,$SetVar$PreFreelanceSwitchHealth,,0,-1"
+            }
+
+            $filter_sendprop
+			{
+				"targetname" "using_action"
+				"$name" "m_bUsingActionSlot"
+				"$value" "0"
+				"$compare" "equal"
+				"Negated" "1"
+
+                "OnPass" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+                "OnPass" "!activator,$SwitchClassInPlace,$$= test ( !activator.m_iClass + 1 <= 9 , !activator.m_iClass + 1, 1 ) ,0,-1"
+			}
+
+            logic_relay
+            {
+                "targetname" "freelance_action_check"
+                "spawnflags" "2"
+
+                "OnTrigger" "using_action,TestActivator,,0,-1"
+                "OnTrigger" "!self,Trigger,,0.1,-1"
+            }
+        }
+
+        BabyFace_Spawn 
+        {
+            OnSpawnOutput
+			{
+				Target "bbfb_relay"
+				Action "Trigger"
+			}
+
+			logic_relay 
+			{
+				"targetname" "bbfb_relay"
+				"spawnflags" "2"
+
+				
+				"OnTrigger" "filter_has_maxcharge,TestActivator,,0,-1"
+				"OnTrigger" "!self,Trigger,,0.2,-1"
+			}
+
+            $filter_sendprop
+            {
+                "targetname" "filter_has_maxcharge"
+                "$name" "m_flHypeMeter"
+                "$value" "99"
+                "$compare" "greater than or equal"
+                "Negated" "0"
+
+				"OnPass" "!activator,$AddItemAttribute,add cond when active|46|0,0,-1"
+				"OnPass" "!activator,$AddItemAttribute,reload time increased hidden|0.7|0,0,-1"
+				"OnPass" "!activator,$AddItemAttribute,fire rate bonus HIDDEN|0.8|0,0,-1"
+
+				"OnFail" "!activator,$RemoveItemAttribute,add cond when active|0,0,-1"
+                "OnFail" "!activator,$RemoveItemAttribute,reload time increased hidden|0,0,-1"
+				"OnFail" "!activator,$RemoveItemAttribute,fire rate bonus HIDDEN|0,0,-1"
+            }
+        }
+
+        DirectHit_Spawn 
+        {
+            //ensure rocket is at 1 on spawn
+            OnSpawnOutput 
+            {
+                Target "!activator"
+                Action "$Regenerate"
+                Delay 0
+            }
+        }
+
+        DirectHit_Rework_Global 
+        {
+            NoFixup 1
+
+            //apply cooldown period where you can't reload rocket on hit very briefly
+            //to avoid reloading multiple times in 1 tick through splash damage
+            $filter_variable
+            {
+                "targetname" "_direct_hit_not_on_cooldown"
+                "$name" "NoDirectHitReload"
+                "$value" "1"
+                "$compare" "equal"
+
+                "Negated" "1"
+
+                "OnPass" "@e@m_hMyWeapons@!activator,$SetProp$m_iClip1,$$=@e@m_hMyWeapons@!activator.m_iClip1 + 1,0,-1"
+                "OnPass" "!activator,$SetVar$NoDirectHitReload,1,-1,-1"
+                "OnPass" "!activator,$SetVar$NoDirectHitReload,,0,-1"
+            }
+
+            logic_relay 
+            {
+                "targetname" "direct_hit_on_hit"
+                "spawnflags" "2"
+
+                "OnTrigger" "_direct_hit_not_on_cooldown,TestActivator,,0,-1"//"@e@m_hMyWeapons@!activator,$SetProp$m_iClip1,$$=@e@m_hMyWeapons@!activator.m_iClip1 + 1,0,-1"
+            }
+        }
+
+        Vitasaw_Rework_Spawn 
+        {
+			OnSpawnOutput
+			{
+				Target "vita_relay"
+				Action "Trigger"
+			}
+
+			logic_relay 
+			{
+				"targetname" "vita_relay"
+				"spawnflags" "2"
+
+				
+				"OnTrigger" "filter_has_enough_organs,TestActivator,,0,-1"
+				"OnTrigger" "!self,Trigger,,0.2,-1"
+			}
+
+            $filter_sendprop
+            {
+                "targetname" "filter_has_enough_organs"
+                "$name" "m_iDecapitations"
+                "$value" "3"
+                "$compare" "greater than or equal"
+                "Negated" "0"
+
+				"OnPass" "!activator,$AddItemAttribute,allow friendly fire|1|2,0,-1"
+
+				"OnFail" "!activator,$RemoveItemAttribute,allow friendly fire|2,0,-1"
+            }
+        }
+
+        Vitsaw_Rework_Global 
+        {
+            NoFixup 1
+
+            logic_relay 
+            {
+                "targetname" "_vita_duration"
+                "spawnflags" "2"
+
+                "OnTrigger" "!activator,$RemoveCond,16,5,-1"
+                "OnTrigger" "!activator,$RemoveCond,29,5,-1"
+                "OnTrigger" "!activator,$RemoveCond,26,5,-1"
+            }
+
+            filter_activator_tfteam
+            {
+                "targetname" "vitasaw_team_check"
+
+                "TeamNum" "2"//red
+
+                "OnPass" "vitasaw_caller,$SetProp$m_iDecapitations,$$=vitasaw_caller.m_iDecapitations - 3,0.01,-1"
+                "OnPass" "vitasaw_caller,AddOutput,targetname  ,0.011,-1"
+
+                "OnPass" "!activator,$AddCond,16,0,-1"
+                "OnPass" "!activator,$AddCond,29,0,-1"
+                "OnPass" "!activator,$AddCond,26,0,-1"
+
+                "OnPass" "!activator,$CancelPending,,0,-1"
+                "OnPass" "!activator,$RemoveOutput,OnUser4,0,-1"
+
+                "OnPass" "!activator,AddOutput,OnUser4 !self:$RemoveCond:16:5:-1,0.01,-1" 
+                "OnPass" "!activator,AddOutput,OnUser4 !self:$RemoveCond:29:5:-1,0.01,-1" 
+                "OnPass" "!activator,AddOutput,OnUser4 !self:$RemoveCond:26:5:-1,0.01,-1" 
+                "OnPass" "!activator,AddOutput,OnUser4 !self:$RemoveOutput:OnUser4:5.1:-1,0.01,-1" 
+
+                "OnPass" "!activator,FireUser4,,0.02,-1" 
+            }
+        }
+	}
+
+	ExtraSpawnPoint  
+	{
+		Name "red"
+		TeamNum 3
+		X "2408.000000" 
+		Y "-96.000000" 
+		Z "267.031311"
+	}
+
+    SpawnTemplate DirectHit_Rework_Global
+    SpawnTemplate Vitsaw_Rework_Global
+
+    CustomWeapon 
+	{
+		"Rider On The Storm" 
+		{
+			OriginalItemName "Activated Campaign 3 Pass" 
+            "increased air control" 3
+			"dmg taken from bullets reduced" 0.9
+			"dmg taken from blast reduced" 0.9
+			"dmg taken from fire reduced" 0.9
+            "damage force increase" 2
+            "cancel falling damage" 1
+            "custom item model" "models/player/items/all_class/spacechem_pin.mdl"
+		}
+
+        "Freelance Mercenary" 
+		{
+			OriginalItemName "Halloween Spellbook" 
+            "special item description" "Hold the Action key to switch between classes on the fly"
+		}
+	}
+
+    ExtraLoadoutItems 
+	{
+		Scout 
+		{
+			Action {Item "Rider On The Storm" Cost 10}
+		}
+		Spy 
+		{
+			Action {Item "Rider On The Storm" Cost 10}
+		}
+
+        Action {Item "Freelance Mercenary" Cost 300}
+	}
+
+    PlayerItemEquipSpawnTemplate 
+	{
+		Name FreelanceMercenary_Logic
+		ItemName "Freelance Mercenary"
+	}
+
+    PlayerItemEquipSpawnTemplate 
+	{
+		Name BabyFace_Spawn
+		ItemName "Baby Face's Blaster"
+	}
+
+    ItemAttributes 
+	{
+		ItemName "Baby Face's Blaster"
+
+        "special item description" "Initial Scout: Gain increase to reload and fire rate while at full boost"
+	}
+    
+    PlayerItemEquipSpawnTemplate 
+	{
+		Name DirectHit_Spawn
+		ItemName "The Direct Hit"
+	}
+
+    ItemAttributes 
+	{
+		ItemName "The Direct Hit"
+		"fire input on hit" "direct_hit_on_hit^Trigger^"
+        "clip size penalty" 0.25
+
+        "special item description" "On Hit: Instantly reload one rocket"
+	}
+
+    PlayerItemEquipSpawnTemplate 
+	{
+		Name Vitasaw_Rework_Spawn
+		ItemName "The Vita-Saw"
+	}
+
+    ItemAttributes 
+	{
+		ItemName "The Vita-Saw"
+
+        "fire input on hit" "popscript^$vitasawOnHit^vitasaw_team_check"
+		
+        "damage penalty" 0.09
+        "max health additive penalty" 0
+
+		"special item description" "On Hit Teammate: Exchange 3 organs to give target every banner effects for 5 seconds"
+	}
+
+	Wave 
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+
+			// WaveSpawn 
+		// {
+		//   Where spawnbot  
+		//   TotalCount 1
+		//   MaxActive 1
+		//   SpawnCount 1
+		//   WaitBetweenSpawns 0
+		//   WaitBeforeStarting 0
+		//   TotalCurrency 0
+
+		//   TFBot
+		//   {
+			// 		SpawnTemplate "Tank_Carrier_Base"
+
+		//     Class Medic
+		//     Health 1
+		//     WeaponRestrictions PrimaryOnly
+		//     Attributes MiniBoss
+		//     CharacterAttributes
+		//     {
+		//       "move speed bonus"	2
+		//       "damage force reduction" 0.7
+		//       "airblast vulnerability multiplier" 0.7
+		//       "override footstep sound set" 5
+		//     }
+		//   }
+		// }
+
+		WaveSpawn 
+		{
+		    Where spawnbot  
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0.1
+			TotalCurrency 0
+
+			Tank
+			{
+				Health 1000
+				Speed 0
+				Name "tankboss"
+				StartingPathTrackNode "path_tank_a"
+
+				OnKilledOutput
+				{
+				Target boss_dead_relay
+				Action Trigger
+				}
+
+				OnBombDroppedOutput
+				{
+				Target boss_deploy_relay
+				Action Trigger
+				}
+			}
+		}
+
+        WaveSpawn 
+		{
+		    Where spawnbot  
+			TotalCount 50
+			MaxActive 5
+			SpawnCount 5
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+			TFBot
+            {
+                Class heavyballsacks
+
+                Action Mobber
+
+                CharacterAttributes
+                {
+                    "no_attack" 1
+                }
+            }
+		}
+
+        WaveSpawn 
+		{
+		    Where red  
+			TotalCount 50
+			MaxActive 2
+			SpawnCount 2
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+			TFBot
+            {
+                Class heavyballsacks
+
+                Action Mobber
+
+                CharacterAttributes
+                {
+                    "no_attack" 1
+                }
+
+                AddCond {Index 43}
+            }
+		}
+	}
+
+    Wave 
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+
+		WaveSpawn 
+		{
+		    Where spawnbot  
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0.1
+			TotalCurrency 0
+
+			Tank
+			{
+				Health 1000
+				Speed 0
+				Name "tankboss"
+				StartingPathTrackNode "path_tank_a"
+
+				OnKilledOutput
+				{
+				Target boss_dead_relay
+				Action Trigger
+				}
+
+				OnBombDroppedOutput
+				{
+				Target boss_deploy_relay
+				Action Trigger
+				}
+			}
+		}
+
+        WaveSpawn 
+		{
+		    Where spawnbot  
+			TotalCount 50
+			MaxActive 3
+			SpawnCount 3
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+			TFBot
+            {
+                Class soldier
+
+                Action Mobber
+
+                // CharacterAttributes
+                // {
+                //     "no_attack" 1
+                // }
+            }
+		}
+
+        WaveSpawn 
+		{
+		    Where red  
+			TotalCount 50
+			MaxActive 2
+			SpawnCount 2
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+			TFBot
+            {
+                Class heavyballsacks
+
+                Action Mobber
+
+                CharacterAttributes
+                {
+                    "no_attack" 1
+                }
+
+                AddCond {Index 43}
+            }
+		}
+	}
+}

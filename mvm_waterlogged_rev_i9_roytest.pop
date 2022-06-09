@@ -93,7 +93,7 @@ tomboy
 			Health 1984
 
 			UseCustomModel "models/empty.mdl" 
-			Scale 0.1
+			Scale 0.01
 
 			AddCond 
 			{
@@ -1790,7 +1790,7 @@ tomboy
 			info_target
 			{
 				"targetname" "helicopterhitbox_position"
-				"origin" "-100 0 450"
+				"origin" "-100 0 440"
 			} 
 
 
@@ -1907,7 +1907,7 @@ tomboy
 			{
 				"targetname" "helicopter_model"
 				"model" "models/props_frontline/helicopter_windows.mdl"//"models/combine_helicopter.mdl"
-				"origin" "-100 -20 -100"
+				"origin" "0 0 -50"
 				"angles" "0 0 0"
 				"DefaultAnim" "fly_idle"
                 "modelscale" "1.5"
@@ -1943,8 +1943,7 @@ tomboy
 			OnParentKilledOutput
 			{
 				Target "helicopter_bot*"
-				Action "SetHealth"
-				Param "0"
+				Action "$Suicide"
 				Delay 0
 			}
 
@@ -1952,7 +1951,7 @@ tomboy
 			{
 				Target "helicopter_bot*"
 				Action "AddOutput"
-				Param "targetname "
+				Param "targetname  "
 				Delay 0.1
 			}
 
@@ -2485,7 +2484,7 @@ tomboy
 
 				Health 1000
 				Speed 0 
-				Scale 1
+				Scale 1.1
 				DisableSmokestack 1  
 				MaxTurnRate 0
 				Model "models/empty.mdl" 

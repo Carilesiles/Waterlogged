@@ -1790,7 +1790,7 @@ tomboy
 			info_target
 			{
 				"targetname" "helicopterhitbox_position"
-				"origin" "-100 0 440"
+				"origin" "-100 0 430"
 			} 
 
 
@@ -1907,7 +1907,7 @@ tomboy
 			{
 				"targetname" "helicopter_model"
 				"model" "models/props_frontline/helicopter_windows.mdl"//"models/combine_helicopter.mdl"
-				"origin" "0 0 -50"
+				"origin" "0 0 -100"
 				"angles" "0 0 0"
 				"DefaultAnim" "fly_idle"
                 "modelscale" "1.5"
@@ -1931,6 +1931,14 @@ tomboy
 				Target "helicopter_relay"
 				Action "FireUser1"
 				Delay 0
+			}
+
+            //no player collision resolve logic (thanks orin)
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "Disable"
+				Delay 1
 			}
 
 			// OnSpawnOutput
@@ -2488,6 +2496,7 @@ tomboy
 				DisableSmokestack 1  
 				MaxTurnRate 0
 				Model "models/empty.mdl" 
+                ReplaceModelCollisions 1
 				StartSound "misc/null.wav"
 				PingSound "misc/null.wav"
 				EngineLoopSound "misc/null.wav"

@@ -10,6 +10,8 @@ tomboy
     LuaScript"function vitasawOnHit(_, activat, calle) local teamCheckInstance = ents.FindByName('vitasaw_team_check'); teamCheckInstance:AcceptInput('TestActivator',_,calle,activat); activat:SetName('vitasaw_caller');
     end"
 
+    PrecacheModel "models/props_mvm/mvm_comically_small_player_shield.mdl"
+
 	PointTemplates
 	{
         FreelanceMercenary_Logic
@@ -231,6 +233,221 @@ tomboy
 			}
         }
 
+        ShellProjection_Spawn
+        {
+            OnSpawnOutput
+            {
+                Target "!activator"
+                Action "$AddItemAttribute"
+                Param "CARD: damage bonus|1.25|1"
+                Delay 0
+            }
+
+            OnSpawnOutput
+            {
+                Target "!activator"
+                Action "$AddItemAttribute"
+                Param "CARD: damage bonus|1.25|2"
+                Delay 0
+            }
+
+            OnParentKilledOutput
+            {
+                Target "!activator"
+                Action "$RemoveItemAttribute"
+                Param "CARD: damage bonus|1"
+                Delay 0
+            }
+
+            OnParentKilledOutput
+            {
+                Target "!activator"
+                Action "$RemoveItemAttribute"
+                Param "CARD: damage bonus|2"
+                Delay 0
+            }
+
+            // OnSpawnOutput
+            // {
+            //     Target "@e@m_hMyWeapons@!activator"
+            //     Action "$SetProp$m_iClip1"
+            //     Param "0"
+            //     Delay 0
+            // }
+
+            //very weird hack to prevent switching to weapon
+            // OnSpawnOutput
+            // {
+            //     Target "@e@m_hMyWeapons@!activator"
+            //     Action "$SetProp$m_bFlipViewModel"
+            //     Param "0"
+            //     Delay 0.01
+            // }
+
+            OnSpawnOutput
+            {
+                Target "!activator"
+                Action "$WeaponSwitchSlot"
+                Param "1"
+                Delay 0
+            }
+
+            OnSpawnOutput
+            {
+                Target "shield_hitbox"
+                Action "$SetOwner"
+                Param "!activator"
+            }
+
+            OnSpawnOutput
+            {
+                Target "shield_hitbox2"
+                Action "$SetOwner"
+                Param "!activator"
+            }
+
+            OnSpawnOutput
+            {
+                Target "projectile_shield"
+                Action "$SetModel"
+                Param "models/props_mvm/mvm_comically_small_player_shield.mdl"
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate"
+                Action "Start"
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate2"
+                Action "Start"
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate"
+                Action "SetParent"
+                Param ""
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate2"
+                Action "SetParent"
+                Param ""
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate_position"
+                Action "Trigger"
+            }
+
+            filter_activator_tfteam 
+			{
+				"targetname" "filter_is_blue"
+				"Negated" "0"
+				"TeamNum" "3"
+			}
+
+            logic_relay
+            {
+                "targetname" "rotate_position"
+                "spawnflags" "2"
+
+                "OnTrigger" "rotate,$TeleportToEntity,!activator,0,-1"
+                "OnTrigger" "rotate2,$TeleportToEntity,!activator,0,-1"
+
+                "OnTrigger" "!self,Trigger,,0.01,-1"
+            }
+
+            trigger_hurt
+            {
+                "parentname" "rotate"
+                "origin" "100 0 1"
+                "mins" "-12 -53 -51.5"
+                "maxs" "12 53 51.5"
+
+                "targetname" "shield_hitbox"
+                "spawnflags" "1"
+
+
+                "filtername" "filter_is_blue"
+
+                "Damage" "60" //damage is half of this
+                "damagetype" "512"
+            }
+
+			entity_medigun_shield
+			{
+                "parentname" "rotate"
+                "targetname" "projectile_shield"
+				"origin" "100 0 0"
+				"spawnflags" "1"
+				"teamnum" "2"
+			}
+
+            func_rotating
+            {
+                "targetname" "rotate"
+                "origin" "0 0 0"
+
+                "mins" "-0.1 -0.1 -0.1"
+                "maxs" "0.1 0.1 0.1"
+
+                "dmg" "0"
+                "fanfriction" "100" 
+                "maxspeed" "60"
+                "spawnflags" "64"
+                "volume" "0"
+            }
+
+            //2nd shield
+            trigger_hurt
+            {
+                "parentname" "rotate2"
+                "mins" "-12 -53 -51.5"
+                "maxs" "12 53 51.5"
+                "origin" "-100 0 1"
+                // "angles" "180 0 0"
+
+                "targetname" "shield_hitbox2"
+                "spawnflags" "1"
+
+                "filtername" "filter_is_blue"
+
+                "Damage" "60" //damage is half of this
+                "damagetype" "512"
+            }
+
+			entity_medigun_shield
+			{
+                "parentname" "rotate2"
+                "targetname" "projectile_shield"
+				"origin" "-100 0 0"
+                "angles" "-180 0 -180"
+				"spawnflags" "1"
+				"teamnum" "2"
+			}
+
+            func_rotating
+            {
+                "targetname" "rotate2"
+                "origin" "0 0 0"
+
+                "mins" "-0.1 -0.1 -0.1"
+                "maxs" "0.1 0.1 0.1"
+
+                "dmg" "0"
+                "fanfriction" "100" 
+                "maxspeed" "60"
+                "spawnflags" "64"
+                "volume" "0"
+            }
+        }
+
         Building_Level2_Spawn
         {
             OnSpawnOutput
@@ -371,6 +588,16 @@ tomboy
 
     CustomWeapon 
 	{
+        "Shell Projection"
+        {
+            OriginalItemName "Upgradeable TF_WEAPON_MINIGUN" 
+
+            "hidden primary max ammo bonus" 0.0001
+            "special item description" "Create 2 small projectile shields that orbit around you and damage enemies"
+            "special item description 2" "Increased damage for secondary and melee"
+            "special item description 3" "No primary weapon"
+        }
+
 		"Rider On The Storm" 
 		{
 			OriginalItemName "Activated Campaign 3 Pass" 
@@ -397,6 +624,12 @@ tomboy
 		{
 			Action {Item "Rider On The Storm" Cost 10}
 		}
+
+		Heavyweapons
+		{
+			Primary {Item "Shell Projection"}
+		}
+
 		Spy 
 		{
 			Action {Item "Rider On The Storm" Cost 10}
@@ -443,6 +676,12 @@ tomboy
 	{
 		Name Natascha_Spawn
 		ItemName "Natascha"
+	}
+
+    PlayerItemEquipSpawnTemplate 
+	{
+		Name ShellProjection_Spawn
+		ItemName "Shell Projection"
 	}
 
     ItemAttributes 

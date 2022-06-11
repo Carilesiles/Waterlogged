@@ -209,11 +209,20 @@ WaveSchedule
 	}
     ExtraSpawnPoint 
 	{
-		Name "spawnbot_barrier_1"   
+		Name "spawnbot_barrier_1"
 		TeamNum 2
-		X "-2828"  
+		X "-2828"
 		Y "4119"
 		Z "-132"
+		//StartDisabled 1
+	}
+    ExtraSpawnPoint 
+	{
+		Name "spawnbot_barrier_2"
+		TeamNum 2
+		X "-2567"
+		Y "-203"
+		Z "243"
 		//StartDisabled 1
 	}
 	
@@ -1239,7 +1248,7 @@ WaveSchedule
 			{
 				"angles" "0 0 0"
 				"disableshadows" "1"
-				"model" "models/props_gameplay/cap_circle_256.mdl"
+				"model" "models/props_gameplay/cap_circle_128.mdl"
 				"skin" "0"
 				"solid" "0"
 				"targetname" "bombfella_hologram_1"
@@ -1249,7 +1258,7 @@ WaveSchedule
 			{
 				"angles" "0 0 0"
 				"disableshadows" "1"
-				"model" "models/props_gameplay/cap_circle_256.mdl"
+				"model" "models/props_gameplay/cap_circle_128.mdl"
 				"skin" "0"
 				"solid" "0"
 				"targetname" "bombfella_hologram_2"
@@ -1259,7 +1268,7 @@ WaveSchedule
 			{
 				"angles" "0 0 0"
 				"disableshadows" "1"
-				"model" "models/props_gameplay/cap_circle_256.mdl"
+				"model" "models/props_gameplay/cap_circle_128.mdl"
 				"skin" "0"
 				"solid" "0"
 				"targetname" "bombfella_hologram_3"
@@ -1545,8 +1554,18 @@ WaveSchedule
 				"model" "models/props_mvm/robot_spawnpoint.mdl"
 				"skin" "3"
 				"solid" "0"
-				"targetname" "spawn_hologram_1"
-				"origin" "-2808 5895 -192"
+				"targetname" "spawn_hologram_building_1"
+				"origin" "-2808 5895 -192" //-2828 4119 -132
+			}
+			prop_dynamic
+			{
+				"angles" "0 315 0"
+				"disableshadows" "1"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"skin" "3"
+				"solid" "0"
+				"targetname" "spawn_hologram_building_2"
+				"origin" "-2567 -203 243"
 			}
 			prop_dynamic
 			{
@@ -1656,6 +1675,16 @@ WaveSchedule
                 "OnTrigger" "hatchshield,Disable"
                 "OnTrigger" "hatchshield,DisableCollision"
 			}
+            prop_dynamic
+			{
+				"angles" "0 315 0"
+				"disableshadows" "1"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"skin" "3"
+				"solid" "0"
+				"targetname" "spawn_hologram_1"
+				"origin" "-2808 5895 -192" //-2828 4119 -132
+			}
 			prop_dynamic
 			{
 				"targetname" "generator_prop_one"
@@ -1663,6 +1692,7 @@ WaveSchedule
 				"disableshadows" "1"
 				"solid" "0"
 				"origin" "-5020 135 127"
+                "StartDisabled" "1"
 			}
 			prop_dynamic
 			{
@@ -1671,6 +1701,7 @@ WaveSchedule
 				"disableshadows" "1"
 				"solid" "0"
 				"origin" "-2587 -61 63"
+                "StartDisabled" "1"
 			}
 			prop_dynamic
 			{
@@ -1679,6 +1710,7 @@ WaveSchedule
 				"disableshadows" "1"
 				"solid" "0"
 				"origin" "-2711 -560 251"
+                "StartDisabled" "1"
 			}
 			prop_dynamic
 			{
@@ -1687,6 +1719,7 @@ WaveSchedule
 				"disableshadows" "1"
 				"solid" "0"
 				"origin" "-1574 987 -1"
+                "StartDisabled" "1"
 			}
 			prop_dynamic
 			{
@@ -1696,6 +1729,7 @@ WaveSchedule
 				"solid" "0"
 				"origin" "-615 1107 -1"
 				"angles" "0 90 0"
+                "StartDisabled" "1"
 			}
 			prop_dynamic
 			{
@@ -1705,6 +1739,7 @@ WaveSchedule
 				"solid" "0"
 				"origin" "-940 1888 95"
 				"angles" "0 -25 0"
+                "StartDisabled" "1"
 			}
             logic_relay
             {
@@ -2822,8 +2857,8 @@ WaveSchedule
 			{
                 "targetname" "playersLeftAlive"
                 "startvalue" "0"
-                "outValue" "playersLeftFormat,$SetKey$Case01,,0,-1"
-                "outValue" "playersLeftFormat,$Format,,0.2,-1"
+                //"outValue" "playersLeftFormat,$SetKey$Case01,,0,-1"
+                //"outValue" "playersLeftFormat,$Format,,0.2,-1"
                 "outValue" "wipeCheck,SetValueCompare,,0,-1"
             }
             logic_compare
@@ -2842,31 +2877,31 @@ WaveSchedule
 				"OnTrigger" "wipe_loopfx,Trigger"
 				"OnTrigger" "red_win,RoundWin"
 			}
-            logic_case
-            {
-                "targetname" "playersLeftFormat"
-                "case16" "Players Alive: %" //formatting string
-                "case01" "h" //Will be the number of players currently alive
-                //"case02" "6" //Uncomment to give another param to show total team size, could be made dynamic but prob best left
-                "ondefault" "playersLeftDisplay,$SetKey$Message,,0,-1"
-                "ondefault" "playersLeftDisplay,Display,,0.2,-1"
-            }
-            game_text
-			{
-                "targetname" "playersLeftDisplay"
-                "channel" "3"
-                "color" "255 255 255"
-                "color2" "255 255 255"
-                "effect" "0"
-                "fadein" "0"
-                "fadeout" "1"
-                "fxtime" "0.25"
-                "holdtime" "9999"
-                "message" "FunnyHahaPlaceholderText"
-                "spawnflags" "1"
-                "x" "0.85"
-                "y" "0.1"
-            }
+            //logic_case
+            //{
+            //    "targetname" "playersLeftFormat"
+            //    "case16" "Players Alive: %" //formatting string
+            //    "case01" "h" //Will be the number of players currently alive
+            //    //"case02" "6" //Uncomment to give another param to show total team size, could be made dynamic but prob best left
+            //    "ondefault" "playersLeftDisplay,$SetKey$Message,,0,-1"
+            //    "ondefault" "playersLeftDisplay,Display,,0.2,-1"
+            //}
+            //game_text
+			//{
+            //    "targetname" "playersLeftDisplay"
+            //    "channel" "3"
+            //    "color" "255 255 255"
+            //    "color2" "255 255 255"
+            //    "effect" "0"
+            //    "fadein" "0"
+            //    "fadeout" "1"
+            //    "fxtime" "0.25"
+            //    "holdtime" "9999"
+            //    "message" "FunnyHahaPlaceholderText"
+            //    "spawnflags" "1"
+            //    "x" "0.85"
+            //    "y" "0.1"
+            //}
 			logic_timer
 			{
 				"targetname" "blualive_safety_timer"
@@ -3422,7 +3457,146 @@ WaveSchedule
                 "OnTrigger" "!self,Trigger,,0.1,-1"
             }
         }
-		ShellProjection_Spawn
+        Natascha_Spawn
+        {
+            OnSpawnOutput 
+            {
+                Target "filter_rage_activated"
+                Action "FireUser1"
+                Delay 0
+            }
+
+            OnParentKilledOutput 
+            {
+                Target "!activator"
+                Action "$ResetClientProp$m_bRageDraining"
+                Delay 0.1
+            }
+
+            OnParentKilledOutput 
+            {
+                Target "!activator"
+                Action "$ResetClientProp$m_flRageMeter"
+                Delay 0.1
+            }
+
+            //check when rage was activated by player
+            $filter_sendprop
+            {
+                "targetname" "filter_rage_activated"
+                "$name" "m_bRageDraining"
+                "$value" "1"
+                "$compare" "equal"
+                "Negated" "0"
+
+				"OnPass" "rage_activated,Trigger,,0,-1"
+				//"OnPass" "player,$DisplayTextChat,activated,0,-1"
+
+                "OnUser1" "!self,TestActivator,,0,-1"
+                "OnUser1" "!self,FireUser1,,0.1,-1"
+            }
+
+            logic_relay 
+            {
+                "targetname" "rage_activated"
+                "spawnflags" "2"
+
+                "OnTrigger" "!activator,$SetClientProp$m_bRageDraining,1,0,-1"
+                "OnTrigger" "!activator,$SetProp$m_bRageDraining,0,0,-1"
+
+                "OnTrigger" "!activator,$AddCond,11,0,-1"
+
+                "OnTrigger" "rage_meter,SetValueNoFire,$$=!activator.m_flRageMeter,0,-1"
+                "OnTrigger" "rage_meter_drain,FireUser1,,0.01,-1"
+            }
+
+            logic_relay 
+            {
+                "targetname" "rage_meter_drain"
+                "spawnflags" "2"
+
+                "OnUser1" "rage_meter,FireUser1,,0,-1"
+                "OnUser1" "!self,FireUser1,,0.1,-1" //interval
+            }
+
+            math_counter
+			{
+				"targetname" "rage_meter"
+				"startvalue" "0"
+				"min" "0"
+				"max" "100" 
+
+				"OnHitMin" "rage_meter_drain,$CancelPending,,0,0"
+
+                "OnHitMin" "!activator,$RemoveCond,11,0,-1"
+				"OnHitMin" "!activator,$SetClientProp$m_bRageDraining,0,0,-1"
+				"OnHitMin" "!activator,$ResetClientProp$m_flRageMeter,,0.03,-1"
+				"OnHitMin" "!activator,$SetProp$m_flRageMeter,0,0,-1"
+
+				//"OnHitMin" "player,$DisplayTextChat,rage meter ended,0,-1"
+
+				"OnGetValue" "rage_meter,$SetVar$tempRageHolder,,0,-1"
+				"OnGetValue" "!activator,$SetClientProp$m_flRageMeter,$$=rage_meter.tempRageHolder,0.01,-1"
+
+				"OnUser1" "!self,Subtract,1,0,-1" //drain per interval
+				"OnUser1" "!self,GetValue,,0.01,-1"
+			}
+        }
+
+        Building_Level2_Spawn
+        {
+            OnSpawnOutput
+            {
+                Target constructed_check_loop
+                Action Trigger 
+                Delay 0.1
+            }
+
+            $filter_sendprop
+            {
+                "targetname" "filter_constructed"
+                "$name" "m_flPercentageConstructed"
+                "$value" "1"
+                "$compare" "greater than or equal"
+                "Negated" "0"
+
+                "OnPass" "apply_level2,Trigger,,0,-1"
+            }
+
+            //if building was built in setup or player used building canteen, cancel
+            $filter_sendprop
+            {
+                "targetname" "filter_is_already_constructed"
+                "$name" "m_iHighestUpgradeLevel"
+                "$value" "2"
+                "$compare" "greater than or equal"
+                "Negated" "0"
+
+                "OnPass" "constructed_check_loop,Disable,,0,-1"
+            }
+
+            logic_relay 
+            {
+                "targetname" "constructed_check_loop"
+                "spawnflags" "2"
+
+                "OnTrigger" "filter_constructed,TestActivator,,0,-1"
+                "OnTrigger" "filter_is_already_constructed,TestActivator,,0,-1"
+
+                "OnTrigger" "!self,Trigger,,0.1,-1"
+            }
+
+            logic_relay 
+            {
+                "targetname" "apply_level2"
+                "spawnflags" "2"
+
+                "OnTrigger" "!activator,$SetProp$m_iHighestUpgradeLevel,2,0,-1"
+
+                "OnTrigger" "constructed_check_loop,Disable,,0,-1"
+            }
+        }
+		Thunderdome_Spawn
         {
             OnSpawnOutput
             {
@@ -4206,16 +4380,17 @@ WaveSchedule
 
     CustomWeapon 
 	{
-		"Shell Projection"
+		"Thunderdome"
         {
             OriginalItemName "Upgradeable TF_WEAPON_MINIGUN" 
 
             "hidden primary max ammo bonus" 0.0001
+            "cannot upgrade" 1
             "special item description" "Create 2 small projectile shields that orbit around you and damage enemies"
             "special item description 2" "Increased damage for secondary and melee"
             "special item description 3" "No primary weapon"
         }
-		"Rider On The Storm" 
+		"Rider On The Storm"
 		{
 			OriginalItemName "Activated Campaign 3 Pass" 
             "increased air control" 3
@@ -4240,7 +4415,7 @@ WaveSchedule
 		}
 		Heavyweapons
 		{
-			Primary {Item "Shell Projection"}
+			Primary {Item "Thunderdome"}
 		}
 
 		Spy 
@@ -4265,8 +4440,8 @@ WaveSchedule
 	
 	PlayerItemEquipSpawnTemplate 
 	{
-		Name ShellProjection_Spawn
-		ItemName "Shell Projection"
+		Name Thunderdome_Spawn
+		ItemName "Thunderdome"
 	}
     ItemAttributes 
 	{
@@ -4290,6 +4465,50 @@ WaveSchedule
         "special item description" "On Hit: Instantly reload one rocket"
 	}
 
+    PlayerItemEquipSpawnTemplate 
+	{
+		Name Natascha_Spawn
+		ItemName "Natascha"
+	}
+
+    ItemAttributes 
+	{
+		ItemName "Natascha"
+		"increase buff duration HIDDEN" 50
+        //"generate rage on damage" 3
+
+        "special item description" "Replaces 'Knockback Rage' with Power Rage. grant crit while active (PLACEHOLDER EFFECT)"
+	}
+
+    ItemAttributes 
+	{
+        ClassName TF_WEAPON_PDA_ENGINEER_BUILD
+		"special item description" "Buildings start at level 2 after construction"
+	}
+
+
+    BuildingSpawnTemplate
+	{
+		Name Building_Level2_Spawn
+		BuildingType "Sentry" 
+	}
+
+    BuildingSpawnTemplate
+	{
+		Name Building_Level2_Spawn
+		BuildingType "Dispenser" 
+	}
+    BuildingSpawnTemplate
+	{
+		Name Building_Level2_Spawn
+		BuildingType "Teleporter Entry" 
+	}
+    BuildingSpawnTemplate
+	{
+		Name Building_Level2_Spawn
+		BuildingType "Teleporter Exit" 
+	}
+    
     PlayerItemEquipSpawnTemplate 
 	{
 		Name Vitasaw_Rework_Spawn
@@ -5957,7 +6176,7 @@ WaveSchedule
 			SpawnCount 2
             Support limited
 			TotalCurrency 75
-			WaitBeforeStarting 1
+			WaitBeforeStarting 0
 			WaitBetweenSpawns 1
             RandomChoice
             {
@@ -5983,13 +6202,47 @@ WaveSchedule
 		}
         WaveSpawn 
         {
+			Name "w3_subwaveone_support"
+			Where "spawnbot_factory_one"
+			Where "spawnbot_factory_two"
+            TotalCount 9
+			MaxActive 3
+			SpawnCount 1
+            Support limited
+			TotalCurrency 75
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 1
+            RandomChoice
+            {
+                RandomChoice
+                {
+                    TFBot
+                    {
+                        Template T_TFBot_Soldier_Extended_Battalion
+                        Action Mobber  
+                        BehaviorModifiers Mobber
+                        Attributes IgnoreFlag
+                        Attributes DisableDodge
+                        UseMeleeThreatPrioritization 1  
+                        AddCond { Name "TF_COND_REPROGRAMMED" }
+                        CharacterAttributes
+                        {
+                            "crit mod disabled" 0
+							"force distribute currency on death" 1
+                        }
+                    }
+                }
+            }
+		}
+        WaveSpawn 
+        {
 			Name "w3_subwaveone"
 			Where "spawnbot_factory_one"
             TotalCount 3
 			MaxActive 3
 			SpawnCount 3
 			TotalCurrency 150
-			WaitBeforeStarting 5
+			WaitBeforeStarting 0
 			WaitBetweenSpawns 20
             Squad
             {
@@ -6060,7 +6313,7 @@ WaveSchedule
 			MaxActive 3
 			SpawnCount 3
 			TotalCurrency 75
-			WaitBeforeStarting 10
+			WaitBeforeStarting 5
 			WaitBetweenSpawns 20
 			Squad
             {
@@ -6148,7 +6401,7 @@ WaveSchedule
 			{
 				SpawnTemplate "Helicopter_Tank_Init"
 
-				Health 10000
+				Health 25000
 				Speed 0 
 				Scale 1.1
 				DisableSmokestack 1  

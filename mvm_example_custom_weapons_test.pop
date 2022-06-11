@@ -233,7 +233,7 @@ tomboy
 			}
         }
 
-        ShellProjection_Spawn
+        Thunderdome_Spawn
         {
             OnSpawnOutput
             {
@@ -588,11 +588,12 @@ tomboy
 
     CustomWeapon 
 	{
-        "Shell Projection"
+        "Thunderdome" //name suggested by yuugi
         {
             OriginalItemName "Upgradeable TF_WEAPON_MINIGUN" 
 
             "hidden primary max ammo bonus" 0.0001
+            "cannot upgrade" 1
             "special item description" "Create 2 small projectile shields that orbit around you and damage enemies"
             "special item description 2" "Increased damage for secondary and melee"
             "special item description 3" "No primary weapon"
@@ -627,7 +628,7 @@ tomboy
 
 		Heavyweapons
 		{
-			Primary {Item "Shell Projection"}
+			Primary {Item "Thunderdome"}
 		}
 
 		Spy 
@@ -680,8 +681,8 @@ tomboy
 
     PlayerItemEquipSpawnTemplate 
 	{
-		Name ShellProjection_Spawn
-		ItemName "Shell Projection"
+		Name Thunderdome_Spawn
+		ItemName "Thunderdome"
 	}
 
     ItemAttributes 

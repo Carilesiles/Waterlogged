@@ -821,11 +821,199 @@ tomboy
 				}
 			}
 		}
+
+        T_TFBot_Ranger_Doctor_Doppler
+        {
+			SpawnTemplate DopplerShields
+
+            Class Medic
+			Name "Doctor Doppler"
+			Skill Expert
+			Health 10000
+
+            Action Mobber
+
+			WeaponRestrictions PrimaryOnly
+            Item "The Crusader's Crossbow"
+            Item "The Quick-Fix" //for the cool looking backpack 
+
+            Item "Einstein"
+
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+            Attributes HoldFireUntilFullReload
+
+			AddCond { Name "TF_COND_REPROGRAMMED" }
+
+            ItemAttributes
+            {
+                ItemName "The Crusader's Crossbow"
+
+                "clip size upgrade atomic" 14
+                "fire rate bonus" 0.5
+                "Reload time decreased" 0.2
+            }
+
+			CharacterAttributes
+			{
+				"move speed bonus"	0.5
+				"damage force reduction" 0.5
+				"airblast vulnerability multiplier" 0.5
+				"override footstep sound set" 4
+			}
+        }
+
+        T_TFBot_Chief_Canteen
+        {
+            SpawnTemplate PreventPowerupDropOnDeath
+            SpawnTemplate Corporal_Logic
+
+            Name "Corporal Canteen"
+            Class Heavyweapons
+
+            ClassIcon heavy_shotgun_burst_lite     
+            Health 30000
+
+            WeaponRestrictions SecondaryOnly 
+            item "Security Shades" 
+            item "Battery Canteens"
+
+            Skill Expert
+            Attributes MiniBoss
+            Attributes UseBossHealthBar
+            Attributes HoldFireUntilFullReload
+
+            //ExtAttr SuppressCanteenUse
+
+            UseMeleeThreatPrioritization 1
+
+            Scale 1.9
+            MaxVisionRange 1200
+
+            Action Mobber
+
+            AddCond { Name "TF_COND_REPROGRAMMED" }
+
+            //ubercharge on spawn
+            FireWeapon
+            {
+                Delay 1
+                Repeats 1
+                Type "Action"
+            }
+
+            FireInput 
+            {
+                Target "random_canteen_use" 
+                Action "Trigger" 
+                Delay 6
+                Cooldown 9
+                Repeats 0 
+            } 
+
+            ItemAttributes
+            {
+                ItemName "Battery Canteens"
+                "ubercharge" 1
+                "powerup charges" 1
+            }
+
+            ItemAttributes
+            {
+                ItemName "TF_WEAPON_SHOTGUN_HWG"
+                "fire rate bonus" 0.3
+                "bullets per shot bonus" 10
+                "clip size penalty" 0.5
+                "damage penalty" 0.3
+                "faster reload rate" 1.5
+            }
+
+            ItemAttributes
+            {
+                ItemName "TF_WEAPON_FISTS"
+                "damage causes airblast" 1
+            }
+
+            CharacterAttributes
+            {
+                "deploy time decreased" 0.1
+                "deploy time decreased" 0.1
+                "move speed bonus" 0.5
+                "damage force reduction" 0.5
+                "airblast vulnerability multiplier" 0.5
+                "rage giving scale" 0.5
+            }
+        }
+
+
+        T_TFBot_Chief_Yakuza
+        {
+            SpawnTemplate Yakuza_Styles
+
+            Name "Sergeant Receiver" //shoutout to eggman#9862 for the actually good name (he was called fucking Sergeant Subtype before)
+            Class Soldier 
+
+            ClassIcon boss_yakuza
+            Health 15000
+
+            Scale 1.9
+
+            WeaponRestrictions PrimaryOnly
+            Item "The Eye-Catcher"
+
+            Skill Expert
+            Attributes MiniBoss
+            Attributes UseBossHealthBar
+            Attributes HoldFireUntilFullReload
+
+            Action Mobber
+
+            AddCond { Name "TF_COND_REPROGRAMMED" }
+
+            FireInput 
+            {
+                Target "randomstyle" 
+                Action "PickRandomShuffle" 
+                Delay 0.1
+                Cooldown 8
+                Repeats 0 
+            } 
+
+            // FireInput 
+            // {
+            //     Target "dragon_style" 
+            //     Action "Trigger" 
+            //     Delay 0.1
+            //     Repeats 1
+
+            //     IfHealthBelow 10000
+            // } 
+
+            CharacterAttributes
+            {
+                "health regen" 50
+                "move speed bonus" 0.5
+                "damage force reduction" 0.001
+                "airblast vulnerability multiplier" 0.001
+                "override footstep sound set" 3
+                "airblast vertical vulnerability multiplier" 0.1
+                "rage giving scale" 0.5
+            }
+        }
     }
 
 	PointTemplates
 	{
-		
+        PreventPowerupDropOnDeath
+        {
+            OnParentKilledOutput
+            {
+                Target "item_powerup_rune"
+                Action "Kill"
+                Delay 0
+            }
+        }
+
 		Yakuza_Title_Card_HunterChopper
 		{
 			OnSpawnOutput
@@ -1058,6 +1246,102 @@ tomboy
 				"origin" "1984 1984 99999"
 				"targetname" "middle_text"
 				"message" "GENERAL GUNPOWDER"
+				"x" "-1"
+				"y" "0.45"
+				"channel" "0"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+
+        Yakuza_Title_Card_Corporal
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 0.2
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "REPROGRAMMED SPECIAL UNIT"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				"holdtime" "5"
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "CORPORAL CANTEEN"
+				"x" "-1"
+				"y" "0.45"
+				"channel" "0"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+
+        Yakuza_Title_Card_Kazuma
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 0.2
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "EX-ROBOT FAMILY PATRIARCH"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				"holdtime" "5"
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "SERGEANT RECEIVER"
 				"x" "-1"
 				"y" "0.45"
 				"channel" "0"
@@ -2441,6 +2725,513 @@ tomboy
 				//"OnTrigger" "player,$DisplayTextChat,triggered,,-1"
 			}
 		}
+
+        DopplerShields
+        {
+            OnSpawnOutput
+            {
+                Target "rotate"
+                Action "StartForward"
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate2"
+                Action "StartBackward"
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate_position"
+                Action "Trigger"
+            }
+
+            OnSpawnOutput
+            {
+                Target "shield_hitbox"
+                Action "$SetOwner"
+                Param "!activator"
+            }
+
+            OnSpawnOutput
+            {
+                Target "shield_hitbox2"
+                Action "$SetOwner"
+                Param "!activator"
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate"
+                Action "SetParent"
+                Param ""
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate2"
+                Action "SetParent"
+                Param ""
+            }
+
+            filter_activator_tfteam 
+			{
+				"targetname" "filter_is_blue"
+				"Negated" "0"
+				"TeamNum" "3"
+			}
+
+            logic_relay
+            {
+                "targetname" "rotate_position"
+                "spawnflags" "2"
+
+                "OnTrigger" "rotate,$TeleportToEntity,!activator,0,-1"
+                "OnTrigger" "rotate2,$TeleportToEntity,!activator,0,-1"
+
+                "OnTrigger" "!self,Trigger,,0.01,-1"
+            }
+
+			entity_medigun_shield
+			{
+                "parentname" "rotate"
+                "targetname" "projectile_shield"
+				"origin" "100 0 0"
+				"spawnflags" "1"
+				"teamnum" "2"
+			}
+
+            trigger_hurt
+            {
+                "parentname" "rotate"
+                "origin" "100 0 1"
+                "mins" "-12 -53 -51.5"
+                "maxs" "12 53 51.5"
+
+                "targetname" "shield_hitbox"
+                "spawnflags" "1"
+
+
+                "filtername" "filter_is_blue"
+
+                "Damage" "20" //damage is half of this
+                "damagetype" "512"
+            }
+
+            func_rotating
+            {
+                "targetname" "rotate"
+                "origin" "0 0 0"
+
+                "mins" "-0.1 -0.1 -0.1"
+                "maxs" "0.1 0.1 0.1"
+
+                "dmg" "0"
+                "fanfriction" "100" 
+                "maxspeed" "40"
+                "spawnflags" "64"
+                "volume" "0"
+            }
+
+            //2nd shield
+
+			entity_medigun_shield
+			{
+                "parentname" "rotate2"
+                "targetname" "projectile_shield"
+				"origin" "100 0 0"
+				"spawnflags" "1"
+				"teamnum" "2"
+			}
+
+            trigger_hurt
+            {
+                "parentname" "rotate2"
+                "mins" "-12 -53 -51.5"
+                "maxs" "12 53 51.5"
+                "origin" "-100 0 1"
+
+                "targetname" "shield_hitbox2"
+                "spawnflags" "1"
+
+                "filtername" "filter_is_blue"
+
+                "Damage" "20" //damage is half of this
+                "damagetype" "512"
+            }
+            
+
+            func_rotating
+            {
+                "targetname" "rotate2"
+                "origin" "0 0 0"
+
+                "mins" "-0.1 -0.1 -0.1"
+                "maxs" "0.1 0.1 0.1"
+
+                "dmg" "0"
+                "fanfriction" "100" 
+                "maxspeed" "40"
+                "spawnflags" "64"
+                "volume" "0"
+            }
+        }
+
+        Corporal_Logic
+        {
+            NoFixup 1
+
+            OnSpawnOutput
+            {
+                Target "!activator"
+                Action "AddOutput"
+                Param "targetname corporal"
+            }
+
+            OnParentKilledOutput
+            {
+                Target "!activator"
+                Action "AddOutput"
+                Param "targetname  "
+            }
+
+            OnParentKilledOutput
+            {
+                Target "corporal_died"
+                Action "Trigger"
+            }
+
+            logic_relay 
+            {
+                "targetname" "random_canteen_use"
+                "spawnflags" "2"
+
+                "OnTrigger" "random_canteen_case,PickRandomShuffle,,0,-1"
+                "OnTrigger" "player,$PlaySoundToSelf,=35|mvm/mvm_used_powerup.wav,0,-1"
+            }
+
+            filter_activator_tfteam 
+			{
+				"targetname" "corporal_filter_is_red"
+				"Negated" "0"
+				"TeamNum" "2"
+			}
+
+            trigger_multiple
+            {
+                "targetname" "buffbanner_trigger"
+                "origin" "0 0 0"
+                "mins" "-500.0 -500.0 -500.0"
+                "maxs" "500.0 500.0 500.0"
+                "spawnflags" "1" 
+                "StartDisabled" "1"
+
+                "filtername" "corporal_filter_is_red"
+
+                "OnStartTouch" "!activator,$AddCond,16,0,-1"
+                "OnStartTouch" "!activator,$RemoveCond,16,5,-1"
+
+                "OnUser1" "!self,Enable,,0,-1"
+                "OnUser1" "!self,Disable,,0.1,-1"
+            }
+            trigger_multiple
+            {
+                "targetname" "conch_trigger"
+                "origin" "0 0 0"
+                "mins" "-500.0 -500.0 -500.0"
+                "maxs" "500.0 500.0 500.0"
+                "spawnflags" "1" 
+                "StartDisabled" "1"
+
+                "filtername" "corporal_filter_is_red"
+
+                "OnStartTouch" "!activator,$AddCond,29,0,-1"
+                "OnStartTouch" "!activator,$RemoveCond,29,5,-1"
+
+                "OnUser1" "!self,Enable,,0,-1"
+                "OnUser1" "!self,Disable,,0.1,-1"
+            }
+            trigger_multiple
+            {
+                "targetname" "batt_trigger"
+                "origin" "0 0 0"
+                "mins" "-500.0 -500.0 -500.0"
+                "maxs" "500.0 500.0 500.0"
+                "spawnflags" "1" 
+                "StartDisabled" "1"
+
+                "filtername" "corporal_filter_is_red"
+
+                "OnStartTouch" "!activator,$AddCond,26,0,-1"
+                "OnStartTouch" "!activator,$RemoveCond,26,5,-1"
+
+                "OnUser1" "!self,Enable,,0,-1"
+                "OnUser1" "!self,Disable,,0.1,-1"
+            }
+
+
+            logic_case 
+            {
+                "targetname" "random_canteen_case"
+
+                //precision
+                "oncase01" "!activator,$AddCond,96,0,-1"
+                "oncase01" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}PRECISION {reset}Power Up Canteen!,0,-1"
+                "oncase01" "!activator,$RemoveCond,96,5,-1"
+
+                //haste
+                "oncase02" "!activator,$AddCond,91,0,-1"
+                "oncase02" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}HASTE {reset}Power Up Canteen!,0,-1"
+                "oncase02" "!activator,$RemoveCond,91,5,-1"
+
+                //strength
+                "oncase03" "!activator,$AddCond,90,1,-1"
+                "oncase03" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}STRENGTH {reset}Power Up Canteen!,0,-1"
+                "oncase03" "!activator,$RemoveCond,90,5,-1"
+
+                //crit
+                "oncase04" "!activator,$AddCond,105,1,-1"
+                "oncase04" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}CRIT {reset}Power Up Canteen!,0,-1"
+                "oncase04" "!activator,$RemoveCond,105,5,-1"
+
+                //buff banner
+                "oncase05" "buffbanner_trigger,FireUser1,,0,-1"
+                "oncase05" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}AREA BUFF {reset}Power Up Canteen!,0,-1"
+
+                //conch banner
+                "oncase06" "conch_trigger,FireUser1,,0,-1"
+                "oncase06" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}AREA CONCH {reset}Power Up Canteen!,0,-1"
+
+                //battalion banner
+                "oncase07" "batt_trigger,FireUser1,,0,-1"
+                "oncase07" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}AREA BATTALION {reset}Power Up Canteen!,0,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "receiver_died"
+
+                "OnTrigger" "random_canteen_use,Kill,,0,-1"
+                "OnTrigger" "player,$PlaySoundToSelf,=35|mvm/mvm_used_powerup.wav,0,-1"
+
+                "OnTrigger" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {9BBF4D}HARDER {reset}Power Up Canteen!,0,-1"
+
+                "OnTrigger" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {4DBF9B}BETTER {reset}Power Up Canteen!,0.8,-1"
+                "OnTrigger" "corporal,$AddPlayerAttribute,move speed bonus|0.6|1,0.8,-1" 
+
+                "OnTrigger" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {B94DBF}FASTER {reset}Power Up Canteen!,1.6,-1"
+                "OnTrigger" "corporal,$AddCond,36,1.6,-1" 
+
+                "OnTrigger" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {E30B2F}STRONGER {reset}Power Up Canteen!,2.4,-1"
+                "OnTrigger" "superior_canteens,Trigger,,2.6,-1"         
+            }
+
+            logic_relay
+            {
+                "targetname" "superior_canteens"
+                "spawnflags" "2"
+
+                "OnTrigger" "canteen_style,PickRandomShuffle,,0,-1"
+                "OnTrigger" "player,$PlaySoundToSelf,=35|mvm/mvm_used_powerup.wav,0,-1"
+                "OnTrigger" "!self,Trigger,,10,-1"
+            }
+
+
+            logic_case 
+            {
+                "targetname" "canteen_style"
+
+                //precision
+                "oncase01" "corporal,$AddCond,96,0,-1"
+                "oncase01" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {E30B2F}SUPERIOR PRECISION {reset}Power Up Canteen!,0,-1"
+                "oncase01" "corporal,$RemoveCond,96,10,-1"
+
+                //haste
+                "oncase02" "corporal,$AddCond,91,0,-1"
+                "oncase02" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {E30B2F}SUPERIOR HASTE {reset}Power Up Canteen!,0,-1"
+                "oncase02" "corporal,$RemoveCond,91,10,-1"
+
+                //strength
+                "oncase03" "corporal,$AddCond,90,1,-1"
+                "oncase03" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {E30B2F}SUPERIOR STRENGTH {reset}Power Up Canteen!,0,-1"
+                "oncase03" "corporal,$RemoveCond,90,10,-1"
+            }
+        }
+
+        Yakuza_Styles
+        {
+            NoFixup 1
+
+            OnSpawnOutput
+            {
+                Target "!activator"
+                Action "AddOutput"
+                Param "targetname receiver"
+            }
+
+            OnParentKilledOutput
+            {
+                Target "!activator"
+                Action "AddOutput"
+                Param "targetname  "
+            }
+
+            OnParentKilledOutput
+            {
+                Target "receiver_died"
+                Action "Trigger"
+            }
+
+            logic_relay
+            {
+                "targetname" "style_transition"
+
+                "OnTrigger" "receiver,$RemoveCond,36,0,-1"
+                "OnTrigger" "receiver,$RemoveCond,56,0,-1"
+                "OnTrigger" "receiver,$WeaponStripSlot,-1,0,-1" 
+                "OnTrigger" "receiver,$GiveItem,TF_WEAPON_ROCKETLAUNCHER,0.01,-1" 
+            }
+
+            logic_case
+            {
+                "targetname" "randomstyle"
+
+                "oncase01" "charged_style,Trigger,,0,-1"
+                "oncase02" "homing_style,Trigger,,0,-1"
+                "oncase03" "barrage_style,Trigger,,0,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "homing_style"
+
+                "OnTrigger" "style_transition,Trigger,,0,-1"
+
+                "OnTrigger" "player,$DisplayTextChat,{red}{activator}{reset} has changed into their {F81393}HOMING {reset}Combat style!,0,-1"
+
+                "OnTrigger" "!activator,$AddItemAttribute,projectile trail particle|eyeboss_projectile|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,damage penalty|0.75|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,mod projectile heat seek power|360|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,mod projectile heat aim time|0.8|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,Projectile speed increased|0.5|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,fire rate bonus|0.01|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,Reload time decreased|0.35|0,0.02,-1" 
+                "OnTrigger" "!activator,$AddItemAttribute,clip size upgrade atomic|-1|0,0.02,-1"   
+                "OnTrigger" "!activator,$AddItemAttribute,projectile spread angle penalty|5|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddCond,36,0.01,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "charged_style"
+
+                "OnTrigger" "style_transition,Trigger,,0,-1"
+
+                "OnTrigger" "player,$DisplayTextChat,{red}{activator}{reset} has changed into their {6691FF}CHARGED {reset}Combat style!,0,-1"
+
+                "OnTrigger" "!activator,$AddItemAttribute,Projectile speed increased|0.5|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,damage bonus|2|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,Reload time decreased|0.01|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddCond,56,0.01,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "barrage_style"
+
+                "OnTrigger" "style_transition,Trigger,,0,-1"
+
+                "OnTrigger" "player,$DisplayTextChat,{red}{activator}{reset} has changed into their {EAAD11}BARRAGE {reset}Combat style!,0,-1"
+
+                "OnTrigger" "!activator,$AddItemAttribute,fire rate bonus|0.2|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,Projectile speed increased|0.5|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,damage bonus|1.5|0,0.02,-1"
+                "OnTrigger" "!activator,$AddItemAttribute,clip size upgrade atomic|26|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,Reload time decreased|0.07|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,projectile spread angle penalty|5|0,0.02,-1"  
+            }
+
+            logic_relay
+            {
+                "targetname" "corporal_died"
+
+                "OnTrigger" "dragon_style,Trigger,,1,-1"
+
+                "OnTrigger" "player,$DisplayTextChat,{red}Sergeant Receiver{reset} has used their {9BBF4D}TAURINER INFINITY{reset} Power Up Canteen!,0,-1"
+                "OnTrigger" "player,$PlaySoundToSelf,=35|mvm/mvm_used_powerup.wav,0,-1"
+                "OnTrigger" "player,$DisplayTextChat,{red}Sergeant Receiver{reset} has entered {blue}EXTREME HEAT MODE{reset}!,0.5,-1"
+
+                "OnTrigger" "receiver,$AddPlayerAttribute,health regen|200,0.5,-1"
+
+                "OnTrigger" "randomstyle,Kill,,0,-1"
+                "OnTrigger" "charged_style_dragon,Trigger,,0,-1"
+            }
+
+            //start rapidly switching between buffed versions of each styles
+            logic_relay
+            {
+                "targetname" "dragon_style"
+
+                "OnTrigger" "style_transition,Trigger,,0,-1"
+
+                "OnTrigger" "player,$DisplayTextChat,{red}Sergeant Receiver{reset} has changed into their {red}DRAGON REBORN {reset}Combat style!,0,-1"
+
+                "OnTrigger" "randomstyle,Kill,,0,-1"
+                "OnTrigger" "charged_style_dragon,Trigger,,0,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "charged_style_dragon"
+
+                "OnTrigger" "style_transition,Trigger,,0,-1"
+
+                "OnTrigger" "receiver,$AddItemAttribute,projectile no deflect|1|0,0.02,-1"   
+                "OnTrigger" "receiver,$AddItemAttribute,Projectile speed increased|0.3|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,damage bonus|1.2|0,0.02,-1"  
+                //"OnTrigger" "receiver,$AddItemAttribute,Reload time decreased|0.01|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,fire rate bonus|0.3|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddCond,56,0.01,-1"
+
+                "OnTrigger" "homing_style_dragon,Trigger,,1,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "homing_style_dragon"
+
+                "OnTrigger" "style_transition,Trigger,,0,-1"
+
+                "OnTrigger" "receiver,$AddItemAttribute,projectile trail particle|eyeboss_projectile|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,damage penalty|0.75|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,mod projectile heat seek power|360|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,mod projectile heat aim time|0.2|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,Projectile speed increased|0.35|0,0.02,-1" 
+                "OnTrigger" "receiver,$AddItemAttribute,fire rate bonus|0.01|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,Reload time decreased|0.08|0,0.02,-1" 
+                "OnTrigger" "receiver,$AddItemAttribute,clip size upgrade atomic|-1|0,0.02,-1"   
+                "OnTrigger" "receiver,$AddItemAttribute,projectile spread angle penalty|9|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddCond,36,0.01,-1"
+
+                "OnTrigger" "barrage_style_dragon,Trigger,,2,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "barrage_style_dragon"
+
+                "OnTrigger" "receiver,$AddItemAttribute,attach particle effect|704|0,0.02,-1"  
+                
+                "OnTrigger" "style_transition,Trigger,,0,-1"
+                "OnTrigger" "receiver,$AddItemAttribute,fire rate bonus|0.03|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,Projectile speed increased|0.3|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,damage bonus|0.8|0,0.02,-1"
+                "OnTrigger" "receiver,$AddItemAttribute,Reload time decreased|-1|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,projectile spread angle penalty|8|0,0.02,-1"    
+
+                "OnTrigger" "charged_style_dragon,Trigger,,2.5,-1"
+            }
+        }
 	}
 
 	ExtraSpawnPoint 
@@ -2688,7 +3479,7 @@ tomboy
         }
     }
 
-	Wave //wave 3
+	Wave //wave 4
     {
         StartWaveOutput
 		{
@@ -2743,7 +3534,7 @@ tomboy
         }
     }
 
-	Wave //wave 4
+	Wave //wave 5
     {
         StartWaveOutput
 		{
@@ -2769,6 +3560,146 @@ tomboy
             TFBot
             {
                 Template T_TFBot_Ranger_Rockethell
+            }
+        }
+	}
+
+	Wave //wave 6
+    {
+        StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+
+        WaveSpawn
+		{                          
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+            TFBot
+            {
+                Template T_TFBot_Ranger_Doctor_Doppler
+            }
+        }
+	}
+
+	Wave //wave 7
+    {
+        StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+
+        WaveSpawn
+		{                          
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+            TFBot
+            {
+                SpawnTemplate Yakuza_Title_Card_Corporal
+                Template T_TFBot_Chief_Canteen
+            }
+        }
+	}
+    
+	Wave //wave 8
+    {
+        StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+
+        WaveSpawn
+		{                          
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+            TFBot
+            {
+                SpawnTemplate Yakuza_Title_Card_Kazuma
+                Template T_TFBot_Chief_Yakuza
+            }
+        }
+	}
+
+	Wave //wave 9
+    {
+        StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+
+        WaveSpawn
+		{                          
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+            TFBot
+            {
+                Template T_TFBot_Chief_Canteen
+                health 1000
+            }
+        }
+
+        WaveSpawn
+		{                          
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+            TFBot
+            {
+                Template T_TFBot_Chief_Yakuza
+                health 1000
             }
         }
 	}

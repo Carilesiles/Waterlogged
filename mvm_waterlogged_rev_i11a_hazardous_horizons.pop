@@ -3962,9 +3962,22 @@ WaveSchedule
 
     SpawnTemplate CanteenPurchase
 
-	PlayerSpawnTemplate 
+	PlayerItemEquipSpawnTemplate 
 	{
 		Name CustomCanteens
+        ItemName "Default Power Up Canteen (MvM)"
+		Origin "0 0 0" 
+	}
+	PlayerItemEquipSpawnTemplate 
+	{
+		Name CustomCanteens
+        ItemName "Power Up Canteen (MvM)"
+		Origin "0 0 0" 
+	}
+	PlayerItemEquipSpawnTemplate 
+	{
+		Name CustomCanteens
+        ItemName "Battery Canteens"
 		Origin "0 0 0" 
 	}
 
@@ -4508,7 +4521,7 @@ WaveSchedule
 		Name Building_Level2_Spawn
 		BuildingType "Teleporter Exit" 
 	}
-    
+
     PlayerItemEquipSpawnTemplate 
 	{
 		Name Vitasaw_Rework_Spawn
@@ -5456,7 +5469,7 @@ WaveSchedule
 		WaveSpawn
 		{
 			Where spawnbot
-			TotalCount 1
+			TotalCount 0
 			WaitBeforeStarting 9999
             RandomChoice
             {
@@ -6143,7 +6156,7 @@ WaveSchedule
             { 
                 Template T_TFBot_Scout_Melee
                 Action FetchFlag
-                Action IgnoreFlag
+                Attributes IgnoreFlag
                 EventChangeAttributes
                 {
                     Default

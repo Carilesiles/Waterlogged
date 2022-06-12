@@ -1340,18 +1340,8 @@ WaveSchedule
                 "OnTrigger" "!activator,$RemoveItemAttribute,projectile speed increased|0,2,-1"  
                 "OnTrigger" "!activator,$RemoveItemAttribute,projectile spread angle penalty|0,2,-1"  
                 "OnTrigger" "!activator,$RemoveItemAttribute,blast radius increased|0,2,-1"  
-                "OnTrigger" "!activator,$RemoveItemAttribute,always crit|0,2,-1"  
-
-				//"OnTrigger" "!self,Trigger,,10"
+                "OnTrigger" "!activator,$RemoveItemAttribute,always crit|0,2,-1"
 			}
-			
-						//"clip size upgrade atomic" 12
-						//"damage bonus" 0.7
-						//"fire rate bonus" 0.001
-						//"faster reload rate" 0.001
-						//"projectile spread angle penalty" 9
-						//"projectile speed increased" 0.4
-						//"blast radius increased" 1.5
 		}
 		Combo_Pyro 
 		{

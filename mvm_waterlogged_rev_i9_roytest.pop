@@ -711,6 +711,7 @@ tomboy
 
 			CharacterAttributes
 			{
+                "blast dmg to self increased" 0
 				"move speed bonus"	0.5
 				"damage force reduction" 0.5
 				"airblast vulnerability multiplier" 0.5
@@ -785,6 +786,7 @@ tomboy
 					{
 						ItemName TF_WEAPON_ROCKETLAUNCHER
                         "fire rate penalty" 10 //fire once
+                        "damage bonus" 2
                         "Projectile speed increased" 0.5 
 					}
 
@@ -809,6 +811,7 @@ tomboy
                         "mod projectile heat seek power" 360
                         "mod projectile heat aim time" 10
                         "mod projectile heat aim error" 0
+                        "mod projectile heat no predict target speed" 1
                         "damage bonus" 2
                         "Projectile speed increased" 0.15
 					}
@@ -819,6 +822,92 @@ tomboy
                         AttachToProjectile 1
 					}
 				}
+
+                //World of Rockets & Stripes
+                Spellcard_1
+                {
+                    Attributes AlwaysFireWeapon
+                    
+                    Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+                        "damage bonus" 2
+                        "fire rate penalty" 4
+                        "reload time decreased" 0.01
+                        "Projectile speed increased" 0.15
+                    }
+
+                    ShootTemplate
+                    {
+                        Name WorldOfRocketsNStripes
+                        AttachToProjectile 1
+                    }
+                }
+
+                //Machine Gun Kiss
+                Spellcard_2_1
+                {
+                    Attributes AlwaysFireWeapon
+                    
+                    Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+                        "clip size upgrade atomic" 26.0
+                        "faster reload rate" 0.01
+                        "fire rate bonus" 0.1
+                        "projectile spread angle penalty" 10
+                        "Projectile speed increased" 0.3
+                        "always crit" 1
+                    }
+                }
+                Spellcard_2_2
+                {
+                    Attributes AlwaysFireWeapon
+                    
+                    Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+                        "damage bonus" 1.25
+                        "faster reload rate" 0.01
+                        "fire rate bonus" 0.4
+                        "Projectile speed increased" 0.7
+                    }
+                }
+
+                //Right Combination
+                Spellcard_3
+                {
+                    Attributes AlwaysFireWeapon
+                    Attributes HoldFireUntilFullReload
+                    
+                    Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+                        "damage bonus" 1.25
+                        "clip size upgrade atomic" 26.0
+                        "faster reload rate" 0.1
+                        "fire rate bonus" 0.1
+                        "projectile spread angle penalty" 20
+                        "projectile trail particle" "eyeboss_projectile"
+                        "mod projectile heat seek power" 360
+                        "mod projectile heat aim time" 0.8
+                        "mod projectile heat aim error" 5
+                        //"mod projectile heat no predict target speed" 1
+
+                        "Projectile speed increased" 0.1
+                        "projectile acceleration" 1500
+                        "projectile acceleration start time" 0.3
+                        "projectile acceleration time" 0.4
+                    }
+                }
 			}
 		}
 
@@ -925,7 +1014,7 @@ tomboy
                 "bullets per shot bonus" 10
                 "clip size penalty" 0.5
                 "damage penalty" 0.3
-                "faster reload rate" 1.5
+                "faster reload rate" 1.8
             }
 
             ItemAttributes
@@ -954,7 +1043,7 @@ tomboy
             Class Soldier 
 
             ClassIcon boss_yakuza
-            Health 15000
+            Health 25000
 
             Scale 1.9
 
@@ -1493,7 +1582,6 @@ tomboy
 				"filtername" "filter_is_blu"
 
 				"OnStartTouch" "detonate_position,SetParent,!activator,0,-1"
-				"OnStartTouch" "player,$DisplayTextChat,attached,0.1,-1"
 				"OnStartTouch" "!self,Disable,,0.1,-1"
 
 				"OnUser1" "!self,Kill,,2.1,-1"
@@ -1858,7 +1946,7 @@ tomboy
 
                 "OnGetValue" "firer,FireOnce,,0.02,-1"
 				//"OnGetValue" "player,$DisplayTextChat,$$=x(!activator.m_angRotation)..' '..(y(!activator.m_angRotation) + firer_angle_counter.Temp)..' '..z(!activator.m_angRotation),0.01,-1"
-				"OnGetValue" "player,$DisplayTextChat,$$=firer_angle_counter.ActivatorRotationX..' '..(firer_angle_counter.ActivatorRotationY + firer_angle_counter.Temp)..' '..firer_angle_counter.ActivatorRotationZ,0.01,-1"
+				//"OnGetValue" "player,$DisplayTextChat,$$=firer_angle_counter.ActivatorRotationX..' '..(firer_angle_counter.ActivatorRotationY + firer_angle_counter.Temp)..' '..firer_angle_counter.ActivatorRotationZ,0.01,-1"
 
 				"OnUser1" "!self,Add,9,0,-1" //fire 10 rockets in a cycle 
 				"OnUser1" "!self,GetValue,,0.01,-1"
@@ -1959,7 +2047,7 @@ tomboy
 
                 "OnGetValue" "firer,FireOnce,,0.02,-1"
 				//"OnGetValue" "player,$DisplayTextChat,$$=x(!activator.m_angRotation)..' '..(y(!activator.m_angRotation) + firer_angle_counter.Temp)..' '..z(!activator.m_angRotation),0.01,-1"
-				"OnGetValue" "player,$DisplayTextChat,$$=firer_angle_counter.ActivatorRotationX..' '..(firer_angle_counter.ActivatorRotationY + firer_angle_counter.Temp)..' '..firer_angle_counter.ActivatorRotationZ,0.01,-1"
+				//"OnGetValue" "player,$DisplayTextChat,$$=firer_angle_counter.ActivatorRotationX..' '..(firer_angle_counter.ActivatorRotationY + firer_angle_counter.Temp)..' '..firer_angle_counter.ActivatorRotationZ,0.01,-1"
 
 				"OnUser1" "!self,Subtract,9,0,-1" //fire 10 rockets in a cycle 
 				"OnUser1" "!self,GetValue,,0.01,-1"
@@ -2049,6 +2137,79 @@ tomboy
 				"SpreadAngle" "0"
 				"WeaponType" "0"
 			}
+        }
+
+        WorldOfRocketsNStripes 
+        {
+            OnSpawnOutput
+			{
+				Target "firer"
+				Action "$InheritOwner"
+				Param "!activator"
+				Delay 0
+			}
+
+            OnSpawnOutput 
+            {
+                Target "firer_interval"
+                Action "FireUser1"
+                Delay 0
+            }
+
+            logic_relay
+            {
+                "targetname" "firer_interval"
+
+                "OnUser1" "firer_angle_counter,FireUser1,0,-1"
+                "OnUser1" "!self,FireUser1,,0.1,-1" //interval
+            }
+                    
+             math_counter
+            {
+                "targetname" "firer_angle_counter"
+                "startvalue" "-36"
+                "min" "-36"
+                "max" "360" 
+
+                "OnHitMax" "!self,Kill,,0,-1"
+                // "OnHitMax" "firer_interval,Kill,,0,-1"
+                // "OnHitMax" "firer_angle_formatter,Kill,,0,-1"
+                // "OnHitMax" "firer,Kill,,0,-1"
+
+                "OnGetValue" "firer_angle_formatter,$SetKey$case01,,0,-1"
+                "OnGetValue" "firer_angle_formatter,$Format,,0.01,-1"
+                "OnUser1" "!self,Add,12,0,-1" //fire 30 rockets in a cycle 
+                "OnUser1" "!self,GetValue,,0.01,-1"
+            }
+
+            logic_case
+            {
+                "targetname" "firer_angle_formatter"
+                "case16" "angles 0 % 0"
+                "case01" "0"
+                "ondefault" "firer,AddOutput,,0,-1"
+                "ondefault" "firer,FireUser1,,0.01,-1"
+            }
+
+            tf_point_weapon_mimic
+            {
+                "targetname" "firer"
+
+                "spawnflags" "1"
+                "angles" "0 0 0"
+                "origin" "0 0 0"
+                "teamnum" "2"
+                "Crits" "0"
+                "Damage" "100"
+                "ModelScale" "1"
+                "SpeedMax" "400"
+                "SpeedMin" "400"
+                "SplashRadius" "144"
+                "SpreadAngle" "0"
+                "WeaponType" "0"
+
+                "OnUser1" "!self,FireOnce,,0,-1"
+            }
         }
 
 		Helicopter_Base_Init
@@ -2707,22 +2868,118 @@ tomboy
 				Delay 0.1
 			}
 
+			OnSpawnOutput
+			{
+				Target "spellcard"
+				Action "Trigger"
+				Delay 1//6.9
+			}
+
+            game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "spellcard_text"
+				"message" "N/A"
+				"x" "-1"
+				"y" "0.12"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				//"fadein" "0"
+				"holdtime" "8"
+			}
+
 			logic_relay 
 			{
 				"targetname" "rockethell_pattern"
 				"spawnflags" "2"
 
 			    "OnTrigger" "!activator,$ChangeAttributes,LeftSway,0,-1"
-				"OnTrigger" "!activator,$ChangeAttributes,RightSway,1,-1"
-				//"OnTrigger" "!activator,$ChangeAttributes,Orb,2,-1"
-				"OnTrigger" "!activator,$ChangeAttributes,Bloom,3,-1"
-				"OnTrigger" "!activator,$ChangeAttributes,Homing,4,-1"
-                "OnTrigger" "!activator,$AddCond,36,4,-1"
+				"OnTrigger" "!activator,$ChangeAttributes,RightSway,2,-1"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Bloom,4,-1"
+				"OnTrigger" "!activator,$ChangeAttributes,Homing,5.5,-1"
+                "OnTrigger" "!activator,$AddCond,36,5.5,-1"
                 
-                "OnTrigger" "!activator,$RemoveCond,36,5,-1"
+                "OnTrigger" "!activator,$RemoveCond,36,7,-1"
 		
-				"OnTrigger" "!self,Trigger,,5,-1"
-				//"OnTrigger" "player,$DisplayTextChat,triggered,,-1"
+				"OnTrigger" "!self,Trigger,,7,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "spellcard1_relay"
+				"spawnflags" "2"
+
+                "OnTrigger" "!activator,$RemoveCond,36,0,-1"
+			    "OnTrigger" "rockethell_pattern,$CancelPending,,0,-1"
+			    "OnTrigger" "!activator,$ChangeAttributes,Spellcard_1,0.01,-1"
+
+                "OnTrigger" "spellcard_text,AddOutput,message Stream Sign ~ World of Rockets & Stripes,0,-1"
+                "OnTrigger" "spellcard_text,Display,,0.01,-1"
+
+			    "OnTrigger" "!activator,$AddPlayerAttribute,no_attack|1,0.02,-1"
+			    "OnTrigger" "!activator,$RemovePlayerAttribute,no_attack,1,-1"
+
+                "OnTrigger" "rockethell_pattern,Trigger,,8,-1" //spellcard duration
+            }
+
+			logic_relay 
+			{
+				"targetname" "spellcard2_relay"
+				"spawnflags" "2"
+
+                "OnTrigger" "!activator,$RemoveCond,36,0,-1"
+			    "OnTrigger" "rockethell_pattern,$CancelPending,,0,-1"
+
+                "OnTrigger" "spellcard_text,AddOutput,message Barrage Sign ~ Machine Gun Kiss,0,-1"
+                "OnTrigger" "spellcard_text,Display,,0.01,-1"
+
+                "OnTrigger" "!activator,$ChangeAttributes,Spellcard_2_1,0.01,-1"
+			    "OnTrigger" "!activator,$ChangeAttributes,Spellcard_2_2,2.4,-1"
+                "OnTrigger" "!activator,$ChangeAttributes,Spellcard_2_1,4.8,-1"
+			    "OnTrigger" "!activator,$ChangeAttributes,Spellcard_2_2,7.2,-1"
+
+                "OnTrigger" "rockethell_pattern,Trigger,,8,-1" //spellcard duration
+            }
+
+			logic_relay 
+			{
+				"targetname" "spellcard3_relay"
+				"spawnflags" "2"
+
+                "OnTrigger" "!activator,$AddCond,36,0,-1"
+			    "OnTrigger" "rockethell_pattern,$CancelPending,,0,-1"
+
+                "OnTrigger" "spellcard_text,AddOutput,message Homing Sign ~ Right Combination,0,-1"
+                "OnTrigger" "spellcard_text,Display,,0.01,-1"
+
+                "OnTrigger" "!activator,$ChangeAttributes,Spellcard_3,0.01,-1"
+
+                "OnTrigger" "!activator,$RemoveCond,36,8,-1"
+                "OnTrigger" "rockethell_pattern,Trigger,,8,-1" //spellcard duration
+            }
+
+			logic_relay 
+			{
+				"targetname" "spellcard"
+				"spawnflags" "2"
+
+                //world of rockets & stripes
+                "OnTrigger" "spellcard1_relay,Trigger,,0,-1"
+
+                //machine gun kiss
+                "OnTrigger" "spellcard2_relay,Trigger,,14.9,-1" //8 + 6.9
+
+                //right combination
+                "OnTrigger" "spellcard3_relay,Trigger,,29.8,-1" //14.9 + 8 + 6.9
+
+				//"OnTrigger" "!self,Trigger,,44.7,-1"
+
+				"OnTrigger" "!self,Trigger,,60,-1"
 			}
 		}
 
@@ -3020,6 +3277,7 @@ tomboy
                 "OnTrigger" "corporal,$AddPlayerAttribute,move speed bonus|0.6|1,0.8,-1" 
 
                 "OnTrigger" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {B94DBF}FASTER {reset}Power Up Canteen!,1.6,-1"
+                "OnTrigger" "corporal,$AddItemAttribute,faster reload rate|1.5|1,1.6,-1" 
                 "OnTrigger" "corporal,$AddCond,36,1.6,-1" 
 
                 "OnTrigger" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {E30B2F}STRONGER {reset}Power Up Canteen!,2.4,-1"

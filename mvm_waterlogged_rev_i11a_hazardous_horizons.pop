@@ -81,47 +81,74 @@ WaveSchedule
 	ExtraTankPath  
 	{
 		Name "generator_two_path"
-    	Node "-2587 -61 63" //"-5020 135 127"
+    	Node "-2687 -61 63"
     	Node "-1000 -61 63"
 	}
 	ExtraTankPath  
 	{
 		Name "generator_three_path"
-    	Node "-2711 -560 251" //"-2587 -61 63" //"-5020 135 127"
+    	Node "-2611 -560 251"
     	Node "-2000 -560 251"
 	}
 	ExtraTankPath  
 	{
 		Name "generator_four_path"
-    	Node "-1574 987 -1" //"-2611 -560 251" //"-2587 -61 63" //"-5020 135 127"
+    	Node "-1574 987 -1"
     	Node "-1000 987 -1"
 	}
 	ExtraTankPath  
 	{
 		Name "generator_five_path"
-    	Node "-615 1107 -1" //"-1574 987 -1" //"-2611 -560 251" //"-2587 -61 63" //"-5020 135 127"
+    	Node "-615 1107 -1"
     	Node "-615 1200 -1"
 	}
 	ExtraTankPath  
 	{
 		Name "generator_six_path"
-    	Node "-940 1888 95" //"-615 1107 -1" //"-1574 987 -1" //"-2611 -560 251" //"-2587 -61 63" //"-5020 135 127"
+    	Node "-940 1888 95"
     	Node "-762 1789 95"
 	}
-	ExtraSpawnPoint 
+	ExtraSpawnPoint
 	{
 		Name "spawnbot_extra"  
 		StartDisabled 1 
 		TeamNum 2
-		X "-3098.7"  
+		X "-3098.7"
 		Y "-1490.0"
 		Z "276.6"
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_hatchshield"  
+		StartDisabled 1 
+		TeamNum 2
+		X "-1132"
+		Y "-1688"
+		Z "164"
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_whatever"  
+		StartDisabled 1 
+		TeamNum 2
+		X "-2130"
+		Y "765"
+		Z "48"
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_whatever2"  
+		StartDisabled 1 
+		TeamNum 2
+		X "-2130"
+		Y "765"
+		Z "48"
 	}
 	ExtraSpawnPoint 
 	{
 		Name "summon_chief"   
-		TeamNum 3
-		X "-3098.7"  
+		TeamNum 2
+		X "-3098.7"
 		Y "-1490.0"
 		Z "276.6"
 
@@ -130,7 +157,7 @@ WaveSchedule
 	ExtraSpawnPoint 
 	{
 		Name "summon_chief2"   
-		TeamNum 3
+		TeamNum 2
 		X "-3098.7"  
 		Y "-1490.0"
 		Z "276.6"
@@ -140,7 +167,7 @@ WaveSchedule
 	ExtraSpawnPoint 
 	{
 		Name "summon_chief3"   
-		TeamNum 3
+		TeamNum 2
 		X "-3098.7"  
 		Y "-1490.0"
 		Z "276.6"
@@ -223,11 +250,402 @@ WaveSchedule
 		X "-2567"
 		Y "-203"
 		Z "243"
-		//StartDisabled 1
+		StartDisabled 1
 	}
 	
     Templates
     {
+		T_TFBot_Chief_Soldier_Alternating
+		{
+			Class Soldier
+			Skill Expert
+			WeaponRestrictions PrimaryOnly
+			Name "Major Dill"
+			Item "Full Metal Drill Hat"
+			ClassIcon soldier_major_crits
+			Health 45000
+			Scale 1.9
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+            Attributes HoldFireUntilFullReload
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_ROCKETLAUNCHER"
+				"blast dmg to self increased" 0
+				"clip size penalty" 0.25
+				"force fire full clip" 1
+			}
+			CharacterAttributes
+			{
+				"move speed bonus"	0.5
+				"damage force reduction" 0.1
+				"airblast vulnerability multiplier" 0.1
+				"override footstep sound set" 3
+				"airblast vertical vulnerability multiplier" 0.1
+			}
+			FireInput 
+            {
+                Target "alternate_relay" 
+                Action "Trigger" 
+                Delay 10
+                Cooldown 12
+                Repeats 0
+				IfSeeTarget 1
+            } 
+		}
+		T_TFBot_Giant_Pyro_ComboFlare //courtesy of royal
+		{
+			Name "Giant Combo Pyro"
+			Class Pyro
+
+			Health 3000
+
+			ClassIcon pyro_degreaser_flare
+
+			Item "The Degreaser"
+			Item "The Flare Gun"
+			Item "Pyromancer's Mask"
+
+			Skill Expert
+			Attributes MiniBoss
+			MaxVisionRange 1200
+
+			ItemAttributes
+			{
+				ItemName "The Degreaser"
+				"fire input on hit" "combo_primary_to_secondary_longhold^Trigger^"
+				"damage penalty" 0.1
+			}
+
+			ItemAttributes
+			{
+				ItemName "The Flare Gun"
+				"faster reload rate" 0.2
+			}  
+
+			CharacterAttributes
+			{
+				"move speed bonus" 0.6
+				"damage force reduction" 0.1
+				"airblast vulnerability multiplier"	0.1
+				"override footstep sound set"	6
+                "crit mod disabled" 0
+				"force distribute currency on death" 1
+			}
+		}
+		T_TFBot_Ranger_Doctor_Doppler
+        {
+			SpawnTemplate DopplerShields
+
+            Class Medic
+			Name "Doctor Doppler"
+			Skill Expert
+			Health 10000
+
+            Action Mobber
+
+			WeaponRestrictions PrimaryOnly
+            Item "The Crusader's Crossbow"
+            Item "The Quick-Fix" //for the cool looking backpack 
+
+            Item "Einstein"
+
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+            Attributes HoldFireUntilFullReload
+
+			AddCond { Name "TF_COND_REPROGRAMMED" }
+
+            ItemAttributes
+            {
+                ItemName "The Crusader's Crossbow"
+
+                "clip size upgrade atomic" 14
+                "fire rate bonus" 0.5
+                "Reload time decreased" 0.2
+            }
+
+			CharacterAttributes
+			{
+				"move speed bonus"	0.5
+				"damage force reduction" 0.5
+				"airblast vulnerability multiplier" 0.5
+				"override footstep sound set" 4
+			}
+        }
+
+        T_TFBot_Chief_Canteen
+        {
+            SpawnTemplate PreventPowerupDropOnDeath
+            SpawnTemplate Corporal_Logic
+
+            Name "Corporal Canteen"
+            Class Heavyweapons
+
+            ClassIcon heavy_shotgun_burst_lite     
+            Health 30000
+
+            WeaponRestrictions SecondaryOnly 
+            item "Security Shades" 
+            item "Battery Canteens"
+
+            Skill Expert
+            Attributes MiniBoss
+            Attributes UseBossHealthBar
+            Attributes HoldFireUntilFullReload
+
+            //ExtAttr SuppressCanteenUse
+
+            UseMeleeThreatPrioritization 1
+
+            Scale 1.9
+            MaxVisionRange 1200
+
+            Action Mobber
+
+            AddCond { Name "TF_COND_REPROGRAMMED" }
+
+            //ubercharge on spawn
+            FireWeapon
+            {
+                Delay 1
+                Repeats 1
+                Type "Action"
+            }
+
+            FireInput 
+            {
+                Target "random_canteen_use" 
+                Action "Trigger" 
+                Delay 6
+                Cooldown 9
+                Repeats 0 
+            } 
+
+            ItemAttributes
+            {
+                ItemName "Battery Canteens"
+                "ubercharge" 1
+                "powerup charges" 1
+            }
+
+            ItemAttributes
+            {
+                ItemName "TF_WEAPON_SHOTGUN_HWG"
+                "fire rate bonus" 0.3
+                "bullets per shot bonus" 10
+                "clip size penalty" 0.5
+                "damage penalty" 0.3
+                "faster reload rate" 1.5
+            }
+
+            ItemAttributes
+            {
+                ItemName "TF_WEAPON_FISTS"
+                "damage causes airblast" 1
+            }
+
+            CharacterAttributes
+            {
+                "deploy time decreased" 0.1
+                "deploy time decreased" 0.1
+                "move speed bonus" 0.5
+                "damage force reduction" 0.5
+                "airblast vulnerability multiplier" 0.5
+                "rage giving scale" 0.5
+            }
+        }
+
+
+        T_TFBot_Chief_Yakuza
+        {
+            SpawnTemplate Yakuza_Styles
+
+            Name "Sergeant Receiver" //shoutout to eggman#9862 for the actually good name (he was called fucking Sergeant Subtype before)
+            Class Soldier 
+
+            ClassIcon boss_yakuza
+            Health 15000
+
+            Scale 1.9
+
+            WeaponRestrictions PrimaryOnly
+            Item "The Eye-Catcher"
+
+            Skill Expert
+            Attributes MiniBoss
+            Attributes UseBossHealthBar
+            Attributes HoldFireUntilFullReload
+
+            Action Mobber
+
+            AddCond { Name "TF_COND_REPROGRAMMED" }
+
+            FireInput 
+            {
+                Target "randomstyle" 
+                Action "PickRandomShuffle" 
+                Delay 0.1
+                Cooldown 8
+                Repeats 0 
+            } 
+
+            // FireInput 
+            // {
+            //     Target "dragon_style" 
+            //     Action "Trigger" 
+            //     Delay 0.1
+            //     Repeats 1
+
+            //     IfHealthBelow 10000
+            // } 
+
+            CharacterAttributes
+            {
+                "health regen" 50
+                "move speed bonus" 0.5
+                "damage force reduction" 0.001
+                "airblast vulnerability multiplier" 0.001
+                "override footstep sound set" 3
+                "airblast vertical vulnerability multiplier" 0.1
+                "rage giving scale" 0.5
+            }
+        }
+		T_TFBot_Ranger_Rockethell
+        {
+			SpawnTemplate Yakuza_Title_Card_Rockethell
+			SpawnTemplate Rockethell_Logic
+
+            Class Soldier
+			Name "Ranger Rockethell"
+			Skill Expert
+			Health 30000
+
+            Action Mobber
+
+			WeaponRestrictions PrimaryOnly
+
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			
+			Scale 1.9 
+
+			AddCond { Name "TF_COND_REPROGRAMMED" }
+
+			CharacterAttributes
+			{
+				"move speed bonus"	0.5
+				"damage force reduction" 0.1
+				"airblast vulnerability multiplier" 0.1
+				"override footstep sound set" 4
+                "crit mod disabled" 0
+				"force distribute currency on death" 1
+			}
+
+			EventChangeAttributes
+			{
+				Default 
+				{
+					Attributes MiniBoss
+				}
+
+				LeftSway 
+				{
+	                Attributes AlwaysFireWeapon
+                    
+                    Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"fire rate penalty" 10 //fire once
+						"projectile speed increased" 0.001 
+					}
+
+					ShootTemplate
+					{
+						Name LeftSwayRocket
+                        AttachToProjectile 1
+					}
+				}
+
+				RightSway 
+				{
+	                Attributes AlwaysFireWeapon
+                    
+                    Item TF_WEAPON_ROCKETLAUNCHER
+
+					ShootTemplate
+					{
+						Name RightSwayRocket
+                        AttachToProjectile 1
+					}
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"fire rate penalty" 10 //fire once 
+						"projectile speed increased" 0.001 
+					}
+				}
+
+				Orb
+				{
+					Attributes AlwaysFireWeapon
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"override projectile type extra" "mechanicalarmorb"
+					}
+				}
+
+				Bloom 
+				{
+	                Attributes AlwaysFireWeapon
+                    
+                    Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+                        "fire rate penalty" 10 //fire once
+                        "Projectile speed increased" 0.5 
+					}
+
+					ShootTemplate
+					{
+						Name RocketMasteryConstant
+                        AttachToProjectile 1
+					}
+				}
+
+				Homing 
+				{
+	                Attributes AlwaysFireWeapon
+                    
+                    Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+                        "fire rate penalty" 10 //fire once 
+                        "projectile trail particle" "eyeboss_projectile"
+                        "mod projectile heat seek power" 360
+                        "mod projectile heat aim time" 10
+                        "mod projectile heat aim error" 0
+                        "damage bonus" 2
+                        "Projectile speed increased" 0.15
+					}
+
+					ShootTemplate
+					{
+						Name HomingCircleBlow
+                        AttachToProjectile 1
+					}
+				}
+			}
+		}
         T_TFBot_Helicopter_Base
 		{
 			SpawnTemplate Yakuza_Title_Card_HunterChopper
@@ -894,8 +1312,88 @@ WaveSchedule
     }
 	SpawnTemplate "temp_thingy"
     PlayerSpawnTemplate "temp_thingy_player"
+	SpawnTemplate "Combo_Pyro"
+	SpawnTemplate "Alternating_Burst"
     PointTemplates
     {
+		Alternating_Burst
+		{
+			NoFixup 1
+			logic_relay
+			{
+				"targetname" "alternate_relay"
+				"spawnflags" "2"
+
+                "OnTrigger" "!activator,$AddItemAttribute,clip size upgrade atomic|23|0,0,-1"   
+                "OnTrigger" "!activator,$AddItemAttribute,damage penalty|0.7|0,0,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,fire rate bonus|0.001|0,0,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,faster reload rate|0.05|0,0,-1" 
+                "OnTrigger" "!activator,$AddItemAttribute,projectile speed increased|0.2|0,0,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,projectile spread angle penalty|20|0,0,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,blast radius increased|1.5|0,0,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,always crit|1|0,0,-1"
+				 
+                "OnTrigger" "!activator,$RemoveItemAttribute,clip size upgrade atomic|0,2,-1"  
+                "OnTrigger" "!activator,$RemoveItemAttribute,damage penalty|0,2,-1"  
+                "OnTrigger" "!activator,$RemoveItemAttribute,fire rate bonus|0,2,-1"  
+                "OnTrigger" "!activator,$RemoveItemAttribute,faster reload rate|0,2,-1" 
+                "OnTrigger" "!activator,$RemoveItemAttribute,projectile speed increased|0,2,-1"  
+                "OnTrigger" "!activator,$RemoveItemAttribute,projectile spread angle penalty|0,2,-1"  
+                "OnTrigger" "!activator,$RemoveItemAttribute,blast radius increased|0,2,-1"  
+                "OnTrigger" "!activator,$RemoveItemAttribute,always crit|0,2,-1"  
+
+				//"OnTrigger" "!self,Trigger,,10"
+			}
+			
+						//"clip size upgrade atomic" 12
+						//"damage bonus" 0.7
+						//"fire rate bonus" 0.001
+						//"faster reload rate" 0.001
+						//"projectile spread angle penalty" 9
+						//"projectile speed increased" 0.4
+						//"blast radius increased" 1.5
+		}
+		Combo_Pyro 
+		{
+			NoFixup 1
+
+			logic_relay
+			{
+				"targetname" "combo_primary_to_secondary"
+				"spawnflags" "2"
+
+				"OnTrigger" "!self,EnableRefire,,0,-1"
+				"OnTrigger" "!activator,$RemoveItemAttribute,fire input on hit|0,0,-1" 
+				"OnTrigger" "!activator,$WeaponSwitchSlot,1,0,-1"
+				"OnTrigger" "!activator,$AddPlayerAttribute,disable weapon switch|1,0.01,-1" 
+				"OnTrigger" "!activator,$RemovePlayerAttribute,disable weapon switch,0.6,-1" 
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.61,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,fire input on hit|combo_primary_to_secondary^Trigger^|0,0.62,-1"
+			}
+
+			logic_relay
+			{
+				"targetname" "combo_primary_to_secondary_longhold"
+				"spawnflags" "2"
+
+				"OnTrigger" "!self,EnableRefire,,0,-1"
+				"OnTrigger" "!activator,$RemoveItemAttribute,fire input on hit|0,0,-1" 
+				"OnTrigger" "!activator,$WeaponSwitchSlot,1,0,-1"
+				"OnTrigger" "!activator,$AddPlayerAttribute,disable weapon switch|1,0.01,-1" 
+				"OnTrigger" "!activator,$RemovePlayerAttribute,disable weapon switch,1.5,-1" 
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,1.51,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,fire input on hit|combo_primary_to_secondary_longhold^Trigger^|0,1.52,-1"
+			}
+		}
+		PreventPowerupDropOnDeath
+        {
+            OnParentKilledOutput
+            {
+                Target "item_powerup_rune"
+                Action "Kill"
+                Delay 0
+            }
+        }
         temp_thingy_player
         {
             OnSpawnOutput
@@ -904,6 +1402,18 @@ WaveSchedule
                 Action "$SetVar$inSpawn"
                 Param "1"
             }
+			OnSpawnOutput
+            {
+                Target "!activator"
+                Action "$SetVar$inFactory"
+                Param "1"
+            }
+			//OnSpawnOutput
+			//{
+			//	Target "!activator"
+			//	Action $TeleportToEntity
+			//	Param "stuckfix_destination"
+			//}
         }
 		temp_thingy
 		{
@@ -942,7 +1452,7 @@ WaveSchedule
             }
             filter_multi
             {
-                "targetname" "filter_playerInSpawn"
+                "targetname" "filter_player_inSpawn"
                 "filtertype" "0"
 				"filter01" "filter_player"
 				"filter02" "filter_inSpawn"
@@ -1015,7 +1525,7 @@ WaveSchedule
 				"targetname" "wave1_init_relay"
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger clearbuildings_trigger:Enable::0:-1"
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger clearbuildings_trigger:Disable::0.1:-1"
-				"OnTrigger" "intel,SetReturnTime,120"
+				"OnTrigger" "intel,SetReturnTime,80"
 				"OnTrigger" "barrier_gate2_relay_disable,AddOutput,OnTrigger barrier_gate2_right*:Disable::0:-1"
 				"OnTrigger" "spawnbot_scaffold,Disable"
                 "OnTrigger" "spawnbot_balcony,Disable"
@@ -1031,6 +1541,7 @@ WaveSchedule
                 "OnTrigger" "gate1_door_trigger,Disable"
                 "OnTrigger" "gate2_door_trigger,Disable"
                 "OnTrigger" "capturezone_blue,Disable"
+				"OnTrigger" "hatchshield_collision,Enable"
 
 				"OnTrigger" "intel,AddOutput,OnReturn wave1_bombloss_relay:Trigger::0:-1"
 				"OnTrigger" "gate1_relay,AddOutput,OnTrigger wave1_gate1_relay:Trigger::0:-1"
@@ -1038,9 +1549,44 @@ WaveSchedule
                 "OnTrigger" "reset_wave_relay,AddOutput,OnTrigger gate1_alarm_door_reset_relay:Enable::0:-1"
                 "OnTrigger" "reset_wave_relay,AddOutput,OnTrigger gate2_alarm_door_reset_relay:Enable::0:-1"
 			}
+			training_annotation
+			{
+				"targetname" "gate1_upgrade_sign"
+				"origin" "-6418.695801 2833.543213 516.350342"
+				"display_text" "Come one come all! Get your upgrades here!"
+				"lifetime"     "22"
+			}
+			training_annotation
+			{
+				"targetname" "gate2_upgrade_sign"
+				"origin" "-4982.911621 -2107.001953 1184.875854"
+				"display_text" "Hey fellas I'm back, come get your upgrades!"
+				"lifetime"     "22"
+			}
+            filter_tf_bot_has_tag
+            {
+	            "require_all_tags" "1"
+	            "tags" "bomb_fella"
+	            "targetname" "filter_fella"
+            }
+            filter_tf_bot_has_tag
+            {
+	            "require_all_tags" "1"
+	            "tags" "bomb_fella"
+				"negated" "1"
+	            "targetname" "filter_fella_negated"
+            }
 			logic_relay
 			{
 				"targetname" "wave2_init_relay"
+                "OnTrigger" "clearbuildings_trigger,Enable"
+                "OnTrigger" "clearbuildings_trigger,Disable,,0.1"
+                "OnTrigger" "blu_init_teleport_boss,Enable"
+				"OnTrigger" "bossroom_door_trigger,Disable"
+			}
+			logic_relay
+			{
+				"targetname" "wave5_init_relay"
                 "OnTrigger" "clearbuildings_trigger,Enable"
                 "OnTrigger" "clearbuildings_trigger,Disable,,0.1"
                 "OnTrigger" "blu_init_teleport_boss,Enable"
@@ -1060,14 +1606,16 @@ WaveSchedule
                 "OnTrigger" "intel,Disable"
                 "OnTrigger" "blu_init_teleport,Enable"
                 "OnTrigger" "blu_init_teleport,Disable,,0.1"
-				"OnTrigger" "barrier_gate2_relay_disable,AddOutput,OnTrigger barrier_gate2_right*:Disable::0:-1"
-				"OnTrigger" "spawnbot_scaffold,Disable"
-                "OnTrigger" "spawnbot_balcony,Disable"
+				//"OnTrigger" "barrier_gate2_relay_disable,AddOutput,OnTrigger barrier_gate2_right*:Disable::0:-1"
+				"OnTrigger" "spawnbot_factory,Enable"
+				"OnTrigger" "spawnbot_scaffold,Enable"
+                "OnTrigger" "spawnbot_balcony,Enable"
                 "OnTrigger" "spawnbot_balcony_extra,Disable"
                 "OnTrigger" "spawnbot_balcony_drain,Disable"
                 "OnTrigger" "spawnbot_balcony_drain_extra,Disable"
                 "OnTrigger" "spawnbot_garage,Disable"
                 "OnTrigger" "spawnbot_hatch,Disable"
+				"OnTrigger" "spawnbot_extra,Disable"
                 //"OnTrigger" "barrier_factory_relay_enable,Trigger"
                 "OnTrigger" "barrier_gate1_relay_enable,Trigger"
                 "OnTrigger" "barrier_gate2_relay_enable,Trigger"
@@ -1079,10 +1627,10 @@ WaveSchedule
                 "OnTrigger" "gate2_door_trigger,Disable"
                 "OnTrigger" "capturezone_blue,Disable"
 				"OnTrigger" "hatchshield,Enable"
-				"OnTrigger" "hatchshield_collision,Enable"
+				//"OnTrigger" "hatchshield_collision,Enable"
 
-				//"OnTrigger" "gate1_relay,AddOutput,OnTrigger wave1_gate1_relay:Trigger::0:-1"
-				//"OnTrigger" "gate2_relay,AddOutput,OnTrigger wave1_gate2_relay:Trigger::0:-1"
+				"OnTrigger" "gate1_relay,AddOutput,OnTrigger wave3_gate1_relay:Trigger::0:-1"
+				"OnTrigger" "gate2_relay,AddOutput,OnTrigger wave3_gate2_relay:Trigger::0:-1"
                 "OnTrigger" "reset_wave_relay,AddOutput,OnTrigger gate1_alarm_door_reset_relay:Enable::0:-1"
                 "OnTrigger" "reset_wave_relay,AddOutput,OnTrigger gate2_alarm_door_reset_relay:Enable::0:-1"
 			}
@@ -1151,6 +1699,26 @@ WaveSchedule
 				"startdisabled" "1"
 				"origin" "-1132 1686 84"
 			}
+            trigger_multiple
+            {
+                "targetname" "trigger_that_does_nothing2"
+                "origin" "-3175.55 -1999.91 197"
+                "mins" "-489 -212 -37"
+                "maxs" "489 212 37"
+            }
+            trigger_multiple
+            {
+                "targetname" "trigger_that_does_nothing"
+                "origin" "-5424 1424 416"
+                "mins" "-464 -112 -24"
+                "maxs" "464 112 24"
+            }
+			OnSpawnOutput
+			{
+				Target "hatchshield_collision"
+				Action "$SetCollisionFilter"
+				Param "filter_fella_negated"
+			}
 			func_forcefield
 			{
 				"targetname" "hatchshield_collision"
@@ -1160,6 +1728,31 @@ WaveSchedule
 				"TeamNum" "2"
 				"startdisabled" "1"
 			}
+			
+			trigger_teleport
+			{
+				"targetname" "hatchshield_collision_stuckfix"
+				"origin" "-1132 1686 150"
+				"mins" "-118 -118 -50"
+				"maxs" "118 118 50"
+				"target" "stuckfix_destination"
+				"spawnflags" "1"
+				"filtername" "filter_blue_notfella"
+				"startdisabled" "1"
+			}
+			info_target
+			{
+				"targetname" "stuckfix_destination"
+				"origin" "-1132 1400 164"
+			}
+			filter_multi 
+            {
+                "targetname" "filter_blue_notfella"
+                "Negated" "0"
+                "FilterType" "0"
+                "Filter01" "filter_blueteam"
+                "Filter02" "filter_fella_negated"
+            }
 			trigger_add_tf_player_condition
 			{
 				"targetname" "bot_stun_reprogram"
@@ -1173,9 +1766,56 @@ WaveSchedule
 				"StartDisabled" "1"
 			}
 		}
+		bomb_dud_template
+		{
+			NoFixup 1
+			logic_relay
+			{
+				"targetname" "bomb_dud_relay"
+				"OnTrigger" "bomb_dud_prop,Enable"
+				"OnTrigger" "dud_particle,start"
+				"OnTrigger" "dud_sound,PlaySound"
+				//"OnTrigger" "!self,Kill,,3"
+				//"OnSpawn" "player,$displaytextchat,spawned"
+				//"$OnKilled" "player,$displaytextchat,killed"
+			}
+			prop_dynamic
+			{
+				"angles" "0 0 0"
+				"disableshadows" "1"
+				"model" "models/props_td/atom_bomb.mdl"
+				"solid" "0"
+				"targetname" "bomb_dud_prop"
+				"startdisabled" "1"
+			}
+			info_particle_system
+			{
+				"targetname" "dud_particle"
+				"effect_name" "envelope_smoke_puff"
+				"flag_as_weather" "0"
+				"start_active" "0"
+			}
+			ambient_generic
+			{
+				"targetname" "dud_sound"
+				"message" "weapons/loch_n_load_dud.wav"
+				"radius" "4000"
+				"health" "5"
+				"spawnflags" "48"
+
+				"OnUser1" "!self,PlaySound,,1,-1"
+				"OnUser1" "!self,Kill,,3,-1"
+			}
+			//RemoveIfKilled "bomb_dud_relay"
+		}
 		wave1_logic
         {
             NoFixup 1
+			env_entity_maker
+			{
+				"targetname" "bomb_dud_maker"
+				"EntityTemplate" "bomb_dud_template"
+			}
 			logic_relay
 			{
 				"targetname" "wave1_loss_relay"
@@ -1184,6 +1824,10 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "wave1_bombloss_relay"
+				"OnTrigger" "bomb_dud_relay,Trigger"
+				"OnTrigger" "hatchshield,setanimation,disable"
+				"OnTrigger" "hatchshield_collision,Disable"
+				"OnTrigger" "hatchshield_collision_stuckfix,Disable"
 				"OnTrigger" "red_win,RoundWin,,1"
 			}
 			logic_relay
@@ -1191,28 +1835,14 @@ WaveSchedule
 				"targetname" "wave1_endsequence_relay"
 				"OnTrigger" "wave1_bombloss_relay,CancelPending"
 				"OnTrigger" "wave1_bombloss_relay,Disable"
+				"OnTrigger" "hatchshield,SetAnimation,disable"
 				"OnTrigger" "intel,$SetKey$ReturnTime,9999"
 				"OnTrigger" "intel,SetReturnTime,9999"
-				"OnTrigger" "hatchshield,Enable,,3"
-				"OnTrigger" "hatchshield,SetAnimation,enable,3"
-				"OnTrigger" "hatchshield_collision,Enable"
-				"OnTrigger" "player,$PlaySoundToSelf,player/spy_uncloak_feigndeath.wav,3"
-				"OnTrigger" "player,$PlaySoundToSelf,vo/mvm/norm/spy_mvm_laughlong01.mp3,2"
-				"OnTrigger" "bots_win,RoundWin,,5"
-			}
-			training_annotation
-			{
-				"targetname" "gate1_upgrade_sign"
-				"origin" "-6418.695801 2833.543213 516.350342"
-				"display_text" "Come one come all! Get your upgrades here!"
-				"lifetime"     "22"
-			}
-			training_annotation
-			{
-				"targetname" "gate2_upgrade_sign"
-				"origin" "-4982.911621 -2107.001953 1184.875854"
-				"display_text" "Hey fellas I'm back, come get your upgrades!"
-				"lifetime"     "22"
+				"OnTrigger" "hatchshield,Enable,,5"
+				"OnTrigger" "hatchshield,SetAnimation,enable,5"
+				"OnTrigger" "player,$PlaySoundToSelf,player/spy_uncloak_feigndeath.wav,5"
+				"OnTrigger" "player,$PlaySoundToSelf,vo/mvm/norm/spy_mvm_laughlong01.mp3,4"
+				"OnTrigger" "bots_win,RoundWin,,7"
 			}
 			training_annotation
 			{
@@ -1220,6 +1850,13 @@ WaveSchedule
 				"origin" " -4071.288574 -1997.408813 505.022308"
 				"display_text" "You can get to the shop through this nifty little vent here."
 				"lifetime"     "18"
+			}
+			training_annotation
+			{
+				"targetname" "losscondition_bomb_sign"
+				"origin" "-1128 1684 164"
+				"display_text" "Take out Sergeant Shapeshift before the bomb is defused!"
+				"lifetime"     "10"
 			}
 			logic_auto
 			{
@@ -1267,7 +1904,7 @@ WaveSchedule
 				"angles" "0 0 0"
 				"disableshadows" "1"
 				"model" "models/props_gameplay/cap_circle_128.mdl"
-				"skin" "0"
+				"skin" "2"
 				"solid" "0"
 				"targetname" "bombfella_hologram_1"
 				"origin" "-7035 1375 136"
@@ -1277,7 +1914,7 @@ WaveSchedule
 				"angles" "0 0 0"
 				"disableshadows" "1"
 				"model" "models/props_gameplay/cap_circle_128.mdl"
-				"skin" "0"
+				"skin" "2"
 				"solid" "0"
 				"targetname" "bombfella_hologram_2"
 				"origin" "-4465 -490 136"
@@ -1287,7 +1924,7 @@ WaveSchedule
 				"angles" "0 0 0"
 				"disableshadows" "1"
 				"model" "models/props_gameplay/cap_circle_128.mdl"
-				"skin" "0"
+				"skin" "2"
 				"solid" "0"
 				"targetname" "bombfella_hologram_3"
 				"origin" "-1233 549 8"
@@ -1323,12 +1960,6 @@ WaveSchedule
 				"OnTrigger" "teleport_gate1,Enable,,22"
 				"OnTrigger" "teleport_gate1,Enable,,50"
 			}
-            filter_tf_bot_has_tag
-            {
-	            "require_all_tags" "1"
-	            "tags" "bomb_fella"
-	            "targetname" "filter_fella"
-            }
             logic_relay
             {
                 "targetname" "w1_subwaveone_complete_relay"
@@ -1411,20 +2042,6 @@ WaveSchedule
                 "targetname" "canteen_relay"
                 "OnTrigger" "!activator,SetHealth,15000,0,-1"
                 "OnTrigger" "player,$PlaySoundToSelf,=35|mvm/mvm_used_powerup.wav,0,-1"
-            }
-            trigger_multiple
-            {
-                "targetname" "trigger_that_does_nothing"
-                "origin" "-3175.55 -1999.91 197"
-                "mins" "-489 -212 -37"
-                "maxs" "489 212 37"
-            }
-            trigger_multiple
-            {
-                "targetname" "trigger_that_does_nothing2"
-                "origin" "-5424 1424 416"
-                "mins" "-464 -112 -24"
-                "maxs" "464 112 24"
             }
             trigger_teleport
             {
@@ -1611,10 +2228,29 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "lastphase_start_relay"
-				"OnTrigger" "spawn_hologram*,AddOutput,skin 0,3"
-				"OnTrigger" "spawnbot_arena*,Enable,,5"
+				//"OnTrigger" "spawn_hologram*,AddOutput,skin 0,3"
+				//"OnTrigger" "spawnbot_arena*,Enable,,5"
+				"OnTrigger" "rotate_arenaspawns_relay,Trigger,,5"
 				"OnTrigger" "player,$PlaySoundToSelf,mvm/mvm_tele_activate.wav,5"
 			}
+			logic_relay
+			{
+				"targetname" "rotate_arenaspawns_relay"
+				"spawnflags" "2"
+				"OnTrigger" "spawnbot_arena*,Disable"
+				"OnTrigger" "spawnbot_arena_case,PickRandomShuffle,,0.01"
+				"OnTrigger" "!self,Trigger,,20"
+			}
+			logic_case
+			{
+                "targetname" "spawnbot_arena_case"
+                "OnCase01" "spawnbot_arena_1,Enable,,0,-1"
+                "OnCase01" "spawn_hologram_1,AddOutput,skin 0,3"
+                "OnCase02" "spawnbot_arena_2,Enable,,0,-1"
+                "OnCase02" "spawn_hologram_2,AddOutput,skin 0,3"
+                "OnCase03" "spawnbot_arena_3,Enable,,0,-1"
+                "OnCase03" "spawn_hologram_3,AddOutput,skin 0,3"
+            }	
 			logic_relay
 			{
 				"targetname" "midphase_end_relay"
@@ -1682,12 +2318,12 @@ WaveSchedule
             }
             logic_relay
 			{
-				"targetname" "wave3_init_relay"
                 "OnSpawn" "intel,Disable"
                 "OnSpawn" "intel,Disable,,1"
 				"OnSpawn" "barrier_gate2_relay_disable,AddOutput,OnTrigger barrier_gate2_right*:Disable::0:-1"
-				"OnSpawn" "spawnbot_scaffold,Disable"
-                "OnSpawn" "spawnbot_balcony,Disable"
+				"OnSpawn" "spawnbot_factory*,Enable"
+				"OnSpawn" "spawnbot_scaffold,Enable"
+                "OnSpawn" "spawnbot_balcony,Enable"
                 "OnSpawn" "spawnbot_balcony_extra,Disable"
                 "OnSpawn" "spawnbot_balcony_drain,Disable"
                 "OnSpawn" "spawnbot_balcony_drain_extra,Disable"
@@ -1703,23 +2339,137 @@ WaveSchedule
                 "OnSpawn" "capturezone_blue,Disable"
 				"OnSpawn" "hatchshield,Enable"
 				"OnSpawn" "hatchshield_collision,Enable"
+				"OnSpawn" "nav_refresh,RecomputeBlockers,,1"
+				"OnSpawn" "spawnbot_extra,Disable"
 			}
-            trigger_multiple
+			logic_relay
+			{
+				"targetname" "wave3_gate1_relay"
+				"OnTrigger" "bot_stun_reprogram,Enable"
+				"OnTrigger" "bot_stun_reprogram,Disable,,0.1"
+				"OnTrigger" "spawnbot_scaffold,Disable"
+                "OnTrigger" "spawnbot_balcony,Disable"
+                "OnTrigger" "spawnbot_balcony_extra,Enable,22"
+                "OnTrigger" "spawnbot_balcony_drain,Enable,,22"
+                "OnTrigger" "spawnbot_whatever,Enable,,22"
+                "OnTrigger" "gate2_door_trigger,Disable,,24"
+				"OnTrigger" "gate1_alarm_door_reset_relay,Disable"
+				"OnTrigger" "gate1_upgrade_sign,Show"
+				"OnTrigger" "teleport_spawn_gate1,Enable"
+				"OnTrigger" "spawnbot_extra,Enable,,22"
+				"OnTrigger" "spawnbot_extra,Disable,,23"//rotate_bot rotate2_bot projectile_shield_bot shield_hitbox_bot shield_hitbox2_bot
+				"OnTrigger" "rotate_bot*,Stop"
+				"OnTrigger" "rotate2_bot*,Stop"
+				"OnTrigger" "projectile_shield_bot*,$SetModel,models/empty.mdl"
+				"OnTrigger" "shield_hitbox_bot*,Disable"
+				"OnTrigger" "shield_hitbox2_bot*,Disable"
+				"OnTrigger" "rotate_bot*,Start,,22"
+				"OnTrigger" "rotate2_bot*,Start,,22"
+				"OnTrigger" "projectile_shield_bot*,$SetModel,models/props_mvm/mvm_comically_small_player_shield.mdl,22"
+				"OnTrigger" "shield_hitbox_bot*,Enable,,22"
+				"OnTrigger" "shield_hitbox2_bot*,Enable,,22"
+			}
+			logic_relay
+			{
+				"targetname" "wave3_gate2_relay"
+				"OnTrigger" "bot_stun_reprogram,Enable"
+				"OnTrigger" "bot_stun_reprogram,Disable,,0.1"
+                "OnTrigger" "spawnbot_balcony_drain,Disable,,21"
+                "OnTrigger" "spawnbot_hatch,Enable,,21"
+                "OnTrigger" "spawnbot_garage,Enable,,21"
+				"OnTrigger" "gate2_alarm_door_reset_relay,Disable"
+				"OnTrigger" "gate2_upgrade_sign,Show"
+				"OnTrigger" "gate2_upgrade_sign2,Show,,2"
+				"OnTrigger" "teleport_gate1,Enable"
+				"OnTrigger" "teleport_gate1,Enable,,22"
+				"OnTrigger" "teleport_gate1,Enable,,50"
+				"OnTrigger" "spawnbot_extra,Enable,,22"
+				"OnTrigger" "spawnbot_extra,Disable,,23"
+			}
+			logic_relay
+			{
+				"targetname" "heli_killed_relay"
+				"OnTrigger" "gate1_door_trigger,Enable"
+				"OnTrigger" "player,$ChangeAttributes,CaptureGateOne"
+			}
+			logic_relay
+			{
+				"targetname" "chief_killed_relay"
+				"OnTrigger" "gate2_door_trigger,Enable"
+				"OnTrigger" "player,$ChangeAttributes,CaptureGateTwo"
+			}
+			logic_relay
+			{
+				"targetname" "doppler_killed_relay"
+				"OnTrigger" "gate2_door_trigger,Enable"
+				"OnTrigger" "player,$ChangeAttributes,CaptureGateTwo"
+			}
+			func_brush
+			{
+				"targetname" "barrier_building_1"
+				"mins" "-193 -2.5 -112.5"
+				"maxs" "193 2.5 112.5"
+				"origin" "-5158 204 241"
+			}
+			func_brush
+			{
+				"targetname" "barrier_building_1"
+				"mins" "-2.5 -176.5 -112.5"
+				"maxs" "2.5 176.5 112.5"
+				"origin" "-5348 384 241"
+			}
+			func_brush
+			{
+				"targetname" "barrier_building_1"
+				"mins" "-193 -91.5 -1"
+				"maxs" "193 91.5 1"
+				"origin" "-5158 294 355"
+			}
+			func_brush
+			{
+				"targetname" "barrier_building_2"
+				"mins" "-6 -64 -80"
+				"maxs" "6 64 80"
+				"origin" "-2776 -320 268"
+			}
+			func_brush
+			{
+				"targetname" "barrier_building_2"
+				"mins" "-192 -52 -3"
+				"maxs" "192 52 3"
+				"origin" "-2443 -196 452"
+			}
+			trigger_multiple
             {
-                "targetname" "trigger_that_does_nothing"
-                "origin" "-5424 1424 416"
-                "mins" "-464 -112 -24"
-                "maxs" "464 112 24"
+                "mins" "-32 -96 -64"
+                "maxs" "32 96 64"
+                "origin" "-920 2624 -384"
+                "spawnflags" "1"
+                "filtername" "filter_blueteam"
+                "OnStartTouch" "!activator,$SetVar$inSpawn,0"
+            }
+            $filter_variable
+            {
+                "targetname" "filter_inFactory"
+                "$name" "inFactory"
+                "$value" "1"
+                "negated" "1"
             }
             logic_relay
             {
                 "targetname" "generator_one_killed_relay"
                 "OnTrigger" "barrier_building_1,Disable"
+				"OnTrigger" "nav_refresh,RecomputeBlockers,,1"
                 //"OnTrigger" "barrier_building_1,DisableCollision"
-				//"OnTrigger" "generator_prop_two,Disable"
-				//"OnTrigger" "generator_prop_three,Disable"
+				"OnTrigger" "collider_oneway,Enable"
+				"OnTrigger" "barrier_oneway*,Enable"
+				"OnTrigger" "generator_prop_two,Disable"
+				"OnTrigger" "generator_prop_three,Disable"
+                "OnTrigger" "spawnbot_factory*,Disable"
+                //"OnTrigger" "spawnbot_balcony,Disable"
+                //"OnTrigger" "spawnbot_scaffold,Disable"
                 "OnTrigger" "spawnbot_heli,Enable"
-                "OnTrigger" "player,$ChangeAttributes,CaptureGateOne"
+                "OnTrigger" "player,$ChangeAttributes,BarrierDown"
             }
             logic_relay
             {
@@ -1731,16 +2481,17 @@ WaveSchedule
 			{
 				"targetname" "generator_twothree_killed_relay"
                 "OnTrigger" "barrier_building_2,Disable"
+				"OnTrigger" "nav_refresh,RecomputeBlockers,,1"
                 //"OnTrigger" "barrier_building_2,DisableCollision"
-				"OnTrigger" "generator_prop_four,Disable"
-				"OnTrigger" "generator_prop_five,Disable"
-				"OnTrigger" "generator_prop_six,Disable"
+                "OnTrigger" "spawnbot_whatever2,Enable"
+                "OnTrigger" "player,$ChangeAttributes,BarrierDown2"
 			}
 			logic_relay
 			{
 				"targetname" "generator_fourfivesix_killed_relay"
-                "OnTrigger" "hatchshield,Disable"
-                "OnTrigger" "hatchshield,DisableCollision"
+				"OnTrigger" "spawnbot_hatchshield,Enable"
+                //"OnTrigger" "hatchshield,Disable"
+                //"OnTrigger" "hatchshield,DisableCollision"
 			}
             prop_dynamic
 			{
@@ -1767,8 +2518,8 @@ WaveSchedule
 				"model" "models/props_frontline/generator.mdl"
 				"disableshadows" "1"
 				"solid" "0"
-				"origin" "-2587 -61 63"
-                "StartDisabled" "1"
+				"origin" "-2687 -61 63"
+                //"StartDisabled" "1"
 			}
 			prop_dynamic
 			{
@@ -1776,8 +2527,8 @@ WaveSchedule
 				"model" "models/props_frontline/generator.mdl"
 				"disableshadows" "1"
 				"solid" "0"
-				"origin" "-2711 -560 251"
-                "StartDisabled" "1"
+				"origin" "-2611 -560 251"
+                //"StartDisabled" "1"
 			}
 			prop_dynamic
 			{
@@ -1786,7 +2537,7 @@ WaveSchedule
 				"disableshadows" "1"
 				"solid" "0"
 				"origin" "-1574 987 -1"
-                "StartDisabled" "1"
+                //"StartDisabled" "1"
 			}
 			prop_dynamic
 			{
@@ -1796,7 +2547,7 @@ WaveSchedule
 				"solid" "0"
 				"origin" "-615 1107 -1"
 				"angles" "0 90 0"
-                "StartDisabled" "1"
+                //"StartDisabled" "1"
 			}
 			prop_dynamic
 			{
@@ -1806,111 +2557,467 @@ WaveSchedule
 				"solid" "0"
 				"origin" "-940 1888 95"
 				"angles" "0 -25 0"
-                "StartDisabled" "1"
+                //"StartDisabled" "1"
 			}
             logic_relay
             {
                 "targetname" "w3_subwaveone_complete_relay"
+                "OnTrigger" "spawnbot_balcony_drain_extra,Disable"
+                "OnTrigger" "spawnbot_balcony_extra,Disable"
+                "OnTrigger" "spawnbot_balcony_drain,Enable"
+                "OnTrigger" "spawnbot_whatever,Enable"
+                "OnTrigger" "spawnbot_barrier_2,Enable"
+            }
+            logic_relay
+            {
+                "targetname" "w3_subwavetwo_complete_relay"
+                "OnTrigger" "spawnbot_hatch,Enable"
+                "OnTrigger" "spawnbot_garage,Enable"
+            }
+			OnSpawnOutput
+			{
+				Target collider_oneway
+				Action $SetCollisionFilter
+				Param "filter_inFactory"
+			}
+			func_brush
+			{
+				"targetname" "collider_oneway"
+                "origin" "-5920 832 492"
+				"mins" "-8 -192 -180"
+				"maxs" "8 192 180"
+				"startdisabled" "1"
+			}
+			func_brush
+			{
+				"targetname" "collider_oneway"
+                "origin" "-5920 224 360"
+				"mins" "-8 -224 -232"
+				"maxs" "8 224 232"
+				"startdisabled" "1"
+			}
+			prop_dynamic
+            {
+				"targetname" "barrier_oneway_1"
+                "model" "models/mvm/barrier/barrier_oneway_red1.mdl"
+                "origin" "-5920 832 492"
+                "angles" "0 270 0"
+				"solid" "0"
+				"startdisabled" "1"
+            }
+            prop_dynamic
+            {
+				"targetname" "barrier_oneway_2"
+                "model" "models/mvm/barrier/barrier_oneway_red2.mdl"
+                "origin" "-5920 224 360"
+                "angles" "0 270 0"
+				"solid" "0"
+				"startdisabled" "1"
+            }
+			trigger_multiple
+            {
+				"targetname" "yeah"
+                "mins" "-233.5 -960 -448"
+                "maxs" "233.5 960 448"
+                "origin" "-6168 832 576"
+                "spawnflags" "1"
+                "filtername" "filter_blueteam"
+                "OnStartTouch" "!activator,$SetVar$inFactory,1"
+            }
+			trigger_multiple
+            {
+				"targetname" "yeah2"
+                "mins" "-232 -960 -448"
+                "maxs" "232 960 448"
+                "origin" "-5632 816 576"
+                "spawnflags" "1"
+                "filtername" "filter_blueteam"
+                "OnStartTouch" "!activator,$SetVar$inFactory,0"
+            }
+			filter_activator_class
+			{
+				"targetname" "filter_player"
+				"filterclass" "player"
+				"negated" "1"
+			}
+            $filter_variable
+            {
+                "targetname" "filter_inFactory"
+                "$name" "inFactory"
+                "$value" "1"
+                "negated" "1"
+            }
+        }
+		wave4_logic
+        {
+            NoFixup 1
+			logic_relay
+			{
+				"targetname" "wave4_loss_relay"
+				"OnTrigger" "red_win,RoundWin"
+			}
+			logic_auto
+			{
+				"OnMapSpawn" "spawnbot_scaffold,Disable"
+                "OnMapSpawn" "spawnbot_balcony,Disable"
+                "OnMapSpawn" "spawnbot_balcony_extra,Disable"
+                "OnMapSpawn" "spawnbot_balcony_drain,Disable"
+                "OnMapSpawn" "spawnbot_balcony_drain_extra,Disable"
+                "OnMapSpawn" "spawnbot_garage,Disable"
+                "OnMapSpawn" "spawnbot_hatch,Disable"
+                "OnMapSpawn" "barrier_factory_relay_enable,Trigger"
+                "OnMapSpawn" "barrier_gate1_relay_disable,Disable"
+                "OnMapSpawn" "gate1_door_trigger,Disable"
+                "OnMapSpawn" "gate2_door_trigger,Disable"
+                "OnMapSpawn" "capturezone_blue,Disable"
+
+				"OnMapSpawn" "gate1_relay,AddOutput,OnTrigger wave1_gate1_relay:Trigger::0:-1"
+				"OnMapSpawn" "gate2_relay,AddOutput,OnTrigger wave1_gate2_relay:Trigger::0:-1"
+                "OnMapSpawn" "reset_wave_relay,AddOutput,OnTrigger gate1_alarm_door_reset_relay:Enable::0:-1"
+                "OnMapSpawn" "reset_wave_relay,AddOutput,OnTrigger gate2_alarm_door_reset_relay:Enable::0:-1"
+			}
+            logic_relay
+            {
+                //"OnMapSpawn" "pop_interface,Kill"
+                "OnSpawn" "spawnbot_scaffold,Disable"
+                "OnSpawn" "spawnbot_balcony,Disable"
+                "OnSpawn" "spawnbot_balcony_extra,Disable"
+                "OnSpawn" "spawnbot_balcony_drain,Disable"
+                "OnSpawn" "spawnbot_balcony_drain_extra,Disable"
+                "OnSpawn" "spawnbot_garage,Disable"
+                "OnSpawn" "spawnbot_hatch,Disable"
+                "OnSpawn" "barrier_factory_relay_enable,Trigger"
+                "OnSpawn" "barrier_gate1_relay_disable,Disable"
+                "OnSpawn" "gate1_door_trigger,Disable"
+                "OnSpawn" "gate2_door_trigger,Disable"
+                "OnSpawn" "capturezone_blue,Disable"
+
+                "OnSpawn" "gate1_relay,AddOutput,OnTrigger wave1_gate1_relay:Trigger::0:-1"
+				"OnSpawn" "gate2_relay,AddOutput,OnTrigger wave1_gate2_relay:Trigger::0:-1"
+                "OnSpawn" "reset_wave_relay,AddOutput,OnTrigger gate1_alarm_door_reset_relay:Enable::0:-1"
+                "OnSpawn" "reset_wave_relay,AddOutput,OnTrigger gate2_alarm_door_reset_relay:Enable::0:-1"
+            }
+			prop_dynamic
+			{
+				"angles" "0 0 0"
+				"disableshadows" "1"
+				"model" "models/props_gameplay/cap_circle_128.mdl"
+				"skin" "2"
+				"solid" "0"
+				"targetname" "bombfella_hologram_1"
+				"origin" "-7035 1375 136"
+			}
+			prop_dynamic
+			{
+				"angles" "0 0 0"
+				"disableshadows" "1"
+				"model" "models/props_gameplay/cap_circle_128.mdl"
+				"skin" "2"
+				"solid" "0"
+				"targetname" "bombfella_hologram_2"
+				"origin" "-4465 -490 136"
+			}
+			prop_dynamic
+			{
+				"angles" "0 0 0"
+				"disableshadows" "1"
+				"model" "models/props_gameplay/cap_circle_128.mdl"
+				"skin" "2"
+				"solid" "0"
+				"targetname" "bombfella_hologram_3"
+				"origin" "-1233 549 8"
+			}
+			logic_relay
+			{
+				"targetname" "wave1_gate1_relay"
+				"OnTrigger" "bot_stun_reprogram,Enable"
+				"OnTrigger" "bot_stun_reprogram,Disable,,0.1"
+				"OnTrigger" "spawnbot_scaffold,Disable"
+                "OnTrigger" "spawnbot_balcony,Disable"
+                "OnTrigger" "spawnbot_balcony_extra,Enable,22"
+                "OnTrigger" "spawnbot_balcony_drain_extra,Enable,,27"
+                "OnTrigger" "gate2_door_trigger,Disable,,24"
+                "OnTrigger" "player,$ChangeAttributes,GateOne_Capped,1"
+				"OnTrigger" "gate1_alarm_door_reset_relay,Disable"
+				"OnTrigger" "gate1_upgrade_sign,Show"
+				"OnTrigger" "teleport_spawn_gate1,Enable"
+			}
+			logic_relay
+			{
+				"targetname" "wave1_gate2_relay"
+				"OnTrigger" "bot_stun_reprogram,Enable"
+				"OnTrigger" "bot_stun_reprogram,Disable,,0.1"
+				"OnTrigger" "player,$ChangeAttributes,GateTwo_Capped,1"
+                "OnTrigger" "spawnbot_balcony_drain,Disable,,21"
+                "OnTrigger" "spawnbot_hatch,Enable,,21"
+                "OnTrigger" "spawnbot_garage,Enable,,21"
+				"OnTrigger" "gate2_alarm_door_reset_relay,Disable"
+				"OnTrigger" "gate2_upgrade_sign,Show"
+				"OnTrigger" "gate2_upgrade_sign2,Show,,2"
+				"OnTrigger" "teleport_gate1,Enable"
+				"OnTrigger" "teleport_gate1,Enable,,22"
+				"OnTrigger" "teleport_gate1,Enable,,50"
+			}
+            logic_relay
+            {
+                "targetname" "w1_subwaveone_complete_relay"
+                "OnTrigger" "player,$ChangeAttributes,SubwaveOne_Complete"
+                "OnTrigger" "barrier_factory_relay_disable,Trigger"
                 "OnTrigger" "spawnbot_factory*,Disable"
                 "OnTrigger" "spawnbot_scaffold,Enable"
                 "OnTrigger" "spawnbot_balcony,Enable"
             }
             logic_relay
             {
-                "targetname" "w3_subwavetwo_complete_relay"
+                "targetname" "w1_subwavetwo_complete_relay"
+                "OnTrigger" "player,$ChangeAttributes,SubwaveTwo_Complete"
+                "OnTrigger" "barrier_gate1_relay_disable,Trigger,,3"
+                "OnTrigger" "barrier_gate1*,Disable,,3"
                 "OnTrigger" "spawnbot_balcony_drain_extra,Disable"
                 "OnTrigger" "spawnbot_balcony_extra,Disable"
                 "OnTrigger" "spawnbot_balcony_drain,Enable"
             }
             logic_relay
             {
-                "targetname" "w3_subwavethree_complete_relay"
+                "targetname" "w1_subwavethree_complete_relay"
+                "OnTrigger" "player,$ChangeAttributes,SubwaveThree_Complete"
+                //"OnTrigger" "capturezone_blue,Enable"
                 "OnTrigger" "spawnbot_hatch,Disable"
                 "OnTrigger" "spawnbot_garage,Disable"
             }
+            math_counter
+            {
+                "targetname" "subwaveone_counter"
+                "startvalue" "0"
+                "max" "100"
+                "onhitmax" "w1_subwaveone_complete_relay,Trigger"
+                "onhitmax" "!self,SetValue,0"
+                "onhitmax" "!self,Disable"
+                //"OutValue" "player,$DisplayTextCenter"
+            }
+            math_counter
+            {
+                "targetname" "gateone_counter"
+                "startvalue" "0"
+                "max" "100"
+                "onhitmax" "gate1_door_trigger,Enable"
+                "onhitmax" "!self,SetValue,0"
+                "onhitmax" "!self,Disable"
+                //"OutValue" "player,$DisplayTextCenter"
+            }
+            math_counter
+            {
+                "targetname" "subwavetwo_counter"
+                "startvalue" "0"
+                "max" "100"
+                "onhitmax" "w1_subwavetwo_complete_relay,Trigger"
+                "onhitmax" "!self,SetValue,0"
+                "onhitmax" "!self,Disable"
+                //"OutValue" "player,$DisplayTextCenter"
+            }
+            math_counter
+            {
+                "targetname" "gatetwo_counter"
+                "startvalue" "0"
+                "max" "100"
+                "onhitmax" "gate2_door_trigger,Enable"
+                "onhitmax" "!self,SetValue,0"
+                "onhitmax" "!self,Disable"
+                //"OutValue" "player,$DisplayTextCenter"
+            }
+            math_counter
+            {
+                "targetname" "subwavethree_counter"
+                "startvalue" "0"
+                "max" "100"
+                "onhitmax" "w1_subwavethree_complete_relay,Trigger"
+                "onhitmax" "!self,SetValue,0"
+                "onhitmax" "!self,Disable"
+                //"OutValue" "player,$DisplayTextCenter"
+            }
+            logic_relay
+            {
+                "targetname" "canteen_relay"
+                "OnTrigger" "!activator,SetHealth,15000,0,-1"
+                "OnTrigger" "player,$PlaySoundToSelf,=35|mvm/mvm_used_powerup.wav,0,-1"
+            }
+            trigger_teleport
+            {
+                "mins" "-296 -120 -152"
+                "maxs" "296 120 152"
+                "origin" "-6744 2504 624"
+				"target" "spawnbot"
+				"spawnflags" "1"
+				"filtername" "filter_blueteam"
+            }
+            trigger_teleport
+            {
+                "mins" "-875 -480 -110"
+                "maxs" "875 480 110"
+                "origin" "-3323 -2982 878"
+				"target" "spawnbot"
+				"spawnflags" "1"
+				"filtername" "filter_blueteam"
+            }
+        }
+		wave5_logic
+        {
+            NoFixup 1
+            logic_relay
+            {
+                "OnSpawn" "blu_init_teleport_boss,Enable"
+				"OnSpawn" "bossroom_door_trigger,Enable"
+				"OnSpawn" "wipe_relay,Enable"
+            }
+            logic_relay
+            {
+                "targetname" "wave_start_boss_relay"
+                "OnTrigger" "bossroom_door_trigger,Enable"
+            }
+            game_round_win
+            {
+                "targetname" "red_win"
+                "TeamNum" "2"
+                "switch_teams" "0"
+                "force_map_reset" "1"
+            }
+            trigger_teleport
+            {
+                "mins" "-296 -120 -152"
+                "maxs" "296 120 152"
+                "origin" "-6744 2504 624"
+				"target" "spawnbot"
+				"spawnflags" "1"
+				"filtername" "filter_blueteam"
+            }
+			prop_dynamic
+			{
+				"angles" "0 315 0"
+				"disableshadows" "1"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"skin" "3"
+				"solid" "0"
+				"targetname" "spawn_hologram_building_1"
+				"origin" "-2808 5895 -192" //-2828 4119 -132
+			}
+			prop_dynamic
+			{
+				"angles" "0 315 0"
+				"disableshadows" "1"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"skin" "3"
+				"solid" "0"
+				"targetname" "spawn_hologram_building_2"
+				"origin" "-2567 -203 243"
+			}
+			prop_dynamic
+			{
+				"angles" "0 135 0"
+				"disableshadows" "1"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"skin" "3"
+				"solid" "0"
+				"targetname" "spawn_hologram_2"
+				"origin" "667.24 4135.62 -191.955"
+			}
+			logic_relay
+			{
+				"targetname" "midphase_start_relay"
+				"OnTrigger" "necromancer_summon*,Disable"
+				"OnTrigger" "shapeshift_loop*,cancelpending"
+				"OnTrigger" "!activator,$AddCond,4,0,-1"
+				"OnTrigger" "teleport_shapeshift,Enable,,1"
+				"OnTrigger" "spawn_hologram*,AddOutput,skin 0"
+				"OnTrigger" "spawn_hologram*,AddOutput,skin 3,2"
+				"OnTrigger" "spawnbot_arena*,Enable,,1.5"
+				"OnTrigger" "spawnbot_arena*,Disable,,3"
+				"OnTrigger" "player,$PlaySoundToSelf,mvm/mvm_tele_activate.wav"
+			}
+			logic_relay
+			{
+				"targetname" "lastphase_start_relay"
+				//"OnTrigger" "spawn_hologram*,AddOutput,skin 0,3"
+				//"OnTrigger" "spawnbot_arena*,Enable,,5"
+				"OnTrigger" "rotate_arenaspawns_relay,Trigger,,5"
+				"OnTrigger" "player,$PlaySoundToSelf,mvm/mvm_tele_activate.wav,5"
+			}
+			logic_relay
+			{
+				"targetname" "rotate_arenaspawns_relay"
+				"spawnflags" "2"
+				"OnTrigger" "spawnbot_arena*,Disable"
+				"OnTrigger" "spawnbot_arena_case,PickRandomShuffle,,0.01"
+				"OnTrigger" "!self,Trigger,,20"
+			}
+			logic_case
+			{
+                "targetname" "spawnbot_arena_case"
+                "OnCase01" "spawnbot_arena_1,Enable,,0,-1"
+                "OnCase01" "spawn_hologram_1,AddOutput,skin 0,3"
+                "OnCase02" "spawnbot_arena_2,Enable,,0,-1"
+                "OnCase02" "spawn_hologram_2,AddOutput,skin 0,3"
+                "OnCase03" "spawnbot_arena_3,Enable,,0,-1"
+                "OnCase03" "spawn_hologram_3,AddOutput,skin 0,3"
+            }	
+			logic_relay
+			{
+				"targetname" "midphase_end_relay"
+				"OnTrigger" "shapeshift_loop*,trigger"
+				"OnTrigger" "necromancer_summon*,Enable,0.1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.1,-1"
+				"Ontrigger" "teleport_shapeshift,Disable"
+				"OnTrigger" "teleport_shapeshift_back,Enable"
+				"OnTrigger" "teleport_shapeshift_back,Disable,,0.1"
+				"OnTrigger" "player,$PlaySoundToSelf,ambient/machines/teleport1.wav"
+			}
+			logic_relay
+			{
+				"targetname" "bip"
+				"OnTrigger" "player,$ChangeAttributes,Return" 
+				//"OnTrigger" "player,$DisplayTextCenter,return"
+			}
+			info_target
+			{
+				"targetname" "tele_destination_shapeshift"
+				"origin" "1008 -312 108"
+			}
+			trigger_teleport
+            {
+	            "filtername" "filter_shapeshift"
+	            "origin" "-352 2736 112"
+                "mins" "-2192 -3664 -656"
+                "maxs" "2192 3664 656"
+	            "spawnflags" "1"
+	            "StartDisabled" "1"
+				"landmark" "!activator"
+	            "target" "tele_destination_shapeshift"
+	            "targetname" "teleport_shapeshift"
+            }
+			trigger_teleport
+            {
+	            "filtername" "filter_shapeshift"
+	            "origin" "-352 2736 112"
+                "mins" "-2192 -3664 -656"
+                "maxs" "2192 3664 656"
+	            "spawnflags" "1"
+	            "StartDisabled" "1"
+	            "target" "spawnbot_boss"
+	            "targetname" "teleport_shapeshift_back"
+            }
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_shapeshift"
+				"tags" "bot_shapeshift"
+			}
         }
         custom_controlpoint_setup
         {
-            team_control_point_master
-            {
-                "classname" "team_control_point_master"
-	            "caplayout" "0 1 2 3"
-	            "cpm_restrict_team_cap_win" "1"
-	            "custom_position_x" "0.4"
-	            "custom_position_y" "-1"
-	            "score_style" "1"
-	            "StartDisabled" "0"
-	            "switch_teams" "0"
-	            "targetname" "master_control_point_custom"
-	            "team_base_icon_2" "sprites/obj_icons/icon_base_red"
-	            "team_base_icon_3" "sprites/obj_icons/icon_base_blu"
-	            "origin" "-6816.9 2013 1228"
-            }
-            team_control_point
-            {
-                "angles" "0 270 0"
-	            "point_default_owner" "2"
-	            "point_group" "0"
-	            "point_index" "4"
-	            "point_printname" "Loading Gate A"
-	            "point_warn_on_cap" "2"
-	            "point_warn_sound" "ControlPoint.CaptureWarn"
-	            "spawnflags" "6"
-	            "StartDisabled" "0"
-	            "targetname" "gate1_capturepoint_a_custom"
-	            "team_bodygroup_0" "3"
-	            "team_bodygroup_2" "1"
-	            "team_bodygroup_3" "0"
-	            "team_icon_0" "sprites/obj_icons/icon_obj_neutral"
-	            "team_icon_2" "sprites/obj_icons/icon_obj_red"
-	            "team_icon_3" "sprites/obj_icons/icon_obj_blu_mannhattan"
-	            "team_model_0" "models/effects/cappoint_hologram.mdl"
-	            "team_model_2" "models/effects/cappoint_hologram.mdl"
-	            "team_model_3" "models/effects/cappoint_hologram.mdl"
-	            "team_overlay_0" "sprites/obj_icons/icon_obj_a"
-	            "team_overlay_2" "sprites/obj_icons/icon_obj_a"
-	            "team_overlay_3" "sprites/obj_icons/icon_obj_a"
-	            "team_previouspoint_2_0" "gate1_capturepoint_a_custom"
-	            "team_previouspoint_3_0" "gate1_capturepoint_a_custom"
-	            "team_timedpoints_2" "0"
-	            "team_timedpoints_3" "0"
-	            "origin" "-5519.36 1522.21 603.629"
-            }
-            team_control_point
-            {       
-	            "angles" "0 270 0"
-	            "point_default_owner" "2"
-	            "point_group" "0"
-	            "point_index" "5"
-	            "point_printname" "Loading Gate B"
-	            "point_warn_on_cap" "2"
-	            "point_warn_sound" "ControlPoint.CaptureWarn"
-	            "spawnflags" "6"
-	            "StartDisabled" "0"
-	            "targetname" "gate2_capturepoint_b_custom"
-	            "team_bodygroup_0" "3"
-	            "team_bodygroup_2" "1"
-	            "team_bodygroup_3" "0"
-	            "team_icon_0" "sprites/obj_icons/icon_obj_neutral"
-	            "team_icon_2" "sprites/obj_icons/icon_obj_red"
-	            "team_icon_3" "sprites/obj_icons/icon_obj_blu_mannhattan"
-	            "team_model_0" "models/effects/cappoint_hologram.mdl"
-	            "team_model_2" "models/effects/cappoint_hologram.mdl"
-	            "team_model_3" "models/effects/cappoint_hologram.mdl"
-	            "team_overlay_0" "sprites/obj_icons/icon_obj_c"
-	            "team_overlay_2" "sprites/obj_icons/icon_obj_c"
-	            "team_overlay_3" "sprites/obj_icons/icon_obj_c"
-	            "team_previouspoint_3_0" "gate1_capturepoint_a"
-	            "team_timedpoints_2" "0"
-	            "team_timedpoints_3" "0"
-	            "origin" "-2862 -2438.13 794.7"
-            }
             trigger_timer_door
             {
-                "area_cap_point" "gate1_capturepoint_a_custom"
+                "area_cap_point" "gate1_capturepoint_a"
 	            "area_time_to_cap" "10"
 	            "door_name" "gate1_spawn_door"
-	            //"filtername" "filter_blue_bombhat"
+	            "filtername" "filter_blue_bombhat"
 	            "origin" "-5424 1412 516"
 	            "spawnflags" "3"
 	            "StartDisabled" "0"
@@ -1933,7 +3040,7 @@ WaveSchedule
             }
             trigger_timer_door
             {
-	            "area_cap_point" "gate2_capturepoint_b_custom"
+	            "area_cap_point" "gate2_capturepoint_b"
 	            "area_time_to_cap" "12"
 	            "door_name" "gate2_spawn_door"
 	            "filtername" "filter_blue_bombhat"
@@ -1958,6 +3065,80 @@ WaveSchedule
 		        "OnCapTeam2" "gate2_alarm_blue_on,Trigger,,0.2,-1"
 		        "OnStartTouchAll" "gate2_alarm_door_reset_relay,CancelPending,,0,-1"
             }
+            //team_control_point_master
+            //{
+            //    "classname" "team_control_point_master"
+	        //    "caplayout" "0 1 2 3"
+	        //    "cpm_restrict_team_cap_win" "1"
+	        //    "custom_position_x" "0.4"
+	        //    "custom_position_y" "-1"
+	        //    "score_style" "1"
+	        //    "StartDisabled" "0"
+	        //    "switch_teams" "0"
+	        //    "targetname" "master_control_point_custom"
+	        //    "team_base_icon_2" "sprites/obj_icons/icon_base_red"
+	        //    "team_base_icon_3" "sprites/obj_icons/icon_base_blu"
+	        //    "origin" "-6816.9 2013 1228"
+            //}
+            //team_control_point
+            //{
+            //    "angles" "0 270 0"
+	        //    "point_default_owner" "2"
+	        //    "point_group" "0"
+	        //    "point_index" "4"
+	        //    "point_printname" "Loading Gate A"
+	        //    "point_warn_on_cap" "2"
+	        //    "point_warn_sound" "ControlPoint.CaptureWarn"
+	        //    "spawnflags" "6"
+	        //    "StartDisabled" "0"
+	        //    "targetname" "gate1_capturepoint_a_custom"
+	        //    "team_bodygroup_0" "3"
+	        //    "team_bodygroup_2" "1"
+	        //    "team_bodygroup_3" "0"
+	        //    "team_icon_0" "sprites/obj_icons/icon_obj_neutral"
+	        //    "team_icon_2" "sprites/obj_icons/icon_obj_red"
+	        //    "team_icon_3" "sprites/obj_icons/icon_obj_blu_mannhattan"
+	        //    "team_model_0" "models/effects/cappoint_hologram.mdl"
+	        //    "team_model_2" "models/effects/cappoint_hologram.mdl"
+	        //    "team_model_3" "models/effects/cappoint_hologram.mdl"
+	        //    "team_overlay_0" "sprites/obj_icons/icon_obj_a"
+	        //    "team_overlay_2" "sprites/obj_icons/icon_obj_a"
+	        //    "team_overlay_3" "sprites/obj_icons/icon_obj_a"
+	        //    "team_previouspoint_2_0" "gate1_capturepoint_a_custom"
+	        //    "team_previouspoint_3_0" "gate1_capturepoint_a_custom"
+	        //    "team_timedpoints_2" "0"
+	        //    "team_timedpoints_3" "0"
+	        //    "origin" "-5519.36 1522.21 603.629"
+            //}
+            //team_control_point
+            //{       
+	        //    "angles" "0 270 0"
+	        //    "point_default_owner" "2"
+	        //    "point_group" "0"
+	        //    "point_index" "5"
+	        //    "point_printname" "Loading Gate B"
+	        //    "point_warn_on_cap" "2"
+	        //    "point_warn_sound" "ControlPoint.CaptureWarn"
+	        //    "spawnflags" "6"
+	        //    "StartDisabled" "0"
+	        //    "targetname" "gate2_capturepoint_b_custom"
+	        //    "team_bodygroup_0" "3"
+	        //    "team_bodygroup_2" "1"
+	        //    "team_bodygroup_3" "0"
+	        //    "team_icon_0" "sprites/obj_icons/icon_obj_neutral"
+	        //    "team_icon_2" "sprites/obj_icons/icon_obj_red"
+	        //    "team_icon_3" "sprites/obj_icons/icon_obj_blu_mannhattan"
+	        //    "team_model_0" "models/effects/cappoint_hologram.mdl"
+	        //    "team_model_2" "models/effects/cappoint_hologram.mdl"
+	        //    "team_model_3" "models/effects/cappoint_hologram.mdl"
+	        //    "team_overlay_0" "sprites/obj_icons/icon_obj_c"
+	        //    "team_overlay_2" "sprites/obj_icons/icon_obj_c"
+	        //    "team_overlay_3" "sprites/obj_icons/icon_obj_c"
+	        //    "team_previouspoint_3_0" "gate1_capturepoint_a"
+	        //    "team_timedpoints_2" "0"
+	        //    "team_timedpoints_3" "0"
+	        //    "origin" "-2862 -2438.13 794.7"
+            //}
         }
 		generator_template
 		{
@@ -2006,8 +3187,14 @@ WaveSchedule
 
                 "OnTrigger" "!activator,$AddCond,4,0,-1"
                 "OnTrigger" "!activator,$Suicide,,0.7,-1"
+				"OnTrigger" "hatchshield,Enable,,1.2"
+				"OnTrigger" "hatchshield_collision,Enable,,1.2"
+				"OnTrigger" "hatchshield_collision_stuckfix,Enable,,1.2"
+				"OnTrigger" "hatchshield,SetAnimation,enable,1.2"
+				"OnTrigger" "losscondition_bomb_sign,Show,,2"
+				"OnTrigger" "bomb_dud_maker,ForceSpawnAtEntityOrigin,intel,1.2"
 
-                "OnTrigger" "!self,Kill,,2,-1"
+                "OnTrigger" "!self,Kill,,5,-1"
 
 				"OnTrigger" "spawnbot_extra,Enable,,0.7,-1"
             }
@@ -2017,6 +3204,7 @@ WaveSchedule
                 "targetname" "shapeshift_spawn_target"
                 "origin" "0 0 0"
             }
+			RemoveIfKilled "disguise_stop"
         }
 
         Shapeshift_Spawn
@@ -2926,6 +4114,680 @@ WaveSchedule
 			// 	"OnTrigger" "!activator,AddOutput,OnHealthBelow90Percent helicopter_pattern2_relay:Trigger:0:-1,0,-1"
 			// }
 		}
+		Yakuza_Title_Card_Rockethell
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 0.2
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "FIERCEST WARRIOR OF THE HAZARDOUS HORIZONS"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				"holdtime" "5"
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "RANGER ROCKETHELL"
+				"x" "-1"
+				"y" "0.45"
+				"channel" "0"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+		Rockethell_Logic
+		{
+			OnSpawnOutput
+			{
+				Target "rockethell_pattern"
+				Action "Trigger"
+				Delay 0.1
+			}
+
+			logic_relay 
+			{
+				"targetname" "rockethell_pattern"
+				"spawnflags" "2"
+
+			    "OnTrigger" "!activator,$ChangeAttributes,LeftSway,0,-1"
+				"OnTrigger" "!activator,$ChangeAttributes,RightSway,1,-1"
+				//"OnTrigger" "!activator,$ChangeAttributes,Orb,2,-1"
+				"OnTrigger" "!activator,$ChangeAttributes,Bloom,3,-1"
+				"OnTrigger" "!activator,$ChangeAttributes,Homing,4,-1"
+                "OnTrigger" "!activator,$AddCond,36,4,-1"
+                
+                "OnTrigger" "!activator,$RemoveCond,36,5,-1"
+		
+				"OnTrigger" "!self,Trigger,,5,-1"
+				//"OnTrigger" "player,$DisplayTextChat,triggered,,-1"
+			}
+		}
+		 Yakuza_Title_Card_Corporal
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 0.2
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "REPROGRAMMED SPECIAL UNIT"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				"holdtime" "5"
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "CORPORAL CANTEEN"
+				"x" "-1"
+				"y" "0.45"
+				"channel" "0"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+        Yakuza_Title_Card_Kazuma
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 0.2
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "EX-ROBOT FAMILY PATRIARCH"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				"holdtime" "5"
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "SERGEANT RECEIVER"
+				"x" "-1"
+				"y" "0.45"
+				"channel" "0"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+		DopplerShields
+        {
+            OnSpawnOutput
+            {
+                Target "rotate"
+                Action "StartForward"
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate2"
+                Action "StartBackward"
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate_position"
+                Action "Trigger"
+            }
+
+            OnSpawnOutput
+            {
+                Target "shield_hitbox"
+                Action "$SetOwner"
+                Param "!activator"
+            }
+
+            OnSpawnOutput
+            {
+                Target "shield_hitbox2"
+                Action "$SetOwner"
+                Param "!activator"
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate"
+                Action "SetParent"
+                Param ""
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate2"
+                Action "SetParent"
+                Param ""
+            }
+
+            filter_activator_tfteam 
+			{
+				"targetname" "filter_is_blue"
+				"Negated" "0"
+				"TeamNum" "3"
+			}
+
+            logic_relay
+            {
+                "targetname" "rotate_position"
+                "spawnflags" "2"
+
+                "OnTrigger" "rotate,$TeleportToEntity,!activator,0,-1"
+                "OnTrigger" "rotate2,$TeleportToEntity,!activator,0,-1"
+
+                "OnTrigger" "!self,Trigger,,0.01,-1"
+            }
+
+			entity_medigun_shield
+			{
+                "parentname" "rotate"
+                "targetname" "projectile_shield"
+				"origin" "100 0 0"
+				"spawnflags" "1"
+				"teamnum" "2"
+			}
+
+            trigger_hurt
+            {
+                "parentname" "rotate"
+                "origin" "100 0 1"
+                "mins" "-12 -53 -51.5"
+                "maxs" "12 53 51.5"
+
+                "targetname" "shield_hitbox"
+                "spawnflags" "1"
+
+
+                "filtername" "filter_is_blue"
+
+                "Damage" "20" //damage is half of this
+                "damagetype" "512"
+            }
+
+            func_rotating
+            {
+                "targetname" "rotate"
+                "origin" "0 0 0"
+
+                "mins" "-0.1 -0.1 -0.1"
+                "maxs" "0.1 0.1 0.1"
+
+                "dmg" "0"
+                "fanfriction" "100" 
+                "maxspeed" "40"
+                "spawnflags" "64"
+                "volume" "0"
+            }
+
+            //2nd shield
+
+			entity_medigun_shield
+			{
+                "parentname" "rotate2"
+                "targetname" "projectile_shield"
+				"origin" "100 0 0"
+				"spawnflags" "1"
+				"teamnum" "2"
+			}
+
+            trigger_hurt
+            {
+                "parentname" "rotate2"
+                "mins" "-12 -53 -51.5"
+                "maxs" "12 53 51.5"
+                "origin" "-100 0 1"
+
+                "targetname" "shield_hitbox2"
+                "spawnflags" "1"
+
+                "filtername" "filter_is_blue"
+
+                "Damage" "20" //damage is half of this
+                "damagetype" "512"
+            }
+            
+
+            func_rotating
+            {
+                "targetname" "rotate2"
+                "origin" "0 0 0"
+
+                "mins" "-0.1 -0.1 -0.1"
+                "maxs" "0.1 0.1 0.1"
+
+                "dmg" "0"
+                "fanfriction" "100" 
+                "maxspeed" "40"
+                "spawnflags" "64"
+                "volume" "0"
+            }
+        }
+
+        Corporal_Logic
+        {
+            NoFixup 1
+
+            OnSpawnOutput
+            {
+                Target "!activator"
+                Action "AddOutput"
+                Param "targetname corporal"
+            }
+
+            OnParentKilledOutput
+            {
+                Target "!activator"
+                Action "AddOutput"
+                Param "targetname  "
+            }
+
+            OnParentKilledOutput
+            {
+                Target "corporal_died"
+                Action "Trigger"
+            }
+
+            logic_relay 
+            {
+                "targetname" "random_canteen_use"
+                "spawnflags" "2"
+
+                "OnTrigger" "random_canteen_case,PickRandomShuffle,,0,-1"
+                "OnTrigger" "player,$PlaySoundToSelf,=35|mvm/mvm_used_powerup.wav,0,-1"
+            }
+
+            filter_activator_tfteam 
+			{
+				"targetname" "corporal_filter_is_red"
+				"Negated" "0"
+				"TeamNum" "2"
+			}
+
+            trigger_multiple
+            {
+                "targetname" "buffbanner_trigger"
+                "origin" "0 0 0"
+                "mins" "-500.0 -500.0 -500.0"
+                "maxs" "500.0 500.0 500.0"
+                "spawnflags" "1" 
+                "StartDisabled" "1"
+
+                "filtername" "corporal_filter_is_red"
+
+                "OnStartTouch" "!activator,$AddCond,16,0,-1"
+                "OnStartTouch" "!activator,$RemoveCond,16,5,-1"
+
+                "OnUser1" "!self,Enable,,0,-1"
+                "OnUser1" "!self,Disable,,0.1,-1"
+            }
+            trigger_multiple
+            {
+                "targetname" "conch_trigger"
+                "origin" "0 0 0"
+                "mins" "-500.0 -500.0 -500.0"
+                "maxs" "500.0 500.0 500.0"
+                "spawnflags" "1" 
+                "StartDisabled" "1"
+
+                "filtername" "corporal_filter_is_red"
+
+                "OnStartTouch" "!activator,$AddCond,29,0,-1"
+                "OnStartTouch" "!activator,$RemoveCond,29,5,-1"
+
+                "OnUser1" "!self,Enable,,0,-1"
+                "OnUser1" "!self,Disable,,0.1,-1"
+            }
+            trigger_multiple
+            {
+                "targetname" "batt_trigger"
+                "origin" "0 0 0"
+                "mins" "-500.0 -500.0 -500.0"
+                "maxs" "500.0 500.0 500.0"
+                "spawnflags" "1" 
+                "StartDisabled" "1"
+
+                "filtername" "corporal_filter_is_red"
+
+                "OnStartTouch" "!activator,$AddCond,26,0,-1"
+                "OnStartTouch" "!activator,$RemoveCond,26,5,-1"
+
+                "OnUser1" "!self,Enable,,0,-1"
+                "OnUser1" "!self,Disable,,0.1,-1"
+            }
+
+
+            logic_case 
+            {
+                "targetname" "random_canteen_case"
+
+                //precision
+                "oncase01" "!activator,$AddCond,96,0,-1"
+                "oncase01" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}PRECISION {reset}Power Up Canteen!,0,-1"
+                "oncase01" "!activator,$RemoveCond,96,5,-1"
+
+                //haste
+                "oncase02" "!activator,$AddCond,91,0,-1"
+                "oncase02" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}HASTE {reset}Power Up Canteen!,0,-1"
+                "oncase02" "!activator,$RemoveCond,91,5,-1"
+
+                //strength
+                "oncase03" "!activator,$AddCond,90,1,-1"
+                "oncase03" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}STRENGTH {reset}Power Up Canteen!,0,-1"
+                "oncase03" "!activator,$RemoveCond,90,5,-1"
+
+                //crit
+                "oncase04" "!activator,$AddCond,105,1,-1"
+                "oncase04" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}CRIT {reset}Power Up Canteen!,0,-1"
+                "oncase04" "!activator,$RemoveCond,105,5,-1"
+
+                //buff banner
+                "oncase05" "buffbanner_trigger,FireUser1,,0,-1"
+                "oncase05" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}AREA BUFF {reset}Power Up Canteen!,0,-1"
+
+                //conch banner
+                "oncase06" "conch_trigger,FireUser1,,0,-1"
+                "oncase06" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}AREA CONCH {reset}Power Up Canteen!,0,-1"
+
+                //battalion banner
+                "oncase07" "batt_trigger,FireUser1,,0,-1"
+                "oncase07" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}AREA BATTALION {reset}Power Up Canteen!,0,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "receiver_died"
+
+                "OnTrigger" "random_canteen_use,Kill,,0,-1"
+                "OnTrigger" "player,$PlaySoundToSelf,=35|mvm/mvm_used_powerup.wav,0,-1"
+
+                "OnTrigger" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {9BBF4D}HARDER {reset}Power Up Canteen!,0,-1"
+
+                "OnTrigger" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {4DBF9B}BETTER {reset}Power Up Canteen!,0.8,-1"
+                "OnTrigger" "corporal,$AddPlayerAttribute,move speed bonus|0.6|1,0.8,-1" 
+
+                "OnTrigger" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {B94DBF}FASTER {reset}Power Up Canteen!,1.6,-1"
+                "OnTrigger" "corporal,$AddCond,36,1.6,-1" 
+
+                "OnTrigger" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {E30B2F}STRONGER {reset}Power Up Canteen!,2.4,-1"
+                "OnTrigger" "superior_canteens,Trigger,,2.6,-1"         
+            }
+
+            logic_relay
+            {
+                "targetname" "superior_canteens"
+                "spawnflags" "2"
+
+                "OnTrigger" "canteen_style,PickRandomShuffle,,0,-1"
+                "OnTrigger" "player,$PlaySoundToSelf,=35|mvm/mvm_used_powerup.wav,0,-1"
+                "OnTrigger" "!self,Trigger,,10,-1"
+            }
+
+
+            logic_case 
+            {
+                "targetname" "canteen_style"
+
+                //precision
+                "oncase01" "corporal,$AddCond,96,0,-1"
+                "oncase01" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {E30B2F}SUPERIOR PRECISION {reset}Power Up Canteen!,0,-1"
+                "oncase01" "corporal,$RemoveCond,96,10,-1"
+
+                //haste
+                "oncase02" "corporal,$AddCond,91,0,-1"
+                "oncase02" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {E30B2F}SUPERIOR HASTE {reset}Power Up Canteen!,0,-1"
+                "oncase02" "corporal,$RemoveCond,91,10,-1"
+
+                //strength
+                "oncase03" "corporal,$AddCond,90,1,-1"
+                "oncase03" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {E30B2F}SUPERIOR STRENGTH {reset}Power Up Canteen!,0,-1"
+                "oncase03" "corporal,$RemoveCond,90,10,-1"
+            }
+        }
+
+        Yakuza_Styles
+        {
+            NoFixup 1
+
+            OnSpawnOutput
+            {
+                Target "!activator"
+                Action "AddOutput"
+                Param "targetname receiver"
+            }
+
+            OnParentKilledOutput
+            {
+                Target "!activator"
+                Action "AddOutput"
+                Param "targetname  "
+            }
+
+            OnParentKilledOutput
+            {
+                Target "receiver_died"
+                Action "Trigger"
+            }
+
+            logic_relay
+            {
+                "targetname" "style_transition"
+
+                "OnTrigger" "receiver,$RemoveCond,36,0,-1"
+                "OnTrigger" "receiver,$RemoveCond,56,0,-1"
+                "OnTrigger" "receiver,$WeaponStripSlot,-1,0,-1" 
+                "OnTrigger" "receiver,$GiveItem,TF_WEAPON_ROCKETLAUNCHER,0.01,-1" 
+            }
+
+            logic_case
+            {
+                "targetname" "randomstyle"
+
+                "oncase01" "charged_style,Trigger,,0,-1"
+                "oncase02" "homing_style,Trigger,,0,-1"
+                "oncase03" "barrage_style,Trigger,,0,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "homing_style"
+
+                "OnTrigger" "style_transition,Trigger,,0,-1"
+
+                "OnTrigger" "player,$DisplayTextChat,{red}{activator}{reset} has changed into their {F81393}HOMING {reset}Combat style!,0,-1"
+
+                "OnTrigger" "!activator,$AddItemAttribute,projectile trail particle|eyeboss_projectile|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,damage penalty|0.75|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,mod projectile heat seek power|360|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,mod projectile heat aim time|0.8|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,Projectile speed increased|0.5|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,fire rate bonus|0.01|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,Reload time decreased|0.35|0,0.02,-1" 
+                "OnTrigger" "!activator,$AddItemAttribute,clip size upgrade atomic|-1|0,0.02,-1"   
+                "OnTrigger" "!activator,$AddItemAttribute,projectile spread angle penalty|5|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddCond,36,0.01,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "charged_style"
+
+                "OnTrigger" "style_transition,Trigger,,0,-1"
+
+                "OnTrigger" "player,$DisplayTextChat,{red}{activator}{reset} has changed into their {6691FF}CHARGED {reset}Combat style!,0,-1"
+
+                "OnTrigger" "!activator,$AddItemAttribute,Projectile speed increased|0.5|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,damage bonus|2|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,Reload time decreased|0.01|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddCond,56,0.01,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "barrage_style"
+
+                "OnTrigger" "style_transition,Trigger,,0,-1"
+
+                "OnTrigger" "player,$DisplayTextChat,{red}{activator}{reset} has changed into their {EAAD11}BARRAGE {reset}Combat style!,0,-1"
+
+                "OnTrigger" "!activator,$AddItemAttribute,fire rate bonus|0.2|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,Projectile speed increased|0.5|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,damage bonus|1.5|0,0.02,-1"
+                "OnTrigger" "!activator,$AddItemAttribute,clip size upgrade atomic|26|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,Reload time decreased|0.07|0,0.02,-1"  
+                "OnTrigger" "!activator,$AddItemAttribute,projectile spread angle penalty|5|0,0.02,-1"  
+            }
+
+            logic_relay
+            {
+                "targetname" "corporal_died"
+
+                "OnTrigger" "dragon_style,Trigger,,1,-1"
+
+                "OnTrigger" "player,$DisplayTextChat,{red}Sergeant Receiver{reset} has used their {9BBF4D}TAURINER INFINITY{reset} Power Up Canteen!,0,-1"
+                "OnTrigger" "player,$PlaySoundToSelf,=35|mvm/mvm_used_powerup.wav,0,-1"
+                "OnTrigger" "player,$DisplayTextChat,{red}Sergeant Receiver{reset} has entered {blue}EXTREME HEAT MODE{reset}!,0.5,-1"
+
+                "OnTrigger" "receiver,$AddPlayerAttribute,health regen|200,0.5,-1"
+
+                "OnTrigger" "randomstyle,Kill,,0,-1"
+                "OnTrigger" "charged_style_dragon,Trigger,,0,-1"
+            }
+
+            //start rapidly switching between buffed versions of each styles
+            logic_relay
+            {
+                "targetname" "dragon_style"
+
+                "OnTrigger" "style_transition,Trigger,,0,-1"
+
+                "OnTrigger" "player,$DisplayTextChat,{red}Sergeant Receiver{reset} has changed into their {red}DRAGON REBORN {reset}Combat style!,0,-1"
+
+                "OnTrigger" "randomstyle,Kill,,0,-1"
+                "OnTrigger" "charged_style_dragon,Trigger,,0,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "charged_style_dragon"
+
+                "OnTrigger" "style_transition,Trigger,,0,-1"
+
+                "OnTrigger" "receiver,$AddItemAttribute,projectile no deflect|1|0,0.02,-1"   
+                "OnTrigger" "receiver,$AddItemAttribute,Projectile speed increased|0.3|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,damage bonus|1.2|0,0.02,-1"  
+                //"OnTrigger" "receiver,$AddItemAttribute,Reload time decreased|0.01|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,fire rate bonus|0.3|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddCond,56,0.01,-1"
+
+                "OnTrigger" "homing_style_dragon,Trigger,,1,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "homing_style_dragon"
+
+                "OnTrigger" "style_transition,Trigger,,0,-1"
+
+                "OnTrigger" "receiver,$AddItemAttribute,projectile trail particle|eyeboss_projectile|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,damage penalty|0.75|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,mod projectile heat seek power|360|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,mod projectile heat aim time|0.2|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,Projectile speed increased|0.35|0,0.02,-1" 
+                "OnTrigger" "receiver,$AddItemAttribute,fire rate bonus|0.01|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,Reload time decreased|0.08|0,0.02,-1" 
+                "OnTrigger" "receiver,$AddItemAttribute,clip size upgrade atomic|-1|0,0.02,-1"   
+                "OnTrigger" "receiver,$AddItemAttribute,projectile spread angle penalty|9|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddCond,36,0.01,-1"
+
+                "OnTrigger" "barrage_style_dragon,Trigger,,2,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "barrage_style_dragon"
+
+                "OnTrigger" "receiver,$AddItemAttribute,attach particle effect|704|0,0.02,-1"  
+                
+                "OnTrigger" "style_transition,Trigger,,0,-1"
+                "OnTrigger" "receiver,$AddItemAttribute,fire rate bonus|0.03|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,Projectile speed increased|0.3|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,damage bonus|0.8|0,0.02,-1"
+                "OnTrigger" "receiver,$AddItemAttribute,Reload time decreased|-1|0,0.02,-1"  
+                "OnTrigger" "receiver,$AddItemAttribute,projectile spread angle penalty|8|0,0.02,-1"    
+
+                "OnTrigger" "charged_style_dragon,Trigger,,2.5,-1"
+            }
+        }
 		PlayerResInput
 		{
 			NoFixup 1
@@ -3793,6 +5655,171 @@ WaveSchedule
                 "OnTrigger" "constructed_check_loop,Disable,,0,-1"
             }
         }
+		Thunderdome_Bot
+        {
+            OnSpawnOutput
+            {
+                Target "!activator"
+                Action "$WeaponSwitchSlot"
+                Param "1"
+                Delay 0
+            }
+
+            OnSpawnOutput
+            {
+                Target "shield_hitbox_bot"
+                Action "$SetOwner"
+                Param "!activator"
+            }
+
+            OnSpawnOutput
+            {
+                Target "shield_hitbox2_bot"
+                Action "$SetOwner"
+                Param "!activator"
+            }
+
+            OnSpawnOutput
+            {
+                Target "projectile_shield_bot"
+                Action "$SetModel"
+                Param "models/props_mvm/mvm_comically_small_player_shield.mdl"
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate_bot"
+                Action "Start"
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate2_bot"
+                Action "Start"
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate_bot"
+                Action "SetParent"
+                Param ""
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate2_bot"
+                Action "SetParent"
+                Param ""
+            }
+
+            OnSpawnOutput
+            {
+                Target "rotate_bot_position"
+                Action "Trigger"
+            }
+
+            filter_activator_tfteam 
+			{
+				"targetname" "filter_is_blue"
+				"Negated" "0"
+				"TeamNum" "3"
+			}
+
+            logic_relay 
+            {
+                "targetname" "rotate_bot_position"
+                "spawnflags" "2"
+
+                "OnTrigger" "rotate_bot,$TeleportToEntity,!activator,0,-1"
+                "OnTrigger" "rotate2_bot,$TeleportToEntity,!activator,0,-1"
+
+                "OnTrigger" "!self,Trigger,,0.01,-1"
+            }
+
+            trigger_hurt
+            {
+                "parentname" "rotate_bot"
+                "origin" "100 0 21"
+                "mins" "-12 -53 -51.5"
+                "maxs" "12 53 51.5"
+
+                "targetname" "shield_hitbox_bot"
+                "spawnflags" "1"
+
+
+                "filtername" "filter_is_blue"
+
+                "Damage" "60" //damage is half of this
+                "damagetype" "512"
+            }
+
+			entity_medigun_shield
+			{
+                "parentname" "rotate_bot"
+                "targetname" "projectile_shield_bot"
+				"origin" "100 0 20"
+				"spawnflags" "1"
+				"teamnum" "2"
+			}
+
+            func_rotating
+            {
+                "targetname" "rotate_bot"
+                "origin" "0 0 20"
+
+                "mins" "-0.1 -0.1 -0.1"
+                "maxs" "0.1 0.1 0.1"
+
+                "dmg" "0"
+                "fanfriction" "100" 
+                "maxspeed" "60"
+                "spawnflags" "64"
+                "volume" "0"
+            }
+
+            //2nd shield
+            trigger_hurt
+            {
+                "parentname" "rotate2_bot"
+                "mins" "-12 -53 -51.5"
+                "maxs" "12 53 51.5"
+                "origin" "-100 0 21"
+                // "angles" "180 0 0"
+
+                "targetname" "shield_hitbox2_bot"
+                "spawnflags" "1"
+
+                "filtername" "filter_is_blue"
+
+                "Damage" "60" //damage is half of this
+                "damagetype" "512"
+            }
+
+			entity_medigun_shield
+			{
+                "parentname" "rotate2_bot"
+                "targetname" "projectile_shield_bot"
+				"origin" "-100 0 20"
+                "angles" "-180 0 -180"
+				"spawnflags" "1"
+				"teamnum" "2"
+			}
+
+            func_rotating
+            {
+                "targetname" "rotate2_bot"
+                "origin" "0 0 20"
+
+                "mins" "-0.1 -0.1 -0.1"
+                "maxs" "0.1 0.1 0.1"
+
+                "dmg" "0"
+                "fanfriction" "100" 
+                "maxspeed" "60"
+                "spawnflags" "64"
+                "volume" "0"
+            }
+        }
 		Thunderdome_Spawn
         {
             OnSpawnOutput
@@ -4567,7 +6594,7 @@ WaveSchedule
 	ExtraSpawnPoint  
 	{
 		Name "red"
-		TeamNum 3
+		TeamNum 2
 		X "2408.000000" 
 		Y "-96.000000" 
 		Z "267.031311"
@@ -4805,7 +6832,7 @@ WaveSchedule
 				        }
 			    		InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
 			    		{
-			    			Target "trigger_that_does_nothing2"
+			    			Target "trigger_that_does_nothing"
                             //Target "-5485.430176 1419.615723 467.03131"
 			    			Delay 0.1 // Time before the first task starts (Default: 10)
 			    			Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
@@ -4824,8 +6851,7 @@ WaveSchedule
 			    	{
                         InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
 			    		{
-			    			//Target "trigger_that_does_nothing2"
-                            Target "-5485.430176 1419.615723 467.03131"
+			    			Target "trigger_that_does_nothing"
 			    			Delay 0.1 // Time before the first task starts (Default: 10)
 			    			Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
 			    			Cooldown 1 //Time between each task (Default: 10)
@@ -4904,7 +6930,7 @@ WaveSchedule
 				        }
 			    		InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
 			    		{
-			    			Target "trigger_that_does_nothing"
+			    			Target "trigger_that_does_nothing2"
 			    			Delay 0.1 // Time before the first task starts (Default: 10)
 			    			Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
 			    			Cooldown 1 //Time between each task (Default: 10)
@@ -5108,7 +7134,7 @@ WaveSchedule
             TotalCount 2
 			MaxActive 1
 			SpawnCount 1
-			TotalCurrency 50
+			TotalCurrency 100
 			WaitBeforeStarting 5
 			WaitBetweenSpawns 20
             TFBot
@@ -5157,14 +7183,14 @@ WaveSchedule
 			    SpawnTemplate "points_gdetonator"
 			}
 		}
-        WaveSpawn 
+        WaveSpawn
         {
 			Name "w1_gateone"
 			Where "spawnbot_scaffold"
             TotalCount 1
 			MaxActive 1
 			SpawnCount 1
-			TotalCurrency 150
+			TotalCurrency 100
 			WaitBeforeStarting 1
 			WaitBetweenSpawns 1.5
             TFBot
@@ -5207,8 +7233,8 @@ WaveSchedule
                 }
                 InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
 				{
-					//Target "trigger_that_does_nothing2"
-                            Target "-5485.430176 1419.615723 467.03131"
+					Target "trigger_that_does_nothing"
+                    //Target "-5485.430176 1419.615723 467.03131"
 					Delay 1 // Time before the first task starts (Default: 10)
 					Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
 					Cooldown 5 //Time between each task (Default: 10)
@@ -5297,7 +7323,7 @@ WaveSchedule
             TotalCount 1
 			MaxActive 1
 			SpawnCount 1
-			TotalCurrency 50
+			TotalCurrency 75
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0
             TFBot
@@ -5326,7 +7352,7 @@ WaveSchedule
             TotalCount 1
 			MaxActive 1
 			SpawnCount 1
-			TotalCurrency 50
+			TotalCurrency 75
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0
             TFBot
@@ -5357,7 +7383,7 @@ WaveSchedule
 			MaxActive 8
 			SpawnCount 1
             Support limited
-			TotalCurrency 50
+			TotalCurrency 100
 			WaitBeforeStarting 2
 			WaitBetweenSpawns 1
             RandomChoice
@@ -5392,7 +7418,7 @@ WaveSchedule
 			MaxActive 8
 			SpawnCount 1
             Support limited
-			TotalCurrency 50
+			TotalCurrency 100
 			WaitBeforeStarting 10
 			WaitBetweenSpawns 2.5
             RandomChoice
@@ -5427,7 +7453,7 @@ WaveSchedule
 			MaxActive 4
 			SpawnCount 1
             Support limited
-			TotalCurrency 50
+			TotalCurrency 100
 			WaitBeforeStarting 6
 			WaitBetweenSpawns 8
             RandomChoice
@@ -5461,7 +7487,7 @@ WaveSchedule
             TotalCount 2
 			MaxActive 2
 			SpawnCount 2
-			TotalCurrency 50
+			TotalCurrency 200
 			WaitBeforeStarting 1
 			WaitBetweenSpawns 1
             TFBot
@@ -5473,6 +7499,11 @@ WaveSchedule
                 Attributes DisableDodge
                 UseMeleeThreatPrioritization 1  
                 AddCond { Name "TF_COND_REPROGRAMMED" }
+                ItemAttributes
+                {
+                    ItemName "TF_WEAPON_FLAMETHROWER"
+                    "airblast disabled" 1
+                }
                 CharacterAttributes
                 {
 					"damage force reduction" 0.1
@@ -5482,7 +7513,7 @@ WaveSchedule
                 }
                 InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
 				{
-					Target "trigger_that_does_nothing"
+					Target "trigger_that_does_nothing2"
 					Delay 1 // Time before the first task starts (Default: 10)
 					Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
 					Cooldown 5 //Time between each task (Default: 10)
@@ -5497,11 +7528,11 @@ WaveSchedule
 			Name "w1_subwavethree_support"
 			Where "spawnbot_hatch"
             Where "spawnbot_garage"
-            TotalCount 100
+            TotalCount 50
 			MaxActive 8
 			SpawnCount 1
             Support limited
-			TotalCurrency 100
+			TotalCurrency 50
 			WaitBeforeStarting 1
 			WaitBetweenSpawns 4
             RandomChoice
@@ -5531,11 +7562,11 @@ WaveSchedule
 			Name "w1_subwavethree_support"
 			Where "spawnbot_hatch"
             Where "spawnbot_garage"
-            TotalCount 100
+            TotalCount 50
 			MaxActive 8
 			SpawnCount 1
             Support limited
-			TotalCurrency 100
+			TotalCurrency 50
 			WaitBeforeStarting 5
 			WaitBetweenSpawns 4
             RandomChoice
@@ -5577,12 +7608,12 @@ WaveSchedule
             TotalCount 2
 			MaxActive 1
 			SpawnCount 1
-			TotalCurrency 50
+			TotalCurrency 100
 			WaitBeforeStarting 1
 			WaitBetweenSpawns 1
             TFBot
 			{
-				Template T_TFBot_Giant_Demo_Burst
+				Template T_TFBot_Giant_Demoman
                 AddCond { Name "TF_COND_REPROGRAMMED" }
                 
                 CharacterAttributes
@@ -5606,7 +7637,7 @@ WaveSchedule
 			WaitBetweenSpawns 1
             TFBot
 			{
-				Template T_TFBot_Giant_Demo_Burst
+				Template T_TFBot_Giant_Demoman
                 AddCond { Name "TF_COND_REPROGRAMMED" }
                 
                 CharacterAttributes
@@ -5634,7 +7665,7 @@ WaveSchedule
             TotalCount 1
 			MaxActive 1
 			SpawnCount 1
-			TotalCurrency 400
+			TotalCurrency 100
 			WaitBeforeStarting 1
 			WaitBetweenSpawns 1
             DoneOutput
@@ -5699,6 +7730,15 @@ WaveSchedule
                 Action ToggleTest
             }
         }
+		WaveSpawn
+		{
+			WaitForAllDead "shapeshift"
+            FirstSpawnOutput
+			{
+                Target playerResInWave //REQUIRED | Used to tell self res logic that wave is active/ turn it off again at the end of a wave
+                Action ToggleTest
+            }
+        }
         WaveSpawn
 		{
             FirstSpawnOutput
@@ -5726,7 +7766,7 @@ WaveSchedule
 			SpawnCount 1
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
-			TotalCurrency 800
+			TotalCurrency 150
 
 			DoneOutput
 			{
@@ -5876,7 +7916,7 @@ WaveSchedule
 			MaxActive 2
 			SpawnCount 1
             Support limited
-			TotalCurrency 100
+			TotalCurrency 50
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0
             TFBot
@@ -5937,7 +7977,7 @@ WaveSchedule
 		}
 		WaveSpawn 
         {
-			Name "midphase1"
+			Name "midphase1_support"
 			Where "spawnbot_arena_1"
 			Where "spawnbot_arena_2"
 			Where "spawnbot_arena_3"
@@ -5945,7 +7985,7 @@ WaveSchedule
 			MaxActive 10
 			SpawnCount 2
             Support limited
-			TotalCurrency 100
+			TotalCurrency 25
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0
             TFBot
@@ -5985,7 +8025,7 @@ WaveSchedule
             TotalCount 2
 			MaxActive 2
 			SpawnCount 1
-			TotalCurrency 100
+			TotalCurrency 50
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0
 			Support Limited
@@ -6048,7 +8088,7 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
-			Name "midphase2"
+			Name "midphase2_support"
 			Where "spawnbot_arena_1"
 			Where "spawnbot_arena_2"
 			Where "spawnbot_arena_3"
@@ -6059,7 +8099,7 @@ WaveSchedule
 			WaitBeforeStarting 5
 			WaitBetweenSpawns 0
 		
-			TotalCurrency 50
+			TotalCurrency 25
 			Support Limited
 		
 			TFBot
@@ -6093,13 +8133,14 @@ WaveSchedule
 			Where "spawnbot_arena_2"
 			Where "spawnbot_arena_3"
 			WaitForAllDead "midphase2"
+			TotalCount 100
 			MaxActive 8
 			SpawnCount 2
 			WaitBeforeStarting 5
 			WaitBetweenSpawns 3
 		
-			TotalCurrency 50
-			Support 1
+			TotalCurrency 100
+			Support Limited
             RandomChoice
             {
 			    TFBot
@@ -6188,7 +8229,7 @@ WaveSchedule
 		WaveSpawn
 		{
 			Where spawnbot
-			TotalCount 1
+			TotalCount 0
 			WaitBeforeStarting 9999
             RandomChoice
             {
@@ -6212,7 +8253,7 @@ WaveSchedule
 		BeginAtWave	3
 		RunForThisManyWaves 1
 		CooldownTime 60
-		InitialCooldown 45
+		InitialCooldown 25
 		DesiredCount 2
 		
 		TFBot
@@ -6222,11 +8263,9 @@ WaveSchedule
 			AddCond {Name "TF_COND_REPROGRAMMED" }
 		}
 	}
-    //SpawnTemplate "custom_controlpoint_setup"
 	Wave // Wave #3
 	{
         SpawnTemplate "wave3_logic"
-        //SpawnTemplate "custom_controlpoint_setup"
 		StartWaveOutput
 		{
 			Target wave_start_relay
@@ -6245,7 +8284,6 @@ WaveSchedule
 		WaveSpawn // Tank # HP
 		{
 			Name "generator_one"
-			WaitForAllDead ""
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
@@ -6277,7 +8315,7 @@ WaveSchedule
 		WaveSpawn // Tank # HP
 		{
 			Name "generator_twothree"
-			WaitForAllDead "generator_one"
+			WaitForAllSpawned "areaone_done"
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
@@ -6303,7 +8341,7 @@ WaveSchedule
 		WaveSpawn // Tank # HP
 		{
 			Name "generator_twothree"
-			WaitForAllDead "generator_one"
+			WaitForAllSpawned "areaone_done"
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
@@ -6332,14 +8370,14 @@ WaveSchedule
 		
 			DoneOutput
 			{
-				Target "generator_twothree_relay" 
+				Target "generator_twothree_killed_relay" 
 				Action Trigger
 			}
 		}
 		WaveSpawn // Tank # HP
 		{
 			Name "generator_fourfivesix"
-			WaitForAllDead "generator_twothree"
+			WaitForAllSpawned "areatwo_done"
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
@@ -6365,7 +8403,7 @@ WaveSchedule
 		WaveSpawn // Tank # HP
 		{
 			Name "generator_fourfivesix"
-			WaitForAllDead "generator_twothree"
+			WaitForAllSpawned "areatwo_done"
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
@@ -6391,7 +8429,7 @@ WaveSchedule
 		WaveSpawn // Tank # HP
 		{
 			Name "generator_fourfivesix"
-			WaitForAllDead "generator_twothree"
+			WaitForAllSpawned "areatwo_done"
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
@@ -6431,20 +8469,28 @@ WaveSchedule
             TotalCount 9999
             MaxActive 3
             SpawnCount 1
-            WaitBeforeStarting 0
+            WaitBeforeStarting 10
             WaitBetweenSpawns 5
             Support 1
         
             TFBot
             { 
                 Template T_TFBot_Scout_Melee
-                Attributes IgnoreFlag
+				Action Mobber
                 EventChangeAttributes
                 {
                     Default
                     {
-                        Attributes IgnoreFlag
+						CharacterAttributes
+                    	{
+			    			"move speed bonus" 0.001
+							"no_jump" 1
+                    	}
                     }
+					BarrierDown
+					{
+
+					}
                     CaptureGateOne
                     {
                         InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
@@ -6463,10 +8509,10 @@ WaveSchedule
         }
         WaveSpawn 
         {
-			Name "w3_subwaveone_support"
+			Name "w3_subwaveone_a_support"
 			Where "spawnbot_factory_one"
 			Where "spawnbot_factory_two"
-            TotalCount 24
+            TotalCount 12
 			MaxActive 8
 			SpawnCount 2
             Support limited
@@ -6497,16 +8543,16 @@ WaveSchedule
 		}
         WaveSpawn 
         {
-			Name "w3_subwaveone_support"
+			Name "w3_subwaveone_a_support"
 			Where "spawnbot_factory_one"
 			Where "spawnbot_factory_two"
-            TotalCount 9
+            TotalCount 5
 			MaxActive 3
 			SpawnCount 1
             Support limited
 			TotalCurrency 75
-			WaitBeforeStarting 10
-			WaitBetweenSpawns 1
+			WaitBeforeStarting 5
+			WaitBetweenSpawns 6
             RandomChoice
             {
                 RandomChoice
@@ -6514,6 +8560,42 @@ WaveSchedule
                     TFBot
                     {
                         Template T_TFBot_Soldier_Extended_Battalion
+                        Action Mobber  
+                        BehaviorModifiers Mobber
+                        Attributes IgnoreFlag
+                        Attributes DisableDodge
+                        UseMeleeThreatPrioritization 1  
+						Item "Soldier Drill Hat"
+                        AddCond { Name "TF_COND_REPROGRAMMED" }
+                        CharacterAttributes
+                        {
+                            "crit mod disabled" 0
+							"force distribute currency on death" 1
+                        }
+                    }
+                }
+            }
+		}
+        WaveSpawn 
+        {
+			Name "w3_subwaveone_b_support"
+			Where "spawnbot_scaffold"
+			Where "spawnbot_balcony"
+			WaitForAllSpawned "w3_subwaveone_a_support"
+            TotalCount 16
+			MaxActive 8
+			SpawnCount 2
+            Support limited
+			TotalCurrency 75
+			WaitBeforeStarting 5
+			WaitBetweenSpawns 1
+            RandomChoice
+            {
+                RandomChoice
+                {
+                    TFBot
+                    {
+                        Template T_TFBot_Soldier_Extended_Buff_Banner
                         Action Mobber  
                         BehaviorModifiers Mobber
                         Attributes IgnoreFlag
@@ -6531,12 +8613,48 @@ WaveSchedule
 		}
         WaveSpawn 
         {
+			Name "w3_subwaveone_b_support"
+			Where "spawnbot_scaffold"
+			Where "spawnbot_balcony"
+			WaitForAllSpawned "w3_subwaveone_a_support"
+            TotalCount 5
+			MaxActive 3
+			SpawnCount 1
+            Support limited
+			TotalCurrency 25
+			WaitBeforeStarting 5
+			WaitBetweenSpawns 6
+            RandomChoice
+            {
+                RandomChoice
+                {
+                    TFBot
+                    {
+                        Template T_TFBot_Soldier_Extended_Battalion
+                        Action Mobber  
+                        BehaviorModifiers Mobber
+                        Attributes IgnoreFlag
+                        Attributes DisableDodge
+                        UseMeleeThreatPrioritization 1  
+						Item "Soldier Drill Hat"
+                        AddCond { Name "TF_COND_REPROGRAMMED" }
+                        CharacterAttributes
+                        {
+                            "crit mod disabled" 0
+							"force distribute currency on death" 1
+                        }
+                    }
+                }
+            }
+		}
+        WaveSpawn 
+        {
 			Name "w3_subwaveone"
 			Where "spawnbot_factory_one"
             TotalCount 3
 			MaxActive 3
 			SpawnCount 3
-			TotalCurrency 150
+			TotalCurrency 75
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 20
             Squad
@@ -6671,65 +8789,114 @@ WaveSchedule
                 }
             }
 		}
-        WaveSpawn // Dummy
+		WaveSpawn 
         {
-            WaitForAllDead "w3_subwaveone"
-        
-            DoneOutput
-            {
-                Target w3_subwaveone_complete_relay
-                Action Trigger
-            }
-        }
-        WaveSpawn 
-        {
-			Name "w3_subwaveheli"
-           // WaitForAllDead "w3_subwaveone"
+			Name "w3_subwaveone"
 			Where "spawnbot_balcony"
 			Where "spawnbot_scaffold"
-            TotalCount 10
-			MaxActive 2
+            TotalCount 3
+			MaxActive 3
+			SpawnCount 3
+			TotalCurrency 75
+			WaitBeforeStarting 25
+			WaitBetweenSpawns 0
+            Squad
+            {
+                TFBot
+                {
+			        Class Demoman
+			    	ClassIcon demoknight_giant
+			    	Name "Giant Demoknight"
+			    	Skill Expert
+			    	Health 3300
+			    	Item "Prince Tavish's Crown"
+			    	Item "The Eyelander"
+			    	Item "Ali Baba's Wee Booties"
+			    	WeaponRestrictions MeleeOnly
+			    	Attributes MiniBoss
+                    Action Mobber
+                    BehaviorModifiers Mobber
+                    Attributes IgnoreFlag
+                    Attributes DisableDodge
+                    UseMeleeThreatPrioritization 1  
+                    AddCond { Name "TF_COND_REPROGRAMMED" }
+			    	ItemAttributes
+			    	{
+			    		ItemName "The Eyelander"
+			    		"critboost on kill" 3
+			    	}
+                    CharacterAttributes
+                    {
+                        "crit mod disabled" 0
+			    		"force distribute currency on death" 1
+			    		"move speed bonus" 0.5
+			    		"damage force reduction" 0.1
+			    		"airblast vulnerability multiplier" 0.5
+			    		"override footstep sound set" 4
+                    }
+                }
+                TFBot
+                {
+                    Template T_TFBot_Medic_QuickFix
+                    Attributes IgnoreFlag
+                    Attributes DisableDodge
+                    AddCond { Name "TF_COND_REPROGRAMMED" }
+                    CharacterAttributes
+                    {
+                        "crit mod disabled" 0
+			    		"force distribute currency on death" 1
+                    }
+                }
+                TFBot
+                {
+                    Template T_TFBot_Medic_QuickFix
+                    Attributes IgnoreFlag
+                    Attributes DisableDodge
+                    AddCond { Name "TF_COND_REPROGRAMMED" }
+                    CharacterAttributes
+                    {
+                        "crit mod disabled" 0
+			    		"force distribute currency on death" 1
+                    }
+                }
+            }
+		}
+        WaveSpawn 
+        {
+			Name "heli_support"
+            WaitForAllSpawned "heli"
+			Where "spawnbot_balcony"
+			Where "spawnbot_scaffold"
+            TotalCount 20
+			MaxActive 4
 			SpawnCount 1
-			TotalCurrency 100 
+			TotalCurrency 200
 			WaitBeforeStarting 0
-			WaitBetweenSpawns 30
+			WaitBetweenSpawns 8
             Support Limited
             TFBot
             {
-			    Class Demoman
-				ClassIcon demoknight_giant
-				Name "Giant Demoknight"
-				Skill Expert
-				Health 3300
-				Item "Prince Tavish's Crown"
-				Item "The Eyelander"
-				Item "Ali Baba's Wee Booties"
-				WeaponRestrictions MeleeOnly
-				Attributes MiniBoss
-                Action Mobber
+                Template T_TFBot_Heavyweapons_Fist
+                Action Mobber  
                 BehaviorModifiers Mobber
                 Attributes IgnoreFlag
                 Attributes DisableDodge
                 UseMeleeThreatPrioritization 1  
                 AddCond { Name "TF_COND_REPROGRAMMED" }
-				ItemAttributes
-				{
-					ItemName "The Eyelander"
-					"critboost on kill" 3
-				}
                 CharacterAttributes
                 {
+					"damage force reduction" 0.4
+					"airblast vulnerability multiplier" 0.4
                     "crit mod disabled" 0
 					"force distribute currency on death" 1
-					"move speed bonus" 0.5
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.5
-					"override footstep sound set" 4
+					"voice pitch scale" 0
                 }
+                SpawnTemplate "Thunderdome_Bot"
             }
         }
         WaveSpawn 
 		{
+			Name "heli"
 			Where spawnbot_heli
 			TotalCount 1
 			MaxActive 1
@@ -6737,7 +8904,7 @@ WaveSchedule
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
 			TotalCurrency 0
-            //WaitForAllDead "w3_subwaveone"
+            WaitForAllDead "generator_one"
 
 			Tank
 			{
@@ -6762,20 +8929,15 @@ WaveSchedule
 
 				OnKilledOutput
 				{
-					Target boss_dead_relay
-					Action Trigger
-				}
-
-				OnBombDroppedOutput
-				{
-					Target boss_deploy_relay
+					Target heli_killed_relay
 					Action Trigger
 				}
 			}
 		}
 
 		WaveSpawn
-		{                                
+		{      
+			Name "heli"                          
 			Where spawnbot_heli
 			TotalCount 1
 			MaxActive 1
@@ -6810,7 +8972,8 @@ WaveSchedule
 		}
 
 		WaveSpawn
-		{                                
+		{      
+			Name "heli"                          
 			Where spawnbot_heli
 			TotalCount 1
 			MaxActive 1
@@ -6835,5 +8998,410 @@ WaveSchedule
 				}
 			}
 		}
+		WaveSpawn
+        {
+            Name ""
+            Where spawnbot_barrier_2
+            TotalCount 9999
+            MaxActive 3
+            SpawnCount 1
+            WaitBeforeStarting 10
+            WaitBetweenSpawns 5
+            Support 1
+        
+            TFBot
+            { 
+                Template T_TFBot_Scout_Melee
+				Action Mobber
+                EventChangeAttributes
+                {
+                    Default
+                    {
+						CharacterAttributes
+                    	{
+			    			"move speed bonus" 0.001
+							"no_jump" 1
+                    	}
+                    }
+					BarrierDown2
+					{
+
+					}
+                    CaptureGateTwo
+                    {
+                        InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
+			            {
+			            	Target "trigger_that_does_nothing2"
+                            //Target "-5485.430176 1419.615723 467.03131"
+			            	Delay 0.1 // Time before the first task starts (Default: 10)
+			            	Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
+			            	Cooldown 1 //Time between each task (Default: 10)
+			            	Duration 300 // How long should the ai be interrupted
+                            WaitUntilDone 1
+			            }
+                    }
+                }
+            }
+        }
+		WaveSpawn 
+        {
+			Name "w3_subwavetwo"
+			Where "spawnbot_balcony_drain"
+            TotalCount 5
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 125
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 20
+			TFBot
+			{
+                Template T_TFBot_Giant_Heavyweapons_Shotgun
+                ClassIcon heavy_shotgun_red
+                ItemAttributes
+                {
+                    ItemName "TF_WEAPON_SHOTGUN_HWG"
+                    "bullets per shot bonus" 5
+                }
+                Action Mobber  
+                BehaviorModifiers Mobber
+                Attributes IgnoreFlag
+                Attributes DisableDodge
+                UseMeleeThreatPrioritization 1  
+                AddCond {Name "TF_COND_REPROGRAMMED" }
+                CharacterAttributes
+                {
+					"damage force reduction" 0.1
+					"airblast vulnerability multiplier" 0.1
+                    "crit mod disabled" 0
+					"force distribute currency on death" 1
+                }
+            }
+		}
+		WaveSpawn 
+        {
+			Name "w3_subwavetwo"
+			Where "spawnbot_whatever"
+            TotalCount 5
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 125
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 20
+			TFBot
+			{
+                Template T_TFBot_Giant_Heavyweapons_Shotgun
+                ClassIcon heavy_shotgun_red
+                ItemAttributes
+                {
+                    ItemName "TF_WEAPON_SHOTGUN_HWG"
+                    "bullets per shot bonus" 5
+                }
+                Action Mobber  
+                BehaviorModifiers Mobber
+                Attributes IgnoreFlag
+                Attributes DisableDodge
+                UseMeleeThreatPrioritization 1  
+                AddCond {Name "TF_COND_REPROGRAMMED" }
+                CharacterAttributes
+                {
+					"damage force reduction" 0.1
+					"airblast vulnerability multiplier" 0.1
+                    "crit mod disabled" 0
+					"force distribute currency on death" 1
+                }
+            }
+		}
+		WaveSpawn 
+        {
+			Name "w3_subwavetwo_boss"
+			Where "spawnbot_whatever2"
+            TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 100
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TFBot
+			{
+                Template T_TFBot_Chief_Soldier_Alternating
+                Action Mobber  
+                BehaviorModifiers Mobber
+                Attributes IgnoreFlag
+                Attributes DisableDodge
+                UseMeleeThreatPrioritization 1  
+                AddCond {Name "TF_COND_REPROGRAMMED" }
+                CharacterAttributes
+                {
+					"damage force reduction" 0.1
+					"airblast vulnerability multiplier" 0.1
+                    "crit mod disabled" 0
+					"force distribute currency on death" 1
+                }
+            }
+		}
+		WaveSpawn 
+        {
+			Name "w3_subwavetwo_support"
+			Where "spawnbot_balcony_drain"
+			Where "spawnbot_whatever"
+            TotalCount 100
+			MaxActive 8
+			SpawnCount 2
+			TotalCurrency 100
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 3
+			Support Limited
+			TFBot
+			{
+                Class Pyro
+				Name "Dragon's Fury Pyro"
+				ClassIcon pyro_dragon_fury_swordstone
+				Skill Hard
+				Item "The Dragon's Fury"
+				WeaponRestrictions PrimaryOnly
+				MaxVisionRange 1000
+				ItemAttributes
+				{
+					ItemName "The Dragon's Fury"
+					"airblast disabled" 1
+				}
+                Action Mobber  
+                BehaviorModifiers Mobber
+                Attributes IgnoreFlag
+                Attributes DisableDodge
+                UseMeleeThreatPrioritization 1  
+                AddCond {Name "TF_COND_REPROGRAMMED" }
+                CharacterAttributes
+                {
+					"damage force reduction" 0.1
+					"airblast vulnerability multiplier" 0.1
+                    "crit mod disabled" 0
+					"force distribute currency on death" 1
+                }
+            }
+		}
+		WaveSpawn 
+        {
+			Name "areaone_done"
+			Where "spawnbot_balcony_drain"
+			Where "spawnbot_whatever"
+            TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 0
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 3
+			Support Limited
+			TFBot
+			{
+                Class Pyro
+				Name "Dragon's Fury Pyro"
+				ClassIcon pyro_dragon_fury_swordstone
+				Skill Hard
+				Item "The Dragon's Fury"
+				WeaponRestrictions PrimaryOnly
+				MaxVisionRange 1000
+				ItemAttributes
+				{
+					ItemName "The Dragon's Fury"
+					"airblast disabled" 1
+				}
+                Action Mobber  
+                BehaviorModifiers Mobber
+                Attributes IgnoreFlag
+                Attributes DisableDodge
+                UseMeleeThreatPrioritization 1  
+                AddCond {Name "TF_COND_REPROGRAMMED" }
+                CharacterAttributes
+                {
+                    "crit mod disabled" 0
+					"force distribute currency on death" 1
+                }
+            }
+		}
+		WaveSpawn 
+        {
+			Name "areatwo_done"
+			Where "spawnbot_hatch"
+			Where "spawnbot_garage"
+            TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 0
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 3
+			Support Limited
+			TFBot
+			{
+                Class Pyro
+				Name "Dragon's Fury Pyro"
+				ClassIcon pyro_dragon_fury_swordstone
+				Skill Hard
+				Item "The Dragon's Fury"
+				WeaponRestrictions PrimaryOnly
+				MaxVisionRange 1000
+				ItemAttributes
+				{
+					ItemName "The Dragon's Fury"
+					"airblast disabled" 1
+				}
+                Action Mobber  
+                BehaviorModifiers Mobber
+                Attributes IgnoreFlag
+                Attributes DisableDodge
+                UseMeleeThreatPrioritization 1
+                AddCond {Name "TF_COND_REPROGRAMMED" }
+                CharacterAttributes
+                {
+                    "crit mod disabled" 0
+					"force distribute currency on death" 1
+                }
+            }
+		}
+		WaveSpawn
+        {
+			Name "w3_subwavethree"
+			Where "spawnbot_hatch"
+			Where "spawnbot_garage"
+            TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 0
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 3
+			Support Limited
+			TFBot
+			{
+                Template T_TFBot_Giant_Pyro_ComboFlare
+                Action Mobber
+                BehaviorModifiers Mobber
+                Attributes IgnoreFlag
+                Attributes DisableDodge
+                UseMeleeThreatPrioritization 1  
+                AddCond {Name "TF_COND_REPROGRAMMED" }
+                CharacterAttributes
+                {
+					"damage force reduction" 0.1
+					"airblast vulnerability multiplier" 0.1
+                    "crit mod disabled" 0
+					"force distribute currency on death" 1
+                }
+            }
+		}
+		WaveSpawn 
+        {
+			Name "w3_subwavetwo_boss"
+			Where "spawnbot_hatchshield"
+            TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 100
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TFBot
+			{
+                Template T_TFBot_Ranger_Doctor_Doppler
+                Action Mobber  
+                BehaviorModifiers Mobber
+                Attributes IgnoreFlag
+                Attributes DisableDodge
+                UseMeleeThreatPrioritization 1  
+                AddCond {Name "TF_COND_REPROGRAMMED" }
+                CharacterAttributes
+                {
+					"damage force reduction" 0.1
+					"airblast vulnerability multiplier" 0.1
+                    "crit mod disabled" 0
+					"force distribute currency on death" 1
+                }
+            }
+		}
+	}
+	Wave //Wave #5
+    {
+    	SpawnTemplate "wave5_logic"
+		SpawnTemplate "PlayerResInput"
+		PlayerAttributes  
+    	{
+    	    "min respawn time" 9999
+    	}
+		InitWaveOutput
+		{
+			Target wave5_init_relay
+			Action Trigger
+		}
+        StartWaveOutput
+		{
+			Target wave_start_boss_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		WaveSpawn
+		{
+            FirstSpawnOutput
+			{
+                Target playerResInWave //REQUIRED | Used to tell self res logic that wave is active/ turn it off again at the end of a wave
+                Action ToggleTest
+            }
+        }
+		WaveSpawn
+		{
+			WaitForAllDead "shapeshift"
+            FirstSpawnOutput
+			{
+                Target playerResInWave //REQUIRED | Used to tell self res logic that wave is active/ turn it off again at the end of a wave
+                Action ToggleTest
+            }
+        }
+        WaveSpawn
+		{
+            FirstSpawnOutput
+			{
+                Target playerResVal3 //set res count to one of 3 set
+                Action GetValue
+            }
+        }
+        WaveSpawn
+		{
+            FirstSpawnOutput
+			{
+                Target boss_resupply
+                Action Disable
+            }
+        }
+        WaveSpawn
+		{                          
+            Name "ranger"
+
+
+			Where spawnbot_boss
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 150
+
+			DoneOutput
+			{
+				Target "bots_win"
+				Action "RoundWin"
+			}
+
+            TFBot
+            {
+                Template T_TFBot_Ranger_Rockethell
+				Action Mobber
+                BehaviorModifiers Mobber
+                Attributes IgnoreFlag
+                Attributes DisableDodge
+                UseMeleeThreatPrioritization 1  
+                AddCond {Name "TF_COND_REPROGRAMMED" }
+            }
+        }
 	}
 }

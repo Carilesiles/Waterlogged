@@ -11,6 +11,8 @@ WaveSchedule
 	FixedRespawnWaveTimeBlue 		1
 	AddSentryBusterWhenDamageDealtExceeds 0
 
+    CustomUpgradesFile mvm_upgrades_tomboy_reverse_test2.txt //remember to rename this on release :)
+
 	//Reverse KVs
 	ReverseWinConditions 1
 	AllowJoinTeamBlueMax 6
@@ -6063,7 +6065,7 @@ WaveSchedule
             OnSpawnOutput
             {
                 Target "!activator"
-                Action "$SetVar$lastUpdatedClass"
+                Action "$SetVar$lastUpdatedClass"s
                 Param "69"
                 Delay 0
             }
@@ -6565,12 +6567,21 @@ WaveSchedule
                 "OnTrigger" "!self,Trigger,,0.1,-1"
             }
         }
-        Natascha_Spawn
+
+        Rage_Replacement
         {
             OnSpawnOutput 
             {
                 Target "filter_rage_activated"
                 Action "FireUser1"
+                Delay 0
+            }
+
+            OnSpawnOutput 
+            {
+                Target "!activator"
+                Action "$AddItemAttribute"
+                Param "increase buff duration HIDDEN|50|1"
                 Delay 0
             }
 
@@ -6586,6 +6597,25 @@ WaveSchedule
                 Target "!activator"
                 Action "$ResetClientProp$m_flRageMeter"
                 Delay 0.1
+            }
+
+            dispenser_touch_trigger
+            {
+                "targetname" "heavy_dispenser_trigger"
+                "mins" "-400 -400 -400"
+                "maxs" "400 400 400"
+                "spawnflags" "1"
+
+                "StartDisabled" "1"
+            }
+            
+            mapobj_cart_dispenser
+            {
+                "targetname" "cart_dispenser"
+                "origin" "-40 -10 100"
+                "spawnflags" "10"
+                "TeamNum" "3"
+                "touch_trigger" "heavy_dispenser_trigger"
             }
 
             //check when rage was activated by player
@@ -6612,7 +6642,8 @@ WaveSchedule
                 "OnTrigger" "!activator,$SetClientProp$m_bRageDraining,1,0,-1"
                 "OnTrigger" "!activator,$SetProp$m_bRageDraining,0,0,-1"
 
-                "OnTrigger" "!activator,$AddCond,11,0,-1"
+                //effect
+                "OnTrigger" "heavy_dispenser_trigger,Enable,,0,-1"
 
                 "OnTrigger" "rage_meter,SetValueNoFire,$$=!activator.m_flRageMeter,0,-1"
                 "OnTrigger" "rage_meter_drain,FireUser1,,0.01,-1"
@@ -6636,7 +6667,8 @@ WaveSchedule
 
 				"OnHitMin" "rage_meter_drain,$CancelPending,,0,0"
 
-                "OnHitMin" "!activator,$RemoveCond,11,0,-1"
+                "OnHitMin" "heavy_dispenser_trigger,Disable,,0,-1"
+                
 				"OnHitMin" "!activator,$SetClientProp$m_bRageDraining,0,0,-1"
 				"OnHitMin" "!activator,$ResetClientProp$m_flRageMeter,,0.03,-1"
 				"OnHitMin" "!activator,$SetProp$m_flRageMeter,0,0,-1"
@@ -6734,7 +6766,7 @@ WaveSchedule
             {
                 "targetname" "apply_buster_attributes" 
                 "OnTrigger" "!activator,AddOutput,modelscale 1.75,0.11,-1"
-                "OnTrigger" "!activator,SetCustomModel,models/bots/demo/red_sentry_buster.mdl,0.11,-1"
+                "OnTrigger" "!activator,SetCustomModel,models/bots/demo/bot_sentry_buster.mdl,0.11,-1"
                 "OnTrigger" "!activator,SetForcedTauntCam,1,0.11,-1"
                 "OnTrigger" "!activator,$AddItemAttribute,max health additive bonus|625|2,0.11,-1"
                 "OnTrigger" "!activator,sethealth,800,0.3,-1"
@@ -7482,19 +7514,37 @@ WaveSchedule
 	{
 		Name CustomCanteens
         ClassName "tf_powerup_bottle"
-		Origin "0 0 0" 
 	}
 
     PlayerSpawnOnceTemplate
 	{
 		Name CustomCanteensSetup
-		Origin "0 0 0"
 	}
-
-	//todo: handle wave restore 
 
 	ExtendedUpgrades
 	{
+        newRage 
+        {
+            Name "Dispensing Rage"
+            Cap 1
+			Increment 1 
+			Cost 200
+
+            Description "Deal damage to charge up your Dispense-O-Meter. When fully charged, press the Special-Attack key to activate your dispenser"
+
+            Attribute "generate rage on damage" 
+
+            AllowedWeapons
+            {
+                Classname "TF_WEAPON_MINIGUN"
+            }
+
+            SecondaryAttributes 
+			{
+				"special item description" "Deal damage to charge up your Dispense-O-Meter. When fully charged, press the Special-Attack key to activate your dispenser"
+			}
+        }
+
 		//canteens
 		speed_can
 		{
@@ -7538,14 +7588,6 @@ WaveSchedule
             {
                 Output "canteen_count_update,$FireUser5,"
                 Output "on_canteen_empty,Trigger,,0"
-            }
-
-            OnRestore 
-            {
-                Output "canteen_count_update,$FireUser5,"
-                Output "!activator,$AddItemAttribute,special item description|Consumable: Gain a speed boost for 5 seconds|9,0"
-
-                Output "!activator,$SetVar$canteenIndex,1,0"
             }
 		}
 
@@ -7594,14 +7636,6 @@ WaveSchedule
                 Output "canteen_count_update,$FireUser5,"
                 Output "on_canteen_empty,Trigger,,0"
             }
-
-            OnRestore 
-            {
-                Output "canteen_count_update,$FireUser5,"
-                Output "!activator,$AddItemAttribute,special item description|Consumable: Reprogram non-giant enemies in a radius|9,0"
-
-                Output "!activator,$SetVar$canteenIndex,2,0"
-            }
 		}
 
         ber_can
@@ -7649,14 +7683,6 @@ WaveSchedule
                 Output "canteen_count_update,$FireUser5,"
                 Output "on_canteen_empty,Trigger,,0"
             }
-
-            OnRestore
-            {
-                Output "canteen_count_update,$FireUser5,"
-                Output "!activator,$AddItemAttribute,special item description|Consumable: Lock to melee but increase melee power|9,0"
-
-                Output "!activator,$SetVar$canteenIndex,3,0"
-            }
 		}
 
         add_can
@@ -7703,14 +7729,6 @@ WaveSchedule
             {
                 Output "canteen_count_update,$FireUser5,"
                 Output "on_canteen_empty,Trigger,,0"
-            }
-
-            OnRestore
-            {
-                Output "canteen_count_update,$FireUser5,"
-                Output "!activator,$AddItemAttribute,special item description|Consumable: Gain various buffs for 5 seconds and become fatigue briefly after duration|9,0"
-
-                Output "!activator,$SetVar$canteenIndex,4,0"
             }
 		}
 
@@ -7760,14 +7778,6 @@ WaveSchedule
                 Output "canteen_count_update,$FireUser5,"
                 Output "on_canteen_empty,Trigger,,0"
             }
-
-            OnRestore
-            {
-                Output "canteen_count_update,$FireUser5,"
-                Output "!activator,$AddItemAttribute,special item description|Consumable: Cloak for up to 15 seconds|9,0"
-
-                Output "!activator,$SetVar$canteenIndex,5,0"
-            }
 		}
 
         piss_can
@@ -7816,14 +7826,6 @@ WaveSchedule
                 Output "canteen_count_update,$FireUser5,"
                 Output "on_canteen_empty,Trigger,,0"
             }
-
-            OnRestore
-            {
-                Output "canteen_count_update,$FireUser5,"
-                Output "!activator,$AddItemAttribute,special item description|Consumable: Apply Jarate to enemies within a large radius|9,0"
-
-                Output "!activator,$SetVar$canteenIndex,6,0"
-            }
 		}
 
         knock_can
@@ -7871,14 +7873,6 @@ WaveSchedule
             {
                 Output "canteen_count_update,$FireUser5,"
                 Output "on_canteen_empty,Trigger,,0"
-            }
-
-            OnRestore
-            {
-                Output "canteen_count_update,$FireUser5,"
-                Output "!activator,$AddItemAttribute,special item description|Consumable: Knockback resistance for 5 seconds|9,0"
-
-                Output "!activator,$SetVar$canteenIndex,69,0"
             }
 		}
 	}
@@ -8024,20 +8018,11 @@ WaveSchedule
         "special item description" "Becomes a Sentry Buster. Taunt to detonate (revert back to a regular Demoman on detonation)"
     }
 
-    PlayerItemEquipSpawnTemplate 
-	{
-		Name Natascha_Spawn
-		ItemName "Natascha"
-	}
-
-    ItemAttributes 
-	{
-		ItemName "Natascha"
-		"increase buff duration HIDDEN" 50
-        //"generate rage on damage" 3
-
-        "special item description" "Replaces 'Knockback Rage' with Power Rage. grant crit while active (PLACEHOLDER EFFECT)"
-	}
+    PlayerSpawnTemplate 
+    {
+        Name Rage_Replacement
+        Class Heavyweapons 
+    }
 
     ItemAttributes 
 	{

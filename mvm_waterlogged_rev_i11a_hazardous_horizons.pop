@@ -807,7 +807,7 @@ WaveSchedule
 		{
 			SpawnTemplate Yakuza_Title_Card_HunterChopper
 
-			Name "tomboyfan52"
+			Name "jerma985 (ignore him)"
 			Class Scout
 
 			Action Mobber
@@ -820,6 +820,11 @@ WaveSchedule
 			AddCond 
 			{
 				Index 52 
+			}
+
+			AddCond 
+			{
+				Index 64 //not targeted by blue bot  
 			}
 
 			CustomWeaponModel
@@ -4783,7 +4788,7 @@ WaveSchedule
 			{
 				Target "spellcard"
 				Action "Trigger"
-				Delay 1//6.9
+				Delay 6.9
 			}
 
             game_text
@@ -4792,7 +4797,7 @@ WaveSchedule
 				"targetname" "spellcard_text"
 				"message" "N/A"
 				"x" "-1"
-				"y" "0.12"
+				"y" "0.33"
 				"spawnflags" "1"
 				"effect" "2"
 				"channel" "2"
@@ -7675,7 +7680,7 @@ WaveSchedule
             OriginalItemName "Upgradeable TF_WEAPON_MINIGUN" 
 
             "hidden primary max ammo bonus" 0.0001
-            "cannot upgrade" 1
+            "cannot be upgraded" 1
             "special item description" "Create 2 small projectile shields that orbit around you and damage enemies"
             "special item description 2" "Increased damage for secondary and melee"
             "special item description 3" "No primary weapon"
@@ -11377,7 +11382,7 @@ WaveSchedule
 
             TFBot
             {
-                SpawnTemplate Yakuza_Title_Card_Corporal
+                //SpawnTemplate Yakuza_Title_Card_Corporal
                 Template T_TFBot_Chief_Canteen
             }
         }
@@ -11393,7 +11398,7 @@ WaveSchedule
 
             TFBot
             {
-                SpawnTemplate Yakuza_Title_Card_Corporal
+                //SpawnTemplate Yakuza_Title_Card_Corporal
                 Template T_TFBot_Chief_Canteen
             }
         }

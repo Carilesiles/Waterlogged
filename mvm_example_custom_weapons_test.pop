@@ -593,7 +593,7 @@ tomboy
             OriginalItemName "Upgradeable TF_WEAPON_MINIGUN" 
 
             "hidden primary max ammo bonus" 0.0001
-            "cannot upgrade" 1
+            "cannot be upgraded" 1
             "special item description" "Create 2 small projectile shields that orbit around you and damage enemies"
             "special item description 2" "Increased damage for secondary and melee"
             "special item description 3" "No primary weapon"

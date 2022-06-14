@@ -823,7 +823,6 @@ WaveSchedule
 			{
 				Index 52 
 			}
-
 			AddCond 
 			{
 				Index 64 //not targeted by blue bot  
@@ -1720,7 +1719,110 @@ WaveSchedule
 		}
 		general_logic
 		{
+			//trigger_add_tf_player_condition
+			//{
+			//	"targetname" "lastcrits"
+			//	"condition" "40"
+			//	"duration" "2"
+			//	"filtername" "filter_redplayer"
+			//	"startdisabled" "1"
+			//	"origin" "768 768 576"
+			//	"mins" "-3328 -3328 -704"
+			//	"maxs" "3328 3328 704"
+			//	"spawnflags" "1"
+			//}
+			//logic_timer
+			//{
+			//	"targetname" "lastcritsrefire"
+			//	"refiretime" "1"
+			//	"startdisabled" "1"
+			//	"ontimer" "lastcrits,enable,,0,-1"
+			//	"ontimer" "lastcrits,disable,,0.5,-1"
+			//}
 			NoFixup 1
+			trigger_multiple
+			{
+				"targetname" "speedboost_spawn"
+				"mins" "-1024 -640 -424"
+				"maxs" "1024 640 424"
+				"origin" "-9984 512 616"
+				//"condition" "32"
+				//"duration" "1"
+				"filtername" "filter_blueteam"
+				"spawnflags" "1"
+				"OnStartTouch" "!activator,$AddCond,32"
+				"OnEndTouch" "!activator,$RemoveCond,32,,4"
+				"StartDisabled" "1"
+			}
+			trigger_multiple
+			{
+				"targetname" "speedboost_gate1"
+				"mins" "-464 -288 -160"
+				"maxs" "464 288 160"
+				"origin" "-5424 1888 616"
+				"condition" "32"
+				"duration" "2"
+				"filtername" "filter_blueteam"
+				"spawnflags" "1"
+				"OnStartTouch" "!activator,$AddCond,32"
+				"OnEndTouch" "!activator,$RemoveCond,32,,4"
+				"StartDisabled" "1"
+			}
+			trigger_multiple
+			{
+				"targetname" "speedboost_gate1"
+				"mins" "-244 -592 -160"
+				"maxs" "244 592 160"
+				"origin" "-6132 2448 616"
+				//"condition" "32"
+				//"duration" "2"
+				"filtername" "filter_blueteam"
+				"spawnflags" "1"
+				"OnStartTouch" "!activator,$AddCond,32"
+				"OnEndTouch" "!activator,$RemoveCond,32,,4"
+				"StartDisabled" "1"
+			}
+	
+			trigger_multiple
+			{
+				"targetname" "speedboost_gate2"
+				"mins" "-1164 -176 -142"
+				"maxs" "1164 176 142"
+				"origin" "-3788 -2544 1262"
+				//"condition" "32"
+				//"duration" "2"
+				"filtername" "filter_blueteam"
+				"spawnflags" "1"
+				"OnStartTouch" "!activator,$AddCond,32"
+				"OnEndTouch" "!activator,$RemoveCond,32,,4"
+				"StartDisabled" "1"
+			}
+			trigger_multiple
+			{
+				"targetname" "speedboost_gate2"
+				"mins" "-532 -216 -142"
+				"maxs" "532 216 142"
+				"origin" "-4420 -2152 1262"
+				//"condition" "32"
+				//"duration" "2"
+				"filtername" "filter_blueteam"
+				"spawnflags" "1"
+				"OnStartTouch" "!activator,$AddCond,32"
+				"OnEndTouch" "!activator,$RemoveCond,32,,4"
+				"StartDisabled" "1"
+			}
+			logic_relay
+			{
+				"targetname" "standard_spawn_setup_relay"
+				"OnTrigger" "spawnbot_factory*,Enable"
+				"OnTrigger" "spawnbot_scaffold,Disable"
+                "OnTrigger" "spawnbot_balcony,Disable"
+                "OnTrigger" "spawnbot_balcony_extra,Disable"
+                "OnTrigger" "spawnbot_balcony_drain,Disable"
+                "OnTrigger" "spawnbot_balcony_drain_extra,Disable"
+                "OnTrigger" "spawnbot_garage,Disable"
+                "OnTrigger" "spawnbot_hatch,Disable"
+			}
 			logic_relay
 			{
 				"targetname" "wave1_init_relay"
@@ -1729,13 +1831,7 @@ WaveSchedule
 				"OnTrigger" "intel,ShowTimer,80"
 				"OnTrigger" "intel,SetReturnTime,80"
 				"OnTrigger" "barrier_gate2_relay_disable,AddOutput,OnTrigger barrier_gate2_right*:Disable::0:-1"
-				"OnTrigger" "spawnbot_scaffold,Disable"
-                "OnTrigger" "spawnbot_balcony,Disable"
-                "OnTrigger" "spawnbot_balcony_extra,Disable"
-                "OnTrigger" "spawnbot_balcony_drain,Disable"
-                "OnTrigger" "spawnbot_balcony_drain_extra,Disable"
-                "OnTrigger" "spawnbot_garage,Disable"
-                "OnTrigger" "spawnbot_hatch,Disable"
+				"OnTrigger" "standard_spawn_setup_relay,Trigger"
                 "OnTrigger" "barrier_factory_relay_enable,Trigger"
                 "OnTrigger" "barrier_gate1_relay_enable,Trigger"
                 "OnTrigger" "barrier_gate2_relay_enable,Trigger"
@@ -1822,7 +1918,7 @@ WaveSchedule
                 "OnTrigger" "blu_init_teleport,Enable"
                 "OnTrigger" "blu_init_teleport,Disable,,0.1"
 				//"OnTrigger" "barrier_gate2_relay_disable,AddOutput,OnTrigger barrier_gate2_right*:Disable::0:-1"
-				"OnTrigger" "spawnbot_factory,Enable"
+				"OnTrigger" "spawnbot_factory*,Enable"
 				"OnTrigger" "spawnbot_scaffold,Enable"
                 "OnTrigger" "spawnbot_balcony,Enable"
                 "OnTrigger" "spawnbot_balcony_extra,Disable"
@@ -1869,21 +1965,19 @@ WaveSchedule
                 "OnTrigger" "spawnbot_hatch,Disable"
 				"OnTrigger" "spawnbot_extra,Disable"
                 //"OnTrigger" "barrier_factory_relay_enable,Trigger"
-                "OnTrigger" "barrier_gate1_relay_enable,Trigger"
                 "OnTrigger" "barrier_gate2_relay_enable,Trigger"
-                "OnTrigger" "barrier_building_1,Disable"
-                "OnTrigger" "barrier_building_2,Disable"
-                //"OnTrigger" "barrier_hatch_relay_enable,Trigger"
+                "OnTrigger" "barrier_hatch_relay_enable,Trigger"
                 "OnTrigger" "barrier_gate1_relay_disable,Enable"
+                "OnTrigger" "barrier_gate1_relay_enable,Trigger"
                 "OnTrigger" "gate1_door_trigger,Disable"
                 "OnTrigger" "gate2_door_trigger,Disable"
                 "OnTrigger" "capturezone_blue,Disable"
-				"OnTrigger" "hatchshield,Enable"
-				"OnTrigger" "hatchshield_collision,Enable"
-				"OnTrigger" "hatchshield_collision_stuckfix,Enable"
+				"OnTrigger" "hatchshield,Disable"
+				"OnTrigger" "hatchshield_collision,Disable"
+				"OnTrigger" "hatchshield_collision_stuckfix,Disable"
 
-				"OnTrigger" "gate1_relay,AddOutput,OnTrigger wave3_gate1_relay:Trigger::0:-1"
-				"OnTrigger" "gate2_relay,AddOutput,OnTrigger wave3_gate2_relay:Trigger::0:-1"
+				"OnTrigger" "gate1_relay,AddOutput,OnTrigger wave4_gate1_relay:Trigger::0:-1"
+				"OnTrigger" "gate2_relay,AddOutput,OnTrigger wave4_gate2_relay:Trigger::0:-1"
                 "OnTrigger" "reset_wave_relay,AddOutput,OnTrigger gate1_alarm_door_reset_relay:Enable::0:-1"
                 "OnTrigger" "reset_wave_relay,AddOutput,OnTrigger gate2_alarm_door_reset_relay:Enable::0:-1"
 			}
@@ -2495,7 +2589,8 @@ WaveSchedule
 			{
 				"targetname" "spawn_particle_1"
 				"origin" "-2808 5895 -242"
-				"effect_name" "teleporter_mvm_bot_persist_red"
+				"effect_name" "teleporter_mvm_bot_persist"
+				//"effect_name" "teleporter_mvm_bot_persist_red"
 				"flag_as_weather" "0"
 				"start_active" "0"
 			}
@@ -2513,7 +2608,8 @@ WaveSchedule
 			{
 				"targetname" "spawn_particle_2"
 				"origin" "667 4136 -242"
-				"effect_name" "teleporter_mvm_bot_persist_red"
+				"effect_name" "teleporter_mvm_bot_persist"
+				//"effect_name" "teleporter_mvm_bot_persist_red"
 				"flag_as_weather" "0"
 				"start_active" "0"
 			}
@@ -2531,7 +2627,8 @@ WaveSchedule
 			{
 				"targetname" "spawn_particle_3"
 				"origin" "-2828 4120 -230"
-				"effect_name" "teleporter_mvm_bot_persist_red"
+				"effect_name" "teleporter_mvm_bot_persist"
+				//"effect_name" "teleporter_mvm_bot_persist_red"
 				"flag_as_weather" "0"
 				"start_active" "0"
 			}
@@ -3261,6 +3358,27 @@ WaveSchedule
 				"maxs" "688 640 46"
 				"origin" "-784 1888 -402"
 			}
+			logic_relay
+			{
+				"targetname" "chief_killed_relay"
+				"OnTrigger" "spawnbot_whatever,Enable"
+				"OnTrigger" "spawnbot_balcony_drain,Enable"
+                "OnTrigger" "barrier_gate1_relay_disable,Trigger"
+			}
+			logic_relay
+			{
+				"targetname" "chief2_killed_relay"
+				"OnTrigger" "spawnbot_hatchshield,Enable"
+				"OnTrigger" "spawnbot_hatch,Enable"
+				"OnTrigger" "spawnbot_garage,Enable"
+                "OnTrigger" "barrier_gate2_relay_disable,Trigger"
+			}
+            logic_relay
+            {
+                "targetname" "go_win_relay"
+                "OnTrigger" "brush_portal_hatchwindow,$SetCollisionFilter,filter_redteam"
+                "OnTrigger" "brush_hatch_window,$SetCollisionFilter,filter_redteam"
+            }
         }
 		wave5_logic
         {
@@ -6065,7 +6183,7 @@ WaveSchedule
             OnSpawnOutput
             {
                 Target "!activator"
-                Action "$SetVar$lastUpdatedClass"s
+                Action "$SetVar$lastUpdatedClass"
                 Param "69"
                 Delay 0
             }
@@ -6567,7 +6685,6 @@ WaveSchedule
                 "OnTrigger" "!self,Trigger,,0.1,-1"
             }
         }
-
         Rage_Replacement
         {
             OnSpawnOutput 
@@ -6576,7 +6693,7 @@ WaveSchedule
                 Action "FireUser1"
                 Delay 0
             }
-
+            
             OnSpawnOutput 
             {
                 Target "!activator"
@@ -6642,6 +6759,7 @@ WaveSchedule
                 "OnTrigger" "!activator,$SetClientProp$m_bRageDraining,1,0,-1"
                 "OnTrigger" "!activator,$SetProp$m_bRageDraining,0,0,-1"
 
+                "OnTrigger" "!activator,$AddCond,11,0,-1"
                 //effect
                 "OnTrigger" "heavy_dispenser_trigger,Enable,,0,-1"
 
@@ -6668,7 +6786,6 @@ WaveSchedule
 				"OnHitMin" "rage_meter_drain,$CancelPending,,0,0"
 
                 "OnHitMin" "heavy_dispenser_trigger,Disable,,0,-1"
-                
 				"OnHitMin" "!activator,$SetClientProp$m_bRageDraining,0,0,-1"
 				"OnHitMin" "!activator,$ResetClientProp$m_flRageMeter,,0.03,-1"
 				"OnHitMin" "!activator,$SetProp$m_flRageMeter,0,0,-1"
@@ -6682,8 +6799,7 @@ WaveSchedule
 				"OnUser1" "!self,GetValue,,0.01,-1"
 			}
         }
-
-        Caber_Buster
+         Caber_Buster
         {
             OnSpawnOutput
             {
@@ -6824,7 +6940,7 @@ WaveSchedule
                 "OnPass" "!activator,$AddPlayerAttribute,move speed penalty|0.001,0,-1" //prevent loserboys from using a cancelable taunt and escape the animation
                 "OnPass" "filter_still_demoman,TestActivator,,2,-1"
             }	
-        
+
             filter_activator_tfteam 
             {
                 "targetname" "filter_is_blu"
@@ -7514,15 +7630,19 @@ WaveSchedule
 	{
 		Name CustomCanteens
         ClassName "tf_powerup_bottle"
+		Origin "0 0 0" 
 	}
 
     PlayerSpawnOnceTemplate
 	{
 		Name CustomCanteensSetup
+		Origin "0 0 0"
 	}
 
+	//todo: handle wave restore 
+
 	ExtendedUpgrades
-	{
+	{ 
         newRage 
         {
             Name "Dispensing Rage"
@@ -7544,7 +7664,6 @@ WaveSchedule
 				"special item description" "Deal damage to charge up your Dispense-O-Meter. When fully charged, press the Special-Attack key to activate your dispenser"
 			}
         }
-
 		//canteens
 		speed_can
 		{
@@ -7588,6 +7707,14 @@ WaveSchedule
             {
                 Output "canteen_count_update,$FireUser5,"
                 Output "on_canteen_empty,Trigger,,0"
+            }
+
+            OnRestore 
+            {
+                Output "canteen_count_update,$FireUser5,"
+                Output "!activator,$AddItemAttribute,special item description|Consumable: Gain a speed boost for 5 seconds|9,0"
+
+                Output "!activator,$SetVar$canteenIndex,1,0"
             }
 		}
 
@@ -7636,6 +7763,14 @@ WaveSchedule
                 Output "canteen_count_update,$FireUser5,"
                 Output "on_canteen_empty,Trigger,,0"
             }
+
+            OnRestore 
+            {
+                Output "canteen_count_update,$FireUser5,"
+                Output "!activator,$AddItemAttribute,special item description|Consumable: Reprogram non-giant enemies in a radius|9,0"
+
+                Output "!activator,$SetVar$canteenIndex,2,0"
+            }
 		}
 
         ber_can
@@ -7683,6 +7818,14 @@ WaveSchedule
                 Output "canteen_count_update,$FireUser5,"
                 Output "on_canteen_empty,Trigger,,0"
             }
+
+            OnRestore
+            {
+                Output "canteen_count_update,$FireUser5,"
+                Output "!activator,$AddItemAttribute,special item description|Consumable: Lock to melee but increase melee power|9,0"
+
+                Output "!activator,$SetVar$canteenIndex,3,0"
+            }
 		}
 
         add_can
@@ -7729,6 +7872,14 @@ WaveSchedule
             {
                 Output "canteen_count_update,$FireUser5,"
                 Output "on_canteen_empty,Trigger,,0"
+            }
+
+            OnRestore
+            {
+                Output "canteen_count_update,$FireUser5,"
+                Output "!activator,$AddItemAttribute,special item description|Consumable: Gain various buffs for 5 seconds and become fatigue briefly after duration|9,0"
+
+                Output "!activator,$SetVar$canteenIndex,4,0"
             }
 		}
 
@@ -7778,6 +7929,14 @@ WaveSchedule
                 Output "canteen_count_update,$FireUser5,"
                 Output "on_canteen_empty,Trigger,,0"
             }
+
+            OnRestore
+            {
+                Output "canteen_count_update,$FireUser5,"
+                Output "!activator,$AddItemAttribute,special item description|Consumable: Cloak for up to 15 seconds|9,0"
+
+                Output "!activator,$SetVar$canteenIndex,5,0"
+            }
 		}
 
         piss_can
@@ -7826,6 +7985,14 @@ WaveSchedule
                 Output "canteen_count_update,$FireUser5,"
                 Output "on_canteen_empty,Trigger,,0"
             }
+
+            OnRestore
+            {
+                Output "canteen_count_update,$FireUser5,"
+                Output "!activator,$AddItemAttribute,special item description|Consumable: Apply Jarate to enemies within a large radius|9,0"
+
+                Output "!activator,$SetVar$canteenIndex,6,0"
+            }
 		}
 
         knock_can
@@ -7873,6 +8040,14 @@ WaveSchedule
             {
                 Output "canteen_count_update,$FireUser5,"
                 Output "on_canteen_empty,Trigger,,0"
+            }
+
+            OnRestore
+            {
+                Output "canteen_count_update,$FireUser5,"
+                Output "!activator,$AddItemAttribute,special item description|Consumable: Knockback resistance for 5 seconds|9,0"
+
+                Output "!activator,$SetVar$canteenIndex,69,0"
             }
 		}
 	}
@@ -8005,7 +8180,7 @@ WaveSchedule
         "special item description" "On Hit: Instantly reload one rocket"
 	}
 
-    PlayerItemEquipSpawnTemplate
+    PlayerItemEquipSpawnTemplate 
 	{
 		Name "Caber_Buster"
 		ItemName "The Ullapool Caber" 
@@ -8955,8 +9130,8 @@ WaveSchedule
         {
 			Name "w1_gatetwo_de"
 			Where "spawnbot_balcony_drain"
-            TotalCount 4
-			MaxActive 4
+            TotalCount 3
+			MaxActive 3
 			SpawnCount 1
             Support limited
 			TotalCurrency 60
@@ -8990,7 +9165,7 @@ WaveSchedule
 			SpawnCount 1
             Support limited
 			TotalCurrency 40
-			WaitBeforeStarting 7
+			WaitBeforeStarting 12
 			WaitBetweenSpawns 2.5
             RandomChoice
             {
@@ -9020,8 +9195,8 @@ WaveSchedule
         {
 			Name "w1_gatetwo_hf"
 			Where "spawnbot_balcony_drain"
-            TotalCount 3
-			MaxActive 3
+            TotalCount 2
+			MaxActive 2
 			SpawnCount 1
             Support limited
 			TotalCurrency 60
@@ -9129,8 +9304,8 @@ WaveSchedule
 			Name "w1_subwavethree_support_so"
 			Where "spawnbot_hatch"
             Where "spawnbot_garage"
-            TotalCount 3
-			MaxActive 3
+            TotalCount 2
+			MaxActive 2
 			SpawnCount 1
             Support limited
 			TotalCurrency 24
@@ -9159,7 +9334,7 @@ WaveSchedule
             Where "spawnbot_garage"
 			WaitForAllSpawned "w1_subwavethree_support_so"
             TotalCount 40
-			MaxActive 6
+			MaxActive 5
 			SpawnCount 1
             Support limited
 			TotalCurrency 26
@@ -9192,8 +9367,8 @@ WaveSchedule
 			Name "w1_subwavethree_support_py"
 			Where "spawnbot_hatch"
             Where "spawnbot_garage"
-            TotalCount 3
-			MaxActive 3
+            TotalCount 2
+			MaxActive 2
 			SpawnCount 1
             Support limited
 			TotalCurrency 24
@@ -9232,11 +9407,11 @@ WaveSchedule
             Where "spawnbot_garage"
 			WaitForAllSpawned "w1_subwavethree_support_py"
             TotalCount 50
-			MaxActive 6
+			MaxActive 5
 			SpawnCount 1
             Support limited
 			TotalCurrency 26
-			WaitBeforeStarting 8
+			WaitBeforeStarting 10
 			WaitBetweenSpawns 4
             RandomChoice
             {
@@ -10993,6 +11168,7 @@ WaveSchedule
                 AddCond {Name "TF_COND_REPROGRAMMED" }
                 CharacterAttributes
                 {
+					"damage bonus" 1.75
 					"damage force reduction" 0.1
 					"airblast vulnerability multiplier" 0.1
                     "crit mod disabled" 0
@@ -11588,13 +11764,45 @@ WaveSchedule
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
 			TotalCurrency 0
-
+            DoneOutput
+            {
+                Target chief_killed_relay
+                Action Trigger
+            }
             TFBot
             {
                 SpawnTemplate Yakuza_Title_Card_Corporal
                 Template T_TFBot_Chief_Canteen
             }
         }
+        WaveSpawn 
+        {
+			Name "w4_subwaveone"
+			Where "spawnbot_scaffold"
+			Where "spawnbot_balcony"
+            TotalCount 8
+			MaxActive 6
+			SpawnCount 1
+            Support limited
+			TotalCurrency 36
+			WaitBeforeStarting 1
+			WaitBetweenSpawns 1
+            TFBot
+            {
+                Template T_TFBot_Scout_Melee
+                Action Mobber  
+                BehaviorModifiers Mobber
+                Attributes IgnoreFlag
+                Attributes DisableDodge
+                UseMeleeThreatPrioritization 1  
+                AddCond { Name "TF_COND_REPROGRAMMED" }
+                CharacterAttributes
+                {
+                    "crit mod disabled" 0
+					"force distribute currency on death" 1
+                }
+            }
+		}
         WaveSpawn
 		{                          
 			Where spawnbot_whatever
@@ -11604,13 +11812,126 @@ WaveSchedule
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
 			TotalCurrency 0
-
+            DoneOutput
+            {
+                Target chief2_killed_relay
+                Action Trigger
+            }
             TFBot
             {
-                SpawnTemplate Yakuza_Title_Card_Corporal
+                SpawnTemplate Yakuza_Title_Card_Kazuma
+                Template T_TFBot_Chief_Yakuza
+            }
+        }
+        WaveSpawn 
+        {
+			Name "w4_subwaveone"
+			Where "spawnbot_scaffold"
+			Where "spawnbot_balcony"
+            TotalCount 8
+			MaxActive 6
+			SpawnCount 1
+            Support limited
+			TotalCurrency 36
+			WaitBeforeStarting 1
+			WaitBetweenSpawns 1
+            TFBot
+            {
+                Template T_TFBot_Heavyweapons_Shotgun
+                Action Mobber  
+                BehaviorModifiers Mobber
+                Attributes IgnoreFlag
+                Attributes DisableDodge
+                UseMeleeThreatPrioritization 1  
+                AddCond { Name "TF_COND_REPROGRAMMED" }
+                CharacterAttributes
+                {
+                    "crit mod disabled" 0
+					"force distribute currency on death" 1
+					"voice pitch scale" 0
+                }
+                SpawnTemplate "points_common_one"
+            }
+		}
+        WaveSpawn
+		{                          
+			Where spawnbot_hatchshield
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+            
+            DoneOutput
+            {
+                Target go_win_relay
+                Action Trigger
+            }
+            TFBot
+            {
+                //SpawnTemplate Yakuza_Title_Card_Corporal
                 Template T_TFBot_Chief_Canteen
             }
         }
+        WaveSpawn
+        {
+			Name "w4_subwaveone"
+			Where "spawnbot_whatever"
+			Where "spawnbot_balcony_drain"
+            TotalCount 8
+			MaxActive 6
+			SpawnCount 1
+            Support limited
+			TotalCurrency 36
+			WaitBeforeStarting 1
+			WaitBetweenSpawns 1
+            TFBot
+            {
+                Template T_TFBot_Scout_Melee
+                Action Mobber  
+                BehaviorModifiers Mobber
+                Attributes IgnoreFlag
+                Attributes DisableDodge
+                UseMeleeThreatPrioritization 1  
+                AddCond { Name "TF_COND_REPROGRAMMED" }
+                CharacterAttributes
+                {
+                    "crit mod disabled" 0
+					"force distribute currency on death" 1
+                }
+            }
+		}
+        WaveSpawn 
+        {
+			Name "w4_subwaveone"
+			Where "spawnbot_hatch"
+			Where "spawnbot_garage"
+            TotalCount 8
+			MaxActive 6
+			SpawnCount 1
+            Support limited
+			TotalCurrency 36
+			WaitBeforeStarting 1
+			WaitBetweenSpawns 1
+            TFBot
+            {
+                Template T_TFBot_Heavyweapons_Shotgun
+                Action Mobber  
+                BehaviorModifiers Mobber
+                Attributes IgnoreFlag
+                Attributes DisableDodge
+                UseMeleeThreatPrioritization 1  
+                AddCond { Name "TF_COND_REPROGRAMMED" }
+                CharacterAttributes
+                {
+                    "crit mod disabled" 0
+					"force distribute currency on death" 1
+					"voice pitch scale" 0
+                }
+                SpawnTemplate "points_common_one"
+            }
+		}
         WaveSpawn
 		{                          
 			Where spawnbot_hatchshield
@@ -11623,24 +11944,8 @@ WaveSchedule
 
             TFBot
             {
-                //SpawnTemplate Yakuza_Title_Card_Corporal
-                Template T_TFBot_Chief_Canteen
-            }
-        }
-        WaveSpawn
-		{                          
-			Where spawnbot_hatchshield
-			TotalCount 1
-			MaxActive 1
-			SpawnCount 1
-			WaitBetweenSpawns 0
-			WaitBeforeStarting 0
-			TotalCurrency 0
-
-            TFBot
-            {
-                //SpawnTemplate Yakuza_Title_Card_Corporal
-                Template T_TFBot_Chief_Canteen
+                //SpawnTemplate Yakuza_Title_Card_Kazuma
+                Template T_TFBot_Chief_Yakuza
             }
         }
 	}

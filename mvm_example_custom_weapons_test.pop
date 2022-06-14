@@ -572,6 +572,38 @@ tomboy
                 "OnPass" "!activator,FireUser4,,0.02,-1" 
             }
         }
+
+        KirinAscension_Spawn 
+        {
+            OnSpawnOutput
+			{
+				Target "cloak_check"
+				Action "Trigger"
+			}
+
+            filter_tf_condition
+			{
+				"targetname" "filter_is_cloaking"
+				"Negated" "0"
+				"condition" "4"
+
+                "OnPass" "!activator,$RemoveCond,3,0,-1" //remove disguise
+                "OnPass" "!activator,$AddCond,72,0,-1"
+                "OnPass" "!activator,$AddPlayerAttribute,cannot disguise|1,0,-1"
+
+                "OnFail" "!activator,$RemoveCond,72,0,-1"
+                "OnFail" "!activator,$RemovePlayerAttribute,cannot disguise,0,-1"
+			}
+
+            logic_relay 
+            {
+                "targetname" "cloak_check"
+                "spawnflags" "2"
+
+                "OnTrigger" "filter_is_cloaking,TestActivator,,0,-1"    
+                "OnTrigger" "!self,Trigger,,0.05,-1"  
+            }
+        }
 	}
 
 	ExtraSpawnPoint  
@@ -597,6 +629,17 @@ tomboy
             "special item description" "Create 2 small projectile shields that orbit around you and damage enemies"
             "special item description 2" "Increased damage for secondary and melee"
             "special item description 3" "No primary weapon"
+        }
+
+        "Kirin's Ascension"
+        {
+            OriginalItemName "TF_WEAPON_INVIS" //using Upgradeable mess with things for some reason
+
+            "mult cloak rate" 50
+            "mult decloak rate" 0.001
+            "special item description" "On Cloak: Remove disguise and gain a speed boost with infinite air jumps"
+            "special item description 2" "No disguise while active"
+            "special item description 3" "No cloak effect"
         }
 
 		"Rider On The Storm" 
@@ -633,6 +676,7 @@ tomboy
 
 		Spy 
 		{
+            PDA2 {Item "Kirin's Ascension"}
 			Action {Item "Rider On The Storm" Cost 10}
 		}
 
@@ -739,6 +783,12 @@ tomboy
         "max health additive penalty" 0
 
 		"special item description" "On Hit Teammate: Exchange 3 organs to give target every banner effects for 5 seconds"
+	}
+
+    PlayerItemEquipSpawnTemplate 
+	{
+		Name KirinAscension_Spawn
+		ItemName "Kirin's Ascension"
 	}
 
 	Wave 

@@ -183,7 +183,15 @@ tomboy
                 "spawnflags" "2"
 
                 "OnTrigger" "!activator,$AddCond,48,0,-1"
-                "OnTrigger" "!activator,$RemoveCond,48,5,-1"
+
+                //won't overlap with vitasaw as the vitasaw is only used on teammates while this can only be used for enemies
+                "OnTrigger" "!activator,$CancelPending,OnUser3,0,-1"
+                "OnTrigger" "!activator,$RemoveOutput,OnUser3,0,-1"
+
+                "OnTrigger" "!activator,AddOutput,OnUser3 !self:$RemoveCond:48:5:-1,0.01,-1" //duration
+                "OnTrigger" "!activator,AddOutput,OnUser3 !self:$RemoveOutput:OnUser3:5.1:-1,0.01,-1" 
+
+                "OnTrigger" "!activator,FireUser3,,0.02,-1" 
             }
 
             trigger_multiple
@@ -198,9 +206,7 @@ tomboy
 
                 "StartDisabled" "1"
 
-                "OnStartTouch" "apply_mark,$CancelPending,,0,-1"
-
-                "OnStartTouch" "apply_mark,Trigger,,0.1,-1"
+                "OnStartTouch" "apply_mark,Trigger,,0,-1"
 
                 "$OnUser7" "!self,Enable,,0,-1"
                 "$OnUser7" "!self,Disable,,0.1,-1"

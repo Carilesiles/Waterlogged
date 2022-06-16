@@ -6757,6 +6757,71 @@ WaveSchedule
                 "OnTrigger" "!self,Trigger,,0.1,-1"
             }
         }
+		Axe_Rework_Global
+        {
+            NoFixup 1 
+
+            logic_relay 
+            {
+                "targetname" "axe_kill"
+                "spawnflags" "2"
+
+                "OnTrigger" "@c@!activator,$FireUser7,,0,-1"
+            }
+        }
+
+        Axe_Rework 
+        {
+            OnSpawnOutput 
+            {
+                Target "mark_trigger"
+                Action "SetParent"
+                Param "!activator"
+                Delay 0
+            }
+
+            filter_activator_tfteam 
+			{
+				"targetname" "filter_is_blue"
+				"Negated" "0"
+				"TeamNum" "3"
+			}
+
+            logic_relay 
+            {
+                "targetname" "apply_mark"
+                "spawnflags" "2"
+
+                "OnTrigger" "!activator,$AddCond,48,0,-1"
+
+                //won't overlap with vitasaw as the vitasaw is only used on teammates while this can only be used for enemies
+                "OnTrigger" "!activator,$CancelPending,OnUser3,0,-1"
+                "OnTrigger" "!activator,$RemoveOutput,OnUser3,0,-1"
+
+                "OnTrigger" "!activator,AddOutput,OnUser3 !self:$RemoveCond:48:5:-1,0.01,-1" //duration
+                "OnTrigger" "!activator,AddOutput,OnUser3 !self:$RemoveOutput:OnUser3:5.1:-1,0.01,-1" 
+
+                "OnTrigger" "!activator,FireUser3,,0.02,-1" 
+            }
+
+            trigger_multiple
+            {
+                "targetname" "mark_trigger"
+                "origin" "0 0 0"
+                "mins" "-400 -400 -400"
+                "maxs" "400 400 400"
+                "spawnflags" "1"
+
+                "filtername" "filter_is_blue"
+
+                "StartDisabled" "1"
+
+                "OnStartTouch" "apply_mark,Trigger,,0,-1"
+
+                "$OnUser7" "!self,Enable,,0,-1"
+                "$OnUser7" "!self,Disable,,0.1,-1"
+            }
+        }
         Rage_Replacement
         {
             OnSpawnOutput 
@@ -8134,6 +8199,7 @@ WaveSchedule
 	}
 
     SpawnTemplate DirectHit_Rework_Global
+    SpawnTemplate Axe_Rework_Global
     SpawnTemplate Vitsaw_Rework_Global
 
     CustomWeapon 
@@ -8202,7 +8268,7 @@ WaveSchedule
 			Action {Item "Rider On The Storm" Cost 10}
 		}
 
-        Action {Item "Freelance Mercenary" Cost 300}
+        Action {Item "Freelance Mercenary" Cost 100}
 	}
 
     PlayerItemEquipSpawnTemplate 
@@ -8250,6 +8316,47 @@ WaveSchedule
         "clip size penalty" 0.25
 
         "special item description" "On Hit: Instantly reload one rocket"
+	}
+	PlayerItemEquipSpawnTemplate 
+	{
+		Name Axe_Rework
+		ItemName "The Axtinguisher"
+	}
+
+    ItemAttributes 
+	{
+		ItemName "The Axtinguisher"
+
+        "fire input on kill" "axe_kill^Trigger^"
+
+        "special item description" "On Kill: Mark for death enemies within 400 hammer units for 5 seconds"
+	}
+    PlayerItemEquipSpawnTemplate 
+	{
+		Name Axe_Rework
+		ItemName "Festive Axtinguisher"
+	}
+
+    ItemAttributes 
+	{
+		ItemName "Festive Axtinguisher"
+
+        "fire input on kill" "axe_kill^Trigger^"
+
+        "special item description" "On Kill: Mark for death enemies within 400 hammer units for 5 seconds"
+	}
+    PlayerItemEquipSpawnTemplate 
+	{
+		Name Axe_Rework
+		ItemName "The Postal Pummeler"
+	}
+    ItemAttributes 
+	{
+		ItemName "The Postal Pummeler"
+
+        "fire input on kill" "axe_kill^Trigger^"
+
+        "special item description" "On Kill: Mark for death enemies within 400 hammer units for 5 seconds"
 	}
 
     PlayerItemEquipSpawnTemplate 

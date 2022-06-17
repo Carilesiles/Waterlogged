@@ -326,27 +326,27 @@ tomboy
         {
             OnSpawnOutput 
             {
-                Target "health_drain"
+                Target "stickies_count_check"
                 Action "Trigger"
                 Delay 0.1
             }
 
-            logic_relay
-            {
-                "targetname" "negate_health_regen"
-                "spawnflags" "2"
+            // logic_relay
+            // {
+            //     "targetname" "negate_health_regen"
+            //     "spawnflags" "2"
 
-                "$OnUser5" "!activator,$TakeDamage,,0.6,-1"
-            }
+            //     "$OnUser5" "!activator,$TakeDamage,,0.6,-1"
+            // }
 
-            logic_relay
-            {
-                "targetname" "over_one_sticky"
-                "spawnflags" "2"
+            // logic_relay
+            // {
+            //     "targetname" "over_one_sticky"
+            //     "spawnflags" "2"
 
-                "OnTrigger" "!activator,$AddPlayerAttribute,mod weapon blocks healing|1,0,-1"
-                "OnTrigger" "!activator,$GetPlayerAttribute,health regen|negate_health_regen|$FireUser5|0,0,-1"
-            }
+            //     "OnTrigger" "!activator,$AddPlayerAttribute,mod weapon blocks healing|1,0,-1"
+            //     "OnTrigger" "!activator,$GetPlayerAttribute,health regen|negate_health_regen|$FireUser5|0,0,-1"
+            // }
 
             logic_case
             {
@@ -357,24 +357,30 @@ tomboy
                 "Case03" "2"
                 "Case04" "3"
 
-                "OnCase01" "!activator,$RemovePlayerAttribute,mod weapon blocks healing,0,-1"
+                "OnCase01" "!activator,$RemoveItemAttribute,no_attack|1,0,-1"
+                "OnCase01" "!activator,$RemoveItemAttribute,dmg penalty vs players|0,0,-1"
 
-                "OnCase02" "!activator,$TakeDamage,4,0,-1"
-                "OnCase02" "over_one_sticky,Trigger,,0,-1"
-                "OnCase03" "!activator,$TakeDamage,5,0,-1"
-                "OnCase03" "over_one_sticky,Trigger,,0,-1"
-                "OnCase04" "!activator,$TakeDamage,6,0,-1"
-                "OnCase04" "over_one_sticky,Trigger,,0,-1"
+                "OnCase02" "!activator,$AddItemAttribute,no_attack|1|1,0,-1"
+                "OnCase02" "!activator,$AddItemAttribute,dmg penalty vs players|0.7|0,0,-1"
+
+                //"OnCase01" "!activator,$RemovePlayerAttribute,mod weapon blocks healing,0,-1"
+
+                // "OnCase02" "!activator,$TakeDamage,4,0,-1"
+                // "OnCase02" "over_one_sticky,Trigger,,0,-1"
+                // "OnCase03" "!activator,$TakeDamage,5,0,-1"
+                // "OnCase03" "over_one_sticky,Trigger,,0,-1"
+                // "OnCase04" "!activator,$TakeDamage,6,0,-1"
+                // "OnCase04" "over_one_sticky,Trigger,,0,-1"
             }
 
             logic_relay
             {
-                "targetname" "health_drain"
+                "targetname" "stickies_count_check"
                 "spawnflags" "2"
 
                 "OnTrigger" "@e@m_hMyWeapons$1@!activator,$GetProp$m_iPipebombCount,stickies_count_handler|InValue|-1,0,-1"
 
-                "OnTrigger" "!self,Trigger,,0.5,-1"
+                "OnTrigger" "!self,Trigger,,0.1,-1"
             }
         }
 
@@ -867,18 +873,21 @@ tomboy
         {
             OriginalItemName "Upgradeable TF_WEAPON_PIPEBOMBLAUNCHER"
 
+            "provide on active" 1 //for no_attack
+
             "paintkit_proto_def_index" 209 //clover camo'd
             "set_item_texture_wear" 0
 
-            "stickybomb fizzle time" 8
-            "clip size penalty" 0.375
-            "Reload time increased" 1.3
-            "max pipebombs decreased" -5
+            "stickybomb fizzle time" 10
+            "clip size penalty" 0.1
+            "Reload time increased" 1.7
+            "max pipebombs decreased" -7
+            "sticky arm time penalty" 5000
             "damage penalty" 0
 
-            "special item description" "Each stickybomb grant minicrit to nearby teammates"
-            "special item description 2" "Each stickybomb deployed drain your health overtime"
-            "special item description 3" "As long as at least 1 stickybomb is deployed: Cannot be healed and health regen upgrade is nullified"
+            "special item description" "Stickybombs grant minicrit to nearby teammates"
+            "special item description 2" "Cannot detonate. only 1 sticky can be active at a time"
+            "special item description 3" "-30% damage on primary weapon when at least 1 stickybomb is active"
         }
 
         "Kirin's Ascension"

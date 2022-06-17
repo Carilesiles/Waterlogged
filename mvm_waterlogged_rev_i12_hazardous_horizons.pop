@@ -8514,11 +8514,7 @@ WaveSchedule
 		ItemName "Anti-Aircraft Launcher"
 		AttachToProjectile 1 
 	}
-
-	ItemAttributes
-	{
-		ItemName "TF_WEAPON_GR"
-	}
+	
     ItemAttributes 
 	{
 		ItemName "Baby Face's Blaster"

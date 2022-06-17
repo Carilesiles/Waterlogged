@@ -1785,7 +1785,11 @@ WaveSchedule
 		general_logic
 		{
 			NoFixup 1
-			logic_relay
+            logic_auto
+            {
+				"OnMapSpawn" "wave_start_relay,AddOutput,OnTrigger speedboostrefire:Enable::0:-1"
+            }
+            logic_relay
             {
                 "targetname" "wave_start_boss_relay"
                 "origin" "-968 1872 416"
@@ -1797,21 +1801,6 @@ WaveSchedule
                 "OnTrigger" "dumbwaiter_move,Open,,0.5"
                 "OnTrigger" "shop_bot,setanimation,panic,0.5"
                 "OnTrigger" "shop_bot,setanimation,panic_end,5"
-            }
-            func_nobuild
-            {
-                "origin" "-968 1872 -240"
-                "mins" "-760 -624 -208"
-                "maxs" "760 624 208"
-	            "AllowDispenser" "1"
-	            "AllowSentry" "1"
-	            "AllowTeleporters" "0"
-	            "StartDisabled" "0"
-	            "TeamNum" "0"
-            }
-            logic_auto
-            {
-				"OnMapSpawn" "wave_start_relay,AddOutput,OnTrigger speedboostrefire:Enable::0:-1"
             }
 			logic_timer
 			{
@@ -2604,11 +2593,6 @@ WaveSchedule
                 "OnSpawn" "blu_init_teleport_boss,Enable"
 				"OnSpawn" "bossroom_door_trigger,Enable"
 				"OnSpawn" "wipe_relay,Enable"
-            }
-            logic_relay
-            {
-                "targetname" "wave_start_boss_relay"
-                "OnTrigger" "bossroom_door_trigger,Enable"
             }
             game_round_win
             {
@@ -3459,11 +3443,6 @@ WaveSchedule
                 "OnSpawn" "blu_init_teleport_boss,Enable"
 				"OnSpawn" "bossroom_door_trigger,Enable"
 				"OnSpawn" "wipe_relay,Enable"
-            }
-            logic_relay
-            {
-                "targetname" "wave_start_boss_relay"
-                "OnTrigger" "bossroom_door_trigger,Enable"
             }
             game_round_win
             {
@@ -6822,6 +6801,178 @@ WaveSchedule
                 "$OnUser7" "!self,Disable,,0.1,-1"
             }
         }
+		BannerSticky
+        {
+            KeepAlive 1
+
+            OnSpawnOutput 
+            {
+                Target "banner_model"
+                Action "SetParent"
+                Param ""
+                Delay 0
+            }
+
+            OnSpawnOutput 
+            {
+                Target "banner_model"
+                Action "$SetLocalAngles"
+                Param "0 0 0"
+                Delay 0.01
+            }
+
+            OnSpawnOutput 
+            {
+                Target "stickbomb_setposition"
+                Action "Trigger"
+                Delay 0.02
+            }
+
+            OnParentKilledOutput 
+            {
+                Target "killed"
+                Action "Trigger"
+                Delay 0
+            }
+
+            filter_activator_tfteam 
+			{
+				"targetname" "filter_is_blu"
+				"Negated" "0"
+				"TeamNum" "3"
+			}
+
+            logic_relay
+            {
+                "targetname" "killed"
+                "spawnflags" "2"
+
+                "OnTrigger" "filter_is_red,Kill,,0,-1"
+                "OnTrigger" "stickybomb_buff,Kill,,0,-1"
+                "OnTrigger" "stickbomb_setposition,Kill,,0,-1"
+                "OnTrigger" "banner_model,Kill,,0,-1"
+
+                "OnTrigger" "stickybomb_unapply_buff,Enable,,0,-1"
+                "OnTrigger" "stickybomb_unapply_buff,Kill,,0.1,-1"
+
+                "OnTrigger" "!self,Kill,,0.2,-1"
+            }
+
+            trigger_multiple
+            {
+                "targetname" "stickybomb_buff"
+                "origin" "0 0 0"
+                "mins" "-200 -200 -200"
+                "maxs" "200 200 200"
+                "spawnflags" "1"
+
+                "filtername" "filter_is_blu"
+
+                "OnTrigger" "!activator,$AddCond,16,0,-1"
+                "OnEndTouch" "!activator,$RemoveCond,16,0,-1"
+            }
+
+            trigger_multiple
+            {
+                "targetname" "stickybomb_unapply_buff" //unapply buffs on surrounding player on explosion
+                "origin" "0 0 0"
+                "mins" "-200 -200 -200"
+                "maxs" "200 200 200"
+                "spawnflags" "1"
+
+                "StartDisabled" "1"
+
+                "filtername" "filter_is_blu"
+
+                "OnStartTouch" "!activator,$RemoveCond,16,0,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "stickbomb_setposition"
+                "spawnflags" "2"
+
+                "OnTrigger" "banner_model,$TeleportToEntity,!activator,-1,-1"
+                "OnTrigger" "banner_model,$MoveRelative,10 -9 -55,0,-1"
+
+                "OnTrigger" "!self,Trigger,,0.01,-1"
+            }
+
+            prop_dynamic
+			{
+				"targetname" "banner_model"
+				"DisableBoneFollowers" "1"
+				"disableshadows" "1"
+				"model" "models/weapons/c_models/c_buffbanner/c_buffbanner.mdl"
+				"solid" "0"
+				"spawnflags" "0"
+				"StartDisabled" "0"	
+			}
+        }
+
+        NationalPride_Spawn
+        {
+            OnSpawnOutput 
+            {
+                Target "stickies_count_check"
+                Action "Trigger"
+                Delay 0.1
+            }
+
+            // logic_relay
+            // {
+            //     "targetname" "negate_health_regen"
+            //     "spawnflags" "2"
+
+            //     "$OnUser5" "!activator,$TakeDamage,,0.6,-1"
+            // }
+
+            // logic_relay
+            // {
+            //     "targetname" "over_one_sticky"
+            //     "spawnflags" "2"
+
+            //     "OnTrigger" "!activator,$AddPlayerAttribute,mod weapon blocks healing|1,0,-1"
+            //     "OnTrigger" "!activator,$GetPlayerAttribute,health regen|negate_health_regen|$FireUser5|0,0,-1"
+            // }
+
+            logic_case
+            {
+                "targetname" "stickies_count_handler"
+
+                "Case01" "0"
+                "Case02" "1"
+                "Case03" "2"
+                "Case04" "3"
+
+                "OnCase01" "!activator,$RemoveItemAttribute,no_attack|1,0,-1"
+                "OnCase01" "!activator,$RemoveItemAttribute,dmg penalty vs players|0,0,-1"
+
+                "OnCase02" "!activator,$AddItemAttribute,no_attack|1|1,0,-1"
+                "OnCase02" "!activator,$AddItemAttribute,dmg penalty vs players|0.7|0,0,-1"
+
+                //"OnCase01" "!activator,$RemovePlayerAttribute,mod weapon blocks healing,0,-1"
+
+                // "OnCase02" "!activator,$TakeDamage,4,0,-1"
+                // "OnCase02" "over_one_sticky,Trigger,,0,-1"
+                // "OnCase03" "!activator,$TakeDamage,5,0,-1"
+                // "OnCase03" "over_one_sticky,Trigger,,0,-1"
+                // "OnCase04" "!activator,$TakeDamage,6,0,-1"
+                // "OnCase04" "over_one_sticky,Trigger,,0,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "stickies_count_check"
+                "spawnflags" "2"
+
+                "OnTrigger" "@e@m_hMyWeapons$1@!activator,$GetProp$m_iPipebombCount,stickies_count_handler|InValue|-1,0,-1"
+
+                "OnTrigger" "!self,Trigger,,0.1,-1"
+            }
+        }
+
+
         Rage_Replacement
         {
             OnSpawnOutput 
@@ -7017,7 +7168,7 @@ WaveSchedule
 
             logic_relay
             {
-                "targetname" "apply_buster_attributes" 
+                "targetname" "apply_buster_attributes"
                 "OnTrigger" "!activator,AddOutput,modelscale 1.75,0.11,-1"
                 "OnTrigger" "!activator,SetCustomModel,models/bots/demo/bot_sentry_buster.mdl,0.11,-1"
                 "OnTrigger" "!activator,SetForcedTauntCam,1,0.11,-1"
@@ -7720,7 +7871,37 @@ WaveSchedule
 				"OnFail" "!activator,$RemoveItemAttribute,allow friendly fire|2,0,-1"
             }
         }
+		KirinAscension_Spawn 
+        {
+            OnSpawnOutput
+			{
+				Target "cloak_check"
+				Action "Trigger"
+			}
 
+            filter_tf_condition
+			{
+				"targetname" "filter_is_cloaking"
+				"Negated" "0"
+				"condition" "4"
+
+                "OnPass" "!activator,$RemoveCond,3,0,-1" //remove disguise
+                "OnPass" "!activator,$AddCond,72,0,-1"
+                "OnPass" "!activator,$AddPlayerAttribute,cannot disguise|1,0,-1"
+
+                "OnFail" "!activator,$RemoveCond,72,0,-1"
+                "OnFail" "!activator,$RemovePlayerAttribute,cannot disguise,0,-1"
+			}
+
+            logic_relay 
+            {
+                "targetname" "cloak_check"
+                "spawnflags" "2"
+
+                "OnTrigger" "filter_is_cloaking,TestActivator,,0,-1"    
+                "OnTrigger" "!self,Trigger,,0.05,-1"  
+            }
+        }
         Vitsaw_Rework_Global 
         {
             NoFixup 1
@@ -8235,6 +8416,37 @@ WaveSchedule
             "special item description 2" "Increased damage for secondary and melee"
             "special item description 3" "No primary weapon"
         }
+        "National Pride"
+        {
+            OriginalItemName "Upgradeable TF_WEAPON_PIPEBOMBLAUNCHER"
+			
+            "provide on active" 1 //for no_attack
+
+            "paintkit_proto_def_index" 209 //clover camo'd
+            "set_item_texture_wear" 0
+
+            "stickybomb fizzle time" 10
+            "clip size penalty" 0.1
+            "Reload time increased" 1.7
+            "max pipebombs decreased" -7
+            "sticky arm time penalty" 5000
+            "damage penalty" 0
+
+            "special item description" "Stickybombs grant minicrit to nearby teammates"
+            "special item description 2" "Cannot detonate. only 1 sticky can be active at a time"
+            "special item description 3" "-30% damage on primary weapon when at least 1 stickybomb is active"
+        }
+		"Kirin's Ascension"
+        {
+            OriginalItemName "TF_WEAPON_INVIS" //using Upgradeable mess with things for some reason
+
+            "mult cloak rate" 50
+            "mult decloak rate" 0.001
+    
+            "special item description" "On Cloak: Remove disguise and gain a speed boost with infinite air jumps"
+            "special item description 2" "No disguise while active"
+            "special item description 3" "No cloak effect"
+        }
 		"Rider On The Storm"
 		{
 			OriginalItemName "Activated Campaign 3 Pass" 
@@ -8262,9 +8474,16 @@ WaveSchedule
 		{
 			Primary {Item "Thunderdome"}
 		}
+		Demoman 
+        {
+            Secondary {Item "National Pride"}
+        }
+
+
 
 		Spy 
 		{
+			PDA2 {Item "Kirin's Ascension"}
 			Action {Item "Rider On The Storm" Cost 10}
 		}
 
@@ -8296,6 +8515,10 @@ WaveSchedule
 		AttachToProjectile 1 
 	}
 
+	ItemAttributes
+	{
+		ItemName "TF_WEAPON_GR"
+	}
     ItemAttributes 
 	{
 		ItemName "Baby Face's Blaster"
@@ -8371,7 +8594,18 @@ WaveSchedule
         "not solid to players" 1
         "special item description" "Becomes a Sentry Buster. Taunt to detonate (revert back to a regular Demoman on detonation)"
     }
+	PlayerShootTemplate
+	{
+		Name BannerSticky
+        AttachToProjectile 1
+		ItemName "National Pride"
+	}
 
+    PlayerItemEquipSpawnTemplate 
+	{
+		Name NationalPride_Spawn
+		ItemName "National Pride"
+	}
     PlayerSpawnTemplate 
     {
         Name Rage_Replacement
@@ -8411,6 +8645,11 @@ WaveSchedule
 	{
 		Name Vitasaw_Rework_Spawn
 		ItemName "The Vita-Saw"
+	}
+	PlayerItemEquipSpawnTemplate 
+	{
+		Name KirinAscension_Spawn
+		ItemName "Kirin's Ascension"
 	}
 
     ItemAttributes 
@@ -10397,6 +10636,11 @@ WaveSchedule
         		DisableTracks 1  
         		DisableChildModels 1  
         		TeamNum 2
+				OnKilledOutput 
+				{
+					Target spawnbot_balcony_drain
+					Action Trigger
+				}
 			}
 		}
 		WaveSpawn // Dummy
@@ -10984,11 +11228,43 @@ WaveSchedule
 			Where "spawnbot_scaffold_extra"
             WaitForAllSpawned "heli_support_hf"
             TotalCount 50
-			MaxActive 3
+			MaxActive 2
 			SpawnCount 1
 			TotalCurrency 50
 			WaitBeforeStarting 16
-			WaitBetweenSpawns 8
+			WaitBetweenSpawns 20
+            Support Limited
+            TFBot
+            {
+                Template T_TFBot_Demoman
+                Action Mobber  
+                BehaviorModifiers Mobber
+                Attributes IgnoreFlag
+                Attributes DisableDodge
+                UseMeleeThreatPrioritization 1  
+                AddCond { Name "TF_COND_REPROGRAMMED" }
+                CharacterAttributes
+                {
+					"damage force reduction" 0.1
+					"airblast vulnerability multiplier" 0.1
+                    "crit mod disabled" 0
+					"force distribute currency on death" 1
+					"voice pitch scale" 0
+                }
+            }
+        }
+        WaveSpawn 
+        {
+			Name "heli_support"
+			Where "spawnbot_balcony_extra"
+			Where "spawnbot_scaffold_extra"
+            WaitForAllSpawned "heli_support_hf"
+            TotalCount 50
+			MaxActive 2
+			SpawnCount 1
+			TotalCurrency 50
+			WaitBeforeStarting 16
+			WaitBetweenSpawns 12
             Support Limited
             TFBot
             {
@@ -11026,7 +11302,7 @@ WaveSchedule
 			{
 				SpawnTemplate "Helicopter_Tank_Init"
 
-				Health 30000
+				Health 17500
 				Speed 0 
 				Scale 1.1
 				DisableSmokestack 1  

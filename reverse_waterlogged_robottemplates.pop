@@ -1,0 +1,3697 @@
+ThisHasThePointTemplatesOfTheRobotsInItToo
+{
+	Templates
+	{
+		T_TFBot_Pyro_DF
+		{
+			Class Pyro
+			Name "Dragon's Fury Pyro"
+			ClassIcon pyro_dragon_fury_swordstone
+			Skill Hard
+			Item "The Dragon's Fury"
+			WeaponRestrictions PrimaryOnly
+			MaxVisionRange 1000
+			ItemAttributes
+			{
+				ItemName "The Dragon's Fury"
+				"airblast disabled" 1
+			}
+		}
+		T_TFBot_Soldier_AA
+		{
+			Class Soldier
+			Skill Expert
+			Attributes SpawnWithFullCharge
+			Item "Anti-Aircraft Launcher"
+			Health 900
+			Scale 1.5
+			DropWeapon 1
+			CharacterAttributes
+			{
+				"head scale" 0.9
+			}
+			CharacterAttributes
+			{
+				"health from healers reduced" .1
+			}
+			ShootTemplate [$SIGSEGV]  
+			{
+				Name rpg_shoottemplate 
+				ItemName "Anti-Aircraft Launcher"
+				AttachToProjectile 1 
+			}
+		} 
+		T_TFBot_Chief_Soldier_Alternating
+		{
+			Class Soldier
+			Skill Expert
+			WeaponRestrictions PrimaryOnly
+			Name "Major Dillweed"
+			Item "Full Metal Drill Hat"
+			ClassIcon soldier_major_crits
+			Health 25000
+			Scale 1.9
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			Attributes HoldFireUntilFullReload
+			CharacterAttributes
+			{
+				"move speed bonus"	0.5
+				"damage force reduction" 0.1
+				"airblast vulnerability multiplier" 0.1
+				"override footstep sound set" 3
+				"airblast vertical vulnerability multiplier" 0.1
+				"blast dmg to self increased" 0
+				"force fire full clip" 1
+				"clip size penalty" 0.25
+			}
+			FireInput 
+			{
+				Target "alternate_relay" 
+				Action "Trigger" 
+				Delay 6
+				Cooldown 8
+				Repeats 0
+				IfSeeTarget 1
+			} 
+		}
+		T_TFBot_Giant_Pyro_ComboFlare //courtesy of royal
+		{
+			Name "Giant Combo Pyro"
+			Class Pyro
+
+			Health 3000
+
+			ClassIcon pyro_degreaser_flare
+
+			Item "The Degreaser"
+			Item "The Flare Gun"
+			Item "Pyromancer's Mask"
+
+			Skill Expert
+			Attributes MiniBoss
+			MaxVisionRange 1200
+			Tag bot_giant
+
+			ItemAttributes
+			{
+				ItemName "The Degreaser"
+				"fire input on hit" "combo_primary_to_secondary_longhold^Trigger^"
+				"damage penalty" 0.1
+			}
+
+			ItemAttributes
+			{
+				ItemName "The Flare Gun"
+				"faster reload rate" 0.2
+			}  
+
+			CharacterAttributes
+			{
+				"move speed bonus" 0.6
+				"damage force reduction" 0.1
+				"airblast vulnerability multiplier"	0.1
+				"override footstep sound set"	6
+				"crit mod disabled" 0
+				"force distribute currency on death" 1
+			}
+		}
+		T_TFBot_Ranger_Doctor_Doppler
+		{
+			SpawnTemplate DopplerShields
+
+			Class Medic
+			Name "Doctor Doppler"
+			Skill Expert
+			Health 20000
+
+			Action Mobber
+
+			WeaponRestrictions PrimaryOnly
+			Item "The Crusader's Crossbow"
+			Item "The Quick-Fix" //for the cool looking backpack 
+
+			Item "Einstein"
+
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			Attributes HoldFireUntilFullReload
+
+			AddCond { Name "TF_COND_REPROGRAMMED" }
+
+			ItemAttributes
+			{
+				ItemName "The Crusader's Crossbow"
+
+				"clip size upgrade atomic" 14
+				"fire rate bonus" 0.5
+				"Reload time decreased" 0.2
+			}
+
+			CharacterAttributes
+			{
+				"move speed bonus"	0.5
+				"damage force reduction" 0.5
+				"airblast vulnerability multiplier" 0.5
+				"override footstep sound set" 4
+			}
+		}
+
+		T_TFBot_Chief_Canteen
+		{
+			SpawnTemplate PreventPowerupDropOnDeath
+			SpawnTemplate Corporal_Logic
+
+			Name "Corporal Canteen"
+			Class Heavyweapons
+
+			ClassIcon heavy_shotgun_burst_lite     
+			Health 30000
+
+			WeaponRestrictions SecondaryOnly 
+			item "Security Shades" 
+			item "Battery Canteens"
+
+			Skill Expert
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			Attributes HoldFireUntilFullReload
+
+			//ExtAttr SuppressCanteenUse
+
+			UseMeleeThreatPrioritization 1
+
+			Scale 1.9
+			MaxVisionRange 1200
+
+			Action Mobber
+
+			AddCond { Name "TF_COND_REPROGRAMMED" }
+
+			//ubercharge on spawn
+			FireWeapon
+			{
+				Delay 1
+				Repeats 1
+				Type "Action"
+			}
+
+			FireInput 
+			{
+				Target "random_canteen_use" 
+				Action "Trigger" 
+				Delay 6
+				Cooldown 9
+				Repeats 0 
+			} 
+
+			ItemAttributes
+			{
+				ItemName "Battery Canteens"
+				"ubercharge" 1
+				"powerup charges" 1
+			}
+
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_SHOTGUN_HWG"
+				"fire rate bonus" 0.3
+				"bullets per shot bonus" 10
+				"clip size penalty" 0.5
+				"damage penalty" 0.3
+				"faster reload rate" 1.8
+			}
+
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_FISTS"
+				"damage causes airblast" 1
+			}
+
+			CharacterAttributes
+			{
+				"deploy time decreased" 0.1
+				"deploy time decreased" 0.1
+				"move speed bonus" 0.5
+				"damage force reduction" 0.5
+				"airblast vulnerability multiplier" 0.5
+				"rage giving scale" 0.5
+			}
+		}
+
+
+		T_TFBot_Chief_Yakuza
+		{
+			SpawnTemplate Yakuza_Styles
+
+			Name "Sergeant Receiver" //shoutout to eggman#9862 for the actually good name (he was called fucking Sergeant Subtype before)
+			Class Soldier 
+
+			ClassIcon boss_yakuza
+			Health 25000
+
+			Scale 1.9
+
+			WeaponRestrictions PrimaryOnly
+			Item "The Eye-Catcher"
+
+			Skill Expert
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			Attributes HoldFireUntilFullReload
+
+			Action Mobber
+
+			AddCond { Name "TF_COND_REPROGRAMMED" }
+
+			FireInput 
+			{
+				Target "randomstyle" 
+				Action "PickRandomShuffle" 
+				Delay 0.1
+				Cooldown 8
+				Repeats 0 
+			} 
+
+			// FireInput 
+			// {
+			//     Target "dragon_style" 
+			//     Action "Trigger" 
+			//     Delay 0.1
+			//     Repeats 1
+
+			//     IfHealthBelow 10000
+			// } 
+
+			CharacterAttributes
+			{
+				"health regen" 50
+				"move speed bonus" 0.5
+				"damage force reduction" 0.001
+				"airblast vulnerability multiplier" 0.001
+				"override footstep sound set" 3
+				"airblast vertical vulnerability multiplier" 0.1
+				"rage giving scale" 0.5
+			}
+		}
+		T_TFBot_Ranger_Rockethell
+		{
+			SpawnTemplate Yakuza_Title_Card_Rockethell
+			SpawnTemplate Rockethell_Logic
+
+			Class Soldier
+			Name "Ranger Rockethell"
+			Skill Expert
+			Health 64000
+
+			Action Mobber
+
+			WeaponRestrictions PrimaryOnly
+
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			
+			Scale 1.9 
+
+			AddCond { Name "TF_COND_REPROGRAMMED" }
+
+			CharacterAttributes
+			{
+				"move speed bonus"	0.5
+				"damage force reduction" 0.1
+				"airblast vulnerability multiplier" 0.1
+				"override footstep sound set" 4
+				"blast dmg to self increased" 0
+				"force distribute currency on death" 1
+			}
+
+			EventChangeAttributes
+			{
+				Default 
+				{
+					Attributes MiniBoss
+				}
+
+				LeftSway 
+				{
+					Attributes AlwaysFireWeapon
+					
+					Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"fire rate penalty" 10 //fire once
+						"projectile speed increased" 0.001 
+					}
+
+					ShootTemplate
+					{
+						Name LeftSwayRocket
+						AttachToProjectile 1
+					}
+				}
+
+				RightSway 
+				{
+					Attributes AlwaysFireWeapon
+					
+					Item TF_WEAPON_ROCKETLAUNCHER
+
+					ShootTemplate
+					{
+						Name RightSwayRocket
+						AttachToProjectile 1
+					}
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"fire rate penalty" 10 //fire once 
+						"projectile speed increased" 0.001 
+					}
+				}
+
+				Orb
+				{
+					Attributes AlwaysFireWeapon
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"override projectile type extra" "mechanicalarmorb"
+					}
+				}
+
+				Bloom 
+				{
+					Attributes AlwaysFireWeapon
+					
+					Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"fire rate penalty" 10 //fire once
+						"damage bonus" 2
+						"Projectile speed increased" 0.5 
+					}
+
+					ShootTemplate
+					{
+						Name RocketMasteryConstant
+						AttachToProjectile 1
+					}
+				}
+
+				Homing 
+				{
+					Attributes AlwaysFireWeapon
+					
+					Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"fire rate penalty" 10 //fire once 
+						"projectile trail particle" "eyeboss_projectile"
+						"mod projectile heat seek power" 360
+						"mod projectile heat aim time" 10
+						"mod projectile heat aim error" 0
+						"mod projectile heat no predict target speed" 1
+						"damage bonus" 2
+						"Projectile speed increased" 0.15
+					}
+
+					ShootTemplate
+					{
+						Name HomingCircleBlow
+						AttachToProjectile 1
+					}
+				}
+				 //World of Rockets & Stripes
+				Spellcard_1
+				{
+					Attributes AlwaysFireWeapon
+
+					Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"damage bonus" 2
+						"fire rate penalty" 4
+						"reload time decreased" 0.01
+						"Projectile speed increased" 0.15
+					}
+
+					ShootTemplate
+					{
+						Name WorldOfRocketsNStripes
+						AttachToProjectile 1
+					}
+				}
+
+				//Machine Gun Kiss
+				Spellcard_2_1
+				{
+					Attributes AlwaysFireWeapon
+
+					Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"clip size upgrade atomic" 26.0
+						"faster reload rate" 0.01
+						"fire rate bonus" 0.1
+						"projectile spread angle penalty" 10
+						"Projectile speed increased" 0.3
+						"always crit" 1
+					}
+				}
+				Spellcard_2_2
+				{
+					Attributes AlwaysFireWeapon
+
+					Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"damage bonus" 1.25
+						"faster reload rate" 0.01
+						"fire rate bonus" 0.4
+						"Projectile speed increased" 0.7
+					}
+				}
+
+				//Right Combination
+				Spellcard_3
+				{
+					Attributes AlwaysFireWeapon
+					Attributes HoldFireUntilFullReload
+
+					Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"damage bonus" 1.25
+						"clip size upgrade atomic" 26.0
+						"faster reload rate" 0.1
+						"fire rate bonus" 0.1
+						"projectile spread angle penalty" 20
+						"projectile trail particle" "eyeboss_projectile"
+						"mod projectile heat seek power" 360
+						"mod projectile heat aim time" 0.8
+						"mod projectile heat aim error" 5
+						//"mod projectile heat no predict target speed" 1
+
+						"Projectile speed increased" 0.1
+						"projectile acceleration" 1500
+						"projectile acceleration start time" 0.3
+						"projectile acceleration time" 0.4
+					}
+				}
+			}
+		}
+		T_TFBot_Helicopter_Base
+		{
+			SpawnTemplate Yakuza_Title_Card_HunterChopper
+
+			Name "jerma985 (ignore him)"
+			Class Scout
+
+			Action Mobber
+			Skill Expert
+			Attributes SuppressFire
+
+			UseCustomModel "models/empty.mdl" 
+			Scale 0.3
+
+			AddCond 
+			{
+				Index 52 
+			}
+			AddCond 
+			{
+				Index 64 //not targeted by blue bot  
+			}
+
+			CustomWeaponModel
+			{
+				Slot 0
+				Model "models/empty.mdl"
+			}
+
+			CustomWeaponModel
+			{
+				Slot 1
+				Model "models/empty.mdl"
+			}
+
+			CustomWeaponModel
+			{
+				Slot 2
+				Model "models/empty.mdl"
+			}
+		
+			CharacterAttributes
+			{
+				"not solid to players" 1
+				"voice pitch scale" 0
+				"move speed bonus" 0.5
+				"no_jump" 1
+				"damage force reduction" 0.001
+				"airblast pushback scale" 0.0001
+				"airblast vertical pushback scale" 0.0001
+				"dmg from ranged reduced" 0
+				"dmg from melee increased" 0
+				"cannot be backstabbed" 1
+				"cannot pick up intelligence" 1
+				"crit mod disabled" 0
+				"force distribute currency on death" 1
+			}
+		}
+
+		T_TFBot_Helicopter_Shoot
+		{
+			SpawnTemplate Helicopter_Patterns
+
+			Name "Helicopter"
+			Class Soldier
+
+			Action Mobber
+			Skill Expert
+
+			Health 1984
+
+			UseCustomModel "models/empty.mdl" 
+			Scale 0.01
+
+			AddCond 
+			{
+				Index 52 
+			}
+
+			CustomWeaponModel
+			{
+				Slot 0
+				Model "models/empty.mdl"
+			}
+
+			CustomWeaponModel
+			{
+				Slot 1
+				Model "models/empty.mdl"
+			}
+
+			CustomWeaponModel
+			{
+				Slot 2
+				Model "models/empty.mdl"
+			}
+
+			CharacterAttributes
+			{
+				"not solid to players" 1
+				"move speed bonus" 0.5
+				"no_jump" 1
+				"dmg from ranged reduced" 0
+				"dmg from melee increased" 0
+				"cannot be backstabbed" 1
+				"cannot pick up intelligence" 1
+			}
+
+			EventChangeAttributes
+			{
+				Default 
+				{
+					Attributes HoldFireUntilFullReload
+
+					Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						//"fire full clip at once" 1
+						"is invisible" 1
+						"fire rate penalty" 1.3
+						"reload time decreased" 0.7
+					}
+		
+								
+					ShootTemplate
+					{
+						Name TridentBurst 
+						AttachToProjectile 1
+					}
+				}
+
+				Pattern2 
+				{
+					// Item TF_WEAPON_SNIPERRIFLE
+
+					// FireWeapon    
+					// {
+					// 	Delay 0 
+					// 	Cooldown 0.5
+					// 	Duration 0.1
+					// 	Type "Primary" 
+					// }
+
+					// ItemAttributes
+					// {
+					// 	ItemName TF_WEAPON_SNIPERRIFLE
+					// 	"is invisible" 1
+					// 	"fire rate bonus" 0.1
+					// 	"sniper fires tracer" 1 
+					// }
+
+					Attributes AlwaysFireWeapon
+					
+					Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"is invisible" 1
+						"fire rate bonus" 0.4
+						"Reload time decreased" -1
+					}
+
+					ShootTemplate
+					{
+						Name RocketMastery
+						AttachToProjectile 1
+					}
+				}
+
+				Pattern3
+				{
+					Attributes AlwaysFireWeapon
+					
+					Item TF_WEAPON_ROCKETLAUNCHER
+
+					AimOffset "0 0 30"
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"is invisible" 1
+						"fire rate penalty" 0.5
+						"Projectile speed decreased" 0.3
+					}
+
+					ShootTemplate
+					{
+						Name RocketSpike
+						AttachToProjectile 1
+					}
+				}
+
+				Pattern4
+				{
+					Attributes AlwaysFireWeapon
+					
+					Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"is invisible" 1
+						"fire rate penalty" 10 //fire once 
+						"Projectile speed decreased" 0.3
+						"always crit" 1
+					}
+
+					ShootTemplate
+					{
+						Name RocketMasteryConstant 
+						AttachToProjectile 1
+					}
+
+				}
+			}
+		}
+		T_TFBot_Giant_Soldier_Extended_Battalion_Fake
+		{
+			SpawnTemplate Shapeshift_PrespawnDisguise
+			Class Spy
+
+			//UseCustomModel "models/bots/soldier_boss/bot_soldier_boss.mdl" 
+
+			Name "Giant Battalion Soldier"
+			ClassIcon soldier_backup_giant
+			Skill Expert
+			Health 15000
+			Scale 1.9
+			WeaponRestrictions PrimaryOnly
+			Attributes HoldFireUntilFullReload
+			Attributes MiniBoss
+			Attributes SpawnWithFullCharge
+			Attributes UseBossHealthBar
+
+			Action FetchFlag
+
+			Item TF_WEAPON_ROCKETLAUNCHER
+			Item "The Battalion's Backup"
+
+			CharacterAttributes
+			{
+				"voice pitch scale" 0
+				//"cannot disguise" 1
+
+				"move speed bonus"	0.5
+				"damage force reduction" 0.1
+				"airblast vulnerability multiplier" 0.1
+				"override footstep sound set" 3
+				"increase buff duration"	9.0
+				"health from healers reduced" 0
+				"health from packs increased" 0
+				"cancel falling damage" 1
+			}
+		}
+
+		T_TFBot_Sergeant_Shapeshift
+		{
+			SpawnTemplate Yakuza_Title_Card_Shapeshift
+			SpawnTemplate Shapeshift_Logic
+			SpawnTemplate Shapeshift_Spawn
+
+			//no fucking clues what slot the invis watch is 
+			// StripItemSlot 3 
+			// StripItemSlot 4
+			// StripItemSlot 5
+			// StripItemSlot 6
+
+			Class Spy
+			Name "Sergeant Shapeshift"
+			Skill Expert
+			Health 15000
+
+			Action Mobber
+
+			WeaponRestrictions PrimaryOnly
+
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			
+			Scale 1.9 
+
+			CharacterAttributes
+			{
+				"cannot disguise" 1
+				"cancel falling damage" 1
+
+				"move speed bonus"	0.5
+				"damage force reduction" 0.1
+				"airblast vulnerability multiplier" 0.1
+			}
+
+			ItemAttributes
+			{
+				ItemName TF_WEAPON_REVOLVER
+
+				"damage bonus" 1.25
+			}
+
+			AddCond 
+			{
+				Index 4
+				Duration 0.4
+			}
+
+			EventChangeAttributes
+			{
+				Default 
+				{
+					Attributes MiniBoss
+				}
+
+				Soldier
+				{
+					Attributes MiniBoss
+					Attributes HoldFireUntilFullReload
+					Item "Full Metal Drill Hat"
+
+					Item "Upgradeable TF_WEAPON_ROCKETLAUNCHER"
+
+					ItemAttributes
+					{
+						ItemName "Upgradeable TF_WEAPON_ROCKETLAUNCHER"
+						"clip size upgrade atomic" 10.0
+						"Projectile speed decreased" 0.45
+						"faster reload rate" 0.4
+						"fire rate bonus" 0.3
+						"projectile spread angle penalty" 2
+					}
+				}
+
+				Demo 
+				{
+					Attributes MiniBoss
+
+					Attributes AlwaysFireWeapon
+
+					Item "Prince Tavish's Crown"
+
+					Item "The Loose Cannon"
+					Item "The Chargin' Targe"
+					Item "The Eyelander"
+
+					//ExtAttr AlwaysFireWeaponAlt
+
+					WeaponSwitch 
+					{
+						Delay 3
+						Cooldown 3
+						Repeats 1
+						Type "Melee" 
+					}
+
+					AddCond
+					{
+						Index 17 
+						Delay 3.2
+					}
+					// FireWeapon 
+					// {
+					//     Delay 3.1
+					//     Cooldown 3.1
+					//     Type "Secondary" 
+					// }
+
+					ItemAttributes
+					{
+						ItemName "The Loose Cannon"
+						"grenade launcher mortar mode" 0
+						"faster reload rate" -1
+						"fire rate bonus" 3
+						"Projectile speed increased" 0.8
+						"projectile spread angle penalty" 5
+						"damage bonus" 1.75
+						"damage causes airblast" 1
+						"blast radius increased" 1.2
+						"use large smoke explosion" 1
+					}
+
+					ItemAttributes
+					{
+						ItemName "The Eyelander"
+						"switch from wep deploy time decreased" 0.01
+						"single wep deploy time decreased" 0.01
+						"critboost on kill" 5 //carries over to the next transformation. little bit of trolling
+						//"charge recharge rate increased" 100
+						"Attack not cancel charge" 1
+						"max health additive penalty" 0
+					}
+				}
+
+				Heavy 
+				{
+					Item "The U-clank-a"
+					Item "Deflector"
+					WeaponRestrictions PrimaryOnly
+					MaxVisionRange 1200
+					Attributes MiniBoss
+
+					ItemAttributes
+					{
+						ItemName "Deflector"
+						"minigun spinup time increased" 2 //removed briefly after spawn, is there to telegraph 
+						"damage bonus"	1.25
+						"attack projectiles" 2
+					}
+				}
+			}
+
+		   AddCond { Name "TF_COND_REPROGRAMMED" } 
+		}
+
+		T_TFBot_Sergeant_Shapeshift_Supreme
+		{
+			SpawnTemplate Yakuza_Title_Card_Shapeshift_Supreme
+			SpawnTemplate Shapeshift_Supreme_Logic
+			SpawnTemplate Necromancer_Position
+
+			Class Spy
+			Name "Sergeant Shapeshift Supreme"
+			Skill Expert
+			Health 36000
+
+			Action Mobber
+
+			WeaponRestrictions PrimaryOnly
+
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			
+			Scale 1.9 
+			Tag bot_shapeshift
+			Tag bot_giant
+
+			CharacterAttributes
+			{
+				"cannot disguise" 1
+				"cancel falling damage" 1
+
+				"move speed bonus"	0.5
+				"damage force reduction" 0.1
+				"airblast vulnerability multiplier" 0.1
+			}
+
+			ItemAttributes
+			{
+				ItemName TF_WEAPON_REVOLVER
+
+				"damage bonus" 1.5
+			}
+
+			AddCond 
+			{
+				Index 4
+				Duration 0.4
+			}
+			FireInput [$SIGSEGV] 
+			{
+				Target "midphase_start_relay" //Entity name to use
+				Action "Trigger" //Input to fire
+				Delay 0 //Delay before firing the input
+				Cooldown 1 //Cooldown between firing the input
+				Repeats 1 //How many times should the input be fired
+				IfHealthBelow 12000
+			}
+			FireInput [$SIGSEGV] 
+			{
+				Target "midphase_start_relay" //Entity name to use
+				Action "Trigger" //Input to fire
+				Delay 0 //Delay before firing the input
+				Cooldown 1 //Cooldown between firing the input
+				Repeats 1 //How many times should the input be fired
+				IfHealthBelow 24000
+			}
+			EventChangeAttributes
+			{
+				Default 
+				{
+					Attributes MiniBoss
+				}
+
+				Return
+				{
+					Attributes MiniBoss
+					FireInput [$SIGSEGV] 
+					{
+						Target "midphase_end_relay" //Entity name to use
+						Action "Trigger" //Input to fire
+						Delay 0 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 0 //How many times should the input be fired
+					}
+					ChangeAttributes [$SIGSEGV]  
+					{
+						Delay 1
+						Cooldown 1
+						Repeats 1
+						Name "Default"
+					}
+					FireInput [$SIGSEGV] 
+					{
+						Target "lastphase_start_relay" //Entity name to use
+						Action "Trigger" //Input to fire
+						Delay 0 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 1 //How many times should the input be fired
+						IfHealthBelow 12000
+					}
+				}
+
+				Scout 
+				{
+					Attributes MiniBoss
+
+					Item "Upgradeable TF_WEAPON_BAT"
+					Item "Hero's Tail"
+					Item "The Eye-Catcher"
+					Item "Dead of Night"
+
+					WeaponRestrictions MeleeOnly
+
+					ItemColor 
+					{
+						ItemName "Hero's Tail"
+						Red 0
+						Green 0
+						Blue 0
+					}
+				}
+
+				Soldier
+				{
+					Attributes MiniBoss
+					Attributes HoldFireUntilFullReload
+					Item "Tyrant's Helm"
+
+					Item "Upgradeable TF_WEAPON_ROCKETLAUNCHER"
+
+					ItemAttributes
+					{
+						ItemName "Upgradeable TF_WEAPON_ROCKETLAUNCHER"
+						//"damage bonus" 1.5
+						"faster reload rate" 0.1
+						"fire rate bonus" 0.3
+						"clip size upgrade atomic" 10.0
+						"Projectile speed increased" 0.9//1.3
+					}
+				}
+
+				Demo 
+				{
+					Attributes MiniBoss
+
+					Attributes AlwaysFireWeapon
+					Attributes HoldFireUntilFullReload
+
+					Item "Rimmed Raincatcher"
+
+					Item "Upgradeable TF_WEAPON_GRENADELAUNCHER"
+
+					ItemAttributes
+					{
+						ItemName "Upgradeable TF_WEAPON_GRENADELAUNCHER"
+						"fire rate bonus" 0.2
+						"faster reload rate" 0.3
+						"clip size bonus" 6.0
+						"Projectile speed increased" 1.2
+					}
+				}
+
+				//burst shotgun
+				Heavy 
+				{
+					Attributes MiniBoss
+					Attributes HoldFireUntilFullReload
+
+					Item "Security Shades" 
+					Item "Upgradeable TF_WEAPON_SHOTGUN_PRIMARY"
+
+					ItemAttributes
+					{
+						ItemName "Upgradeable TF_WEAPON_SHOTGUN_PRIMARY"
+						"fire rate bonus" 0.5
+						"bullets per shot bonus" 10
+						"clip size penalty" 0.5
+						"damage penalty" 0.5
+						"faster reload rate" 0.45
+					}
+				}
+
+				//necromancer medic
+				Medic 
+				{
+					Item "Spine-Chilling Skull"
+	  				//Item "Zombie Medic"
+					//Item "Berliner's Bucket Helm"
+					//Item "Upgradeable TF_WEAPON_BONESAW"
+
+					Item "The Crusader's Crossbow"
+
+					// ItemModel 
+					// {
+					// 	ItemName "Berliner's Bucket Helm"
+					// 	Model "models/player/items/medic/medic_zombie.mdl"
+					// }
+
+					//UseHumanAnimations 1
+					
+					ItemAttributes
+					{
+						ItemName "The Crusader's Crossbow"
+						"mark for death" 1
+					}
+
+					WeaponRestrictions PrimaryOnly
+
+					// Taunt
+					// {
+					// 	Delay 0.5
+					// 	Repeats 1
+					// 	Name "Taunt: Second Rate Sorcery" 
+					// }
+				}
+
+				//explosive tip
+				Sniper 
+				{
+					WeaponRestrictions PrimaryOnly
+
+					Item "Corona Australis"
+	  				Item "The Fortified Compound"
+
+					Attributes SuppressFire
+
+					//Attributes AlwaysFireWeapon
+
+					FireWeapon 
+					{
+						Delay 0.8
+						Cooldown 0.8
+
+						Type "Primary" 
+					}
+
+					AimAt Body
+
+					ShootTemplate
+					{
+						Name Explosive_Tip_Bot
+						Speed 0
+						AttachToProjectile 1 
+						Classname "tf_weapon_compound_bow"
+					}
+
+					ItemAttributes
+					{
+						ItemName "The Fortified Compound"
+						"faster reload rate" 0.001
+						"sniper no headshots" 1
+						"damage bonus" 0.75
+					}
+				}
+			}
+
+		   AddCond { Name "TF_COND_REPROGRAMMED" } 
+		}
+	}
+	PointTemplates
+	{
+		Alternating_Burst
+		{
+			NoFixup 1
+			logic_relay
+			{
+				"targetname" "alternate_relay"
+				"spawnflags" "2"
+
+								 
+				"OnTrigger" "receiver,$WeaponStripSlot,-1,0,-1" 
+				"OnTrigger" "receiver,$GiveItem,TF_WEAPON_ROCKETLAUNCHER,0.05,-1" 
+
+				"OnTrigger" "!activator,$AddItemAttribute,clip size upgrade atomic|23|0,0.12,-1"   
+				"OnTrigger" "!activator,$AddItemAttribute,damage penalty|0.7|0,0.12,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,fire rate bonus|0.001|0,0.12,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,faster reload rate|0.001|0,0.12,-1" 
+				"OnTrigger" "!activator,$AddItemAttribute,projectile speed increased|0.2|0,0.12,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,projectile spread angle penalty|20|0,0.12,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,blast radius increased|1.5|0,0.12,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,always crit|1|0,0.12,-1"
+				 
+				"OnTrigger" "!activator,$WeaponStripSlot,0,1.2,-1"
+				"OnTrigger" "!activator,$GiveItem,TF_WEAPON_ROCKETLAUNCHER,1.25,-1"
+			}
+		}
+		Combo_Pyro 
+		{
+			NoFixup 1
+
+			logic_relay
+			{
+				"targetname" "combo_primary_to_secondary"
+				"spawnflags" "2"
+
+				"OnTrigger" "!self,EnableRefire,,0,-1"
+				"OnTrigger" "!activator,$RemoveItemAttribute,fire input on hit|0,0,-1" 
+				"OnTrigger" "!activator,$WeaponSwitchSlot,1,0,-1"
+				"OnTrigger" "!activator,$AddPlayerAttribute,disable weapon switch|1,0.01,-1" 
+				"OnTrigger" "!activator,$RemovePlayerAttribute,disable weapon switch,0.6,-1" 
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.61,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,fire input on hit|combo_primary_to_secondary^Trigger^|0,0.62,-1"
+			}
+
+			logic_relay
+			{
+				"targetname" "combo_primary_to_secondary_longhold"
+				"spawnflags" "2"
+
+				"OnTrigger" "!self,EnableRefire,,0,-1"
+				"OnTrigger" "!activator,$RemoveItemAttribute,fire input on hit|0,0,-1" 
+				"OnTrigger" "!activator,$WeaponSwitchSlot,1,0,-1"
+				"OnTrigger" "!activator,$AddPlayerAttribute,disable weapon switch|1,0.01,-1" 
+				"OnTrigger" "!activator,$RemovePlayerAttribute,disable weapon switch,1.5,-1" 
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,1.51,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,fire input on hit|combo_primary_to_secondary_longhold^Trigger^|0,1.52,-1"
+			}
+		}
+		PreventPowerupDropOnDeath
+		{
+			OnParentKilledOutput
+			{
+				Target "item_powerup_rune"
+				Action "Kill"
+				Delay 0
+			}
+		}
+		Shapeshift_PrespawnDisguise
+		{
+			NoFixup 1 
+			KeepAlive 1
+
+			OnSpawnOutput
+			{
+				Target "apply_soldier_disguise_initial"
+				Action "Trigger"
+				Delay 0
+			}
+
+			logic_relay
+			{
+				"targetname" "apply_soldier_disguise_initial"
+
+				"OnTrigger" "!activator,$WeaponStripSlot,0,0,-1" 
+				"OnTrigger" "!activator,$GiveItem,Rocket Launcher,0.1,-1" 
+				//"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.1,-1" 
+				"OnTrigger" "!activator,SetCustomModel,models/bots/soldier_boss/bot_soldier_boss.mdl,0,-1" 
+
+				"OnTrigger" "!self,Kill,,1,-1" 
+			}
+
+			logic_relay
+			{
+				"targetname" "disguise_stop"
+
+				"OnTrigger" "!activator,$AddCond,4,0,-1"
+				"OnTrigger" "!activator,$Suicide,,0.7,-1"
+
+				"OnTrigger" "!self,Kill,,5,-1"
+
+				"OnTrigger" "spawnbot_extra,Enable,,0.7,-1"
+			}
+
+			info_target
+			{
+				"targetname" "shapeshift_spawn_target"
+				"origin" "0 0 0"
+			}
+			RemoveIfKilled "disguise_stop"
+		}
+
+		Shapeshift_Spawn
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$TeleportToEntity"
+				Param "shapeshift_spawn_target"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$PlaySound"
+				Param "vo\mvm\norm\spy_mvm_specialcompleted07.mp3"
+				Delay 0.1
+			}
+
+			OnSpawnOutput
+			{
+				Target "shapeshift_spawn_target"
+				Action "Kill"
+				Delay 1
+			}
+		}
+
+		Shapeshift_Logic 
+		{
+			OnSpawnOutput
+			{
+				Target "shapeshift_start"
+				Action "Trigger"
+				Delay 3
+			}
+
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$SetProp$m_bUseBossHealthBar"
+				Param "0"
+				Delay 0
+			}
+
+							
+			logic_relay
+			{
+				"targetname" "shapeshift_start"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$WeaponStripSlot,0,0.51,-1" 
+				"OnTrigger" "shapeshift_loop,Trigger,,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "shapeshift_global"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$AddCond,4,0,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "shapeshift_loop"
+				"spawnflags" "2"
+
+				"OnTrigger" "shapeshift_global,Trigger,,0,-1"
+				"OnTrigger" "soldier_shapeshift,Trigger,,0.5,-1"
+
+				"OnTrigger" "shapeshift_global,Trigger,,5,-1"
+				"OnTrigger" "demo_automic_shapeshift,Trigger,,5.5,-1"
+
+				"OnTrigger" "shapeshift_global,Trigger,,10,-1"
+				"OnTrigger" "heavy_shapeshift,Trigger,,10.5,-1"
+
+				"OnTrigger" "!self,Trigger,,16,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "scout_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "shapeshift_global,Trigger,,0,-1"
+				"OnTrigger" "!activator,$WeaponStripSlot,0,0,-1" 
+				"OnTrigger" "!activator,$GiveItem,TF_WEAPON_SCATTERGUN,0.1,-1" 
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+				"OnTrigger" "!activator,SetCustomModel,models/bots/scout/bot_scout.mdl,0.11,-1" 
+
+				"OnTrigger" "!activator,$AddCond,4,0.7,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.75,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "soldier_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$RemoveItem,The U-clank-a,0,-1"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Soldier,0,-1"
+
+				"OnTrigger" "!activator,$AddCond,40,0.1,-1"
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+				
+				"OnTrigger" "!activator,SetCustomModel,models/bots/soldier_boss/bot_soldier_boss.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,soldier_sergeant_crits,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "demo_automic_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$RemoveCond,40,0,-1"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Demo,0,-1"
+
+				"OnTrigger" "!activator,$RemoveItem,Full Metal Drill Hat,0,-1"
+
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+
+				"OnTrigger" "!activator,SetCustomModel,models/bots/demo_boss/bot_demo_boss.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,demo_bomber,0.4,-1"
+				//"OnTrigger" "!activator,$SetProp$m_bUseBossHealthBar,0,3,-1"
+				//"OnTrigger" "!activator,$SetProp$m_bUseBossHealthBar,1,0.45,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "heavy_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Heavy,0,-1"
+
+				"OnTrigger" "!activator,$RemoveItem,Prince Tavish's Crown,0,-1"
+				"OnTrigger" "!activator,$RemoveItem,The Chargin' Targe,0,-1"
+				"OnTrigger" "!activator,$RemoveItem,The Eyelander,0,-1"
+
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+
+				"OnTrigger" "!activator,SetCustomModel,models/bots/heavy_boss/bot_heavy_boss.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,heavy_deflector,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+
+				"OnTrigger" "!activator,$RemoveItemAttribute,minigun spinup time increased|0,2,-1" 
+			}
+		}
+		Yakuza_Title_Card_Shapeshift
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 0.2
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "TWO-SIDED MENACE, EXPERIMENTAL UNIT"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				//"fadein" "0"
+				"holdtime" "5"
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "SERGEANT SHAPESHIFT"
+				"x" "-1"
+				"y" "0.45"
+				"channel" "0"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+
+		Yakuza_Title_Card_Shapeshift_Supreme
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 0.2
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "ROBOT OF MANY TALENTS, EXPERIMENTAL UNIT"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				//"fadein" "0"
+				"holdtime" "5"
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "SERGEANT SHAPESHIFT SUPREME"
+				"x" "-1"
+				"y" "0.45"
+				"channel" "0"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+		Shapeshift_Supreme_Logic 
+		{
+			OnSpawnOutput
+			{
+				Target "shapeshift_start"
+				Action "Trigger"
+				Delay 3
+			}
+
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$SetProp$m_bUseBossHealthBar"
+				Param "0"
+				Delay 0
+			}
+			//OnSpawnOutput
+			//{
+			//	Target "!activator"
+			//	Action "AddOutput"
+			//	Param "targetname shapeshift"
+			//}
+			//OnParentKilledOutput
+			//{
+			//	Target "!activator"
+			//	Action "AddOutput"
+			//	Param "targetname "
+			//}
+
+			info_particle_system
+			{
+				"targetname" "spell_effect"
+				"effect_name" "spell_cast_wheel_red"
+				"flag_as_weather" "0"
+				"start_active" "0"
+
+				"OnUser1" "!self,Start,,0,-1"
+				"OnUser1" "!self,Stop,,0.5,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "necromancer_summon"
+
+				"OnTrigger" "necromancer_summon_case,PickRandomShuffle"
+
+				"OnTrigger" "spell_effect,FireUser1,,0,-1"
+			}
+			logic_case
+			{
+				"targetname" "necromancer_summon_case"
+				"OnCase01" "summon_chief,Enable,,0,-1"
+				"OnCase01" "summon_chief,Disable,,0.1,-1"
+				"OnCase02" "summon_chief2,Enable,,0,-1"
+				"OnCase02" "summon_chief2,Disable,,0.1,-1"
+				"OnCase03" "summon_chief3,Enable,,0,-1"
+				"OnCase03" "summon_chief3,Disable,,0.1,-1"
+			}			
+			logic_relay
+			{
+				"targetname" "shapeshift_start"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$WeaponStripSlot,0,0.51,-1" 
+				"OnTrigger" "shapeshift_loop,Trigger,,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "shapeshift_global"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$AddCond,4,0,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "shapeshift_loop"
+				"spawnflags" "2"
+
+				"OnTrigger" "shapeshift_global,Trigger,,0,-1"
+				"OnTrigger" "soldier_shapeshift,Trigger,,0.5,-1"//"soldier_shapeshift,Trigger,,0.5,-1"
+
+				"OnTrigger" "shapeshift_global,Trigger,,5,-1"
+				"OnTrigger" "demo_automic_shapeshift,Trigger,,5.5,-1"
+
+				"OnTrigger" "shapeshift_global,Trigger,,10,-1"
+				"OnTrigger" "heavy_shapeshift,Trigger,,10.5,-1"
+
+				"OnTrigger" "shapeshift_global,Trigger,,15,-1"
+				"OnTrigger" "medic_shapeshift,Trigger,,15.5,-1"
+
+				"OnTrigger" "shapeshift_global,Trigger,,20,-1"
+				"OnTrigger" "sniper_shapeshift,Trigger,,20.5,-1"
+
+				"OnTrigger" "shapeshift_global,Trigger,,25,-1"
+				"OnTrigger" "scout_shapeshift,Trigger,,25.5,-1"
+
+				"OnTrigger" "!self,Trigger,,30,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "scout_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$RemoveItem,Corona Australis,0,-1"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Scout,0,-1"
+				"OnTrigger" "!activator,$PlaySequence,layer_taunt_the_boston_breakdance,0.2,-1"
+
+				"OnTrigger" "!activator,$AddCond,40,0.1,-1"
+				"OnTrigger" "!activator,$WeaponSwitchSlot,2,0.11,-1" 
+				
+				"OnTrigger" "!activator,SetCustomModel,models/player/scout.mdl,0.11,-1" 
+				//"OnTrigger" "!activator,SetCustomModel,models/bots/scout/bot_scout.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,scout_bat,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+			logic_relay 
+			{
+				"targetname" "soldier_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$RemoveItem,Hero's Tail,0,-1"
+				"OnTrigger" "!activator,$RemoveItem,The Eye-Catcher,0,-1"
+				"OnTrigger" "!activator,$RemoveItem,Dead of Night,0,-1"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Soldier,0,-1"
+
+				"OnTrigger" "!activator,$AddCond,40,0.1,-1"
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+				
+				"OnTrigger" "!activator,SetCustomModel,models/bots/soldier_boss/bot_soldier_boss.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,soldier_sergeant_crits,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "demo_automic_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$RemoveCond,40,0,-1"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Demo,0,-1"
+
+				"OnTrigger" "!activator,$RemoveItem,Tyrant's Helm,0,-1"
+
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+
+				"OnTrigger" "!activator,SetCustomModel,models/bots/demo_boss/bot_demo_boss.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,demo_giant,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "heavy_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Heavy,0,-1"
+
+				"OnTrigger" "!activator,$RemoveItem,Rimmed Raincatcher,0,-1"
+
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+
+				"OnTrigger" "!activator,SetCustomModel,models/bots/heavy_boss/bot_heavy_boss.mdl,0.1,-1" 
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,heavy_shotgun_burst_lite,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "medic_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Medic,0,-1"
+
+				"OnTrigger" "!activator,$RemoveItem,Security Shades,0,-1"
+
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+
+				"OnTrigger" "!activator,SetCustomModel,models/bots/medic/bot_medic.mdl,0.1,-1" 
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,medic_boost_giant,0.4,-1"
+
+				//"OnTrigger" "!activator,$PlaySequence,secondrate_socery_medic,1,-1"
+
+				"OnTrigger" "necromancer_summon,Trigger,,2,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "sniper_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Sniper,0,-1"
+
+				"OnTrigger" "!activator,$RemoveItem,Spine-Chilling Skull,0,-1"
+				//"OnTrigger" "!activator,$RemoveItem,Zombie Medic,0,-1"
+
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+
+				"OnTrigger" "!activator,SetCustomModel,models/bots/sniper/bot_sniper.mdl,0.1,-1" 
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,sniper_bow_atomic,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+		}
+		Necromancer_Position 
+		{
+			NoFixup 1
+
+			info_target 
+			{
+				"targetname" "necromancer_target"
+
+				"Origin" "0 0 0"
+			}
+		}
+
+		Necromancer_Summoned 
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$TeleportToEntity"
+				Param "necromancer_target"
+				Delay 0
+			}
+		}
+	  	Explosive_Tip_Bot
+		{
+			KeepAlive 1
+
+			OnSpawnOutput 
+			{
+				Target "tip_explosion"
+				Action "$InheritOwner"
+				Param "!activator"
+				Delay 0.1
+			}
+
+			OnSpawnOutput 
+			{
+				Target "@c@!activator"
+				Action "FireUser1"
+				Delay 0
+			}
+
+			OnSpawnOutput 
+			{
+				Target "explosive_tip_relay"
+				Action "FireUser1"
+				Delay 0
+			}
+
+			OnSpawnOutput 
+			{
+				Target "explosive_tip_relay"
+				Action "FireUser1"
+				Delay 0
+			}
+
+			logic_relay
+			{
+				"targetname" "explosive_tip_relay"
+
+				"OnUser1" "!self,Kill,,5,-1"
+			}
+
+			info_target
+			{
+				"targetname" "detonate_position"
+
+				"OnUser1" "!self,Kill,,5,-1"
+			}
+
+			tf_point_weapon_mimic
+			{
+				"targetname" "tip_explosion"
+
+				"spawnflags" "1"
+				"angles" "0 0 0"
+				"origin" "-1 0 -3"
+				"teamnum" "2"
+				"Crits" "0"
+				"Damage" "75"
+				"ModelScale" "1"
+				"SpeedMax" "1000000"
+				"SpeedMin" "1000000"
+				"SplashRadius" "144"
+				"SpreadAngle" "0"
+				"WeaponType" "3"
+
+				"OnUser1" "!self,FireOnce,,2,-1"
+				"OnUser4" "!self,DetonateStickies,,0,-1"
+			}
+			
+			logic_measure_movement 
+			{
+				"MeasureReference" "detonate_position"
+				"MeasureTarget" "detonate_position"
+				"MeasureType" "0"
+				"Target" "tip_explosion"
+				"TargetReference" "detonate_position"
+				"TargetScale" "1"
+			}
+
+			info_particle_system
+			{
+				"targetname" "sticky_flicker"
+				"effect_name" "stickybomb_pulse_red"
+				"flag_as_weather" "0"
+				"start_active" "0"
+				
+				"OnUser1" "!self,Start,2,1,-1"
+				"OnUser1" "!self,Kill,2.7,3,-1"
+			}
+			logic_measure_movement 
+			{
+				"MeasureReference" "detonate_position"
+				"MeasureTarget" "detonate_position"
+				"MeasureType" "0"
+				"Target" "sticky_flicker"
+				"TargetReference" "detonate_position"
+				"TargetScale" "1"
+			}
+
+			ambient_generic
+			{
+				"targetname" "sticky_sound"
+				"message" "weapons/stickybomblauncher_det.wav"
+				"radius" "4000"
+				"health" "5"
+				"spawnflags" "48"
+
+				"OnUser1" "!self,PlaySound,,1,-1"
+				"OnUser1" "!self,Kill,,3,-1"
+			}
+
+			logic_measure_movement 
+			{
+				"MeasureReference" "detonate_position"
+				"MeasureTarget" "detonate_position"
+				"MeasureType" "0"
+				"Target" "sticky_sound"
+				"TargetReference" "detonate_position"
+				"TargetScale" "1"
+			}
+
+			filter_activator_tfteam 
+			{
+				"targetname" "filter_is_blu"
+				"Negated" "0"
+				"TeamNum" "3"
+
+				"OnUser1" "!self,Kill,,2.1,-1"
+			}	
+
+			trigger_hurt //for some reason I can't explain using a trigger_once or trigger_multiple just blocks the projectile
+			{
+				"targetname" "attach_to_enemy"
+				"origin" "0 0 0"
+				"mins" "-3 -3 -3"
+				"maxs" "3 3 3"
+				"Damage" "0"
+				"spawnflags" "1" 
+				"filtername" "filter_is_blu"
+
+				"OnStartTouch" "detonate_position,SetParent,!activator,0,-1"
+				//"OnStartTouch" "player,$DisplayTextChat,attached,0.1,-1"
+				"OnStartTouch" "!self,Disable,,0.1,-1"
+
+				"OnUser1" "!self,Kill,,2.1,-1"
+			}
+			
+
+			RemoveIfKilled "explosive_tip_relay"
+		}
+		Yakuza_Title_Card_HunterChopper
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 3
+			}
+
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 3.2
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "AIRBORNE ASSAULT ARSENAL"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				//"fadein" "0"
+				"holdtime" "5"
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "HELICOPTER"
+				"x" "-1"
+				"y" "0.45"
+				"channel" "0"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+		Helicopter_Base_Init
+		{
+			NoFixup 1
+
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname helicopter_bot"
+				Delay 0
+			}
+
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname  "
+				Delay 0
+			}
+
+			info_target
+			{
+				"targetname" "helicopterhitbox_position"
+				"origin" "-100 0 430"
+			} 
+
+
+			info_target
+			{
+				"targetname" "helicoptershooter_position"
+				"origin" "0 0 420"
+			} 
+		}
+
+		Helicopter_Patterns
+		{
+			NoFixup 1
+			
+			OnSpawnOutput
+			{
+				Target "pattern_switch"
+				Action "Trigger"
+				Delay 0
+			}
+
+			logic_relay 
+			{
+				"targetname" "pattern_switch"
+				"spawnflags" "2"
+
+				//pattern 2 after 4 seconds
+				//"OnTrigger" "player,$DisplayTextChat,pattern 2,4,-1"
+				"OnTrigger" "helicopter_bot_shoot,$ChangeAttributes,Pattern2,4,-1"
+
+				//pattern 8 after 9 seconds
+				//"OnTrigger" "player,$DisplayTextChat,pattern 3,9,-1"
+				"OnTrigger" "helicopter_bot_shoot,$ChangeAttributes,Pattern3,9,-1"
+
+				//pattern 4 after 13 seconds
+				//"OnTrigger" "player,$DisplayTextChat,pattern 4,13,-1"
+				"OnTrigger" "helicopter_bot_shoot,$ChangeAttributes,Pattern4,13,-1"
+
+				//default pattern after 15 seconds, loop
+				//"OnTrigger" "player,$DisplayTextChat,reset,15,-1"
+				"OnTrigger" "helicopter_bot_shoot,$ChangeAttributes,Default,15,-1"
+				"OnTrigger" "pattern_switch,Trigger,,15.1,-1"
+			}
+		}
+		TridentBurst 
+		{
+			OnSpawnOutput 
+			{
+				Target "firer"
+				Action "FireUser1"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "firer"
+				Action "$InheritOwner"
+				Param "!activator"
+				Delay 0
+			}
+
+
+			tf_point_weapon_mimic
+			{
+				"targetname" "firer"
+
+				"$preventshootparent" "1"
+
+				"spawnflags" "1"
+				"angles" "0 0 0"
+				"origin" "0 10 -3"
+				"teamnum" "2"
+				"Crits" "0"
+				"Damage" "120"
+				"ModelScale" "1"
+				"SpeedMax" "1000"
+				"SpeedMin" "1000"
+				"SplashRadius" "144"
+				"SpreadAngle" "0"
+				"WeaponType" "0"
+
+				"OnUser1" "!self,FireOnce,,0,-1"
+			}
+
+			tf_point_weapon_mimic
+			{
+				"targetname" "firer"
+
+				"$preventshootparent" "1"
+
+				"spawnflags" "1"
+				"angles" "0 0 0"
+				"origin" "0 -10 -3"
+				"teamnum" "2"
+				"Crits" "0"
+				"Damage" "75"
+				"ModelScale" "1"
+				"SpeedMax" "1000"
+				"SpeedMin" "1000"
+				"SplashRadius" "144"
+				"SpreadAngle" "0"
+				"WeaponType" "0"
+
+				"OnUser1" "!self,FireOnce,,0,-1"
+			}
+		}
+
+		RocketMastery
+		{
+			OnSpawnOutput 
+			{
+				Target "firer"
+				Action "FireUser1"
+				Delay 0
+			}
+
+			OnSpawnOutput 
+			{
+				Target "firer"
+				Action "SetParent"
+				Param ""
+				Delay 0
+			}
+
+			OnSpawnOutput 
+			{
+				Target "!activator"
+				Action "Kill"
+				Delay 0.1
+			}
+
+			OnSpawnOutput 
+			{
+				Target "firer"
+				Action "Kill"
+				Delay 0.1
+			}
+
+			tf_point_weapon_mimic
+			{
+				"targetname" "firer"
+
+				"spawnflags" "1"
+				"angles" "0 -10 0"
+				"origin" "-1 0 -3"
+				"teamnum" "2"
+				"Crits" "0"
+				"Damage" "75"
+				"ModelScale" "1"
+				"SpeedMax" "700"
+				"SpeedMin" "700"
+				"SplashRadius" "144"
+				"SpreadAngle" "0"
+				"WeaponType" "0"
+
+				"OnUser1" "!self,FireOnce,,0,-1"
+			}
+
+			tf_point_weapon_mimic
+			{
+				"targetname" "firer"
+
+				"spawnflags" "1"
+				"angles" "0 10 0"
+				"origin" "-1 0 -3"
+				"teamnum" "2"
+				"Crits" "0"
+				"Damage" "75"
+				"ModelScale" "1"
+				"SpeedMax" "500"
+				"SpeedMin" "500"
+				"SplashRadius" "144"
+				"SpreadAngle" "0"
+				"WeaponType" "0"
+
+				"OnUser1" "!self,FireOnce,,0,-1"
+			}
+		}
+		
+		RocketSpike
+		{
+			OnSpawnOutput 
+			{
+				Target "firer"
+				Action "FireUser1"
+				Delay 0
+			}
+
+			tf_point_weapon_mimic
+			{
+				"targetname" "firer"
+
+				"spawnflags" "1"
+				"angles" "90 0 0"
+				"origin" "-1 0 -3"
+				"teamnum" "2"
+				"Crits" "0"
+				"Damage" "75"
+				"ModelScale" "1"
+				"SpeedMax" "700"
+				"SpeedMin" "700"
+				"SplashRadius" "144"
+				"SpreadAngle" "0"
+				"WeaponType" "0"
+
+				"OnUser1" "!self,FireOnce,,0,-1"
+				"OnUser1" "!self,FireUser1,,0.2,-1"
+			}
+		}
+
+		RocketMasteryConstant 
+		{
+			OnSpawnOutput 
+			{
+				Target "firer"
+				Action "FireUser1"
+				Delay 0
+			}
+
+			tf_point_weapon_mimic
+			{
+				"targetname" "firer"
+
+				"spawnflags" "1"
+				"angles" "0 -10 0"
+				"origin" "-1 0 -3"
+				"teamnum" "2"
+				"Crits" "0"
+				"Damage" "75"
+				"ModelScale" "1"
+				"SpeedMax" "600"
+				"SpeedMin" "600"
+				"SplashRadius" "144"
+				"SpreadAngle" "0"
+				"WeaponType" "0"
+
+				"OnUser1" "!self,FireOnce,,0,-1"
+				"OnUser1" "!self,FireUser1,,0.4,-1"
+			}
+
+			tf_point_weapon_mimic
+			{
+				"targetname" "firer"
+
+				"spawnflags" "1"
+				"angles" "0 10 0"
+				"origin" "-1 0 -3"
+				"teamnum" "2"
+				"Crits" "0"
+				"Damage" "75"
+				"ModelScale" "1"
+				"SpeedMax" "500"
+				"SpeedMin" "500"
+				"SplashRadius" "144"
+				"SpreadAngle" "0"
+				"WeaponType" "0"
+
+				"OnUser1" "!self,FireOnce,,0,-1"
+				"OnUser1" "!self,FireUser1,,0.4,-1"
+			}
+		}
+		Helicopter_Shooter_Init
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname helicopter_bot_shoot"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "helicopter_relay"
+				Action "FireUser1"
+				Delay 0
+			}
+
+			OnSpawnOutput 
+			{
+				Target "stickies"
+				Action "FireUser1"
+				Delay 5
+			}
+
+
+			OnSpawnOutput 
+			{
+				Target "stickies"
+				Action "SetOwner"
+				Param "!activator"
+				Delay 0
+			}
+
+			logic_relay 
+			{
+				"targetname" "helicopter_relay"
+				"OnUser1" "!activator,$TeleportToEntity,helicoptershooter_position,0,-1"
+				"OnUser1" "!self,FireUser1,,0.01,-1"
+			}
+
+			tf_point_weapon_mimic
+			{
+				"targetname" "stickies"
+
+				"$preventshootparent" "1"
+
+				"spawnflags" "1"
+				"angles" "0 0 0"
+				"origin" "0 0 0"
+				"teamnum" "2"
+				"Crits" "0"
+				"Damage" "100"
+				"ModelScale" "1"
+				"ModelOverride" "models/weapons/w_models/w_stickybomb.mdl"
+				"SpeedMax" "1000"
+				"SpeedMin" "100"
+				"SplashRadius" "144"
+				"SpreadAngle" "30"
+				"WeaponType" "3"
+
+				"OnUser1" "!self,FireMultiple,15,0,-1"
+				"OnUser1" "!self,DetonateStickies,,3,-1"
+				"OnUser1" "!self,FireUser1,,4,-1"
+			}
+
+
+			//model
+			prop_dynamic
+			{
+				"targetname" "helicopter_model"
+				"model" "models/props_frontline/helicopter_windows.mdl"//"models/combine_helicopter.mdl"
+				"origin" "0 0 -100"
+				"angles" "0 0 0"
+				"DefaultAnim" "fly_idle"
+				"modelscale" "1.5"
+				"skin" "0"
+				"solid" "0"
+			}
+
+			//glow, doesn't work
+			tf_glow
+			{
+				"GlowColor" "88 133 162"
+				"Mode" "0"
+				"target" "helicopter_model"
+			}
+		}
+
+		Helicopter_Tank_Init
+		{
+			OnSpawnOutput
+			{
+				Target "helicopter_relay"
+				Action "FireUser1"
+				Delay 0
+			}
+			//no player collision resolve logic (thanks orin)
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "Disable"
+				Delay 1
+			}
+			// OnSpawnOutput
+			// {
+			// 	Target "helicopter_pattern2_detect"
+			// 	Action "Trigger"
+			// 	Delay 0
+			// }
+
+			OnParentKilledOutput
+			{
+				Target "helicopter_bot*"
+				Action "$Suicide"
+				Param "0"
+				Delay 0
+			}
+
+			OnParentKilledOutput
+			{
+				Target "helicopter_bot*"
+				Action "AddOutput"
+				Param "targetname "
+				Delay 0.1
+			}
+
+			logic_relay 
+			{
+				"targetname" "helicopter_relay"
+				"OnUser1" "!activator,$TeleportToEntity,helicopterhitbox_position,0,-1"
+				"OnUser1" "!self,FireUser1,,0.01,-1"
+			}
+
+			// logic_relay 
+			// {
+			// 	"targetname" "helicopter_pattern2_detect"
+			// 	"spawnflags" "2"
+
+			// 	"OnTrigger" "!activator,AddOutput,OnHealthBelow90Percent helicopter_pattern2_relay:Trigger:0:-1,0,-1"
+			// }
+		}
+		Yakuza_Title_Card_Rockethell
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 0.2
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "FIERCEST WARRIOR OF THE HAZARDOUS HORIZONS"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				"holdtime" "5"
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "RANGER ROCKETHELL"
+				"x" "-1"
+				"y" "0.45"
+				"channel" "0"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+		Rockethell_Logic
+		{
+			OnSpawnOutput
+			{
+				Target "rockethell_pattern"
+				Action "Trigger"
+				Delay 0.1
+			}
+
+			OnSpawnOutput
+			{
+				Target "spellcard"
+				Action "Trigger"
+				Delay 6.9
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "spellcard_text"
+				"message" "N/A"
+				"x" "-1"
+				"y" "0.33"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				//"fadein" "0"
+				"holdtime" "8"
+			}
+			logic_relay 
+			{
+				"targetname" "rockethell_pattern"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,LeftSway,0,-1"
+				"OnTrigger" "!activator,$ChangeAttributes,RightSway,2,-1"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Bloom,4,-1"
+				"OnTrigger" "!activator,$ChangeAttributes,Homing,5.5,-1"
+				"OnTrigger" "!activator,$AddCond,36,5.5,-1"
+				
+				"OnTrigger" "!activator,$RemoveCond,36,7,-1"
+		
+				"OnTrigger" "!self,Trigger,,7,-1"
+			}
+			logic_relay 
+			{
+				"targetname" "spellcard1_relay"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$RemoveCond,36,0,-1"
+				"OnTrigger" "rockethell_pattern,$CancelPending,,0,-1"
+				"OnTrigger" "!activator,$ChangeAttributes,Spellcard_1,0.01,-1"
+
+				"OnTrigger" "spellcard_text,AddOutput,message Stream Sign ~ World of Rockets & Stripes,0,-1"
+				"OnTrigger" "spellcard_text,Display,,0.01,-1"
+
+				"OnTrigger" "!activator,$AddPlayerAttribute,no_attack|1,0.02,-1"
+				"OnTrigger" "!activator,$RemovePlayerAttribute,no_attack,1,-1"
+
+				"OnTrigger" "rockethell_pattern,Trigger,,8,-1" //spellcard duration
+			}
+
+			logic_relay 
+			{
+				"targetname" "spellcard2_relay"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$RemoveCond,36,0,-1"
+				"OnTrigger" "rockethell_pattern,$CancelPending,,0,-1"
+
+				"OnTrigger" "spellcard_text,AddOutput,message Barrage Sign ~ Machine Gun Kiss,0,-1"
+				"OnTrigger" "spellcard_text,Display,,0.01,-1"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Spellcard_2_1,0.01,-1"
+				"OnTrigger" "!activator,$ChangeAttributes,Spellcard_2_2,2.4,-1"
+				"OnTrigger" "!activator,$ChangeAttributes,Spellcard_2_1,4.8,-1"
+				"OnTrigger" "!activator,$ChangeAttributes,Spellcard_2_2,7.2,-1"
+
+				"OnTrigger" "rockethell_pattern,Trigger,,8,-1" //spellcard duration
+			}
+
+			logic_relay 
+			{
+				"targetname" "spellcard3_relay"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$AddCond,36,0,-1"
+				"OnTrigger" "rockethell_pattern,$CancelPending,,0,-1"
+
+				"OnTrigger" "spellcard_text,AddOutput,message Homing Sign ~ Right Combination,0,-1"
+				"OnTrigger" "spellcard_text,Display,,0.01,-1"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Spellcard_3,0.01,-1"
+
+				"OnTrigger" "!activator,$RemoveCond,36,8,-1"
+				"OnTrigger" "rockethell_pattern,Trigger,,8,-1" //spellcard duration
+			}
+
+			logic_relay 
+			{
+				"targetname" "spellcard"
+				"spawnflags" "2"
+
+				//world of rockets & stripes
+				"OnTrigger" "spellcard1_relay,Trigger,,0,-1"
+
+				//machine gun kiss
+				"OnTrigger" "spellcard2_relay,Trigger,,14.9,-1" //8 + 6.9
+
+				//right combination
+				"OnTrigger" "spellcard3_relay,Trigger,,29.8,-1" //14.9 + 8 + 6.9
+
+				//"OnTrigger" "!self,Trigger,,44.7,-1"
+
+				"OnTrigger" "!self,Trigger,,60,-1"
+			}
+		}
+		LeftSwayRocket
+		{
+			KeepAlive 1
+
+			OnSpawnOutput
+			{
+				Target "firer"
+				Action "$InheritOwner"
+				Param "!activator"
+				Delay 0
+			}
+			
+			OnSpawnOutput 
+			{
+				Target "firer_interval"
+				Action "FireUser1"
+				Delay 0
+			}
+
+			OnSpawnOutput 
+			{
+				Target "firer_angle_counter"
+				Action "$SetVar$ActivatorRotationX"
+				Param "$$=x(!activator.m_angRotation)"
+				Delay 0
+			}
+			OnSpawnOutput 
+			{
+				Target "firer_angle_counter"
+				Action "$SetVar$ActivatorRotationY"
+				Param "$$=y(!activator.m_angRotation)"
+				Delay 0
+			}
+			OnSpawnOutput 
+			{
+				Target "firer_angle_counter"
+				Action "$SetVar$ActivatorRotationZ"
+				Param "$$=z(!activator.m_angRotation)"
+				Delay 0
+			}
+
+			OnSpawnOutput 
+			{
+				Target "!activator"
+				Action "Kill"
+				Delay 0.1
+			}
+			
+			logic_relay
+			{
+				"targetname" "firer_interval"
+				"spawnflags" "2"
+
+				"OnUser1" "firer_angle_counter,FireUser1,0,-1"
+				"OnUser1" "!self,FireUser1,,0.03,-1" //interval
+			}
+				
+			math_counter
+			{
+				"targetname" "firer_angle_counter"
+				"startvalue" "-9"
+				"min" "-9"
+				"max" "99" 
+
+				"OnHitMax" "firer_interval,Kill,,0,-1"
+				"OnHitMax" "firer_angle_formatter,Kill,,0,-1"
+				"OnHitMax" "firer,Kill,,0,-1"
+				"OnHitMax" "!self,Kill,,0.01,-1"
+
+				"OnGetValue" "firer_angle_counter,$SetVar$Temp,,0,-1" 
+
+				"OnGetValue" "firer,$SetKey$angles,$$=firer_angle_counter.ActivatorRotationX..' '..(firer_angle_counter.ActivatorRotationY + firer_angle_counter.Temp)..' '..firer_angle_counter.ActivatorRotationZ,0.01,-1"
+
+				"OnGetValue" "firer,FireOnce,,0.02,-1"
+				//"OnGetValue" "player,$DisplayTextChat,$$=x(!activator.m_angRotation)..' '..(y(!activator.m_angRotation) + firer_angle_counter.Temp)..' '..z(!activator.m_angRotation),0.01,-1"
+				//"OnGetValue" "player,$DisplayTextChat,$$=firer_angle_counter.ActivatorRotationX..' '..(firer_angle_counter.ActivatorRotationY + firer_angle_counter.Temp)..' '..firer_angle_counter.ActivatorRotationZ,0.01,-1"
+
+				"OnUser1" "!self,Add,9,0,-1" //fire 10 rockets in a cycle 
+				"OnUser1" "!self,GetValue,,0.01,-1"
+			}
+
+
+			tf_point_weapon_mimic
+			{
+				"targetname" "firer"
+
+				"spawnflags" "1"
+				"angles" "0 0 0"
+				"origin" "0 0 0"
+				"teamnum" "2"
+				"Crits" "0"
+				"Damage" "100"
+				"ModelScale" "1"
+				"SpeedMax" "400"
+				"SpeedMin" "400"
+				"SplashRadius" "144"
+				"SpreadAngle" "0"
+				"WeaponType" "0"
+			}
+		}
+
+		RightSwayRocket
+		{
+			KeepAlive 1
+
+			OnSpawnOutput
+			{
+				Target "firer"
+				Action "$InheritOwner"
+				Param "!activator"
+				Delay 0
+			}
+			
+			OnSpawnOutput 
+			{
+				Target "firer_interval"
+				Action "FireUser1"
+				Delay 0
+			}
+
+			OnSpawnOutput 
+			{
+				Target "firer_angle_counter"
+				Action "$SetVar$ActivatorRotationX"
+				Param "$$=x(!activator.m_angRotation)"
+				Delay 0
+			}
+			OnSpawnOutput 
+			{
+				Target "firer_angle_counter"
+				Action "$SetVar$ActivatorRotationY"
+				Param "$$=y(!activator.m_angRotation)"
+				Delay 0
+			}
+			OnSpawnOutput 
+			{
+				Target "firer_angle_counter"
+				Action "$SetVar$ActivatorRotationZ"
+				Param "$$=z(!activator.m_angRotation)"
+				Delay 0
+			}
+
+			OnSpawnOutput 
+			{
+				Target "!activator"
+				Action "Kill"
+				Delay 0.1
+			}
+
+			logic_relay
+			{
+				"targetname" "firer_interval"
+				"spawnflags" "2"
+
+				"OnUser1" "firer_angle_counter,FireUser1,0,-1"
+				"OnUser1" "!self,FireUser1,,0.03,-1" //interval
+			}
+				
+			math_counter
+			{
+				"targetname" "firer_angle_counter"
+				"startvalue" "9"
+				"min" "-99"
+				"max" "9" 
+
+				"OnHitMin" "firer_interval,Kill,,0,-1"
+				"OnHitMin" "firer_angle_formatter,Kill,,0,-1"
+				"OnHitMin" "firer,Kill,,0,-1"
+				"OnHitMin" "!self,Kill,,0.01,-1"
+
+				"OnGetValue" "firer_angle_counter,$SetVar$Temp,,0,-1" 
+
+				"OnGetValue" "firer,$SetKey$angles,$$=firer_angle_counter.ActivatorRotationX..' '..(firer_angle_counter.ActivatorRotationY + firer_angle_counter.Temp)..' '..firer_angle_counter.ActivatorRotationZ,0.01,-1"
+
+				"OnGetValue" "firer,FireOnce,,0.02,-1"
+				//"OnGetValue" "player,$DisplayTextChat,$$=x(!activator.m_angRotation)..' '..(y(!activator.m_angRotation) + firer_angle_counter.Temp)..' '..z(!activator.m_angRotation),0.01,-1"
+				//"OnGetValue" "player,$DisplayTextChat,$$=firer_angle_counter.ActivatorRotationX..' '..(firer_angle_counter.ActivatorRotationY + firer_angle_counter.Temp)..' '..firer_angle_counter.ActivatorRotationZ,0.01,-1"
+
+				"OnUser1" "!self,Subtract,9,0,-1" //fire 10 rockets in a cycle 
+				"OnUser1" "!self,GetValue,,0.01,-1"
+			}
+
+
+			tf_point_weapon_mimic
+			{
+				"targetname" "firer"
+
+				"spawnflags" "1"
+				"angles" "0 0 0"
+				"origin" "0 0 0"
+				"teamnum" "2"
+				"Crits" "0"
+				"Damage" "100"
+				"ModelScale" "1"
+				"SpeedMax" "400"
+				"SpeedMin" "400"
+				"SplashRadius" "144"
+				"SpreadAngle" "0"
+				"WeaponType" "0"
+			}
+		}
+
+		//burst into rockets after 2 seconds if parent is not destroyed
+		HomingCircleBlow
+		{
+			OnSpawnOutput
+			{
+				Target "firer"
+				Action "$InheritOwner"
+				Param "!activator"
+				Delay 0
+			}
+
+			OnSpawnOutput 
+			{
+				Target "firer_interval"
+				Action "FireUser1"
+				Delay 2
+			}
+
+			logic_relay
+			{
+				"targetname" "firer_interval"
+				"spawnflags" "2"
+
+				"OnUser1" "firer_angle_counter,FireUser1,0,-1"
+				"OnUser1" "!self,FireUser1,,0.03,-1" //interval
+			}
+				
+			math_counter
+			{
+				"targetname" "firer_angle_counter"
+				"startvalue" "-45"
+				"min" "-45"
+				"max" "360" 
+
+				"OnHitMax" "!activator,Kill,,0.03,-1"
+
+				"OnGetValue" "firer_angle_counter,$SetVar$Temp,,0,-1" 
+
+				"OnGetValue" "firer,$SetKey$angles,$$=x(!activator.m_angRotation)..' '..(y(!activator.m_angRotation) + firer_angle_counter.Temp)..' '..z(!activator.m_angRotation),0.01,-1"
+				"OnGetValue" "firer,FireOnce,,0.02,-1"
+
+				//"OnGetValue" "player,$DisplayTextChat,$$=x(!activator.m_angRotation)..' '..(y(!activator.m_angRotation) + firer_angle_counter.Temp)..' '..z(!activator.m_angRotation),0.01,-1"
+
+				"OnUser1" "!self,Add,45,0,-1" //fire 8 rockets in a cycle 
+				"OnUser1" "!self,GetValue,,0.01,-1"
+			}
+
+			tf_point_weapon_mimic
+			{
+				"targetname" "firer"
+
+				"spawnflags" "1"
+				"angles" "0 0 0"
+				"origin" "0 0 0"
+				"teamnum" "2"
+				"Crits" "0"
+				"Damage" "100"
+				"ModelScale" "1"
+				"SpeedMax" "400"
+				"SpeedMin" "400"
+				"SplashRadius" "144"
+				"SpreadAngle" "0"
+				"WeaponType" "0"
+			}
+		}
+
+		WorldOfRocketsNStripes 
+		{
+			OnSpawnOutput
+			{
+				Target "firer"
+				Action "$InheritOwner"
+				Param "!activator"
+				Delay 0
+			}
+
+			OnSpawnOutput 
+			{
+				Target "firer_interval"
+				Action "FireUser1"
+				Delay 0
+			}
+
+			logic_relay
+			{
+				"targetname" "firer_interval"
+
+				"OnUser1" "firer_angle_counter,FireUser1,0,-1"
+				"OnUser1" "!self,FireUser1,,0.1,-1" //interval
+			}
+					
+			 math_counter
+			{
+				"targetname" "firer_angle_counter"
+				"startvalue" "-36"
+				"min" "-36"
+				"max" "360" 
+
+				"OnHitMax" "!self,Kill,,0,-1"
+				// "OnHitMax" "firer_interval,Kill,,0,-1"
+				// "OnHitMax" "firer_angle_formatter,Kill,,0,-1"
+				// "OnHitMax" "firer,Kill,,0,-1"
+
+				"OnGetValue" "firer_angle_formatter,$SetKey$case01,,0,-1"
+				"OnGetValue" "firer_angle_formatter,$Format,,0.01,-1"
+				"OnUser1" "!self,Add,12,0,-1" //fire 30 rockets in a cycle 
+				"OnUser1" "!self,GetValue,,0.01,-1"
+			}
+
+			logic_case
+			{
+				"targetname" "firer_angle_formatter"
+				"case16" "angles 0 % 0"
+				"case01" "0"
+				"ondefault" "firer,AddOutput,,0,-1"
+				"ondefault" "firer,FireUser1,,0.01,-1"
+			}
+
+			tf_point_weapon_mimic
+			{
+				"targetname" "firer"
+
+				"spawnflags" "1"
+				"angles" "0 0 0"
+				"origin" "0 0 0"
+				"teamnum" "2"
+				"Crits" "0"
+				"Damage" "100"
+				"ModelScale" "1"
+				"SpeedMax" "400"
+				"SpeedMin" "400"
+				"SplashRadius" "144"
+				"SpreadAngle" "0"
+				"WeaponType" "0"
+
+				"OnUser1" "!self,FireOnce,,0,-1"
+			}
+		}
+		Yakuza_Title_Card_Corporal
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 0.2
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "REPROGRAMMED SPECIAL UNIT"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				"holdtime" "5"
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "CORPORAL CANTEEN"
+				"x" "-1"
+				"y" "0.45"
+				"channel" "0"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+		Yakuza_Title_Card_Kazuma
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 0.2
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "EX-ROBOT FAMILY PATRIARCH"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				"holdtime" "5"
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "SERGEANT RECEIVER"
+				"x" "-1"
+				"y" "0.45"
+				"channel" "0"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+		DopplerShields
+		{
+			OnSpawnOutput
+			{
+				Target "rotate"
+				Action "StartForward"
+			}
+
+			OnSpawnOutput
+			{
+				Target "rotate2"
+				Action "StartBackward"
+			}
+
+			OnSpawnOutput
+			{
+				Target "rotate_position"
+				Action "Trigger"
+			}
+
+			OnSpawnOutput
+			{
+				Target "shield_hitbox"
+				Action "$SetOwner"
+				Param "!activator"
+			}
+
+			OnSpawnOutput
+			{
+				Target "shield_hitbox2"
+				Action "$SetOwner"
+				Param "!activator"
+			}
+
+			OnSpawnOutput
+			{
+				Target "rotate"
+				Action "SetParent"
+				Param ""
+			}
+
+			OnSpawnOutput
+			{
+				Target "rotate2"
+				Action "SetParent"
+				Param ""
+			}
+
+			filter_activator_tfteam 
+			{
+				"targetname" "filter_is_blue"
+				"Negated" "0"
+				"TeamNum" "3"
+			}
+
+			logic_relay
+			{
+				"targetname" "rotate_position"
+				"spawnflags" "2"
+
+				"OnTrigger" "rotate,$TeleportToEntity,!activator,0,-1"
+				"OnTrigger" "rotate2,$TeleportToEntity,!activator,0,-1"
+
+				"OnTrigger" "!self,Trigger,,0.01,-1"
+			}
+
+			entity_medigun_shield
+			{
+				"parentname" "rotate"
+				"targetname" "projectile_shield"
+				"origin" "100 0 0"
+				"spawnflags" "1"
+				"teamnum" "2"
+			}
+
+			trigger_hurt
+			{
+				"parentname" "rotate"
+				"origin" "100 0 1"
+				"mins" "-12 -53 -51.5"
+				"maxs" "12 53 51.5"
+
+				"targetname" "shield_hitbox"
+				"spawnflags" "1"
+
+
+				"filtername" "filter_is_blue"
+
+				"Damage" "20" //damage is half of this
+				"damagetype" "512"
+			}
+
+			func_rotating
+			{
+				"targetname" "rotate"
+				"origin" "0 0 0"
+
+				"mins" "-0.1 -0.1 -0.1"
+				"maxs" "0.1 0.1 0.1"
+
+				"dmg" "0"
+				"fanfriction" "100" 
+				"maxspeed" "40"
+				"spawnflags" "64"
+				"volume" "0"
+			}
+
+			//2nd shield
+
+			entity_medigun_shield
+			{
+				"parentname" "rotate2"
+				"targetname" "projectile_shield"
+				"origin" "100 0 0"
+				"spawnflags" "1"
+				"teamnum" "2"
+			}
+
+			trigger_hurt
+			{
+				"parentname" "rotate2"
+				"mins" "-12 -53 -51.5"
+				"maxs" "12 53 51.5"
+				"origin" "-100 0 1"
+
+				"targetname" "shield_hitbox2"
+				"spawnflags" "1"
+
+				"filtername" "filter_is_blue"
+
+				"Damage" "20" //damage is half of this
+				"damagetype" "512"
+			}
+			
+
+			func_rotating
+			{
+				"targetname" "rotate2"
+				"origin" "0 0 0"
+
+				"mins" "-0.1 -0.1 -0.1"
+				"maxs" "0.1 0.1 0.1"
+
+				"dmg" "0"
+				"fanfriction" "100" 
+				"maxspeed" "40"
+				"spawnflags" "64"
+				"volume" "0"
+			}
+		}
+
+		Corporal_Logic
+		{
+			NoFixup 1
+
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname corporal"
+			}
+
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname  "
+			}
+
+			OnParentKilledOutput
+			{
+				Target "corporal_died"
+				Action "Trigger"
+			}
+
+			logic_relay 
+			{
+				"targetname" "random_canteen_use"
+				"spawnflags" "2"
+
+				"OnTrigger" "random_canteen_case,PickRandomShuffle,,0,-1"
+				"OnTrigger" "player,$PlaySoundToSelf,=35|mvm/mvm_used_powerup.wav,0,-1"
+			}
+
+			filter_activator_tfteam 
+			{
+				"targetname" "corporal_filter_is_red"
+				"Negated" "0"
+				"TeamNum" "2"
+			}
+
+			trigger_multiple
+			{
+				"targetname" "buffbanner_trigger"
+				"origin" "0 0 0"
+				"mins" "-500.0 -500.0 -500.0"
+				"maxs" "500.0 500.0 500.0"
+				"spawnflags" "1" 
+				"StartDisabled" "1"
+
+				"filtername" "corporal_filter_is_red"
+
+				"OnStartTouch" "!activator,$AddCond,16,0,-1"
+				"OnStartTouch" "!activator,$RemoveCond,16,5,-1"
+
+				"OnUser1" "!self,Enable,,0,-1"
+				"OnUser1" "!self,Disable,,0.1,-1"
+			}
+			trigger_multiple
+			{
+				"targetname" "conch_trigger"
+				"origin" "0 0 0"
+				"mins" "-500.0 -500.0 -500.0"
+				"maxs" "500.0 500.0 500.0"
+				"spawnflags" "1" 
+				"StartDisabled" "1"
+
+				"filtername" "corporal_filter_is_red"
+
+				"OnStartTouch" "!activator,$AddCond,29,0,-1"
+				"OnStartTouch" "!activator,$RemoveCond,29,5,-1"
+
+				"OnUser1" "!self,Enable,,0,-1"
+				"OnUser1" "!self,Disable,,0.1,-1"
+			}
+			trigger_multiple
+			{
+				"targetname" "batt_trigger"
+				"origin" "0 0 0"
+				"mins" "-500.0 -500.0 -500.0"
+				"maxs" "500.0 500.0 500.0"
+				"spawnflags" "1" 
+				"StartDisabled" "1"
+
+				"filtername" "corporal_filter_is_red"
+
+				"OnStartTouch" "!activator,$AddCond,26,0,-1"
+				"OnStartTouch" "!activator,$RemoveCond,26,5,-1"
+
+				"OnUser1" "!self,Enable,,0,-1"
+				"OnUser1" "!self,Disable,,0.1,-1"
+			}
+
+
+			logic_case 
+			{
+				"targetname" "random_canteen_case"
+
+				//precision
+				"oncase01" "!activator,$AddCond,96,0,-1"
+				"oncase01" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}PRECISION {reset}Power Up Canteen!,0,-1"
+				"oncase01" "!activator,$RemoveCond,96,5,-1"
+
+				//haste
+				"oncase02" "!activator,$AddCond,91,0,-1"
+				"oncase02" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}HASTE {reset}Power Up Canteen!,0,-1"
+				"oncase02" "!activator,$RemoveCond,91,5,-1"
+
+				//strength
+				"oncase03" "!activator,$AddCond,90,1,-1"
+				"oncase03" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}STRENGTH {reset}Power Up Canteen!,0,-1"
+				"oncase03" "!activator,$RemoveCond,90,5,-1"
+
+				//crit
+				"oncase04" "!activator,$AddCond,105,1,-1"
+				"oncase04" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}CRIT {reset}Power Up Canteen!,0,-1"
+				"oncase04" "!activator,$RemoveCond,105,5,-1"
+
+				//buff banner
+				"oncase05" "buffbanner_trigger,FireUser1,,0,-1"
+				"oncase05" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}AREA BUFF {reset}Power Up Canteen!,0,-1"
+
+				//conch banner
+				"oncase06" "conch_trigger,FireUser1,,0,-1"
+				"oncase06" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}AREA CONCH {reset}Power Up Canteen!,0,-1"
+
+				//battalion banner
+				"oncase07" "batt_trigger,FireUser1,,0,-1"
+				"oncase07" "player,$DisplayTextChat,{red}{activator}{reset} has used their {9BBF4D}AREA BATTALION {reset}Power Up Canteen!,0,-1"
+			}
+
+			logic_relay
+			{
+				"targetname" "receiver_died"
+
+				"OnTrigger" "random_canteen_use,Kill,,0,-1"
+				"OnTrigger" "player,$PlaySoundToSelf,=35|mvm/mvm_used_powerup.wav,0,-1"
+
+				"OnTrigger" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {9BBF4D}HARDER {reset}Power Up Canteen!,0,-1"
+
+				"OnTrigger" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {4DBF9B}BETTER {reset}Power Up Canteen!,0.8,-1"
+				"OnTrigger" "corporal,$AddPlayerAttribute,move speed bonus|0.6|1,0.8,-1" 
+
+				"OnTrigger" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {B94DBF}FASTER {reset}Power Up Canteen!,1.6,-1"
+				"OnTrigger" "corporal,$AddItemAttribute,faster reload rate|1.5|1,1.6,-1"
+				"OnTrigger" "corporal,$AddCond,36,1.6,-1" 
+
+				"OnTrigger" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {E30B2F}STRONGER {reset}Power Up Canteen!,2.4,-1"
+				"OnTrigger" "superior_canteens,Trigger,,2.6,-1"         
+			}
+
+			logic_relay
+			{
+				"targetname" "superior_canteens"
+				"spawnflags" "2"
+
+				"OnTrigger" "canteen_style,PickRandomShuffle,,0,-1"
+				"OnTrigger" "player,$PlaySoundToSelf,=35|mvm/mvm_used_powerup.wav,0,-1"
+				"OnTrigger" "!self,Trigger,,10,-1"
+			}
+
+
+			logic_case 
+			{
+				"targetname" "canteen_style"
+
+				//precision
+				"oncase01" "corporal,$AddCond,96,0,-1"
+				"oncase01" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {E30B2F}SUPERIOR PRECISION {reset}Power Up Canteen!,0,-1"
+				"oncase01" "corporal,$RemoveCond,96,10,-1"
+
+				//haste
+				"oncase02" "corporal,$AddCond,91,0,-1"
+				"oncase02" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {E30B2F}SUPERIOR HASTE {reset}Power Up Canteen!,0,-1"
+				"oncase02" "corporal,$RemoveCond,91,10,-1"
+
+				//strength
+				"oncase03" "corporal,$AddCond,90,1,-1"
+				"oncase03" "player,$DisplayTextChat,{red}Corporal Canteen{reset} has used their {E30B2F}SUPERIOR STRENGTH {reset}Power Up Canteen!,0,-1"
+				"oncase03" "corporal,$RemoveCond,90,10,-1"
+			}
+		}
+
+		Yakuza_Styles
+		{
+			NoFixup 1
+
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname receiver"
+			}
+
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname  "
+			}
+
+			OnParentKilledOutput
+			{
+				Target "receiver_died"
+				Action "Trigger"
+			}
+
+			logic_relay
+			{
+				"targetname" "style_transition"
+
+				"OnTrigger" "receiver,$RemoveCond,36,0,-1"
+				"OnTrigger" "receiver,$RemoveCond,56,0,-1"
+				"OnTrigger" "receiver,$WeaponStripSlot,-1,0,-1" 
+				"OnTrigger" "receiver,$GiveItem,TF_WEAPON_ROCKETLAUNCHER,0.01,-1" 
+			}
+
+			logic_case
+			{
+				"targetname" "randomstyle"
+
+				"oncase01" "charged_style,Trigger,,0,-1"
+				"oncase02" "homing_style,Trigger,,0,-1"
+				"oncase03" "barrage_style,Trigger,,0,-1"
+			}
+
+			logic_relay
+			{
+				"targetname" "homing_style"
+
+				"OnTrigger" "style_transition,Trigger,,0,-1"
+
+				"OnTrigger" "player,$DisplayTextChat,{red}{activator}{reset} has changed into their {F81393}HOMING {reset}Combat style!,0,-1"
+
+				"OnTrigger" "!activator,$AddItemAttribute,projectile trail particle|eyeboss_projectile|0,0.02,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,damage penalty|0.75|0,0.02,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,mod projectile heat seek power|360|0,0.02,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,mod projectile heat aim time|0.8|0,0.02,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,Projectile speed increased|0.5|0,0.02,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,fire rate bonus|0.01|0,0.02,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,Reload time decreased|0.35|0,0.02,-1" 
+				"OnTrigger" "!activator,$AddItemAttribute,clip size upgrade atomic|-1|0,0.02,-1"   
+				"OnTrigger" "!activator,$AddItemAttribute,projectile spread angle penalty|5|0,0.02,-1"  
+				"OnTrigger" "!activator,$AddCond,36,0.01,-1"
+			}
+
+			logic_relay
+			{
+				"targetname" "charged_style"
+
+				"OnTrigger" "style_transition,Trigger,,0,-1"
+
+				"OnTrigger" "player,$DisplayTextChat,{red}{activator}{reset} has changed into their {6691FF}CHARGED {reset}Combat style!,0,-1"
+
+				"OnTrigger" "!activator,$AddItemAttribute,Projectile speed increased|0.5|0,0.02,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,damage bonus|2|0,0.02,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,Reload time decreased|0.01|0,0.02,-1"  
+				"OnTrigger" "!activator,$AddCond,56,0.01,-1"
+			}
+
+			logic_relay
+			{
+				"targetname" "barrage_style"
+
+				"OnTrigger" "style_transition,Trigger,,0,-1"
+
+				"OnTrigger" "player,$DisplayTextChat,{red}{activator}{reset} has changed into their {EAAD11}BARRAGE {reset}Combat style!,0,-1"
+
+				"OnTrigger" "!activator,$AddItemAttribute,fire rate bonus|0.2|0,0.02,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,Projectile speed increased|0.5|0,0.02,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,damage bonus|1.5|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,clip size upgrade atomic|26|0,0.02,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,Reload time decreased|0.07|0,0.02,-1"  
+				"OnTrigger" "!activator,$AddItemAttribute,projectile spread angle penalty|5|0,0.02,-1"  
+			}
+
+			logic_relay
+			{
+				"targetname" "corporal_died"
+
+				"OnTrigger" "dragon_style,Trigger,,1,-1"
+
+				"OnTrigger" "player,$DisplayTextChat,{red}Sergeant Receiver{reset} has used their {9BBF4D}TAURINER INFINITY{reset} Power Up Canteen!,0,-1"
+				"OnTrigger" "player,$PlaySoundToSelf,=35|mvm/mvm_used_powerup.wav,0,-1"
+				"OnTrigger" "player,$DisplayTextChat,{red}Sergeant Receiver{reset} has entered {blue}EXTREME HEAT MODE{reset}!,0.5,-1"
+
+				"OnTrigger" "receiver,$AddPlayerAttribute,health regen|200,0.5,-1"
+
+				"OnTrigger" "randomstyle,Kill,,0,-1"
+				"OnTrigger" "charged_style_dragon,Trigger,,0,-1"
+			}
+
+			//start rapidly switching between buffed versions of each styles
+			logic_relay
+			{
+				"targetname" "dragon_style"
+
+				"OnTrigger" "style_transition,Trigger,,0,-1"
+
+				"OnTrigger" "player,$DisplayTextChat,{red}Sergeant Receiver{reset} has changed into their {red}DRAGON REBORN {reset}Combat style!,0,-1"
+
+				"OnTrigger" "randomstyle,Kill,,0,-1"
+				"OnTrigger" "charged_style_dragon,Trigger,,0,-1"
+			}
+
+			logic_relay
+			{
+				"targetname" "charged_style_dragon"
+
+				"OnTrigger" "style_transition,Trigger,,0,-1"
+
+				"OnTrigger" "receiver,$AddItemAttribute,projectile no deflect|1|0,0.02,-1"   
+				"OnTrigger" "receiver,$AddItemAttribute,Projectile speed increased|0.3|0,0.02,-1"  
+				"OnTrigger" "receiver,$AddItemAttribute,damage bonus|1.2|0,0.02,-1"  
+				//"OnTrigger" "receiver,$AddItemAttribute,Reload time decreased|0.01|0,0.02,-1"  
+				"OnTrigger" "receiver,$AddItemAttribute,fire rate bonus|0.3|0,0.02,-1"  
+				"OnTrigger" "receiver,$AddCond,56,0.01,-1"
+
+				"OnTrigger" "homing_style_dragon,Trigger,,1,-1"
+			}
+
+			logic_relay
+			{
+				"targetname" "homing_style_dragon"
+
+				"OnTrigger" "style_transition,Trigger,,0,-1"
+
+				"OnTrigger" "receiver,$AddItemAttribute,projectile trail particle|eyeboss_projectile|0,0.02,-1"  
+				"OnTrigger" "receiver,$AddItemAttribute,damage penalty|0.75|0,0.02,-1"  
+				"OnTrigger" "receiver,$AddItemAttribute,mod projectile heat seek power|360|0,0.02,-1"  
+				"OnTrigger" "receiver,$AddItemAttribute,mod projectile heat aim time|0.2|0,0.02,-1"  
+				"OnTrigger" "receiver,$AddItemAttribute,Projectile speed increased|0.35|0,0.02,-1" 
+				"OnTrigger" "receiver,$AddItemAttribute,fire rate bonus|0.01|0,0.02,-1"  
+				"OnTrigger" "receiver,$AddItemAttribute,Reload time decreased|0.08|0,0.02,-1" 
+				"OnTrigger" "receiver,$AddItemAttribute,clip size upgrade atomic|-1|0,0.02,-1"   
+				"OnTrigger" "receiver,$AddItemAttribute,projectile spread angle penalty|9|0,0.02,-1"  
+				"OnTrigger" "receiver,$AddCond,36,0.01,-1"
+
+				"OnTrigger" "barrage_style_dragon,Trigger,,2,-1"
+			}
+
+			logic_relay
+			{
+				"targetname" "barrage_style_dragon"
+
+				"OnTrigger" "receiver,$AddItemAttribute,attach particle effect|704|0,0.02,-1"  
+				
+				"OnTrigger" "style_transition,Trigger,,0,-1"
+				"OnTrigger" "receiver,$AddItemAttribute,fire rate bonus|0.03|0,0.02,-1"  
+				"OnTrigger" "receiver,$AddItemAttribute,Projectile speed increased|0.3|0,0.02,-1"  
+				"OnTrigger" "receiver,$AddItemAttribute,damage bonus|0.8|0,0.02,-1"
+				"OnTrigger" "receiver,$AddItemAttribute,Reload time decreased|-1|0,0.02,-1"  
+				"OnTrigger" "receiver,$AddItemAttribute,projectile spread angle penalty|8|0,0.02,-1"    
+
+				"OnTrigger" "charged_style_dragon,Trigger,,2.5,-1"
+			}
+		}Thunderdome_Bot
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$WeaponSwitchSlot"
+				Param "1"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "shield_hitbox_bot"
+				Action "$SetOwner"
+				Param "!activator"
+			}
+
+			OnSpawnOutput
+			{
+				Target "shield_hitbox2_bot"
+				Action "$SetOwner"
+				Param "!activator"
+			}
+
+			OnSpawnOutput
+			{
+				Target "projectile_shield_bot"
+				Action "$SetModel"
+				Param "models/props_mvm/mvm_comically_small_player_shield.mdl"
+			}
+
+			OnSpawnOutput
+			{
+				Target "rotate_bot"
+				Action "Start"
+			}
+
+			OnSpawnOutput
+			{
+				Target "rotate2_bot"
+				Action "Start"
+			}
+
+			OnSpawnOutput
+			{
+				Target "rotate_bot"
+				Action "SetParent"
+				Param ""
+			}
+
+			OnSpawnOutput
+			{
+				Target "rotate2_bot"
+				Action "SetParent"
+				Param ""
+			}
+
+			OnSpawnOutput
+			{
+				Target "rotate_bot_position"
+				Action "Trigger"
+			}
+
+			filter_activator_tfteam 
+			{
+				"targetname" "filter_is_blue"
+				"Negated" "0"
+				"TeamNum" "3"
+			}
+
+			logic_relay 
+			{
+				"targetname" "rotate_bot_position"
+				"spawnflags" "2"
+
+				"OnTrigger" "rotate_bot,$TeleportToEntity,!activator,0,-1"
+				"OnTrigger" "rotate2_bot,$TeleportToEntity,!activator,0,-1"
+
+				"OnTrigger" "!self,Trigger,,0.01,-1"
+			}
+
+			trigger_hurt
+			{
+				"parentname" "rotate_bot"
+				"origin" "100 0 31"
+				"mins" "-12 -53 -51.5"
+				"maxs" "12 53 51.5"
+
+				"targetname" "shield_hitbox_bot"
+				"spawnflags" "1"
+
+
+				"filtername" "filter_is_blue"
+
+				"Damage" "60" //damage is half of this
+				"damagetype" "512"
+			}
+
+			entity_medigun_shield
+			{
+				"parentname" "rotate_bot"
+				"targetname" "projectile_shield_bot"
+				"origin" "100 0 30"
+				"spawnflags" "1"
+				"teamnum" "2"
+			}
+
+			func_rotating
+			{
+				"targetname" "rotate_bot"
+				"origin" "0 0 30"
+
+				"mins" "-0.1 -0.1 -0.1"
+				"maxs" "0.1 0.1 0.1"
+
+				"dmg" "0"
+				"fanfriction" "100" 
+				"maxspeed" "60"
+				"spawnflags" "64"
+				"volume" "0"
+			}
+
+			//2nd shield
+			trigger_hurt
+			{
+				"parentname" "rotate2_bot"
+				"mins" "-12 -53 -51.5"
+				"maxs" "12 53 51.5"
+				"origin" "-100 0 31"
+				// "angles" "180 0 0"
+
+				"targetname" "shield_hitbox2_bot"
+				"spawnflags" "1"
+
+				"filtername" "filter_is_blue"
+
+				"Damage" "60" //damage is half of this
+				"damagetype" "512"
+			}
+
+			entity_medigun_shield
+			{
+				"parentname" "rotate2_bot"
+				"targetname" "projectile_shield_bot"
+				"origin" "-100 0 30"
+				"angles" "-180 0 -180"
+				"spawnflags" "1"
+				"teamnum" "2"
+			}
+
+			func_rotating
+			{
+				"targetname" "rotate2_bot"
+				"origin" "0 0 30"
+
+				"mins" "-0.1 -0.1 -0.1"
+				"maxs" "0.1 0.1 0.1"
+
+				"dmg" "0"
+				"fanfriction" "100" 
+				"maxspeed" "60"
+				"spawnflags" "64"
+				"volume" "0"
+			}
+		}
+	}
+}

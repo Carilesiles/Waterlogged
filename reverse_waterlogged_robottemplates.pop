@@ -2,6 +2,123 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 {
 	Templates
 	{
+		RedBot
+		{
+			Action Mobber
+			BehaviorModifiers Mobber
+			Attributes IgnoreFlag
+			Attributes DisableDodge
+			UseMeleeThreatPrioritization 1
+			AddCond { Name "TF_COND_REPROGRAMMED" }
+			CharacterAttributes
+			{
+				"crit mod disabled" 0
+				"force distribute currency on death" 1
+				"voice pitch scale" 0
+			}
+		}
+		RedBot_Giant
+		{
+			Action Mobber
+			BehaviorModifiers Mobber
+			Attributes IgnoreFlag
+			Attributes DisableDodge
+			UseMeleeThreatPrioritization 1  
+			Tag bot_giant
+			AddCond { Name "TF_COND_REPROGRAMMED" }
+			CharacterAttributes
+			{
+				"damage force reduction" 0.1
+				"airblast vulnerability multiplier" 0.1
+				"crit mod disabled" 0
+				"force distribute currency on death" 1
+			}
+		}
+		T_TFBot_Giant_Heavyweapons_Fist
+		{
+			Class Heavyweapons
+			Name "Giant Steel Gauntlet"
+			ClassIcon heavy_steelfist
+			Skill Expert
+			Health 5000
+			Item "Fists of Steel"
+			StripItemSlot 0
+			StripItemSlot 1
+			WeaponRestrictions MeleeOnly
+			Attributes MiniBoss
+			Attributes DisableDodge
+			UseMeleeThreatPrioritization 1
+			ItemAttributes
+			{
+				ItemName "Fists of Steel"
+				"fire rate bonus" 0.6
+				"damage bonus" 1.2
+			}
+			CharacterAttributes
+			{
+				"damage force reduction" 0.4
+				"airblast vulnerability multiplier" 0.4
+				"move speed bonus"	0.5
+				"override footstep sound set" 2
+			}
+		}
+		T_TFBot_Spy_RocketGun
+		{
+			Class Spy
+			Name "Upgraded Munitions Spy"
+			Skill Expert
+			Health 650
+			Scale 1.35
+			AimTrackingInterval 0.05
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_REVOLVER"
+				"hand scale" 1.5
+				"override projectile type" 2
+				"fire rate penalty" 2
+				"faster reload rate" 1.4
+				"custom projectile model" "models/weapons/w_models/w_rocketbullet.mdl"
+				"projectile trail particle" "rockettrail_airstrike_line"
+				"no self blast dmg" 2
+				"centerfire projectile" 1
+				"projectile no deflect" 1
+			}
+			CharacterAttributes
+			{
+				"move speed bonus"	0.85
+				"cannot disguise" 1
+				"voice pitch scale" 0.8
+				"damage force reduction" 0.4
+				"airblast vulnerability multiplier"	0.75
+			}
+		}
+		T_TFBot_Giant_Demoknight_NoShield
+		{
+			
+			Class Demoman
+			ClassIcon demoknight_giant
+			Name "Giant Demoknight"
+			Skill Expert
+			Health 3300
+			Item "Prince Tavish's Crown"
+			Item "The Eyelander"
+			Item "Ali Baba's Wee Booties"
+			WeaponRestrictions MeleeOnly
+			Attributes MiniBoss
+			UseMeleeThreatPrioritization 1
+			ItemAttributes
+			{
+				ItemName "The Eyelander"
+				"critboost on kill" 3
+			}
+			CharacterAttributes
+			{
+				"move speed bonus"	0.5
+				"damage force reduction" 0.5
+				"airblast vulnerability multiplier" 0.5
+				"override footstep sound set" 4
+			}
+		}
 		T_TFBot_Pyro_DF
 		{
 			Class Pyro
@@ -121,6 +238,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			SpawnTemplate DopplerShields
 
 			Class Medic
+			ClassIcon medic_shield_red
 			Name "Doctor Doppler"
 			Skill Expert
 			Health 20000
@@ -728,7 +846,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 					ShootTemplate
 					{
-						Name RocketMasteryConstant 
+						Name RocketMasteryConstant
 						AttachToProjectile 1
 					}
 
@@ -758,6 +876,13 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			Item TF_WEAPON_ROCKETLAUNCHER
 			Item "The Battalion's Backup"
 
+			ItemAttributes
+			{
+				ItemName TF_WEAPON_ROCKETLAUNCHER
+				"damage bonus" 1.75
+				"blast radius increased" 1.5
+			}
+
 			CharacterAttributes
 			{
 				"voice pitch scale" 0
@@ -771,6 +896,327 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"health from healers reduced" 0
 				"health from packs increased" 0
 				"cancel falling damage" 1
+			}
+			Name "Bomb Fella"
+			Tag bomb_fella
+			EventChangeAttributes
+			{
+				Default
+				{
+					InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
+					{
+						Target "-7035 1375 196"
+						Delay 1 // Time before the first task starts (Default: 10)
+						Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
+						Cooldown 1 //Time between each task (Default: 10)
+						Duration 300 // How long should the ai be interrupted
+						WaitUntilDone 1
+					}
+					FireInput [$SIGSEGV] 
+					{
+						Target "bombfella_hologram_1" //Entity name to use
+						Action "Enable" //Input to fire
+						Delay 25 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 1 //How many times should the input be fired
+					}
+					Message 
+					{
+						Name "{blue}Warning: Threat detected! Cannot proceed until threat levels decrease." 
+						Delay 25
+						Repeats 1
+					}
+				}
+				SubwaveOne_Complete
+				{
+					FireInput [$SIGSEGV] 
+					{
+						Target "bombfella_hologram_1" //Entity name to use
+						Action "Disable" //Input to fire
+						Delay 0 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 1 //How many times should the input be fired
+					}
+					InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
+					{
+						Target "trigger_that_does_nothing"
+						//Target "-5485.430176 1419.615723 467.03131"
+						Delay 0.1 // Time before the first task starts (Default: 10)
+						Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
+						Cooldown 1 //Time between each task (Default: 10)
+						Duration 300 // How long should the ai be interrupted
+						WaitUntilDone 1
+					}
+					Message 
+					{
+						Name "{blue}Threat sufficiently neutralized. Proceeding..." 
+						Delay 0
+						Repeats 1
+					}
+				}
+				GateOne_Capped
+				{
+					InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
+					{
+						Target "trigger_that_does_nothing"
+						Delay 0.1 // Time before the first task starts (Default: 10)
+						Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
+						Cooldown 1 //Time between each task (Default: 10)
+						Duration 300 // How long should the ai be interrupted
+						WaitUntilDone 1
+					}
+					Message 
+					{
+						Name "{blue}Bomb Fella {FFFFFF}has used their {9BBF4D}SELF HEAL {FFFFFF}Power Up Canteen!" 
+						Delay 0
+						Repeats 1
+					}
+					AddCond [$SIGSEGV] //Adds conditions to bots
+					{
+						Name "TF_COND_MVM_BOT_STUN_RADIOWAVE"
+						Delay 0
+						Duration 22
+					}
+					FireInput [$SIGSEGV] 
+					{
+						Target "canteen_relay" //Entity name to use
+						Action "Trigger" //Input to fire
+						Delay 0 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 1 //How many times should the input be fired
+					}
+					ChangeAttributes [$SIGSEGV]  //Periodically changes bot attributes, defined in EventChangeAttributes
+					{
+						Delay 22 //Time before the first bot attribute change (Default: 10)
+						Cooldown 1 //Time between each bot attribute change (Default: 10)
+						Repeats 1 //How many times should bot change attributes in total (Default: 0 - Infinite)
+						Name "SubwaveTwo" // Name of the bot attributes listed in EventChangeAttributes
+					}
+					//Message 
+					//{
+					//    Name "{blue}Gate captured! Initializing reboot sequence..." 
+					//    Delay 0
+					//    Repeats 1
+					//}
+				}
+				SubwaveTwo
+				{
+					FireInput [$SIGSEGV] 
+					{
+						Target "bombfella_hologram_2" //Entity name to use
+						Action "Enable" //Input to fire
+						Delay 20 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 1 //How many times should the input be fired
+					}
+					InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
+					{
+						Target "-4465 -490 193"
+						Delay 0.1 // Time before the first task starts (Default: 10)
+						Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
+						Cooldown 1 //Time between each task (Default: 10)
+						Duration 300 // How long should the ai be interrupted
+						WaitUntilDone 1
+					}
+					Message 
+					{
+						Name "{blue}Warning: Threat detected! Cannot proceed until threat levels decrease." 
+						Delay 20
+						Repeats 1
+					}
+				}
+				SubwaveTwo_Complete
+				{
+					FireInput [$SIGSEGV] 
+					{
+						Target "bombfella_hologram_2" //Entity name to use
+						Action "Disable" //Input to fire
+						Delay 0 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 1 //How many times should the input be fired
+					}
+					InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
+					{
+						Target "trigger_that_does_nothing2"
+						Delay 0.1 // Time before the first task starts (Default: 10)
+						Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
+						Cooldown 1 //Time between each task (Default: 10)
+						Duration 300 // How long should the ai be interrupted
+						WaitUntilDone 1
+					}
+					Message 
+					{
+						Name "{blue}Threat sufficiently neutralized. Proceeding..." 
+						Delay 0
+						Repeats 1
+					}
+				}
+				GateTwo_Capped
+				{
+					Message 
+					{
+						Name "{blue}Bomb Fella {FFFFFF}has used their {9BBF4D}SELF HEAL {FFFFFF}Power Up Canteen!" 
+						Delay 0
+						Repeats 1
+					}
+					AddCond [$SIGSEGV] //Adds conditions to bots
+					{
+						Name "TF_COND_MVM_BOT_STUN_RADIOWAVE"
+						Delay 0
+						Duration 21
+					}
+					FireInput [$SIGSEGV] 
+					{
+						Target "canteen_relay" //Entity name to use
+						Action "Trigger" //Input to fire
+						Delay 0 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 1 //How many times should the input be fired
+					}
+					ChangeAttributes [$SIGSEGV]  //Periodically changes bot attributes, defined in EventChangeAttributes
+					{
+						Delay 22 //Time before the first bot attribute change (Default: 10)
+						Cooldown 1 //Time between each bot attribute change (Default: 10)
+						Repeats 1 //How many times should bot change attributes in total (Default: 0 - Infinite)
+						Name "SubwaveThree" // Name of the bot attributes listed in EventChangeAttributes
+					}
+					//Message 
+					//{
+					//    Name "{blue}Gate captured! Initializing reboot sequence..." 
+					//    Delay 0
+					//    Repeats 1
+					//}
+				}
+				SubwaveThree
+				{
+					FireInput [$SIGSEGV] 
+					{
+						Target "bombfella_hologram_3" //Entity name to use
+						Action "Enable" //Input to fire
+						Delay 25 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 1 //How many times should the input be fired
+					}
+					InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
+					{
+						Target "-1233 549 68"
+						Delay 0.1 // Time before the first task starts (Default: 10)
+						Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
+						Cooldown 1 //Time between each task (Default: 10)
+						Duration 300 // How long should the ai be interrupted
+						WaitUntilDone 1
+					}
+					Message 
+					{
+						Name "{blue}Warning: Threat detected! Cannot proceed until threat levels decrease." 
+						Delay 25
+						Repeats 1
+					}
+				}
+				SubwaveThree_Complete
+				{
+					FireInput [$SIGSEGV] 
+					{
+						Target "bombfella_hologram_3" //Entity name to use
+						Action "Disable" //Input to fire
+						Delay 0 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 1 //How many times should the input be fired
+					}
+					Message 
+					{
+						Name "{blue}Threat sufficiently neutralized. Proceeding..." 
+						Delay 0
+						Repeats 1
+					}
+					InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
+					{
+						Target "-1128 1684 164"
+						Delay 0.1 // Time before the first task starts (Default: 10)
+						Repeats 1 // How many times should bot do the task in total (Default: 0 - Infinite)
+						Cooldown 1 //Time between each task (Default: 10)
+						Duration 0 // How long should the ai be interrupted
+						WaitUntilDone 1
+						OnDoneChangeAttributes "Shapeshift"
+					}
+				}
+				Shapeshift
+				{	
+					Message 
+					{
+						Name "{blue}Bomb Fella {FFFFFF}has used their {9BBF4D}SELF HEAL {FFFFFF}Power Up Canteen!" 
+						Delay 0
+						Repeats 1
+					}
+					FireInput [$SIGSEGV] 
+					{
+						Target "canteen_relay" //Entity name to use
+						Action "Trigger" //Input to fire
+						Delay 0 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 1 //How many times should the input be fired
+					}
+					AddCond [$SIGSEGV] //Adds conditions to bots
+					{
+						Name "TF_COND_MVM_BOT_STUN_RADIOWAVE"
+						Delay 0.5
+						Duration 21
+					}
+					AddCond [$SIGSEGV] //Adds conditions to bots
+					{
+						Name "TF_COND_INVULNERABLE_HIDE_UNLESS_DAMAGED"
+						Delay 0
+						Duration 21
+					}
+					FireInput [$SIGSEGV] 
+					{
+						Target "end_facade_relay" //Entity name to use
+						Action "Trigger" //Input to fire
+						Delay 0.5 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 1 //How many times should the input be fired
+					}
+					FireInput [$SIGSEGV] 
+					{
+						Target "disguise_stop" //Entity name to use
+						Action "Trigger" //Input to fire
+						Delay 7.5 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 1 //How many times should the input be fired
+					}
+					Message 
+					{
+						Name "{blue}ERROR: Deployment Module Not Found!"
+						Delay 0.5
+						Cooldown 0.5
+						Repeats 1
+					}
+					Message 
+					{
+						Name "{blue}ERROR: Deployment Module Not Found!"
+						Delay 2
+						Cooldown 0.5
+						Repeats 3
+					}
+					Message 
+					{
+						Name "{blue}Parsing directives..."
+						Delay 4.5
+						Repeats 1
+					}
+					Message 
+					{
+						Name "{blue}Refactoring..."
+						Delay 6
+						Repeats 1
+					}
+					Message 
+					{
+						Name "{red}Primary Directive Reacquired: Eliminate BLU."
+						Delay 7.5
+						Repeats 1
+					}
+				}
 			}
 		}
 
@@ -1580,7 +2026,21 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			//	Action "AddOutput"
 			//	Param "targetname "
 			//}
-
+			
+			training_annotation
+			{
+				"targetname" "shapeshift_retreat_sign"
+				//"origin" "-1164 5462 -379"
+				"display_text" "The shapeshifter retreats!"
+				"lifetime"     "4.5"
+			}
+			training_annotation
+			{
+				"targetname" "shapeshift_return_sign"
+				//"origin" "-1164 5462 -379"
+				"display_text" "The shapeshifter returns!"
+				"lifetime"     "3"
+			}
 			info_particle_system
 			{
 				"targetname" "spell_effect"
@@ -3737,7 +4197,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			{
 				"targetname" "filter_is_gatestunned"
 				"Negated" "0"
-				"condition" "50"
+				"condition" "71"
 			}
 			filter_multi 
 			{

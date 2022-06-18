@@ -519,7 +519,87 @@ WaveSchedule
 	SpawnTemplate Axe_Rework_Global
 	SpawnTemplate Vitsaw_Rework_Global
 
+	CustomWeapon 
+	{
+		"Anti-Aircraft Launcher"
+		{
+			OriginalItemName "The Liberty Launcher"
+			"cannot be upgraded" 1
+			"mod projectile heat follow crosshair" 1
+			"mod projectile heat seek power" 180
+			"Projectile speed increased" 0.2
+			"fire rate bonus hidden" 2
+			"fire rate bonus" 0.6
+			"damage penalty" 1
+			"damage bonus hidden" 3
+			"faster reload rate" 0.4
+			"clip size bonus" .25
+			"projectile acceleration" 5000
+			"projectile acceleration time" .1
+			"projectile acceleration start time" .5
+			"custom weapon fire sound" "=50|rpg_sounds/rocketfire1.wav"
+			"mod projectile heat aim time" 10
+			"custom impact sound" "misc/null.wav"
+			"special item description" "+200% damage bonus"
+		}
+		"Thunderdome"
+		{
+			OriginalItemName "Upgradeable TF_WEAPON_MINIGUN" 
 
+			"hidden primary max ammo bonus" 0.0001
+			"cannot be upgraded" 1
+			"special item description" "Create 2 small projectile shields that orbit around you and damage enemies"
+			"special item description 2" "Increased damage for secondary and melee"
+			"special item description 3" "No primary weapon"
+		}
+		"National Pride"
+		{
+			OriginalItemName "Upgradeable TF_WEAPON_PIPEBOMBLAUNCHER"
+			
+			"provide on active" 1 //for no_attack
+
+			"paintkit_proto_def_index" 209 //clover camo'd
+			"set_item_texture_wear" 0
+
+			"stickybomb fizzle time" 10
+			"clip size penalty" 0.1
+			"Reload time increased" 1.7
+			"max pipebombs decreased" -7
+			"sticky arm time penalty" 5000
+			"damage penalty" 0
+
+			"special item description" "Stickybombs grant minicrit to nearby teammates"
+			"special item description 2" "Cannot detonate. only 1 sticky can be active at a time"
+			"special item description 3" "-30% damage on primary weapon when at least 1 stickybomb is active"
+		}
+		"Kirin's Ascension"
+		{
+			OriginalItemName "TF_WEAPON_INVIS" //using Upgradeable mess with things for some reason
+
+			"mult cloak rate" 50
+			"mult decloak rate" 0.001
+	
+			"special item description" "On Cloak: Remove disguise and gain a speed boost with infinite air jumps"
+			"special item description 2" "No disguise while active"
+			"special item description 3" "No cloak effect"
+		}
+		"Rider On The Storm"
+		{
+			OriginalItemName "Activated Campaign 3 Pass" 
+			"increased air control" 3
+			"dmg from ranged reduced" 0.9
+			"damage force increase" 2
+			"cancel falling damage" 1
+			"custom item model" "models/player/items/all_class/spacechem_pin.mdl"
+		}
+
+		"Freelance Mercenary" 
+		{
+			OriginalItemName "Halloween Spellbook" 
+			"special item description" "Hold the Action key to switch between classes on the fly"
+		}
+	}
+	
 	ExtraLoadoutItems
 	{
 		Scout 

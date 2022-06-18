@@ -79,254 +79,13 @@ WaveSchedule
 	LuaScript"function vitasawOnHit(_, activat, calle) local teamCheckInstance = ents.FindByName('vitasaw_team_check'); teamCheckInstance:AcceptInput('TestActivator',_,calle,activat); activat:SetName('vitasaw_caller');
 	end"
 
-    ExtraTankPath
-	{
-		Name "generator_one_path"
-		Node "-5020 135 127" 
-		Node "-4020 135 127"
-	}
-	ExtraTankPath  
-	{
-		Name "generator_two_path"
-		Node "-2687 -61 63"
-		Node "-1000 -61 63"
-	}
-	ExtraTankPath  
-	{
-		Name "generator_three_path"
-		Node "-2611 -560 251"
-		Node "-2000 -560 251"
-	}
-	ExtraTankPath  
-	{
-		Name "generator_four_path"
-		Node "-1574 987 -1"
-		Node "-1000 987 -1"
-	}
-	ExtraTankPath  
-	{
-		Name "generator_five_path"
-		Node "-615 1107 -1"
-		Node "-615 1200 -1"
-	}
-	ExtraTankPath  
-	{
-		Name "generator_six_path"
-		Node "-940 1888 95"
-		Node "-762 1789 95"
-	}
-	ExtraSpawnPoint
-	{
-		Name "spawnbot_extra"
-		StartDisabled 1
-		TeamNum 2
-		X "-3098.7"
-		Y "-1490.0"
-		Z "276.6"
-	}
-	ExtraSpawnPoint
-	{
-		Name "spawnbot_hatchshield"  
-		StartDisabled 1 
-		TeamNum 2
-		X "-1132"
-		Y "1686"
-		Z "164"
-	}
-	ExtraSpawnPoint
-	{
-		Name "spawnbot_hatch_extra"  
-		StartDisabled 1 
-		TeamNum 2
-		X "171"
-		Y "1657"
-		Z "63"
-	}
-	ExtraSpawnPoint
-	{
-		Name "spawnbot_garage_extra"  
-		StartDisabled 1 
-		TeamNum 2
-		X "664"
-		Y "32"
-		Z "47"
-	}
-	ExtraSpawnPoint
-	{
-		Name "spawnbot_whatever"  
-		StartDisabled 1 
-		TeamNum 2
-		X "-2130"
-		Y "765"
-		Z "48"
-	}
-	ExtraSpawnPoint
-	{
-		Name "spawnbot_whatever2"
-		StartDisabled 1 
-		TeamNum 2
-		X "-2130"
-		Y "765"
-		Z "48"
-	}
-	ExtraSpawnPoint
-	{
-		
-		Name "spawnbot_building_extra"  
-		StartDisabled 1 
-		TeamNum 2
-		X "-1128"
-		Y "8"
-		Z "127"
-	}
-	ExtraSpawnPoint
-	{
-		
-		Name "spawnbot_building_doppler" 
-		TeamNum 2
-		X "-1128"
-		Y "8"
-		Z "127"
-	}
-	ExtraSpawnPoint
-	{
-		
-		Name "spawnbot_side_extra"  
-		StartDisabled 1 
-		TeamNum 2
-		X "-1695"
-		Y "1688"
-		Z "143"
-	}
-	ExtraSpawnPoint 
-	{
-		Name "summon_chief"   
-		TeamNum 2
-		X "-3098.7"
-		Y "-1490.0"
-		Z "276.6"
-
-		StartDisabled 1
-	}
-	ExtraSpawnPoint 
-	{
-		Name "summon_chief2"   
-		TeamNum 2
-		X "-3098.7"  
-		Y "-1490.0"
-		Z "276.6"
-
-		StartDisabled 1
-	}
-	ExtraSpawnPoint 
-	{
-		Name "summon_chief3"   
-		TeamNum 2
-		X "-3098.7"  
-		Y "-1490.0"
-		Z "276.6"
-
-		StartDisabled 1
-	}
-	ExtraSpawnPoint 
-	{
-		Name "spawnbot_heli"   
-		TeamNum 2
-		X "-3098.7"  
-		Y "-1490.0"
-		Z "276.6"
-	}
-	ExtraSpawnPoint 
-	{
-		Name "spawnbot_heli2"   
-		TeamNum 2
-		X "-2086"  
-		Y "-304"
-		Z "276"
-	}
-	ExtraSpawnPoint
-	{
-		Name "spawnbot_balcony_drain_extra"
-		TeamNum 2
-		X "-3488"
-		Y "-376"
-		Z "463"
-	}
-	ExtraSpawnPoint 
-	{
-		Name "spawnbot_balcony_extra"
-		TeamNum 2
-		X "-3736"
-		Y "-424"
-		Z "463"
-	}
-	ExtraSpawnPoint 
-	{
-		Name "spawnbot_scaffold_extra"
-		TeamNum 2
-		X "-4848"
-		Y "1872"
-		Z "423"
-	}
-	ExtraSpawnPoint
-	{
-		Name "spawnbot_boss"
-		TeamNum 2
-		X "-1164"
-		Y "5462"
-		Z "-379"
-	}
-	ExtraSpawnPoint 
-	{
-		Name "spawnbot_arena_1" 
-		TeamNum 2
-		X "-2808"
-		Y "5895"
-		Z "-145"
-		StartDisabled 1
-	}
-	ExtraSpawnPoint 
-	{
-		Name "spawnbot_arena_2"
-		TeamNum 2
-		X "667"  
-		Y "4136"
-		Z "-145"
-		StartDisabled 1
-	}
-	ExtraSpawnPoint 
-	{
-		Name "spawnbot_arena_3"
-		TeamNum 2
-		X "-2828"  
-		Y "4120"
-		Z "-132"
-		StartDisabled 1
-	}
-	ExtraSpawnPoint
-	{
-		Name "spawnbot_barrier_1"
-		TeamNum 2
-		X "-5196"
-		Y "413"
-		Z "201"
-		//StartDisabled 1
-	}
-	ExtraSpawnPoint
-	{
-		Name "spawnbot_barrier_2"
-		TeamNum 2
-		X "-2567"
-		Y "-203"
-		Z "243"
-		StartDisabled 1
-	}
-
 	SpawnTemplate bossroom_collision
 	SpawnTemplate Combo_Pyro
 	SpawnTemplate Alternating_Burst
 	Spawntemplate filters_mini
 	SpawnTemplate speedtriggers
+	SpawnTemplate annotations
+	SpawnTemplate bossarena_spawnindicators
 
 	SpawnTemplate CanteenPurchase
 
@@ -4852,5 +4611,248 @@ WaveSchedule
 				AddCond {Name "TF_COND_REPROGRAMMED" }
 			}
 		}
+	}
+
+	ExtraTankPath
+	{
+		Name "generator_one_path"
+		Node "-5020 135 127" 
+		Node "-4020 135 127"
+	}
+	ExtraTankPath  
+	{
+		Name "generator_two_path"
+		Node "-2687 -61 63"
+		Node "-1000 -61 63"
+	}
+	ExtraTankPath  
+	{
+		Name "generator_three_path"
+		Node "-2611 -560 251"
+		Node "-2000 -560 251"
+	}
+	ExtraTankPath  
+	{
+		Name "generator_four_path"
+		Node "-1574 987 -1"
+		Node "-1000 987 -1"
+	}
+	ExtraTankPath  
+	{
+		Name "generator_five_path"
+		Node "-615 1107 -1"
+		Node "-615 1200 -1"
+	}
+	ExtraTankPath  
+	{
+		Name "generator_six_path"
+		Node "-940 1888 95"
+		Node "-762 1789 95"
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_extra"
+		StartDisabled 1
+		TeamNum 2
+		X "-3098.7"
+		Y "-1490.0"
+		Z "276.6"
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_hatchshield"  
+		StartDisabled 1 
+		TeamNum 2
+		X "-1132"
+		Y "1686"
+		Z "164"
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_hatch_extra"  
+		StartDisabled 1 
+		TeamNum 2
+		X "171"
+		Y "1657"
+		Z "63"
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_garage_extra"  
+		StartDisabled 1 
+		TeamNum 2
+		X "664"
+		Y "32"
+		Z "47"
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_whatever"  
+		StartDisabled 1 
+		TeamNum 2
+		X "-2130"
+		Y "765"
+		Z "48"
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_whatever2"
+		StartDisabled 1 
+		TeamNum 2
+		X "-2130"
+		Y "765"
+		Z "48"
+	}
+	ExtraSpawnPoint
+	{
+		
+		Name "spawnbot_building_extra"  
+		StartDisabled 1 
+		TeamNum 2
+		X "-1128"
+		Y "8"
+		Z "127"
+	}
+	ExtraSpawnPoint
+	{
+		
+		Name "spawnbot_building_doppler" 
+		TeamNum 2
+		X "-1128"
+		Y "8"
+		Z "127"
+	}
+	ExtraSpawnPoint
+	{
+		
+		Name "spawnbot_side_extra"  
+		StartDisabled 1 
+		TeamNum 2
+		X "-1695"
+		Y "1688"
+		Z "143"
+	}
+	ExtraSpawnPoint 
+	{
+		Name "summon_chief"   
+		TeamNum 2
+		X "-3098.7"
+		Y "-1490.0"
+		Z "276.6"
+
+		StartDisabled 1
+	}
+	ExtraSpawnPoint 
+	{
+		Name "summon_chief2"   
+		TeamNum 2
+		X "-3098.7"  
+		Y "-1490.0"
+		Z "276.6"
+
+		StartDisabled 1
+	}
+	ExtraSpawnPoint 
+	{
+		Name "summon_chief3"   
+		TeamNum 2
+		X "-3098.7"  
+		Y "-1490.0"
+		Z "276.6"
+
+		StartDisabled 1
+	}
+	ExtraSpawnPoint 
+	{
+		Name "spawnbot_heli"   
+		TeamNum 2
+		X "-3098.7"  
+		Y "-1490.0"
+		Z "276.6"
+	}
+	ExtraSpawnPoint 
+	{
+		Name "spawnbot_heli2"   
+		TeamNum 2
+		X "-2086"  
+		Y "-304"
+		Z "276"
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_balcony_drain_extra"
+		TeamNum 2
+		X "-3488"
+		Y "-376"
+		Z "463"
+	}
+	ExtraSpawnPoint 
+	{
+		Name "spawnbot_balcony_extra"
+		TeamNum 2
+		X "-3736"
+		Y "-424"
+		Z "463"
+	}
+	ExtraSpawnPoint 
+	{
+		Name "spawnbot_scaffold_extra"
+		TeamNum 2
+		X "-4848"
+		Y "1872"
+		Z "423"
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_boss"
+		TeamNum 2
+		X "-1164"
+		Y "5462"
+		Z "-379"
+	}
+	ExtraSpawnPoint 
+	{
+		Name "spawnbot_arena_1" 
+		TeamNum 2
+		X "-2808"
+		Y "5895"
+		Z "-145"
+		StartDisabled 1
+	}
+	ExtraSpawnPoint 
+	{
+		Name "spawnbot_arena_2"
+		TeamNum 2
+		X "667"  
+		Y "4136"
+		Z "-145"
+		StartDisabled 1
+	}
+	ExtraSpawnPoint 
+	{
+		Name "spawnbot_arena_3"
+		TeamNum 2
+		X "-2828"  
+		Y "4120"
+		Z "-132"
+		StartDisabled 1
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_barrier_1"
+		TeamNum 2
+		X "-5196"
+		Y "413"
+		Z "201"
+		//StartDisabled 1
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_barrier_2"
+		TeamNum 2
+		X "-2567"
+		Y "-203"
+		Z "243"
+		StartDisabled 1
 	}
 }

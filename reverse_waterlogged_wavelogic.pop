@@ -495,6 +495,13 @@ WaveSchedule
 				"Filter01" "filter_blueteam"
 				"Filter02" "filter_fella_negated"
 			}
+			filter_tf_bot_has_tag
+			{
+				"require_all_tags" "1"
+				"tags" "bomb_fella"
+				"negated" "1"
+				"targetname" "filter_fella_negated"
+			}
 			trigger_add_tf_player_condition
 			{
 				"targetname" "bot_stun_reprogram"
@@ -653,13 +660,6 @@ WaveSchedule
 				"require_all_tags" "1"
 				"tags" "bomb_fella"
 				"targetname" "filter_fella"
-			}
-			filter_tf_bot_has_tag
-			{
-				"require_all_tags" "1"
-				"tags" "bomb_fella"
-				"negated" "1"
-				"targetname" "filter_fella_negated"
 			}
 			logic_relay
 			{

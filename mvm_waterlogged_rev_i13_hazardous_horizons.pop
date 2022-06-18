@@ -861,333 +861,16 @@ WaveSchedule
 				Target wave1_loss_relay
 				Action Trigger
 			}
-			RandomChoice{RandomChoice{
-			TFBot
+			RandomChoice
 			{
-				Template T_TFBot_Giant_Soldier_Extended_Battalion_Fake
-				Name "Bomb Fella"
-				Tag bomb_fella
-				EventChangeAttributes
+				RandomChoice
 				{
-					Default
+					TFBot
 					{
-						InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
-						{
-							Target "-7035 1375 196"
-							Delay 1 // Time before the first task starts (Default: 10)
-							Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
-							Cooldown 1 //Time between each task (Default: 10)
-							Duration 300 // How long should the ai be interrupted
-							WaitUntilDone 1
-						}
-						FireInput [$SIGSEGV] 
-						{
-							Target "bombfella_hologram_1" //Entity name to use
-							Action "Enable" //Input to fire
-							Delay 30 //Delay before firing the input
-							Cooldown 1 //Cooldown between firing the input
-							Repeats 1 //How many times should the input be fired
-						}
-						Message 
-						{
-							Name "{blue}Warning: Threat detected! Cannot proceed until threat levels decrease." 
-							Delay 30
-							Repeats 1
-						}
-					}
-					SubwaveOne_Complete
-					{
-						FireInput [$SIGSEGV] 
-						{
-							Target "bombfella_hologram_1" //Entity name to use
-							Action "Disable" //Input to fire
-							Delay 0 //Delay before firing the input
-							Cooldown 1 //Cooldown between firing the input
-							Repeats 1 //How many times should the input be fired
-						}
-						InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
-						{
-							Target "trigger_that_does_nothing"
-							//Target "-5485.430176 1419.615723 467.03131"
-							Delay 0.1 // Time before the first task starts (Default: 10)
-							Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
-							Cooldown 1 //Time between each task (Default: 10)
-							Duration 300 // How long should the ai be interrupted
-							WaitUntilDone 1
-						}
-						Message 
-						{
-							Name "{blue}Threat sufficiently neutralized. Proceeding..." 
-							Delay 0
-							Repeats 1
-						}
-					}
-					GateOne_Capped
-					{
-						InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
-						{
-							Target "trigger_that_does_nothing"
-							Delay 0.1 // Time before the first task starts (Default: 10)
-							Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
-							Cooldown 1 //Time between each task (Default: 10)
-							Duration 300 // How long should the ai be interrupted
-							WaitUntilDone 1
-						}
-						Message 
-						{
-							Name "{blue}Bomb Fella {FFFFFF}has used their {9BBF4D}SELF HEAL {FFFFFF}Power Up Canteen!" 
-							Delay 0
-							Repeats 1
-						}
-						AddCond [$SIGSEGV] //Adds conditions to bots
-						{
-							Name "TF_COND_MVM_BOT_STUN_RADIOWAVE"
-							Delay 0
-							Duration 22
-						}
-						FireInput [$SIGSEGV] 
-						{
-							Target "canteen_relay" //Entity name to use
-							Action "Trigger" //Input to fire
-							Delay 0 //Delay before firing the input
-							Cooldown 1 //Cooldown between firing the input
-							Repeats 1 //How many times should the input be fired
-						}
-						ChangeAttributes [$SIGSEGV]  //Periodically changes bot attributes, defined in EventChangeAttributes
-						{
-							Delay 22 //Time before the first bot attribute change (Default: 10)
-							Cooldown 1 //Time between each bot attribute change (Default: 10)
-							Repeats 1 //How many times should bot change attributes in total (Default: 0 - Infinite)
-							Name "SubwaveTwo" // Name of the bot attributes listed in EventChangeAttributes
-						}
-						//Message 
-						//{
-						//    Name "{blue}Gate captured! Initializing reboot sequence..." 
-						//    Delay 0
-						//    Repeats 1
-						//}
-					}
-					SubwaveTwo
-					{
-						FireInput [$SIGSEGV] 
-						{
-							Target "bombfella_hologram_2" //Entity name to use
-							Action "Enable" //Input to fire
-							Delay 20 //Delay before firing the input
-							Cooldown 1 //Cooldown between firing the input
-							Repeats 1 //How many times should the input be fired
-						}
-						InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
-						{
-							Target "-4465 -490 193"
-							Delay 0.1 // Time before the first task starts (Default: 10)
-							Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
-							Cooldown 1 //Time between each task (Default: 10)
-							Duration 300 // How long should the ai be interrupted
-							WaitUntilDone 1
-						}
-						Message 
-						{
-							Name "{blue}Warning: Threat detected! Cannot proceed until threat levels decrease." 
-							Delay 20
-							Repeats 1
-						}
-					}
-					SubwaveTwo_Complete
-					{
-						FireInput [$SIGSEGV] 
-						{
-							Target "bombfella_hologram_2" //Entity name to use
-							Action "Disable" //Input to fire
-							Delay 0 //Delay before firing the input
-							Cooldown 1 //Cooldown between firing the input
-							Repeats 1 //How many times should the input be fired
-						}
-						InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
-						{
-							Target "trigger_that_does_nothing2"
-							Delay 0.1 // Time before the first task starts (Default: 10)
-							Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
-							Cooldown 1 //Time between each task (Default: 10)
-							Duration 300 // How long should the ai be interrupted
-							WaitUntilDone 1
-						}
-						Message 
-						{
-							Name "{blue}Threat sufficiently neutralized. Proceeding..." 
-							Delay 0
-							Repeats 1
-						}
-					}
-					GateTwo_Capped
-					{
-						Message 
-						{
-							Name "{blue}Bomb Fella {FFFFFF}has used their {9BBF4D}SELF HEAL {FFFFFF}Power Up Canteen!" 
-							Delay 0
-							Repeats 1
-						}
-						AddCond [$SIGSEGV] //Adds conditions to bots
-						{
-							Name "TF_COND_MVM_BOT_STUN_RADIOWAVE"
-							Delay 0
-							Duration 21
-						}
-						FireInput [$SIGSEGV] 
-						{
-							Target "canteen_relay" //Entity name to use
-							Action "Trigger" //Input to fire
-							Delay 0 //Delay before firing the input
-							Cooldown 1 //Cooldown between firing the input
-							Repeats 1 //How many times should the input be fired
-						}
-						ChangeAttributes [$SIGSEGV]  //Periodically changes bot attributes, defined in EventChangeAttributes
-						{
-							Delay 22 //Time before the first bot attribute change (Default: 10)
-							Cooldown 1 //Time between each bot attribute change (Default: 10)
-							Repeats 1 //How many times should bot change attributes in total (Default: 0 - Infinite)
-							Name "SubwaveThree" // Name of the bot attributes listed in EventChangeAttributes
-						}
-						//Message 
-						//{
-						//    Name "{blue}Gate captured! Initializing reboot sequence..." 
-						//    Delay 0
-						//    Repeats 1
-						//}
-					}
-					SubwaveThree
-					{
-						FireInput [$SIGSEGV] 
-						{
-							Target "bombfella_hologram_3" //Entity name to use
-							Action "Enable" //Input to fire
-							Delay 25 //Delay before firing the input
-							Cooldown 1 //Cooldown between firing the input
-							Repeats 1 //How many times should the input be fired
-						}
-						InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
-						{
-							Target "-1233 549 68"
-							Delay 0.1 // Time before the first task starts (Default: 10)
-							Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
-							Cooldown 1 //Time between each task (Default: 10)
-							Duration 300 // How long should the ai be interrupted
-							WaitUntilDone 1
-						}
-						Message 
-						{
-							Name "{blue}Warning: Threat detected! Cannot proceed until threat levels decrease." 
-							Delay 25
-							Repeats 1
-						}
-					}
-					SubwaveThree_Complete
-					{
-						FireInput [$SIGSEGV] 
-						{
-							Target "bombfella_hologram_3" //Entity name to use
-							Action "Disable" //Input to fire
-							Delay 0 //Delay before firing the input
-							Cooldown 1 //Cooldown between firing the input
-							Repeats 1 //How many times should the input be fired
-						}
-						Message 
-						{
-							Name "{blue}Threat sufficiently neutralized. Proceeding..." 
-							Delay 0
-							Repeats 1
-						}
-						InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
-						{
-							Target "-1128 1684 164"
-							Delay 0.1 // Time before the first task starts (Default: 10)
-							Repeats 1 // How many times should bot do the task in total (Default: 0 - Infinite)
-							Cooldown 1 //Time between each task (Default: 10)
-							Duration 0 // How long should the ai be interrupted
-							WaitUntilDone 1
-							OnDoneChangeAttributes "Shapeshift"
-						}
-					}
-					Shapeshift
-					{	
-						Message 
-						{
-							Name "{blue}Bomb Fella {FFFFFF}has used their {9BBF4D}SELF HEAL {FFFFFF}Power Up Canteen!" 
-							Delay 0
-							Repeats 1
-						}
-						FireInput [$SIGSEGV] 
-						{
-							Target "canteen_relay" //Entity name to use
-							Action "Trigger" //Input to fire
-							Delay 0 //Delay before firing the input
-							Cooldown 1 //Cooldown between firing the input
-							Repeats 1 //How many times should the input be fired
-						}
-						AddCond [$SIGSEGV] //Adds conditions to bots
-						{
-							Name "TF_COND_MVM_BOT_STUN_RADIOWAVE"
-							Delay 0.5
-							Duration 21
-						}
-						AddCond [$SIGSEGV] //Adds conditions to bots
-						{
-							Name "TF_COND_INVULNERABLE_HIDE_UNLESS_DAMAGED"
-							Delay 0
-							Duration 21
-						}
-						FireInput [$SIGSEGV] 
-						{
-							Target "end_facade_relay" //Entity name to use
-							Action "Trigger" //Input to fire
-							Delay 0.5 //Delay before firing the input
-							Cooldown 1 //Cooldown between firing the input
-							Repeats 1 //How many times should the input be fired
-						}
-						FireInput [$SIGSEGV] 
-						{
-							Target "disguise_stop" //Entity name to use
-							Action "Trigger" //Input to fire
-							Delay 7.5 //Delay before firing the input
-							Cooldown 1 //Cooldown between firing the input
-							Repeats 1 //How many times should the input be fired
-						}
-						Message 
-						{
-							Name "{blue}ERROR: Deployment Module Not Found!"
-							Delay 0.5
-							Cooldown 0.5
-							Repeats 1
-						}
-						Message 
-						{
-							Name "{blue}ERROR: Deployment Module Not Found!"
-							Delay 2
-							Cooldown 0.5
-							Repeats 3
-						}
-						Message 
-						{
-							Name "{blue}Parsing directives..."
-							Delay 4.5
-							Repeats 1
-						}
-						Message 
-						{
-							Name "{blue}Refactoring..."
-							Delay 6
-							Repeats 1
-						}
-						Message 
-						{
-							Name "{red}Primary Directive Reacquired: Eliminate BLU."
-							Delay 7.5
-							Repeats 1
-						}
+						Template T_TFBot_Giant_Soldier_Extended_Battalion_Fake
 					}
 				}
 			}
-			}}
 		}
 		WaveSpawn 
 		{
@@ -1201,28 +884,11 @@ WaveSchedule
 			TotalCurrency 38
 			WaitBeforeStarting 1
 			WaitBetweenSpawns 1.5
-			RandomChoice
+			TFBot
 			{
-				RandomChoice
-				{
-					TFBot
-					{
-						Template T_TFBot_Heavyweapons_Shotgun
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-							"voice pitch scale" 0
-						}
-						SpawnTemplate "points_common_one"
-					}
-				}
+				Template T_TFBot_Heavyweapons_Shotgun
+				AddTemplate RedBot
+				SpawnTemplate "points_common_one"
 			}
 		}
 		WaveSpawn 
@@ -1245,18 +911,7 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Heavyweapons_Shotgun
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-							"voice pitch scale" 0
-						}
+						AddTemplate RedBot
 						SpawnTemplate "points_common_one"
 					}
 				}
@@ -1277,17 +932,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Scout_Melee
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot
 				SpawnTemplate "points_common_one"
 			}
 		}
@@ -1311,17 +956,7 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Scout_Melee
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot
 						SpawnTemplate "points_common_one"
 					}
 				}
@@ -1340,18 +975,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Pyro_Flare_Spammer
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				Tag bot_giant
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot_Giant
 				SpawnTemplate "points_gdetonator"
 			}
 		}
@@ -1368,20 +992,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Pyro_Flare_Spammer
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				Tag bot_giant
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot_Giant
 				SpawnTemplate "points_gdetonator"
 			}
 		}
@@ -1397,42 +1008,8 @@ WaveSchedule
 			WaitBetweenSpawns 1.5
 			TFBot
 			{
-				Class Heavyweapons
-				Name "Giant Steel Gauntlet"
-				ClassIcon heavy_steelfist
-				Skill Expert
-				Health 5000
-				Item "Fists of Steel"
-				StripItemSlot 0
-				StripItemSlot 1
-				WeaponRestrictions MeleeOnly
-				Attributes MiniBoss
-				Attributes DisableDodge
-				ItemAttributes
-				{
-					ItemName "Fists of Steel"
-					"fire rate bonus" 0.6
-					"damage bonus" 1.2
-				}
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"move speed bonus"	0.5
-					"override footstep sound set" 2
-					"voice pitch scale" 0
-				}
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				Template T_TFBot_Giant_Heavyweapons_Fist
+				AddTemplate RedBot_Giant
 				InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
 				{
 					Target "trigger_that_does_nothing"
@@ -1462,17 +1039,7 @@ WaveSchedule
 			{
 				Template T_TFBot_Scout_Scattergun_SlowFire
 				Name "Scout"
-				Action Mobber
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot
 				SpawnTemplate "points_common_gateone"
 			}
 		}
@@ -1497,17 +1064,7 @@ WaveSchedule
 					{
 						Template T_TFBot_Scout_Scattergun_SlowFire
 						Name "Scout"
-						Action Mobber
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot
 						SpawnTemplate "points_common_gateone"
 					}
 				}
@@ -1529,17 +1086,7 @@ WaveSchedule
 			{
 				Class Soldier
 				Skill Hard
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot
 				SpawnTemplate "points_common_gateone"
 			}
 		}
@@ -1564,17 +1111,7 @@ WaveSchedule
 					{
 						Class Soldier
 						Skill Hard
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot
 						SpawnTemplate "points_common_gateone"
 					}
 				}
@@ -1593,20 +1130,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Soldier_Spammer
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				Tag bot_giant
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot_Giant
 				SpawnTemplate "points_gsoldier"
 			}
 		}
@@ -1623,20 +1147,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Soldier_Spammer
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				Tag bot_giant
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot_Giant
 				SpawnTemplate "points_gsoldier"
 			}
 		}
@@ -1655,18 +1166,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Heavyweapons_Heavyweight_Champ_Fast
-				Action Mobber
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-					"voice pitch scale" 0
-				}
+				AddTemplate RedBot
 				SpawnTemplate "points_common_two"
 			}
 		}
@@ -1690,18 +1190,7 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Heavyweapons_Heavyweight_Champ_Fast
-						Action Mobber
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-							"voice pitch scale" 0
-						}
+						AddTemplate RedBot
 						SpawnTemplate "points_common_two"
 					}
 				}
@@ -1722,17 +1211,7 @@ WaveSchedule
 			{
 				Class Demoman
 				Skill Expert
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot
 				SpawnTemplate "points_common_gatetwo"
 			}
 		}
@@ -1756,17 +1235,7 @@ WaveSchedule
 					{
 						Class Demoman
 						Skill Expert
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot
 						SpawnTemplate "points_common_gatetwo"
 					}
 				}
@@ -1786,18 +1255,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Heavyweapons_Fist
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-					"voice pitch scale" 0
-				}
+				AddTemplate RedBot
 				SpawnTemplate "points_steelfist"
 			}
 		}
@@ -1820,18 +1278,7 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Heavyweapons_Fist
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-							"voice pitch scale" 0
-						}
+						AddTemplate RedBot
 						SpawnTemplate "points_steelfist"
 					}
 				}
@@ -1850,24 +1297,11 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Pyro
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				Tag bot_giant
-				AddCond { Name "TF_COND_REPROGRAMMED" }
+				AddTemplate RedBot_Giant
 				ItemAttributes
 				{
 					ItemName "TF_WEAPON_FLAMETHROWER"
 					"airblast disabled" 1
-				}
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
 				}
 				InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
 				{
@@ -1896,17 +1330,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Soldier_RocketShotgun
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot
 			}
 		}
 		WaveSpawn 
@@ -1929,17 +1353,7 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Soldier_RocketShotgun
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot
 					}
 				}
 			}
@@ -1960,26 +1374,13 @@ WaveSchedule
 			{
 				Class Pyro
 				Skill Normal
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
 				WeaponRestrictions PrimaryOnly
-				UseMeleeThreatPrioritization 1  
 				ItemAttributes
 				{
 					ItemName "TF_WEAPON_FLAMETHROWER"
 					"airblast disabled" 1
 				}
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot
 			}
 		}
 		WaveSpawn
@@ -2003,26 +1404,13 @@ WaveSchedule
 					{
 						Class Pyro
 						Skill Normal
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
 						WeaponRestrictions PrimaryOnly
-						UseMeleeThreatPrioritization 1  
 						ItemAttributes
 						{
 							ItemName "TF_WEAPON_FLAMETHROWER"
 							"airblast disabled" 1
 						}
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						
-						CharacterAttributes
-						{
-							"damage force reduction" 0.1
-							"airblast vulnerability multiplier" 0.1
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot
 					}
 				}
 			}
@@ -2040,21 +1428,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Demoman
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				Tag bot_giant
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot_Giant
 			}
 		}
 		WaveSpawn
@@ -2070,21 +1444,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Demoman
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				Tag bot_giant
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot_Giant
 			}
 		}
 		WaveSpawn
@@ -2194,7 +1554,7 @@ WaveSchedule
 			}
 		}
 		WaveSpawn
-		{                          
+		{
 			Name "shapeshift"
 
 
@@ -2237,17 +1597,7 @@ WaveSchedule
 					{
 						SpawnTemplate "Necromancer_Summoned"
 						Template T_TFBot_Scout_Shortstop
-						Health 650
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						CharacterAttributes
-						{
-							"cancel falling damage" 1
-							"crit mod disabled" 0
-						}
-						AddCond { Name "TF_COND_REPROGRAMMED" }
+						AddTemplate RedBot
 					}
 				}
 			}
@@ -2272,25 +1622,13 @@ WaveSchedule
 					{
 						SpawnTemplate "Necromancer_Summoned"
 						Template T_TFBot_Giant_Pyro_Flare_Spammer
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						Tag bot_giant
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"damage force reduction" 0.1
-							"airblast vulnerability multiplier" 0.1
-							"cancel falling damage" 1
-							"crit mod disabled" 0
-						}
+						AddTemplate RedBot_Giant
 					}
 				}
 			}
 		}
 		WaveSpawn
-		{                          
+		{
 			Where summon_chief3
 			TotalCount 3
 			MaxActive 3
@@ -2301,46 +1639,15 @@ WaveSchedule
 
 			Support 1
 
-			RandomChoice 
+			RandomChoice
 			{
-				RandomChoice 
+				RandomChoice
 				{
 					TFBot
 					{
 						SpawnTemplate "Necromancer_Summoned"
-						Class Spy
-						Name "Upgraded Munitions Spy"
-						Skill Expert
-						Health 650
-						Scale 1.35
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						AimTrackingInterval 0.05
-						ItemAttributes
-						{
-							ItemName "TF_WEAPON_REVOLVER"
-							"hand scale" 1.5
-							"override projectile type" 2
-							"fire rate penalty" 2
-							"faster reload rate" 1.4
-							"custom projectile model" "models/weapons/w_models/w_rocketbullet.mdl"
-							"projectile trail particle" "rockettrail_airstrike_line"
-							"no self blast dmg" 2
-							"centerfire projectile" 1
-							"projectile no deflect" 1
-						}
-						CharacterAttributes
-						{
-							"move speed bonus"	0.85
-							"cannot disguise" 1
-							"voice pitch scale" 0.8
-							"damage force reduction" 0.4
-							"airblast vulnerability multiplier"	0.75
-							"crit mod disabled" 0
-						}
-						AddCond { Name "TF_COND_REPROGRAMMED" }
+						Template T_TFBot_Spy_RocketGun
+						AddTemplate RedBot
 					}
 				}
 			}
@@ -2363,25 +1670,15 @@ WaveSchedule
 				Class Scout
 				Name "Armored Scout"
 				ClassIcon scout_stun_giant_armored
+				Attributes MiniBoss
 				Skill Expert
 				Health 3000
 				WeaponRestrictions PrimaryOnly
-				Attributes MiniBoss
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				Tag bot_giant
-				AddCond { Name "TF_COND_REPROGRAMMED" }
+				AddTemplate RedBot_Giant
 				CharacterAttributes
 				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
 					"override footstep sound set" 5
 					"move speed penalty" 0.75
-					"cancel falling damage" 1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
 				}
 			}
 		}
@@ -2391,8 +1688,8 @@ WaveSchedule
 			Where "spawnbot_arena_1"
 			Where "spawnbot_arena_2"
 			Where "spawnbot_arena_3"
-			TotalCount 4
-			MaxActive 4
+			TotalCount 3
+			MaxActive 3
 			SpawnCount 1
 			Support limited
 			TotalCurrency 50
@@ -2401,18 +1698,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Heavyweapons_Fist
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-					"voice pitch scale" 0
-				}
+				AddTemplate RedBot
 			}
 		}
 		WaveSpawn 
@@ -2421,9 +1707,9 @@ WaveSchedule
 			Where "spawnbot_arena_1"
 			Where "spawnbot_arena_2"
 			Where "spawnbot_arena_3"
-			TotalCount 10
-			MaxActive 10
-			SpawnCount 2
+			TotalCount 5
+			MaxActive 5
+			SpawnCount 1
 			Support limited
 			TotalCurrency 25
 			WaitBeforeStarting 0
@@ -2432,17 +1718,7 @@ WaveSchedule
 			{
 				Class Demoman
 				Skill Expert
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot
 			}
 		}
 		WaveSpawn
@@ -2472,20 +1748,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Soldier_RocketShotgun
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				Tag bot_giant
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot_Giant
 			}
 				
 		}
@@ -2496,8 +1759,8 @@ WaveSchedule
 			Where "spawnbot_arena_2"
 			Where "spawnbot_arena_3"
 			WaitForAllDead "midphase1"
-			TotalCount 4
-			MaxActive 4
+			TotalCount 2
+			MaxActive 2
 			SpawnCount 1
 			TotalCurrency 50
 			WaitBeforeStarting 0
@@ -2506,12 +1769,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Sniper_Huntsman_Spammer
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
+				AddTemplate RedBot
 				ItemAttributes
 				{
 					ItemName "The Huntsman"
@@ -2522,8 +1780,6 @@ WaveSchedule
 				{
 					"damage force reduction" 0.6
 					"airblast vulnerability multiplier" 0.6
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
 				}
 			}
 		}
@@ -2534,9 +1790,9 @@ WaveSchedule
 			Where "spawnbot_arena_2"
 			Where "spawnbot_arena_3"
 			WaitForAllDead "midphase1"
-			TotalCount 8
-			MaxActive 8
-			SpawnCount 2
+			TotalCount 5
+			MaxActive 5
+			SpawnCount 1
 			WaitBeforeStarting 5
 			WaitBetweenSpawns 0
 		
@@ -2547,24 +1803,13 @@ WaveSchedule
 			{
 				Class Pyro
 				Skill Normal
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
 				WeaponRestrictions PrimaryOnly
-				UseMeleeThreatPrioritization 1  
 				ItemAttributes
 				{
 					ItemName "TF_WEAPON_FLAMETHROWER"
 					"airblast disabled" 1
 				}
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot
 			}
 		}
 		WaveSpawn
@@ -2575,10 +1820,10 @@ WaveSchedule
 			Where "spawnbot_arena_3"
 			WaitForAllDead "midphase2"
 			TotalCount 100
-			MaxActive 8
-			SpawnCount 2
+			MaxActive 5
+			SpawnCount 1
 			WaitBeforeStarting 5
-			WaitBetweenSpawns 3
+			WaitBetweenSpawns 2
 		
 			TotalCurrency 100
 			Support Limited
@@ -2588,72 +1833,29 @@ WaveSchedule
 				{
 					Class Pyro
 					Skill Normal
-					Action Mobber  
-					BehaviorModifiers Mobber
-					Attributes IgnoreFlag
-					Attributes DisableDodge
 					WeaponRestrictions PrimaryOnly
-					UseMeleeThreatPrioritization 1  
 					ItemAttributes
 					{
 						ItemName "TF_WEAPON_FLAMETHROWER"
 						"airblast disabled" 1
 					}
-					AddCond { Name "TF_COND_REPROGRAMMED" }
-
-					CharacterAttributes
-					{
-						"crit mod disabled" 0
-						"force distribute currency on death" 1
-					}
+					AddTemplate RedBot
 				}
 				TFBot
 				{
 					Template T_TFBot_Heavyweapons_Shotgun
-					Action Mobber  
-					BehaviorModifiers Mobber
-					Attributes IgnoreFlag
-					Attributes DisableDodge
-					UseMeleeThreatPrioritization 1  
-					AddCond { Name "TF_COND_REPROGRAMMED" }
-					CharacterAttributes
-					{
-						"crit mod disabled" 0
-						"force distribute currency on death" 1
-						"voice pitch scale" 0
-					}
+					AddTemplate RedBot
 				}
 				TFBot
 				{
 					Template T_TFBot_Scout_Scattergun_SlowFire
 					Name "Scout"
-					Action Mobber
-					BehaviorModifiers Mobber
-					Attributes IgnoreFlag
-					Attributes DisableDodge
-					UseMeleeThreatPrioritization 1  
-					AddCond { Name "TF_COND_REPROGRAMMED" }
-					CharacterAttributes
-					{
-						"crit mod disabled" 0
-						"force distribute currency on death" 1
-					}
+					AddTemplate RedBot
 				}
 				TFBot
 				{
 					Class Soldier
-					Skill Hard
-					Action Mobber  
-					BehaviorModifiers Mobber
-					Attributes IgnoreFlag
-					Attributes DisableDodge
-					UseMeleeThreatPrioritization 1  
-					AddCond { Name "TF_COND_REPROGRAMMED" }
-					CharacterAttributes
-					{
-						"crit mod disabled" 0
-						"force distribute currency on death" 1
-					}
+					AddTemplate RedBot
 				}
 			}
 		}
@@ -2732,6 +1934,7 @@ WaveSchedule
 			{
 				SpawnTemplate "generator_template"
 				Name "generator_one"
+				ClassIcon generator_lite
 				StartingPathTrackNode "generator_one_path_1"
 				Health 5000
 				Speed 0
@@ -2764,6 +1967,7 @@ WaveSchedule
 			{
 				SpawnTemplate "generator_template"
 				Name "generator_two"
+				ClassIcon generator_lite
 				StartingPathTrackNode "generator_two_path_1"
 				Health 5000
 				Speed 0
@@ -2795,6 +1999,7 @@ WaveSchedule
 			{
 				SpawnTemplate "generator_template"
 				Name "generator_three"
+				ClassIcon generator_lite
 				StartingPathTrackNode "generator_three_path_1"
 				Health 5000
 				Speed 0
@@ -2836,6 +2041,7 @@ WaveSchedule
 			{
 				SpawnTemplate "generator_template"
 				Name "generator_four"
+				ClassIcon generator_lite
 				StartingPathTrackNode "generator_four_path_1"
 				Health 5000
 				Speed 0
@@ -2862,6 +2068,7 @@ WaveSchedule
 			{
 				SpawnTemplate "generator_template"
 				Name "generator_five"
+				ClassIcon generator_lite
 				StartingPathTrackNode "generator_five_path_1"
 				Health 5000
 				Speed 0
@@ -2888,6 +2095,7 @@ WaveSchedule
 			{
 				SpawnTemplate "generator_template"
 				Name "generator_six"
+				ClassIcon generator_lite
 				StartingPathTrackNode "generator_six_path_1"
 				Health 5000
 				Speed 0
@@ -2995,18 +2203,7 @@ WaveSchedule
 			TFBot
 			{
 				Class Soldier
-				Skill Normal
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot
 			}
 		}
 		WaveSpawn 
@@ -3024,18 +2221,8 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Soldier_Extended_Battalion
-				Action Mobber
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
+				AddTemplate RedBot
 				Item "Steel Shako"
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
 			}
 		}
 		WaveSpawn 
@@ -3058,18 +2245,7 @@ WaveSchedule
 					TFBot
 					{
 						Class Soldier
-						Skill Normal
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot
 					}
 				}
 			}
@@ -3094,18 +2270,7 @@ WaveSchedule
 					TFBot
 					{
 						Class Soldier
-						Skill Normal
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot
 					}
 				}
 			}
@@ -3130,18 +2295,8 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Soldier_Extended_Battalion
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
+						AddTemplate RedBot
 						Item "Steel Shako"
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
 					}
 				}
 			}
@@ -3160,36 +2315,8 @@ WaveSchedule
 			{
 				TFBot
 				{
-					Class Demoman
-					ClassIcon demoknight_giant
-					Name "Giant Demoknight"
-					Skill Expert
-					Health 3300
-					Item "Prince Tavish's Crown"
-					Item "The Eyelander"
-					Item "Ali Baba's Wee Booties"
-					WeaponRestrictions MeleeOnly
-					Attributes MiniBoss
-					Action Mobber
-					BehaviorModifiers Mobber
-					Attributes IgnoreFlag
-					Attributes DisableDodge
-					UseMeleeThreatPrioritization 1  
-					AddCond { Name "TF_COND_REPROGRAMMED" }
-					ItemAttributes
-					{
-						ItemName "The Eyelander"
-						"critboost on kill" 3
-					}
-					CharacterAttributes
-					{
-						"crit mod disabled" 0
-						"force distribute currency on death" 1
-						"move speed bonus" 0.5
-						"damage force reduction" 0.1
-						"airblast vulnerability multiplier" 0.5
-						"override footstep sound set" 4
-					}
+					Template T_TFBot_Giant_Demoknight_NoShield
+					AddTemplate RedBot_Giant
 				}
 				TFBot
 				{
@@ -3231,36 +2358,8 @@ WaveSchedule
 			{
 				TFBot
 				{
-					Class Demoman
-					ClassIcon demoknight_giant
-					Name "Giant Demoknight"
-					Skill Expert
-					Health 3300
-					Item "Prince Tavish's Crown"
-					Item "The Eyelander"
-					Item "Ali Baba's Wee Booties"
-					WeaponRestrictions MeleeOnly
-					Attributes MiniBoss
-					Action Mobber
-					BehaviorModifiers Mobber
-					Attributes IgnoreFlag
-					Attributes DisableDodge
-					UseMeleeThreatPrioritization 1  
-					AddCond { Name "TF_COND_REPROGRAMMED" }
-					ItemAttributes
-					{
-						ItemName "The Eyelander"
-						"critboost on kill" 3
-					}
-					CharacterAttributes
-					{
-						"crit mod disabled" 0
-						"force distribute currency on death" 1
-						"move speed bonus" 0.5
-						"damage force reduction" 0.1
-						"airblast vulnerability multiplier" 0.5
-						"override footstep sound set" 4
-					}
+					Template T_TFBot_Giant_Demoknight_NoShield
+					AddTemplate RedBot_Giant
 				}
 				TFBot
 				{
@@ -3297,42 +2396,14 @@ WaveSchedule
 			MaxActive 3
 			SpawnCount 3
 			TotalCurrency 75
-			WaitBeforeStarting 25
+			WaitBeforeStarting 15
 			WaitBetweenSpawns 0
 			Squad
 			{
 				TFBot
 				{
-					Class Demoman
-					ClassIcon demoknight_giant
-					Name "Giant Demoknight"
-					Skill Expert
-					Health 3300
-					Item "Prince Tavish's Crown"
-					Item "The Eyelander"
-					Item "Ali Baba's Wee Booties"
-					WeaponRestrictions MeleeOnly
-					Attributes MiniBoss
-					Action Mobber
-					BehaviorModifiers Mobber
-					Attributes IgnoreFlag
-					Attributes DisableDodge
-					UseMeleeThreatPrioritization 1  
-					AddCond { Name "TF_COND_REPROGRAMMED" }
-					ItemAttributes
-					{
-						ItemName "The Eyelander"
-						"critboost on kill" 3
-					}
-					CharacterAttributes
-					{
-						"crit mod disabled" 0
-						"force distribute currency on death" 1
-						"move speed bonus" 0.5
-						"damage force reduction" 0.1
-						"airblast vulnerability multiplier" 0.5
-						"override footstep sound set" 4
-					}
+					Template T_TFBot_Giant_Demoknight_NoShield
+					AddTemplate RedBot_Giant
 				}
 				TFBot
 				{
@@ -3376,20 +2447,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Heavyweapons_Fist
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"damage force reduction" 0.4
-					"airblast vulnerability multiplier" 0.4
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-					"voice pitch scale" 0
-				}
+				AddTemplate RedBot
 				SpawnTemplate "Thunderdome_Bot"
 			}
 		}
@@ -3409,21 +2467,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Demoman
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				Tag bot_giant
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-					"voice pitch scale" 0
-				}
+				AddTemplate RedBot_Giant
 			}
 		}
 		WaveSpawn 
@@ -3442,20 +2486,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Heavyweapons_Fist
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"damage force reduction" 0.4
-					"airblast vulnerability multiplier" 0.4
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-					"voice pitch scale" 0
-				}
+				AddTemplate RedBot
 				SpawnTemplate "Thunderdome_Bot"
 			}
 		}
@@ -3474,7 +2505,7 @@ WaveSchedule
 			Tank
 			{
 				SpawnTemplate "Helicopter_Tank_Init"
-
+				ClassIcon blimp2_red_rocket_lite_2
 				Health 17500
 				Speed 0 
 				Scale 1.1
@@ -3649,20 +2680,7 @@ WaveSchedule
 					ItemName "TF_WEAPON_SHOTGUN_HWG"
 					"bullets per shot bonus" 5
 				}
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				Tag bot_giant
-				AddCond {Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot_Giant
 			}
 		
 		}
@@ -3692,20 +2710,7 @@ WaveSchedule
 							ItemName "TF_WEAPON_SHOTGUN_HWG"
 							"bullets per shot bonus" 5
 						}
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						Tag bot_giant
-						AddCond {Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"damage force reduction" 0.1
-							"airblast vulnerability multiplier" 0.1
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot_Giant
 					}
 				}
 			}
@@ -3729,20 +2734,7 @@ WaveSchedule
 					ItemName "TF_WEAPON_SHOTGUN_HWG"
 					"bullets per shot bonus" 5
 				}
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				Tag bot_giant
-				AddCond {Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot_Giant
 			}
 		}
 		WaveSpawn 
@@ -3769,20 +2761,7 @@ WaveSchedule
 							ItemName "TF_WEAPON_SHOTGUN_HWG"
 							"bullets per shot bonus" 5
 						}
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						Tag bot_giant
-						AddCond {Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"damage force reduction" 0.1
-							"airblast vulnerability multiplier" 0.1
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot_Giant
 					}
 				}
 			}
@@ -3805,20 +2784,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Chief_Soldier_Alternating
-				Action Mobber
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond {Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"damage bonus" 1.75
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot_Giant
 			}
 		}
 		WaveSpawn 
@@ -3841,17 +2807,7 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Pyro_DF
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						AddCond {Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot
 					}
 				}
 			}
@@ -3871,24 +2827,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Pyro_DF
-				ItemAttributes
-				{
-					ItemName "The Dragon's Fury"
-					"airblast disabled" 1
-				}
-				Action Mobber
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond {Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot
 			}
 		}
 		WaveSpawn
@@ -3912,19 +2851,7 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Pyro_DF
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						AddCond {Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"damage force reduction" 0.1
-							"airblast vulnerability multiplier" 0.1
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot
 					}
 				}
 			}
@@ -3944,18 +2871,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Scout_Shortstop
-				Health 650
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				CharacterAttributes
-				{
-					"cancel falling damage" 1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
-				AddCond { Name "TF_COND_REPROGRAMMED" }
+				AddTemplate RedBot
 			}
 		}
 		WaveSpawn
@@ -3978,18 +2894,7 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Scout_Shortstop
-						Health 650
-						Action Mobber  
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						CharacterAttributes
-						{
-							"cancel falling damage" 1
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
-						AddCond { Name "TF_COND_REPROGRAMMED" }
+						AddTemplate RedBot
 					}
 				}
 			}
@@ -4013,17 +2918,7 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Demo_Burst
-						Action Mobber
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot
 					}
 				}
 			}
@@ -4041,20 +2936,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Pyro_ComboFlare
-				Action Mobber
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				Tag bot_giant
-				AddCond {Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot_Giant
 			}
 		}
 		WaveSpawn
@@ -4075,20 +2957,7 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Giant_Pyro_ComboFlare
-						Action Mobber
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						Tag bot_giant
-						AddCond {Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"damage force reduction" 0.1
-							"airblast vulnerability multiplier" 0.1
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot_Giant
 					}
 				}
 			}
@@ -4106,20 +2975,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Pyro_ComboFlare
-				Action Mobber
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				Tag bot_giant
-				AddCond {Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot_Giant
 			}
 		}
 		WaveSpawn
@@ -4141,20 +2997,7 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Giant_Pyro_ComboFlare
-						Action Mobber
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						Tag bot_giant
-						AddCond {Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"damage force reduction" 0.1
-							"airblast vulnerability multiplier" 0.1
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot_Giant
 					}
 				}
 			}
@@ -4174,18 +3017,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Demo_Burst
-				Skill Expert
-				Action Mobber
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot
 			}
 		}
 		WaveSpawn
@@ -4208,18 +3040,7 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Demo_Burst
-						Skill Expert
-						Action Mobber
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot
 					}
 				}
 			}
@@ -4238,20 +3059,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Soldier_Extended_Buff_Banner
-				Action Mobber
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				Tag bot_giant
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot_Giant
 			}
 		}
 		WaveSpawn
@@ -4273,20 +3081,7 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Giant_Soldier_Extended_Buff_Banner
-						Action Mobber
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						Tag bot_giant
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"damage force reduction" 0.1
-							"airblast vulnerability multiplier" 0.1
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot_Giant
 					}
 				}
 			}
@@ -4305,20 +3100,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Soldier_Extended_Buff_Banner
-				Action Mobber
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				Tag bot_giant
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot_Giant
 			}
 		}
 		WaveSpawn
@@ -4340,20 +3122,7 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Giant_Soldier_Extended_Buff_Banner
-						Action Mobber
-						BehaviorModifiers Mobber
-						Attributes IgnoreFlag
-						Attributes DisableDodge
-						UseMeleeThreatPrioritization 1  
-						Tag bot_giant
-						AddCond { Name "TF_COND_REPROGRAMMED" }
-						CharacterAttributes
-						{
-							"damage force reduction" 0.1
-							"airblast vulnerability multiplier" 0.1
-							"crit mod disabled" 0
-							"force distribute currency on death" 1
-						}
+						AddTemplate RedBot_Giant
 					}
 				}
 			}
@@ -4377,19 +3146,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Ranger_Doctor_Doppler
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond {Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"damage force reduction" 0.1
-					"airblast vulnerability multiplier" 0.1
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				AddTemplate RedBot_Giant
 			}
 		}
 	}

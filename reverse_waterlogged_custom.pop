@@ -634,7 +634,7 @@ WaveSchedule
 				"targetname" "killed"
 				"spawnflags" "2"
 
-				"OnTrigger" "filter_is_red,Kill,,0,-1"
+				"OnTrigger" "filter_is_blu,Kill,,0,-1"
 				"OnTrigger" "stickybomb_buff,Kill,,0,-1"
 				"OnTrigger" "stickbomb_setposition,Kill,,0,-1"
 				"OnTrigger" "banner_model,Kill,,0,-1"
@@ -914,7 +914,7 @@ WaveSchedule
 			{
 				"targetname" "filter_is_red"
 				"Negated" "0"
-				"TeamNum" "3"
+				"TeamNum" "2"
 
 				"OnUser1" "!self,Kill,,2.1,-1"
 			}	
@@ -1626,7 +1626,7 @@ WaveSchedule
 
 				"OnPass" "@e@m_hMyWeapons@!activator,$SetProp$m_iClip1,$$=@e@m_hMyWeapons@!activator.m_iClip1 + 1,0.25,-1"
 				"OnPass" "!activator,$SetVar$NoDirectHitReload,1,-1,-1"
-				"OnPass" "!activator,$SetVar$NoDirectHitReload,,0,-1"
+				"OnPass" "!activator,$SetVar$NoDirectHitReload,0,0,-1"
 			}
 
 			logic_relay 
@@ -1718,7 +1718,7 @@ WaveSchedule
 			{
 				"targetname" "vitasaw_team_check"
 
-				"TeamNum" "2"//red
+				"TeamNum" "3"//blue
 
 				"OnPass" "vitasaw_caller,$SetProp$m_iDecapitations,$$=vitasaw_caller.m_iDecapitations - 3,0.01,-1"
 				"OnPass" "vitasaw_caller,AddOutput,targetname  ,0.011,-1"

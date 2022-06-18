@@ -3528,7 +3528,8 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 				"OnTrigger" "charged_style_dragon,Trigger,,2.5,-1"
 			}
-		}Thunderdome_Bot
+		}
+		Thunderdome_Bot
 		{
 			OnSpawnOutput
 			{
@@ -3590,7 +3591,6 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				Target "rotate_bot_position"
 				Action "Trigger"
 			}
-
 			filter_activator_tfteam 
 			{
 				"targetname" "filter_is_blue"
@@ -3691,6 +3691,74 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"maxspeed" "60"
 				"spawnflags" "64"
 				"volume" "0"
+			}
+
+			OnSpawnOutput
+			{
+				Target "botstate_checker"
+				Action "Trigger"
+				Delay 0.1
+			}
+			logic_relay
+			{
+				"targetname" "thunderdome_bot_shield_disable"
+				"OnTrigger" "rotate_bot,Stop"
+				"OnTrigger" "rotate2_bot,Stop"
+				"OnTrigger" "projectile_shield_bot,$SetModel,models/empty.mdl"
+				"OnTrigger" "shield_hitbox_bot,Disable"
+				"OnTrigger" "shield_hitbox2_bot,Disable"
+				"OnTrigger" "!self,Disable"
+				"OnTrigger" "thunderdome_bot_shield_enable,Enable"
+			}
+			logic_relay
+			{
+				"targetname" "thunderdome_bot_shield_enable"
+				"OnTrigger" "rotate_bot,Start"
+				"OnTrigger" "rotate2_bot,Start"
+				"OnTrigger" "projectile_shield_bot,$SetModel,models/props_mvm/mvm_comically_small_player_shield.mdl"
+				"OnTrigger" "shield_hitbox_bot,Enable"
+				"OnTrigger" "shield_hitbox2_bot,Enable"
+				"OnTrigger" "!self,Disable"
+				"OnTrigger" "thunderdome_bot_shield_disable,Enable"
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_is_sapped"
+				"Negated" "0"
+				"condition" "50"
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_is_reprogrammed"
+				"Negated" "1"
+				"condition" "43"
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_is_gatestunned"
+				"Negated" "0"
+				"condition" "50"
+			}
+			filter_multi 
+			{
+				"targetname" "filter_botstate"
+				"Negated" "0"
+				"FilterType" "1"
+				"Filter01" "filter_is_sapped"
+				"Filter02" "filter_is_reprogrammed"
+				"Filter03" "filter_is_gatestunned"
+
+				"OnPass" "thunderdome_bot_shield_disable,Trigger"
+
+				"OnFail" "thunderdome_bot_shield_enable,Trigger"
+			}
+			logic_relay 
+			{
+				"targetname" "botstate_checker"
+				"spawnflags" "2"
+
+				"OnTrigger" "!self,Trigger,,0.1,-1"
+				"OnTrigger" "filter_botstate,TestActivator,!activator,0,-1"
 			}
 		}
 	}

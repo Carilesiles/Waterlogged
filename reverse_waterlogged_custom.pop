@@ -1010,7 +1010,6 @@ WaveSchedule
 				"OnTrigger" "!activator,$SetClientProp$m_bRageDraining,1,0,-1"
 				"OnTrigger" "!activator,$SetProp$m_bRageDraining,0,0,-1"
 
-				"OnTrigger" "!activator,$AddCond,11,0,-1"
 				//effect
 				"OnTrigger" "heavy_dispenser_trigger,Enable,,0,-1"
 

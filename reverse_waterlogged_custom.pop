@@ -1050,248 +1050,304 @@ WaveSchedule
 				"OnUser1" "!self,GetValue,,0.01,-1"
 			}
 		}
-		Caber_Buster
-		{
-			OnSpawnOutput
+        Caber_Buster
+        {
+            OnSpawnOutput
+            {
+                Target "caber_taunt_checker"
+                Action "Trigger"
+                Delay 0.1
+            }
+            OnSpawnOutput 
+            {
+                Target "common_damage" 
+                Action "$SetOwner"
+                Param "!activator"
+                Delay 0
+            }
+            OnSpawnOutput 
+            {
+                Target "giant_damage" 
+                Action "$SetOwner"
+                Param "!activator"
+                Delay 0
+            }
+
+            OnSpawnOutput
+            {
+                Target "!activator"
+                Action "$AddCond"
+                Param "41"
+                Delay 0
+            }
+            OnSpawnOutput
+            {
+                Target "!activator"
+                Action "$AddCond"
+                Param "85"
+                Delay 0
+            }
+            OnSpawnOutput
+            {
+                Target "!activator"
+                Action "$RemoveCond"
+                Param "85"
+                Delay 0.01
+            }
+            OnSpawnOutput
+            {
+                Target "apply_buster_attributes"
+                Action "Trigger"
+                Delay 0.01
+            }
+            OnParentKilledOutput 
+            {
+                Target "!activator"
+                Action "SetCustomModel"
+                Param ""
+                Delay 0
+            }
+            OnParentKilledOutput
+            {
+                Target "!activator"
+                Action "AddOutput"
+                Param "modelscale 1"
+                Delay 0
+            }
+            OnParentKilledOutput
+            {
+                Target "!activator"
+                Action "SetForcedTauntCam"
+                Param "0"
+                Delay 0
+            }
+            OnParentKilledOutput
+            {
+                Target "@c@!activator"
+                Action "$ShowToAll"
+                Delay 0.2
+            }
+            OnParentKilledOutput
+            {
+                Target "!activator"
+                Action "$RemoveCond"
+                Param "41"
+                Delay 0
+            }
+
+            // $filter_sendprop
+            // {
+            //     "targetname" "filter_is_robot_wearable"
+            //     "$name" "m_nModelIndex"
+            //     "$value" "914"
+            //     "$compare" "equal"
+            //     "Negated" "0"
+            // }
+
+            info_particle_system
 			{
-				Target "caber_taunt_checker"
-				Action "Trigger"
-				Delay 0.1
-			}
-			OnSpawnOutput 
-			{
-				Target "common_damage" 
-				Action "$SetOwner"
-				Param "!activator"
-				Delay 0
-			}
-			OnSpawnOutput 
-			{
-				Target "giant_damage" 
-				Action "$SetOwner"
-				Param "!activator"
-				Delay 0
+				"targetname" "bster_explosion"
+				"effect_name" "asplode_hoodoo"
+				"flag_as_weather" "0"
+				"start_active" "0"
 			}
 
-			OnSpawnOutput
-			{
-				Target "!activator"
-				Action "$AddCond"
-				Param "41"
-				Delay 0
-			}
-			OnSpawnOutput
-			{
-				Target "!activator"
-				Action "$AddCond"
-				Param "85"
-				Delay 0
-			}
-			OnSpawnOutput
-			{
-				Target "!activator"
-				Action "$RemoveCond"
-				Param "85"
-				Delay 0.01
-			}
-			OnSpawnOutput
-			{
-				Target "apply_buster_attributes"
-				Action "Trigger"
-				Delay 0.01
-			}
-			OnParentKilledOutput 
-			{
-				Target "!activator"
-				Action "SetCustomModel"
-				Param ""
-				Delay 0
-			}
-			OnParentKilledOutput
-			{
-				Target "!activator"
-				Action "AddOutput"
-				Param "modelscale 1"
-				Delay 0
-			}
-			OnParentKilledOutput
-			{
-				Target "!activator"
-				Action "SetForcedTauntCam"
-				Param "0"
-				Delay 0
-			}
-			OnParentKilledOutput
-			{
-				Target "!activator"
-				Action "$RemoveCond"
-				Param "41"
-				Delay 0
-			}
+            logic_relay
+            {
+                "targetname" "force_buster_model"
+                "spawnflags" "2"
 
-			logic_relay
-			{
-				"targetname" "apply_buster_attributes"
-				"OnTrigger" "!activator,AddOutput,modelscale 1.75,0.11,-1"
-				"OnTrigger" "!activator,SetCustomModel,models/bots/demo/bot_sentry_buster.mdl,0.11,-1"
-				"OnTrigger" "!activator,SetForcedTauntCam,1,0.11,-1"
-				"OnTrigger" "!activator,$AddItemAttribute,max health additive bonus|625|2,0.11,-1"
-				"OnTrigger" "!activator,sethealth,800,0.3,-1"
-				"OnTrigger" "!activator,$AddItemAttribute,no_attack|1|2,0.11,-1"
-				"OnTrigger" "!activator,$AddPlayerAttribute,move speed penalty|2|2,0,-1"
-				"OnTrigger" "!activator,$AddItemAttribute,damage force reduction|0.5|2,0.11,-1"
-				"OnTrigger" "!activator,$AddItemAttribute,always allow taunt|0.5|2,0.11,-1"
-				"OnTrigger" "!activator,$AddItemAttribute,override footstep sound set|7|2,0.11,-1"
-				"OnTrigger" "!activator,$AddItemAttribute,cannot be backstabbed|1|2,0.11,-1"
-			}
+                "OnTrigger" "!activator,SetCustomModel,models/bots/demo/bot_sentry_buster.mdl,0,-1"
+                "OnTrigger" "!activator,alpha,255,-1,-1"
+                "OnTrigger" "!activator,alpha,254,0.01,-1"
+                "OnTrigger" "!self,Trigger,,0.02,-1"
+            }
 
-			filter_tf_class //fixes switching class after taunting and get a demoman model on other classes (lol)
+            logic_relay
+            {
+                "targetname" "apply_buster_attributes"
+                "OnTrigger" "!activator,AddOutput,modelscale 1.75,0.11,-1"
+                //"OnTrigger" "!activator,SetCustomModel,models/bots/demo/bot_sentry_buster.mdl,0.2,-1"
+                //"OnTrigger" "@f@filter_is_robot_wearable@tf_wearable,$HideToAll,,0.11,-1"
+                "OnTrigger" "@c@!activator,$HideToAll,,0.11,-1"
+                "OnTrigger" "!activator,AddOutput,rendermode 1,0,-1"
+                "OnTrigger" "force_buster_model,Trigger,,0.11,-1"
+
+                "OnTrigger" "!activator,$GiveItem,The Tartantaloons,0.3,-1"
+                "OnTrigger" "!activator,$GiveItem,Robin Walkers,0.3,-1"
+
+                "OnTrigger" "!activator,SetForcedTauntCam,1,0.11,-1"
+                "OnTrigger" "!activator,$AddItemAttribute,max health additive bonus|625|2,0.11,-1"
+                "OnTrigger" "!activator,sethealth,800,0.3,-1"
+                "OnTrigger" "!activator,$AddItemAttribute,no_attack|1|2,0.11,-1"
+                "OnTrigger" "!activator,$AddPlayerAttribute,move speed penalty|2|2,0,-1"
+                "OnTrigger" "!activator,$AddPlayerAttribute,no resupply|1|2,0,-1"
+                "OnTrigger" "!activator,$AddItemAttribute,damage force reduction|0.5|2,0.11,-1"
+                "OnTrigger" "!activator,$AddItemAttribute,always allow taunt|0.5|2,0.11,-1"
+                //"OnTrigger" "!activator,$AddItemAttribute,override footstep sound set|7|2,0.11,-1"
+                "OnTrigger" "!activator,$AddItemAttribute,cannot be backstabbed|1|2,0.11,-1"
+            }
+
+            filter_tf_class //fixes switching class after taunting and get a demoman model on other classes (lol)
+            {
+                "targetname" "filter_still_demoman"
+                "Negated" "0"
+                "tfclass" "4"
+
+                "OnPass" "!activator,$RemoveItem,The Tartantaloons,2,-1"
+                "OnPass" "!activator,$RemoveItem,Robin Walkers,2,-1"
+
+                "OnPass" "bster_explosion,Start,,0,-1"
+
+                "OnPass" "!activator,SetCustomModel,,0,-1"
+                "OnPass" "!activator,$RemoveCond,7,0,-1"
+                "OnPass" "!activator,$RemoveCond,41,0,-1"
+                "OnPass" "!activator,SetForcedTauntCam,0,0,-1"
+                "OnPass" "!activator,$AddCond,57,0,-1"
+                "OnPass" "!activator,$AddCond,32,0,-1"
+                "OnPass" "!activator,$RemoveCond,57,2,-1"
+                "OnPass" "!activator,$RemoveCond,32,2,-1"
+
+                "OnPass" "common_damage,FireUser1,,0,-1"
+                "OnPass" "giant_damage,FireUser1,,0,-1"
+
+                "OnPass" "!activator,AddOutput,modelscale 1,0,-1"
+                //"OnPass" "!activator,$RemoveItemAttribute,not solid to players|2,0,-1"
+                "OnPass" "!activator,$RemoveItemAttribute,no_attack|2,0,-1"
+                "OnPass" "!activator,$RemoveItemAttribute,max health additive bonus|2,0,-1"
+                //"OnPass" "!activator,sethealth,201,0,-1"
+                "OnPass" "!activator,$Regenerate,,0,-1"
+                "OnPass" "!activator,AddOutput,BaseVelocity 0 0 1000,0,-1"
+                "OnPass" "!activator,$RemovePlayerAttribute,move speed penalty,0,-1"
+                "OnPass" "!activator,$RemovePlayerAttribute,no resupply,0,-1"
+                "OnPass" "!activator,$RemoveItemAttribute,damage force reduction|2,0,-1"
+                "OnPass" "!activator,$RemoveItemAttribute,always allow taunt|2,0,-1"
+                "OnPass" "!activator,$RemoveItemAttribute,model scale|2,0,-1"
+                //"OnPass" "!activator,$RemoveItemAttribute,override footstep sound set|2,0,-1"
+                "OnPass" "!activator,$RemoveItemAttribute,cannot be backstabbed|2,0,-1"
+
+                //remove overheal
+                "OnPass" "!activator,$AddItemAttribute,mod_maxhealth_drain_rate|1|2,0,-1"
+                "OnPass" "!activator,$RemoveItemAttribute,mod_maxhealth_drain_rate|2,0.1,-1"
+            }
+
+            filter_tf_condition
+            {
+                "targetname" "filter_is_taunting"
+                "Negated" "0"
+                "condition" "7"
+
+                "OnPass" "caber_taunt_checker,Disable,,0,-1"
+                "OnPass" "!self,Disable,,5,-1"
+
+                "OnPass" "!activator,$AddPlayerAttribute,move speed penalty|0.001,0,-1" //prevent loserboys from using a cancelable taunt and escape the animation
+                "OnPass" "force_buster_model,Disable,,2,-1"
+                "OnPass" "@c@!activator,$ShowToAll,,2,-1"
+                "OnPass" "filter_still_demoman,TestActivator,,2,-1"
+            }	
+
+            filter_activator_tfteam 
+            {
+                "targetname" "filter_is_red"
+                "Negated" "0"
+                "TeamNum" "2"
+
+                "OnUser1" "!self,Kill,,2.1,-1"
+            }	
+
+            $filter_sendprop
 			{
-				"targetname" "filter_still_demoman"
+                "targetname" "filter_is_common"
+				"$name" "m_bIsMiniBoss"
+				"$value" "0"
+				"$compare" "equal"
 				"Negated" "0"
-				"tfclass" "4"
+            }
 
-				"OnPass" "!activator,SetCustomModel,,0,-1"
-				"OnPass" "!activator,$RemoveCond,7,0,-1"
-				"OnPass" "!activator,$RemoveCond,41,0,-1"
-				"OnPass" "!activator,SetForcedTauntCam,0,0,-1"
-				"OnPass" "!activator,$AddCond,57,0,-1"
-				"OnPass" "!activator,$AddCond,32,0,-1"
-				"OnPass" "!activator,$RemoveCond,57,2,-1"
-				"OnPass" "!activator,$RemoveCond,32,2,-1"
+            filter_tf_condition
+            {
+                "targetname" "filter_still_in_spawn"
+                "Negated" "1"
+                "condition" "51"
+            }	
 
-				"OnPass" "common_damage,FireUser1,,0,-1"
-				"OnPass" "giant_damage,FireUser1,,0,-1"
+            filter_tf_condition
+            {
+                "targetname" "filter_ubered"
+                "Negated" "1"
+                "condition" "5"
+            }	
 
-				"OnPass" "!activator,AddOutput,modelscale 1,0,-1"
-				//"OnPass" "!activator,$RemoveItemAttribute,not solid to players|2,0,-1"
-				"OnPass" "!activator,$RemoveItemAttribute,no_attack|2,0,-1"
-				"OnPass" "!activator,$RemoveItemAttribute,max health additive bonus|2,0,-1"
-				"OnPass" "!activator,sethealth,201,0,-1"
-				"OnPass" "!activator,$RemovePlayerAttribute,move speed penalty,0,-1"
-				"OnPass" "!activator,$RemoveItemAttribute,damage force reduction|2,0,-1"
-				"OnPass" "!activator,$RemoveItemAttribute,always allow taunt|2,0,-1"
-				"OnPass" "!activator,$RemoveItemAttribute,model scale|2,0,-1"
-				"OnPass" "!activator,$RemoveItemAttribute,override footstep sound set|2,0,-1"
-				"OnPass" "!activator,$RemoveItemAttribute,cannot be backstabbed|2,0,-1"
+            filter_multi 
+            {
+                "targetname" "filter_caber_common"
+                "Negated" "0"
+                "FilterType" "0"
+                "Filter01" "filter_is_red"
+                "Filter02" "filter_is_common"
+                "Filter03" "filter_still_in_spawn"
+                "Filter04" "filter_ubered"
+            }
 
-				"OnPass" "!activator,$AddItemAttribute,mod_maxhealth_drain_rate|1|2,0,-1"
-				"OnPass" "!activator,$RemoveItemAttribute,mod_maxhealth_drain_rate|2,0.1,-1"
-			}
-
-			filter_tf_condition
+            $filter_sendprop
 			{
-				"targetname" "filter_is_taunting"
-				"Negated" "0"
-				"condition" "7"
-
-				"OnPass" "caber_taunt_checker,Disable,,0,-1"
-				"OnPass" "!self,Disable,,5,-1"
-
-				"OnPass" "!activator,$AddPlayerAttribute,move speed penalty|0.001,0,-1" //prevent loserboys from using a cancelable taunt and escape the animation
-				"OnPass" "filter_still_demoman,TestActivator,,2,-1"
-			}	
-
-			filter_activator_tfteam 
-			{
-				"targetname" "filter_is_blu"
-				"Negated" "0"
-				"TeamNum" "3"
-
-				"OnUser1" "!self,Kill,,2.1,-1"
-			}	
-
-			filter_tf_bot_has_tag
-			{
-				"targetname" "filter_is_common"
+                "targetname" "filter_is_giant"
+				"$name" "m_bIsMiniBoss"
+				"$value" "0"
+				"$compare" "equal"
 				"Negated" "1"
-				"require_all_tags" "1"
-				"tags" "no_reprogram"
-			}	
+            }
 
-			filter_tf_condition
-			{
-				"targetname" "filter_still_in_spawn"
-				"Negated" "1"
-				"condition" "51"
-			}	
+            filter_multi 
+            {
+                "targetname" "filter_caber_giant"
+                "Negated" "0"
+                "FilterType" "0"
+                "Filter01" "filter_is_red"
+                "Filter02" "filter_is_giant"
+            }
 
-			filter_tf_condition
-			{
-				"targetname" "filter_ubered"
-				"Negated" "1"
-				"condition" "5"
-			}	
+            trigger_hurt
+            {
+                "targetname" "common_damage"
+                "origin" "0 0 0"
+                "mins" "-500 -500 -500"
+                "maxs" "500 500 500"
+                "Damage" "99999" 
+                "spawnflags" "1" 
+                "filtername" "filter_caber_common" 
+                "choices" "64" 
+                "StartDisabled" "1"
 
-			filter_multi 
-			{
-				"targetname" "filter_caber_common"
-				"Negated" "0"
-				"FilterType" "0"
-				"Filter01" "filter_is_blu"
-				"Filter02" "filter_is_common"
-				"Filter03" "filter_still_in_spawn"
-				"Filter04" "filter_ubered"
-			}
+                "OnUser1" "!self,Enable,,0,-1"
+                "OnUser1" "!self,Disable,,0.1,-1"
+            }
 
-			filter_tf_bot_has_tag
-			{
-				"targetname" "filter_is_giant"
-				"Negated" "0"
-				"require_all_tags" "1"
-				"tags" "no_reprogram"
-			}	
+            trigger_hurt
+            {
+                "targetname" "giant_damage"
+                "origin" "0 0 0"
+                "mins" "-500 -500 -500"
+                "maxs" "500 500 500"
+                "Damage" "1200"  //damage is half of this
+                "spawnflags" "1" 
+                "filtername" "filter_caber_giant" 
+                "choices" "64"
+                "StartDisabled" "1"
 
-			filter_multi 
-			{
-				"targetname" "filter_caber_giant"
-				"Negated" "0"
-				"FilterType" "0"
-				"Filter01" "filter_is_blu"
-				"Filter02" "filter_is_giant"
-			}
+                "OnUser1" "!self,Enable,,0,-1"
+                "OnUser1" "!self,Disable,,0.1,-1"
+            }
 
-			trigger_hurt
-			{
-				"targetname" "common_damage"
-				"origin" "0 0 0"
-				"mins" "-500 -500 -500"
-				"maxs" "500 500 500"
-				"Damage" "99999" 
-				"spawnflags" "1" 
-				"filtername" "filter_caber_common" 
-				"choices" "64" 
-				"StartDisabled" "1"
+            logic_relay 
+            {
+                "targetname" "caber_taunt_checker"
+                "spawnflags" "2"
 
-				"OnUser1" "!self,Enable,,0,-1"
-				"OnUser1" "!self,Disable,,0.1,-1"
-			}
-
-			trigger_hurt
-			{
-				"targetname" "giant_damage"
-				"origin" "0 0 0"
-				"mins" "-500 -500 -500"
-				"maxs" "500 500 500"
-				"Damage" "1200"  //damage is half of this
-				"spawnflags" "1" 
-				"filtername" "filter_caber_giant" 
-				"choices" "64"
-				"StartDisabled" "1"
-
-				"OnUser1" "!self,Enable,,0,-1"
-				"OnUser1" "!self,Disable,,0.1,-1"
-			}
-
-			logic_relay 
-			{
-				"targetname" "caber_taunt_checker"
-				"spawnflags" "2"
-
-				"OnTrigger" "caber_taunt_checker,Trigger,,0.1,-1"  
-				"OnTrigger" "filter_is_taunting,TestActivator,!activator,0,-1"    
-			}
-		}
+                "OnTrigger" "caber_taunt_checker,Trigger,,0.1,-1"  
+                "OnTrigger" "filter_is_taunting,TestActivator,!activator,0,-1"    
+            }
+        }
 
 		Building_Level2_Spawn
 		{

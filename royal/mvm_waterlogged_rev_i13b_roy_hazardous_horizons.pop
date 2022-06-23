@@ -463,6 +463,7 @@ WaveSchedule
 	SpawnTemplate Axe_Rework_Global
 	SpawnTemplate Vitsaw_Rework_Global
     //SpawnTemplate FrontalImpact_Global
+    SpawnTemplate Murasama_Global
 
 	CustomWeapon 
 	{
@@ -507,6 +508,34 @@ WaveSchedule
         //     "fire input on hit" "frontalimpact_hit^Trigger^"
         //     "special item description" "On charge impact: propel yourself backward in an arch"
         // }
+        "Murasama"
+        {
+            OriginalItemName "The Half-Zatoichi"
+            "item color rgb" 25500
+            "taunt attack time mult" 1.5
+            "gesture speed increase" 1.5
+            "restore health on kill" 0
+            "increased air control" 3
+            //"melee cleave attack" 1
+            "fire input on hit" "murasama_hit^Trigger^"
+
+            "special item description" "Each hit propels the user forward and upward"
+            "special item description 2" "Being propelled greatly extends melee range until you land"
+            "special item description 3" "Restricted to melee with a charge"
+        }
+        "Murasama Charge"
+        {
+            OriginalItemName "The Tide Turner"
+            //"is invisible" 1
+            "allow bunny hop" 1
+            "custom item model" "models/empty.mdl"
+            //"no_jump" 1
+            "kill refills meter" 0.4
+            "dmg taken from blast reduced" 1
+            "dmg taken from fire reduced" 1
+
+            "special item description" "Charging greatly increases movement speed for 1 second"
+        }
 		"National Pride"
 		{
 			OriginalItemName "Upgradeable TF_WEAPON_PIPEBOMBLAUNCHER"
@@ -569,11 +598,9 @@ WaveSchedule
 		Demoman 
 		{
 			Secondary {Item "National Pride"}
-            Secondary {Item "Frontal Impact"}
+            // Secondary {Item "Frontal Impact"}
+            Melee {Item "Murasama"}
 		}
-
-
-
 		Spy 
 		{
 			PDA2 {Item "Kirin's Ascension"}
@@ -682,7 +709,7 @@ WaveSchedule
 		ItemName "The Ullapool Caber"
 		"not solid to players" 1
 		"special item description" "Becomes a Sentry Buster. Taunt to detonate (revert back to a regular Demoman on detonation)"
-		"special item description 2" "Cannot transofmr into a Sentry Buster if the Freelance Mercenary is equipped"
+		"special item description 2" "Cannot transform into a Sentry Buster if the Freelance Mercenary is equipped"
 	}
 	PlayerShootTemplate
 	{
@@ -696,6 +723,13 @@ WaveSchedule
 		Name NationalPride_Spawn
 		ItemName "National Pride"
 	}
+
+	PlayerItemEquipSpawnTemplate 
+	{
+		Name Murasama_Spawn
+		ItemName "Murasama"
+	}
+
 	PlayerSpawnTemplate 
 	{
 		Name Rage_Replacement

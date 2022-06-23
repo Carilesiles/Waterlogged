@@ -775,19 +775,144 @@ WaveSchedule
 			}
 		}
 
-        FrontalImpact_Global 
+        // FrontalImpact_Global 
+        // {
+        //     NoFixup 1
+
+        //     logic_relay 
+        //     {
+        //         "targetname" "frontalimpact_hit"
+        //         "spawnflags" "2"
+
+        //         "OnTrigger" "!activator,AddOutput,BaseVelocity 0 0 300,0,-1"
+        //         "OnTrigger" "!activator,$DisplayTextChat,hit,0,-1"
+        //         "OnTrigger" "!activator,$SetForwardVelocity,-300,0,-1"
+        //     }
+        // }
+        Murasama_Global 
         {
             NoFixup 1
 
             logic_relay 
             {
-                "targetname" "frontalimpact_hit"
+                "targetname" "murasama_hit"
                 "spawnflags" "2"
 
-                "OnTrigger" "!activator,AddOutput,BaseVelocity 0 0 300,0,-1"
-                "OnTrigger" "!activator,$DisplayTextChat,hit,0,-1"
-                "OnTrigger" "!activator,$SetForwardVelocity,-300,0,-1"
+                "OnTrigger" "!activator,AddOutput,BaseVelocity 0 0 250,0,-1"
+                "OnTrigger" "!activator,$AddCond,81,0.1,-1"
+                "OnTrigger" "!activator,$SetForwardVelocity,300,0,-1"
             }
+        }
+
+        Murasama_Spawn
+        {
+			// OnSpawnOutput
+			// {
+			// 	Target "!activator"
+			// 	Action "SetForcedTauntCam"
+			// 	Param "1"
+			// 	Delay 0
+			// }
+
+			// OnParentKilledOutput
+			// {
+			// 	Target "!activator"
+			// 	Action "SetForcedTauntCam"
+			// 	Param "0"
+			// 	Delay 0
+			// }
+
+            OnSpawnOutput
+			{
+				Target "murasama_spawn"
+				Action "Trigger"
+			}
+
+            OnSpawnOutput
+			{
+				Target "charge_check"
+				Action "Trigger"
+			}
+
+            logic_relay 
+            {
+                "targetname" "murasama_spawn"
+
+                "OnTrigger" "!activator,$WeaponStripSlot,0,0,-1"
+                "OnTrigger" "!activator,$WeaponSwitchSlot,2,0,-1"
+                "OnTrigger" "!activator,$GiveItem,Murasama Charge,0,-1"
+                // "OnTrigger" "!activator,$AddItemAttribute,is invisible|1|1,0.01,-1"
+                // "OnTrigger" "!activator,$AddItemAttribute,dmg taken from blast reduced|1|1,0.01,-1"
+                // "OnTrigger" "!activator,$AddItemAttribute,dmg taken from fire reduced|1|1,0.01,-1"
+            }
+
+			logic_relay 
+			{
+				"targetname" "charge_check"
+				"spawnflags" "2"
+
+				"OnTrigger" "filter_is_chargin,TestActivator,,0,-1"   
+				"OnTrigger" "filter_is_propelled,TestActivator,,0,-1"   
+				"OnTrigger" "filter_is_midair,TestActivator,,0,-1"   
+
+                //incase of resupply 
+                "OnTrigger" "murasama_spawn,Trigger,0,0,-1"
+
+				"OnTrigger" "!self,Trigger,,0.05,-1"  
+			}
+
+			filter_tf_condition
+			{
+				"targetname" "filter_is_chargin"
+				"Negated" "0"
+				"condition" "17"
+
+				"OnPass" "!activator,$RemoveCond,17,0,-1"
+
+				"OnPass" "!activator,$AddCond,46,0,-1"
+				"OnPass" "!activator,$AddItemAttribute,CARD: move speed bonus|2.5|2,0,-1"
+                
+                "OnPass" "!activator,$RemoveCond,46,2,-1"
+				"OnPass" "!activator,$RemoveItemAttribute,CARD: move speed bonus|2,2,-1"
+                "OnPass" "!activator,$SetForwardVelocity,500,0,-1"
+                // "OnPass" "!activator,AddOutput,BaseVelocity 0 0 300,0,-1"
+			}
+
+			filter_tf_condition
+			{
+				"targetname" "filter_is_propelled"
+				"Negated" "0"
+				"condition" "81"
+        
+				"OnPass" "!activator,$AddItemAttribute,melee range multiplier|2.5|2,0,-1"
+				"OnFail" "!activator,$RemoveItemAttribute,melee range multiplier|2,0,-1"
+			}
+
+            $filter_sendprop
+			{
+				"targetname" "filter_is_midair"
+				"$name" "m_flFallVelocity"
+				"$value" "0"
+				"$compare" "equal"
+				"Negated" "1"
+
+				"OnFail" "!activator,$RemoveCond,81,0,-1"
+			}
+
+
+            // $filter_sendprop
+			// {
+			// 	"targetname" "filter_is_midair"
+			// 	"$name" "m_bJumping"
+			// 	"$value" "1"
+			// 	"$compare" "equal"
+			// 	"Negated" "0"
+
+			// 	"OnPass" "!activator,$AddItemAttribute,melee range multiplier|4|2,0,-1"
+			// 	"OnPass" "!activator,$DisplayTextChat,jumpin,0,-1"
+			// 	"OnFail" "!activator,$RemoveItemAttribute,melee range multiplier|2,0,-1"
+                
+			// }
         }
 
 		Explosive_Tip

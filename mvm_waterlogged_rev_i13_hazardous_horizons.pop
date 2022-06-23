@@ -171,14 +171,6 @@ WaveSchedule
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
 			}
-
-			OnRestore 
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Gain a speed boost for 5 seconds|9,0"
-
-				Output "!activator,$SetVar$canteenIndex,1,0"
-			}
 		}
 
 		re_can
@@ -225,14 +217,6 @@ WaveSchedule
 			{
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
-			}
-
-			OnRestore 
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Reprogram non-giant enemies in a radius|9,0"
-
-				Output "!activator,$SetVar$canteenIndex,2,0"
 			}
 		}
 
@@ -281,14 +265,6 @@ WaveSchedule
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
 			}
-
-			OnRestore
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Lock to melee but increase melee power|9,0"
-
-				Output "!activator,$SetVar$canteenIndex,3,0"
-			}
 		}
 
 		add_can
@@ -335,14 +311,6 @@ WaveSchedule
 			{
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
-			}
-
-			OnRestore
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Gain various buffs for 5 seconds and become fatigue briefly after duration|9,0"
-
-				Output "!activator,$SetVar$canteenIndex,4,0"
 			}
 		}
 
@@ -392,14 +360,6 @@ WaveSchedule
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
 			}
-
-			OnRestore
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Cloak for up to 15 seconds|9,0"
-
-				Output "!activator,$SetVar$canteenIndex,5,0"
-			}
 		}
 
 		piss_can
@@ -448,14 +408,6 @@ WaveSchedule
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
 			}
-
-			OnRestore
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Apply Jarate to enemies within a large radius|9,0"
-
-				Output "!activator,$SetVar$canteenIndex,6,0"
-			}
 		}
 
 		knock_can
@@ -503,14 +455,6 @@ WaveSchedule
 			{
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
-			}
-
-			OnRestore
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Knockback resistance for 5 seconds|9,0"
-
-				Output "!activator,$SetVar$canteenIndex,69,0"
 			}
 		}
 	}
@@ -570,7 +514,7 @@ WaveSchedule
 
 			"special item description" "Stickybombs grant minicrit to nearby teammates"
 			"special item description 2" "Cannot detonate. only 1 sticky can be active at a time"
-			"special item description 3" "-30% damage on primary weapon when at least 1 stickybomb is active"
+			//"special item description 3" "-30% damage on primary weapon when at least 1 stickybomb is active"
 		}
 		"Kirin's Ascension"
 		{

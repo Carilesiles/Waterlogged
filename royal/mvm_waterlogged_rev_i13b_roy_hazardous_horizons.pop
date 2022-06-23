@@ -2,7 +2,7 @@
 #base robot_giant.pop
 #base robot_gatebot.pop
 #base reverse_waterlogged_robottemplates.pop
-#base reverse_waterlogged_wavelogic.pop
+#base reverse_waterlogged_wavelogic_roy.pop
 #base reverse_waterlogged_custom_roy.pop
 
 WaveSchedule 
@@ -462,6 +462,7 @@ WaveSchedule
 	SpawnTemplate DirectHit_Rework_Global
 	SpawnTemplate Axe_Rework_Global
 	SpawnTemplate Vitsaw_Rework_Global
+    //SpawnTemplate FrontalImpact_Global
 
 	CustomWeapon 
 	{
@@ -496,6 +497,16 @@ WaveSchedule
 			"special item description 2" "Increased damage for secondary and melee"
 			"special item description 3" "No primary weapon"
 		}
+        // "Frontal Impact"
+        // {
+        //     OriginalItemName "Festive Targe 2014"
+
+        //     "dmg taken from blast reduced" 1
+        //     "dmg taken from fire reduced" 1
+        //     "full charge turn control" 1
+        //     "fire input on hit" "frontalimpact_hit^Trigger^"
+        //     "special item description" "On charge impact: propel yourself backward in an arch"
+        // }
 		"National Pride"
 		{
 			OriginalItemName "Upgradeable TF_WEAPON_PIPEBOMBLAUNCHER"
@@ -526,6 +537,7 @@ WaveSchedule
 			"special item description" "On Cloak: Remove disguise and gain a speed boost with infinite air jumps"
 			"special item description 2" "No disguise while active"
 			"special item description 3" "No cloak effect"
+            "special item description 3" "Cannot gain cloak on hit from primary weapon"
 		}
 		"Rider On The Storm"
 		{
@@ -557,6 +569,7 @@ WaveSchedule
 		Demoman 
 		{
 			Secondary {Item "National Pride"}
+            Secondary {Item "Frontal Impact"}
 		}
 
 
@@ -669,6 +682,7 @@ WaveSchedule
 		ItemName "The Ullapool Caber"
 		"not solid to players" 1
 		"special item description" "Becomes a Sentry Buster. Taunt to detonate (revert back to a regular Demoman on detonation)"
+		"special item description 2" "Cannot transofmr into a Sentry Buster if the Freelance Mercenary is equipped"
 	}
 	PlayerShootTemplate
 	{

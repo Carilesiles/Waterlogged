@@ -476,6 +476,14 @@ WaveSchedule
 				Delay 0
 			}
 
+            OnSpawnOutput 
+			{
+				Target "!activator"
+				Action "$SetVar$FreelanceEquipped"
+				Param "1"
+                Delay 0
+			}
+
 			OnSpawnOutput 
 			{
 				Target "!activator"
@@ -491,6 +499,14 @@ WaveSchedule
 				Delay 0.06
 			}
 
+            OnParentKilledOutput 
+			{
+				Target "!activator"
+				Action "$SetVar$FreelanceEquipped"
+				Param "0"
+                Delay -1
+			}
+            
 			//apply health from previous class if switched
 			logic_compare
 			{
@@ -758,6 +774,21 @@ WaveSchedule
 				"OnTrigger" "!self,Trigger,,0.1,-1"
 			}
 		}
+
+        FrontalImpact_Global 
+        {
+            NoFixup 1
+
+            logic_relay 
+            {
+                "targetname" "frontalimpact_hit"
+                "spawnflags" "2"
+
+                "OnTrigger" "!activator,AddOutput,BaseVelocity 0 0 300,0,-1"
+                "OnTrigger" "!activator,$DisplayTextChat,hit,0,-1"
+                "OnTrigger" "!activator,$SetForwardVelocity,-300,0,-1"
+            }
+        }
 
 		Explosive_Tip
 		{
@@ -1051,12 +1082,12 @@ WaveSchedule
 		}
 		Caber_Buster
 		{
-			OnSpawnOutput
-			{
-				Target "caber_taunt_checker"
-				Action "Trigger"
-				Delay 0.1
-			}
+			// OnSpawnOutput
+			// {
+			// 	Target "caber_taunt_checker"
+			// 	Action "Trigger"
+			// 	Delay 0.1
+			// }
 			OnSpawnOutput 
 			{
 				Target "common_damage" 
@@ -1072,33 +1103,39 @@ WaveSchedule
 				Delay 0
 			}
 
+			// OnSpawnOutput
+			// {
+			// 	Target "!activator"
+			// 	Action "$AddCond"
+			// 	Param "41"
+			// 	Delay 0
+			// }
+			// OnSpawnOutput
+			// {
+			// 	Target "!activator"
+			// 	Action "$AddCond"
+			// 	Param "85"
+			// 	Delay 0
+			// }
+			// OnSpawnOutput
+			// {
+			// 	Target "!activator"
+			// 	Action "$RemoveCond"
+			// 	Param "85"
+			// 	Delay 0.01
+			// }
 			OnSpawnOutput
 			{
-				Target "!activator"
-				Action "$AddCond"
-				Param "41"
-				Delay 0
+				Target "freelance_mercenary_not_equipped"
+				Action "TestActivator"
+				Delay 0.1
 			}
-			OnSpawnOutput
-			{
-				Target "!activator"
-				Action "$AddCond"
-				Param "85"
-				Delay 0
-			}
-			OnSpawnOutput
-			{
-				Target "!activator"
-				Action "$RemoveCond"
-				Param "85"
-				Delay 0.01
-			}
-			OnSpawnOutput
-			{
-				Target "apply_buster_attributes"
-				Action "Trigger"
-				Delay 0.01
-			}
+			// OnSpawnOutput
+			// {
+			// 	Target "apply_buster_attributes"
+			// 	Action "Trigger"
+			// 	Delay 0.01
+			// }
 			OnParentKilledOutput 
 			{
 				Target "!activator"
@@ -1126,6 +1163,7 @@ WaveSchedule
 				Action "$ShowToAll"
 				Delay 0.2
 			}
+
 			OnParentKilledOutput
 			{
 				Target "!activator"
@@ -1142,6 +1180,19 @@ WaveSchedule
 			//     "$compare" "equal"
 			//     "Negated" "0"
 			// }
+
+            $filter_variable
+			{
+				"targetname" "freelance_mercenary_not_equipped"
+				"$name" "FreelanceEquipped"
+				"$value" "1"
+				"$compare" "equal"
+
+				"Negated" "1"
+
+				"OnPass" "apply_buster_attributes,Trigger,,0,-1"
+				"OnFail" "player,$DisplayTextCenter,Cannot transform into sentry buster due to Freelance Mercenary being equipped,0,-1"
+			}
 
 			info_particle_system
 			{
@@ -1165,6 +1216,12 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "apply_buster_attributes"
+
+				"OnTrigger" "!activator,$AddCond,41,0,-1"
+				"OnTrigger" "!activator,$AddCond,85,0,-1"
+				"OnTrigger" "!activator,$RemoveCond,85,0.01,-1"
+				"OnTrigger" "caber_taunt_checker,Trigger,,0.1,-1"
+
 				"OnTrigger" "!activator,AddOutput,modelscale 1.75,0.11,-1"
 				//"OnTrigger" "!activator,SetCustomModel,models/bots/demo/bot_sentry_buster.mdl,0.2,-1"
 				//"OnTrigger" "@f@filter_is_robot_wearable@tf_wearable,$HideToAll,,0.11,-1"
@@ -1730,6 +1787,14 @@ WaveSchedule
 			{
 				Target "cloak_check"
 				Action "Trigger"
+			}
+
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$AddItemAttribute"
+                Param "add cloak on hit|0|1"
+                Delay 0.1
 			}
 
 			filter_tf_condition

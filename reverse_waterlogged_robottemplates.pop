@@ -124,7 +124,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			Class Pyro
 			Name "Dragon's Fury Pyro"
 			ClassIcon pyro_dragon_fury_swordstone
-			Skill Hard
+			Skill Normal
 			Item "The Dragon's Fury"
 			WeaponRestrictions PrimaryOnly
 			MaxVisionRange 1000
@@ -236,6 +236,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 		T_TFBot_Ranger_Doctor_Doppler
 		{
 			SpawnTemplate DopplerShields
+			SpawnTemplate AddBotGlow
 
 			Class Medic
 			ClassIcon medic_shield_red
@@ -1225,6 +1226,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			SpawnTemplate Yakuza_Title_Card_Shapeshift
 			SpawnTemplate Shapeshift_Logic
 			SpawnTemplate Shapeshift_Spawn
+			SpawnTemplate AddBotGlow
 
 			//no fucking clues what slot the invis watch is 
 			// StripItemSlot 3 
@@ -1373,7 +1375,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				}
 			}
 
-		   AddCond { Name "TF_COND_REPROGRAMMED" } 
+		   AddCond { Name "TF_COND_REPROGRAMMED" }
 		}
 
 		T_TFBot_Sergeant_Shapeshift_Supreme
@@ -1381,6 +1383,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			SpawnTemplate Yakuza_Title_Card_Shapeshift_Supreme
 			SpawnTemplate Shapeshift_Supreme_Logic
 			SpawnTemplate Necromancer_Position
+			SpawnTemplate AddBotGlow
 
 			Class Spy
 			Name "Sergeant Shapeshift Supreme"
@@ -1406,6 +1409,10 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"move speed bonus"	0.5
 				"damage force reduction" 0.1
 				"airblast vulnerability multiplier" 0.1
+				
+				"crit mod disabled" 0
+				"force distribute currency on death" 1
+				"voice pitch scale" 0
 			}
 
 			ItemAttributes
@@ -1633,6 +1640,26 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 	}
 	PointTemplates
 	{
+		// Fake Icon Template
+		FakeIcon
+		{
+			NoFixup 1
+			logic_relay
+			{
+				"targetname" "perhaps"
+				"OnSpawn" "!self,Kill"
+			}
+		}
+		AddBotGlow
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$SetProp$m_bGlowEnabled"
+				Delay 0
+				Param "1"
+			}
+		}
 		Alternating_Burst
 		{
 			NoFixup 1
@@ -2818,12 +2845,12 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"solid" "0"
 			}
 
-			//glow, doesn't work
-			tf_glow
+			OnSpawnOutput
 			{
-				"GlowColor" "88 133 162"
-				"Mode" "0"
-				"target" "helicopter_model"
+				Target "helicopter_model"
+				Action "$SetProp$m_bGlowEnabled" //doesn't work lol
+				Delay 0.1
+				Param "1"
 			}
 		}
 

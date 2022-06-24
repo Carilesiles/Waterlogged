@@ -32,6 +32,7 @@ WaveSchedule
 
 	//Team/Player KVs
 	FastEntityNameLookup 1
+	FastWholeMapTriggers 1
 	NoReanimators 1
 	MaxSpectators 1
 	RobotLimit 24
@@ -47,6 +48,7 @@ WaveSchedule
 	RemoveBluVelocityLimit 1
 	NoRedBotsRandomCrit 1
 	NoRedSniperBotHeadshots 1
+	ForceRedMoney 1
 
 	//Visual/Audio KVs
 	TextPrintTime 0
@@ -86,6 +88,8 @@ WaveSchedule
 	SpawnTemplate speedtriggers
 	SpawnTemplate annotations
 	SpawnTemplate bossarena_spawnindicators
+	SpawnTemplate compass_logic
+	SpawnTemplate generator_props
 
 	SpawnTemplate CanteenPurchase
 
@@ -171,6 +175,14 @@ WaveSchedule
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
 			}
+
+			OnRestore 
+			{
+				Output "canteen_count_update,$FireUser5,"
+				Output "!activator,$AddItemAttribute,special item description|Consumable: Gain a speed boost for 5 seconds|9,0"
+
+				Output "!activator,$SetVar$canteenIndex,1,0"
+			}
 		}
 
 		re_can
@@ -217,6 +229,14 @@ WaveSchedule
 			{
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
+			}
+
+			OnRestore 
+			{
+				Output "canteen_count_update,$FireUser5,"
+				Output "!activator,$AddItemAttribute,special item description|Consumable: Reprogram non-giant enemies in a radius|9,0"
+
+				Output "!activator,$SetVar$canteenIndex,2,0"
 			}
 		}
 
@@ -265,6 +285,14 @@ WaveSchedule
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
 			}
+
+			OnRestore
+			{
+				Output "canteen_count_update,$FireUser5,"
+				Output "!activator,$AddItemAttribute,special item description|Consumable: Lock to melee but increase melee power|9,0"
+
+				Output "!activator,$SetVar$canteenIndex,3,0"
+			}
 		}
 
 		add_can
@@ -311,6 +339,14 @@ WaveSchedule
 			{
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
+			}
+
+			OnRestore
+			{
+				Output "canteen_count_update,$FireUser5,"
+				Output "!activator,$AddItemAttribute,special item description|Consumable: Gain various buffs for 5 seconds and become fatigue briefly after duration|9,0"
+
+				Output "!activator,$SetVar$canteenIndex,4,0"
 			}
 		}
 
@@ -360,6 +396,14 @@ WaveSchedule
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
 			}
+
+			OnRestore
+			{
+				Output "canteen_count_update,$FireUser5,"
+				Output "!activator,$AddItemAttribute,special item description|Consumable: Cloak for up to 15 seconds|9,0"
+
+				Output "!activator,$SetVar$canteenIndex,5,0"
+			}
 		}
 
 		piss_can
@@ -407,6 +451,14 @@ WaveSchedule
 			{
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
+			}
+
+			OnRestore
+			{
+				Output "canteen_count_update,$FireUser5,"
+				Output "!activator,$AddItemAttribute,special item description|Consumable: Apply Jarate to enemies within a large radius|9,0"
+
+				Output "!activator,$SetVar$canteenIndex,6,0"
 			}
 		}
 
@@ -456,15 +508,70 @@ WaveSchedule
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
 			}
+
+			OnRestore
+			{
+				Output "canteen_count_update,$FireUser5,"
+				Output "!activator,$AddItemAttribute,special item description|Consumable: Knockback resistance for 5 seconds|9,0"
+
+				Output "!activator,$SetVar$canteenIndex,69,0"
+			}
 		}
 	}
 
 	SpawnTemplate DirectHit_Rework_Global
 	SpawnTemplate Axe_Rework_Global
 	SpawnTemplate Vitsaw_Rework_Global
+	SpawnTemplate Murasama_Global
 
 	CustomWeapon 
 	{
+		"Blundergat"
+		{
+			OriginalItemName "The Force-a-Nature"
+
+			//"clip size penalty" 0.1
+			"can headshot" 1
+			"fire rate bonus" 1
+			"scattergun has knockback" 0
+			"is australium item" 1
+			"item style override" 1
+			"bullets per shot bonus" 2
+			"fire rate penalty" 1.3
+			//"move accuracy mult" 1.5
+
+			"special item description" "Curse of The Decommissioned: Cannot be overhealed"
+			// "special item description" "Curse of The Decommissioned: Lose all overheal on fire. Cannot be healed by Medics"
+			// "special item description 2" "+15% bullets per shot for every 100 overheal, rounded upward" 
+		}
+		"Murasama"
+		{
+			OriginalItemName "The Half-Zatoichi"
+			"item color rgb" 25500
+			// "taunt attack time mult" 1.5
+			// "gesture speed increase" 1.5
+			"restore health on kill" 0
+			"increased air control" 3
+			//"melee cleave attack" 1
+			"fire input on hit" "murasama_hit^Trigger^"
+
+			"special item description" "Each hit propels the user forward and upward"
+			"special item description 2" "Being propelled greatly extends melee range until you land"
+			"special item description 3" "Restricted to melee with a charge"
+		}
+		"Murasama Charge"
+		{
+			OriginalItemName "The Tide Turner"
+			//"is invisible" 1
+			"allow bunny hop" 1
+			"custom item model" "models/empty.mdl"
+			//"no_jump" 1
+			"kill refills meter" 0.4
+			"dmg taken from blast reduced" 1
+			"dmg taken from fire reduced" 1
+
+			"special item description" "Charging greatly increases movement speed for 1 second"
+		}
 		"Anti-Aircraft Launcher"
 		{
 			OriginalItemName "The Liberty Launcher"
@@ -514,7 +621,7 @@ WaveSchedule
 
 			"special item description" "Stickybombs grant minicrit to nearby teammates"
 			"special item description 2" "Cannot detonate. only 1 sticky can be active at a time"
-			//"special item description 3" "-30% damage on primary weapon when at least 1 stickybomb is active"
+			"special item description 3" "-30% damage on primary weapon when at least 1 stickybomb is active"
 		}
 		"Kirin's Ascension"
 		{
@@ -526,10 +633,12 @@ WaveSchedule
 			"special item description" "On Cloak: Remove disguise and gain a speed boost with infinite air jumps"
 			"special item description 2" "No disguise while active"
 			"special item description 3" "No cloak effect"
+			"special item description 3" "Cannot gain cloak on hit from primary weapon"
 		}
 		"Rider On The Storm"
 		{
-			OriginalItemName "Activated Campaign 3 Pass" 
+			OriginalItemName "Activated Campaign 3 Pass"
+			"attachment scale" 1.5
 			"increased air control" 3
 			"dmg from ranged reduced" 0.9
 			"damage force increase" 2
@@ -537,10 +646,11 @@ WaveSchedule
 			"custom item model" "models/player/items/all_class/spacechem_pin.mdl"
 		}
 
-		"Freelance Mercenary" 
+		"Freelance Mercenary"
 		{
-			OriginalItemName "Halloween Spellbook" 
+			OriginalItemName "Halloween Spellbook"
 			"special item description" "Hold the Action key to switch between classes on the fly"
+			"special item description 2" "Cannot transform into a Sentry Buster if the Freelance Mercenary is equipped"
 		}
 	}
 	
@@ -549,6 +659,7 @@ WaveSchedule
 		Scout 
 		{
 			Action {Item "Rider On The Storm" Cost 10}
+			Primary {Item "Blundergat"}
 		}
 		Heavyweapons
 		{
@@ -557,6 +668,7 @@ WaveSchedule
 		Demoman 
 		{
 			Secondary {Item "National Pride"}
+			Melee {Item "Murasama"}
 		}
 
 
@@ -575,6 +687,12 @@ WaveSchedule
 		Name FreelanceMercenary_Logic
 		ItemName "Freelance Mercenary"
 	}
+	
+	PlayerItemEquipSpawnTemplate 
+	{
+		Name ScoutNoOverheal
+		ItemName "Blundergat"
+	}
 
 	PlayerItemEquipSpawnTemplate 
 	{
@@ -588,7 +706,7 @@ WaveSchedule
 		ItemName "Thunderdome"
 	}
 
-	PlayerShootTemplate [$SIGSEGV]  
+	PlayerShootTemplate [$SIGSEGV]
 	{
 		Name rpg_shoottemplate
 		ItemName "Anti-Aircraft Launcher"
@@ -614,7 +732,7 @@ WaveSchedule
 		"fire input on hit" "direct_hit_on_hit^Trigger^"
 		"clip size penalty" 0.25
 
-		"special item description" "On Hit: Instantly reload one rocket"
+		"special item description" "On Hit: Reload one rocket"
 	}
 	PlayerItemEquipSpawnTemplate 
 	{
@@ -630,13 +748,13 @@ WaveSchedule
 
 		"special item description" "On Kill: Mark for death enemies within 400 hammer units for 5 seconds"
 	}
-	PlayerItemEquipSpawnTemplate 
+	PlayerItemEquipSpawnTemplate
 	{
 		Name Axe_Rework
 		ItemName "Festive Axtinguisher"
 	}
 
-	ItemAttributes 
+	ItemAttributes
 	{
 		ItemName "Festive Axtinguisher"
 
@@ -644,7 +762,7 @@ WaveSchedule
 
 		"special item description" "On Kill: Mark for death enemies within 400 hammer units for 5 seconds"
 	}
-	PlayerItemEquipSpawnTemplate 
+	PlayerItemEquipSpawnTemplate
 	{
 		Name Axe_Rework
 		ItemName "The Postal Pummeler"
@@ -682,6 +800,12 @@ WaveSchedule
 		Name NationalPride_Spawn
 		ItemName "National Pride"
 	}
+	PlayerItemEquipSpawnTemplate 
+	{
+		Name Murasama_Spawn
+		ItemName "Murasama"
+	}
+
 	PlayerSpawnTemplate 
 	{
 		Name Rage_Replacement
@@ -737,7 +861,7 @@ WaveSchedule
 		"damage penalty" 0.09
 		"max health additive penalty" 0
 
-		"special item description" "On Hit Teammate: Exchange 3 organs to give target every banner effects for 5 seconds"
+		"special item description" "On Hit Teammate: Exchange 2 organs to give target every banner effect for 5 seconds"
 	}
 	
 	ItemAttributes
@@ -1613,7 +1737,7 @@ WaveSchedule
 			{
 				Class Scout
 				Name "Armored Scout"
-				ClassIcon scout_stun_giant_armored
+				ClassIcon scout_armored_pda
 				Attributes MiniBoss
 				Skill Expert
 				Health 3000
@@ -1850,6 +1974,23 @@ WaveSchedule
 			AddCond {Name "TF_COND_REPROGRAMMED" }
 		}
 	}
+	//Mission //Wave 3
+	//{
+	//	Where spawnbot_boss
+	//	Objective Engineer
+	//	BeginAtWave 3
+	//	RunForThisManyWaves 1
+	//	DesiredCount 2
+	//
+	//	InitialCooldown 5
+	//	CooldownTime 35
+	//
+	//	TFBot
+	//	{ 
+	//		Template T_TFBot_Engineer_Sentry_Battle_TeleIn
+	//		AddTemplate RedBot
+	//	}
+	//}
 	Wave // Wave #3
 	{
 		SpawnTemplate "wave3_logic"
@@ -2640,7 +2781,7 @@ WaveSchedule
 			Support Limited
 			TotalCurrency 25
 			WaitBeforeStarting 10
-			WaitBetweenSpawns 20
+			WaitBetweenSpawns 35
 			RandomChoice
 			{
 				RandomChoice
@@ -2691,7 +2832,7 @@ WaveSchedule
 			SpawnCount 1
 			TotalCurrency 25
 			WaitBeforeStarting 10
-			WaitBetweenSpawns 20
+			WaitBetweenSpawns 35
 			RandomChoice
 			{
 				RandomChoice
@@ -2725,10 +2866,33 @@ WaveSchedule
 				Target chief_killed_relay
 				Action Trigger
 			}
-			TFBot
+			RandomChoice
 			{
-				Template T_TFBot_Chief_Soldier_Alternating
-				AddTemplate RedBot_Giant
+				RandomChoice
+				{
+					TFBot
+					{
+						Template T_TFBot_Chief_Soldier_Alternating
+						AddTemplate RedBot_Giant
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name dummy
+			WaitForAllDead "w3_subwavetwo_boss"
+			Where "spawnbot_boss"
+			TotalCount	1
+			SpawnCount	1
+			TotalCurrency 0
+			WaitBeforeStarting	1
+			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
+			{
+				Name "FakeIcon"
+				ClassIcon soldier_major_crits
+				IsCrit 1
+				IsMiniBoss 1
 			}
 		}
 		WaveSpawn 
@@ -2821,15 +2985,15 @@ WaveSchedule
 		WaveSpawn
 		{
 			Name "w3_subwavetwo_support"
-			Where "spawnbot_balcony_drain_extra"
-			Where "spawnbot_building"
+			Where "spawnbot_side_extra"
+			Where "spawnbot_building_extra"
 			WaitForAllSpawned "w3_subwavetwo_support_sss"
 			TotalCount 40
 			MaxActive 3
 			SpawnCount 1
 			TotalCurrency 40
-			WaitBeforeStarting 12
-			WaitBetweenSpawns 12
+			WaitBeforeStarting 14
+			WaitBetweenSpawns 14
 			Support Limited
 			RandomChoice
 			{
@@ -2885,25 +3049,48 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
-			Name "w3_subwavethree"
+			Name "w3_subwavethree_ash"
 			Where "spawnbot_hatch"
-			WaitForAllSpawned "w3_subwavethree_cfh"
+			WaitForAllDead "w3_subwavethree_cfh"
+			TotalCount 2
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 50
+			WaitBeforeStarting 4
+			WaitBetweenSpawns 15
+			TFBot
+			{
+				Class Scout
+				Name "Armored Scout"
+				ClassIcon scout_armored_pda
+				Attributes MiniBoss
+				Skill Expert
+				Health 3000
+				WeaponRestrictions PrimaryOnly
+				AddTemplate RedBot_Giant
+				CharacterAttributes
+				{
+					"override footstep sound set" 5
+					"move speed penalty" 0.75
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "w3_subwavethree_bhh"
+			Where "spawnbot_hatch"
+			WaitForAllDead "w3_subwavethree_ash"
 			TotalCount 10
 			MaxActive 1
 			SpawnCount 1
 			TotalCurrency 50
-			WaitBeforeStarting 25
-			WaitBetweenSpawns 15
-			RandomChoice
+			WaitBeforeStarting 8
+			WaitBetweenSpawns 35
+			Support Limited
+			TFBot
 			{
-				RandomChoice
-				{
-					TFBot
-					{
-						Template T_TFBot_Giant_Pyro_ComboFlare
-						AddTemplate RedBot_Giant
-					}
-				}
+				Template T_TFBot_Giant_Boxing_Heavy
+				AddTemplate RedBot_Giant
 			}
 		}
 		WaveSpawn
@@ -2924,37 +3111,59 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
-			Name "w3_subwavethree"
+			Name "w3_subwavethree_asg"
 			Where "spawnbot_garage"
-			WaitForAllSpawned "w3_subwavethree_cfg"
-			TotalCount 10
+			WaitForAllDead "w3_subwavethree_cfg"
+			TotalCount 2
 			MaxActive 1
 			SpawnCount 1
 			TotalCurrency 50
-			WaitBeforeStarting 25
+			WaitBeforeStarting 5
 			WaitBetweenSpawns 15
-			Support Limited
-			RandomChoice
+			TFBot
 			{
-				RandomChoice
+				Class Scout
+				Name "Armored Scout"
+				ClassIcon scout_armored_pda
+				Attributes MiniBoss
+				Skill Expert
+				Health 3000
+				WeaponRestrictions PrimaryOnly
+				AddTemplate RedBot_Giant
+				CharacterAttributes
 				{
-					TFBot
-					{
-						Template T_TFBot_Giant_Pyro_ComboFlare
-						AddTemplate RedBot_Giant
-					}
+					"override footstep sound set" 5
+					"move speed penalty" 0.75
 				}
 			}
 		}
 		WaveSpawn
 		{
-			Name "w3_subwavethree_support_de"
+			Name "w3_subwavethree_bhg"
+			Where "spawnbot_garage"
+			WaitForAllDead "w3_subwavethree_asg"
+			TotalCount 10
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 50
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 25
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Giant_Boxing_Heavy
+				AddTemplate RedBot_Giant
+			}
+		}
+		WaveSpawn
+		{
+			Name "w3_subwavethree_support_dei"
 			Where "spawnbot_hatch"
 			Where "spawnbot_garage"
 			TotalCount 6
 			MaxActive 6
 			SpawnCount 1
-			TotalCurrency 60
+			TotalCurrency 40
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 3
 			Support Limited
@@ -2966,17 +3175,16 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
-			Name "w3_subwavethree_support"
+			Name "w3_subwavethree_support_dea"
 			Where "spawnbot_hatch"
 			Where "spawnbot_garage"
-			WaitForAllSpawned "w3_subwavethree_support_de"
-			TotalCount 80
-			MaxActive 8
+			WaitForAllSpawned "w3_subwavethree_support_dei"
+			TotalCount 18
+			MaxActive 9
 			SpawnCount 1
-			TotalCurrency 40
-			WaitBeforeStarting 20
+			TotalCurrency 20
+			WaitBeforeStarting 14
 			WaitBetweenSpawns 3
-			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -2984,6 +3192,55 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Demo_Burst
+						AddTemplate RedBot
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "w3_subwavethree_support_deb"
+			Where "spawnbot_hatch"
+			Where "spawnbot_garage"
+			WaitForAllSpawned "w3_subwavethree_support_dea"
+			TotalCount 18
+			MaxActive 9
+			SpawnCount 1
+			TotalCurrency 20
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 3
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						Template T_TFBot_Pyro_Flaregun
+						AddTemplate RedBot
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "w3_subwavethree_support_dec"
+			Where "spawnbot_hatch"
+			Where "spawnbot_garage"
+			WaitForAllSpawned "w3_subwavethree_support_deb"
+			TotalCount 18
+			MaxActive 9
+			SpawnCount 1
+			TotalCurrency 20
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 3
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						Class Soldier
+						Skill Hard
 						AddTemplate RedBot
 					}
 				}
@@ -3074,7 +3331,7 @@ WaveSchedule
 		WaveSpawn 
 		{
 			Name "w3_subwavetwo_boss"
-			Where "spawnbot_building_doppler"
+			Where "spawnbot_hatchshield"
 			WaitForAllDead "generator_fourfivesix"
 			TotalCount 1
 			MaxActive 1

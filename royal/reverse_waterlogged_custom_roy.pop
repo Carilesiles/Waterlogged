@@ -539,6 +539,38 @@ WaveSchedule
 				"OnTrigger" "!self,Trigger,,0.1,-1"
 			}
 		}
+
+        ScoutNoOverheal 
+        {
+            OnSpawnOutput
+			{
+				Target "overheal_remove"
+				Action "Trigger"
+			}
+
+			logic_relay 
+			{
+				"targetname" "overheal_remove"
+				"spawnflags" "2"
+
+                //turn health above 125 to 125
+				"OnTrigger" "filter_overhealth,TestActivator,,-1,0"   
+	
+				"OnTrigger" "!self,Trigger,,0.02,-1"  
+			}
+
+            $filter_keyvalue
+			{
+				"targetname" "filter_overhealth"
+				"$name" "health"
+				"$value" "125"
+				"$compare" "greater than"
+				"Negated" "0"
+
+				"OnPass" "!activator,$SetKey$health,125,0,-1"
+			}
+        }
+
 		Axe_Rework_Global
 		{
 			NoFixup 1 
@@ -872,8 +904,8 @@ WaveSchedule
 				"OnPass" "!activator,$AddCond,46,0,-1"
 				"OnPass" "!activator,$AddItemAttribute,CARD: move speed bonus|2.5|2,0,-1"
                 
-                "OnPass" "!activator,$RemoveCond,46,2,-1"
-				"OnPass" "!activator,$RemoveItemAttribute,CARD: move speed bonus|2,2,-1"
+                "OnPass" "!activator,$RemoveCond,46,1,-1"
+				"OnPass" "!activator,$RemoveItemAttribute,CARD: move speed bonus|2,1,-1"
                 "OnPass" "!activator,$SetForwardVelocity,500,0,-1"
                 // "OnPass" "!activator,AddOutput,BaseVelocity 0 0 300,0,-1"
 			}
@@ -1897,7 +1929,7 @@ WaveSchedule
 			{
 				"targetname" "filter_has_enough_organs"
 				"$name" "m_iDecapitations"
-				"$value" "3"
+				"$value" "2"
 				"$compare" "greater than or equal"
 				"Negated" "0"
 
@@ -1965,7 +1997,7 @@ WaveSchedule
 
 				"TeamNum" "3"//blue
 
-				"OnPass" "vitasaw_caller,$SetProp$m_iDecapitations,$$=vitasaw_caller.m_iDecapitations - 3,0.01,-1"
+				"OnPass" "vitasaw_caller,$SetProp$m_iDecapitations,$$=vitasaw_caller.m_iDecapitations - 2,0.01,-1"
 				"OnPass" "vitasaw_caller,AddOutput,targetname  ,0.011,-1"
 
 				"OnPass" "!activator,$AddCond,16,0,-1"

@@ -142,6 +142,7 @@ WaveSchedule
 				"OnTrigger" "gate1sign_refire,Disable,,1"
 				"OnTrigger" "gate1_upgrade_sign,Show"
 				"OnTrigger" "gate2_door_trigger,Disable,,24"
+				"OnTrigger" "barrier_gate1_disable_relay,Trigger,,22"
 
 				"OnTrigger" "wave1_gate1_relay,Trigger"
 				"OnTrigger" "wave3_gate1_relay,Trigger"
@@ -160,6 +161,7 @@ WaveSchedule
 				"OnTrigger" "gate2sign_refire,Disable"
 				"OnTrigger" "gate2sign_refire,Disable,,1"
 				"OnTrigger" "gate2_upgrade_sign,Show"
+				"OnTrigger" "barrier_gate2_disable_relay,Trigger,,22"
 
 				"OnTrigger" "spawnbot_hatch,Enable,,21"
 				"OnTrigger" "spawnbot_garage,Enable,,21"

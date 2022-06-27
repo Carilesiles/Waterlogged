@@ -108,12 +108,14 @@ WaveSchedule
 	{ 
 		newRage 
 		{
-			Name "Dispensing Rage"
+			//Name "Dispensing Rage"
+            Name "Explosive Rage"
 			Cap 1
 			Increment 1 
-			Cost 200
+			Cost 300
 
-			Description "Deal damage to charge up your Dispense-O-Meter. When fully charged, press the Special-Attack key to activate your dispenser"
+            Description "Deal damage to charge up your rage meter. When fully charged, press the Special-Attack key to fire explosive rounds for 8 seconds"
+			//Description "Deal damage to charge up your Dispense-O-Meter. When fully charged, press the Special-Attack key to activate your dispenser"
 
 			Attribute "generate rage on damage" 
 
@@ -124,7 +126,7 @@ WaveSchedule
 
 			SecondaryAttributes 
 			{
-				"special item description" "Deal damage to charge up your Dispense-O-Meter. When fully charged, press the Special-Attack key to activate your dispenser"
+				"special item description" "Deal damage to charge up your rage meter. When fully charged, press the Special-Attack key to fire explosive rounds for 8 seconds"
 			}
 		}
 		//canteens

@@ -1155,24 +1155,26 @@ WaveSchedule
 				Delay 0.1
 			}
 
-			dispenser_touch_trigger
-			{
-				"targetname" "heavy_dispenser_trigger"
-				"mins" "-400 -400 -400"
-				"maxs" "400 400 400"
-				"spawnflags" "1"
+			// dispenser_touch_trigger
+			// {
+			// 	"targetname" "heavy_dispenser_trigger"
+			// 	"mins" "-400 -400 -400"
+			// 	"maxs" "400 400 400"
+			// 	"spawnflags" "1"
 
-				"StartDisabled" "1"
-			}
+			// 	//"StartDisabled" "1"
+			// }
 			
-			mapobj_cart_dispenser
-			{
-				"targetname" "cart_dispenser"
-				"origin" "-40 -10 100"
-				"spawnflags" "10"
-				"TeamNum" "3"
-				"touch_trigger" "heavy_dispenser_trigger"
-			}
+			// mapobj_cart_dispenser
+			// {
+			// 	"targetname" "cart_dispenser"
+			// 	"origin" "-40 -10 100"
+			// 	"spawnflags" "10"
+			// 	"TeamNum" "3"
+			// 	"touch_trigger" "heavy_dispenser_trigger"
+
+            //     "OnUser1" "player,$DisplayTextChat,dispenser spawned,0,-1"
+			// }
 
 			//check when rage was activated by player
 			$filter_sendprop
@@ -1199,7 +1201,8 @@ WaveSchedule
 				"OnTrigger" "!activator,$SetProp$m_bRageDraining,0,0,-1"
 
 				//effect
-				"OnTrigger" "heavy_dispenser_trigger,Enable,,0,-1"
+				//"OnTrigger" "heavy_dispenser_trigger,Enable,,0,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,explosive bullets|147|0,0,-1"
 
 				"OnTrigger" "rage_meter,SetValueNoFire,$$=!activator.m_flRageMeter,0,-1"
 				"OnTrigger" "rage_meter_drain,FireUser1,,0.01,-1"
@@ -1223,7 +1226,10 @@ WaveSchedule
 
 				"OnHitMin" "rage_meter_drain,$CancelPending,,0,0"
 
-				"OnHitMin" "heavy_dispenser_trigger,Disable,,0,-1"
+                //effect remove
+				//"OnHitMin" "heavy_dispenser_trigger,Disable,,0,-1"
+				"OnHitMin" "!activator,$RemoveItemAttribute,explosive bullets|0,0,-1"
+
 				"OnHitMin" "!activator,$SetClientProp$m_bRageDraining,0,0,-1"
 				"OnHitMin" "!activator,$ResetClientProp$m_flRageMeter,,0.03,-1"
 				"OnHitMin" "!activator,$SetProp$m_flRageMeter,0,0,-1"
@@ -1233,7 +1239,7 @@ WaveSchedule
 				"OnGetValue" "rage_meter,$SetVar$tempRageHolder,,0,-1"
 				"OnGetValue" "!activator,$SetClientProp$m_flRageMeter,$$=rage_meter.tempRageHolder,0.01,-1"
 
-				"OnUser1" "!self,Subtract,1,0,-1" //drain per interval
+				"OnUser1" "!self,Subtract,1.5,0,-1" //drain per interval
 				"OnUser1" "!self,GetValue,,0.01,-1"
 			}
 		}

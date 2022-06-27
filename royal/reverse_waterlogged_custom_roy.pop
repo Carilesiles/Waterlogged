@@ -149,7 +149,7 @@ WaveSchedule
 
 			logic_compare
 			{
-				//check if canteen count is at 0
+				//check if canteen count is at 0 after use
 				"targetname" "canteen_is_empty"
 
 				"CompareValue" "0"
@@ -173,12 +173,14 @@ WaveSchedule
 			$filter_variable
 			{
 				//check if player has any remaining canteen charges
+                //final step before using custom canteen based on id 
 				"targetname" "canteen_owned_check"
 				"$name" "currentCustomCanteenCharges"
 				"$value" "0"
 				"$compare" "greater than"
 				"Negated" "0"
 
+                "OnPass" "player,$DisplayTextChat,canteen not empty check passed,0.01,-1"
 				"OnPass" "canteen_effect,TestActivator,,0,-1"
 			}
 
@@ -701,6 +703,8 @@ WaveSchedule
 				"maxs" "200 200 200"
 				"spawnflags" "1"
 
+                "teamnum" "3"
+
 				"filtername" "filter_is_blu"
 
 				"OnTrigger" "!activator,$AddCond,16,0,-1"
@@ -714,6 +718,8 @@ WaveSchedule
 				"mins" "-200 -200 -200"
 				"maxs" "200 200 200"
 				"spawnflags" "1"
+
+                "teamnum" "3"
 
 				"StartDisabled" "1"
 
@@ -1758,6 +1764,8 @@ WaveSchedule
 				"mins" "-12 -53 -51.5"
 				"maxs" "12 53 51.5"
 
+                "teamnum" "3"
+
 				"targetname" "shield_hitbox"
 				"spawnflags" "1"
 
@@ -1801,6 +1809,7 @@ WaveSchedule
 				"maxs" "12 53 51.5"
 				"origin" "-100 0 1"
 				// "angles" "180 0 0"
+                "teamnum" "3"
 
 				"targetname" "shield_hitbox2"
 				"spawnflags" "1"
@@ -1926,7 +1935,6 @@ WaveSchedule
 				"targetname" "vita_relay"
 				"spawnflags" "2"
 
-				
 				"OnTrigger" "filter_has_enough_organs,TestActivator,,0,-1"
 				"OnTrigger" "!self,Trigger,,0.2,-1"
 			}
@@ -1942,6 +1950,7 @@ WaveSchedule
 				"OnPass" "!activator,$AddItemAttribute,allow friendly fire|1|2,0,-1"
 
 				"OnFail" "!activator,$RemoveItemAttribute,allow friendly fire|2,0,-1"
+				"OnFail" "!activator,$DisplayTextChat,fail,0,-1"
 			}
 		}
 		KirinAscension_Spawn 

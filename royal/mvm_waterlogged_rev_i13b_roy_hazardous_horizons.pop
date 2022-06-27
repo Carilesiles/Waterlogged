@@ -794,28 +794,28 @@ WaveSchedule
 		BuildingType "Teleporter Exit" 
 	}
 
-	PlayerItemEquipSpawnTemplate 
-	{
-		Name Vitasaw_Rework_Spawn
-		ItemName "The Vita-Saw"
-	}
+	// PlayerItemEquipSpawnTemplate 
+	// {
+	// 	Name Vitasaw_Rework_Spawn
+	// 	ItemName "The Vita-Saw"
+	// }
 	PlayerItemEquipSpawnTemplate 
 	{
 		Name KirinAscension_Spawn
 		ItemName "Kirin's Ascension"
 	}
 
-	ItemAttributes 
-	{
-		ItemName "The Vita-Saw"
+	// ItemAttributes 
+	// {
+	// 	ItemName "The Vita-Saw"
 
-		"fire input on hit" "popscript^$vitasawOnHit^vitasaw_team_check"
+	// 	"fire input on hit" "popscript^$vitasawOnHit^vitasaw_team_check"
 		
-		"damage penalty" 0.09
-		"max health additive penalty" 0
+	// 	"damage penalty" 0.09
+	// 	"max health additive penalty" 0
 
-		"special item description" "On Hit Teammate: Exchange 2 organs to give target every banner effects for 5 seconds"
-	}
+	// 	"special item description" "On Hit Teammate: Exchange 2 organs to give target every banner effects for 5 seconds"
+	// }
 	
 	ItemAttributes
 	{

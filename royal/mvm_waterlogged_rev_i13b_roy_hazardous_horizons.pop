@@ -32,6 +32,7 @@ WaveSchedule
 
 	//Team/Player KVs
 	FastEntityNameLookup 1
+    FastWholeMapTriggers 1
 	NoReanimators 1
 	MaxSpectators 1
 	RobotLimit 24
@@ -47,6 +48,7 @@ WaveSchedule
 	RemoveBluVelocityLimit 1
 	NoRedBotsRandomCrit 1
 	NoRedSniperBotHeadshots 1
+    FastWholeMapTriggers 1
 
 	//Visual/Audio KVs
 	TextPrintTime 0
@@ -86,6 +88,8 @@ WaveSchedule
 	SpawnTemplate speedtriggers
 	SpawnTemplate annotations
 	SpawnTemplate bossarena_spawnindicators
+    SpawnTemplate compass_logic
+	SpawnTemplate generator_props
 
 	SpawnTemplate CanteenPurchase
 

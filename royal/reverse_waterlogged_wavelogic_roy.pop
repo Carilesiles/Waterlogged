@@ -1016,6 +1016,123 @@ WaveSchedule
 				"lifetime"     "3"
 			}
 		}
+        compass_logic
+		{
+			NoFixup 1
+			func_tracktrain
+			{
+				"targetname" "compass_train"
+				"angles" "0 180 0"
+				"origin" "-10208 1760 304"
+				"mins" "-1 -1 -1"
+				"maxs" "1 1 1"
+				"height" "-2000"
+				"orientationtype" "1"
+				"spawnflags" "2"
+				"speed" "0"
+				"startspeed" "0"
+				"volume" "0"
+			}
+			path_track
+			{
+				"targetname" "mark_gate1"
+				"origin" "-5424 1412 400"
+			}
+			path_track
+			{
+				"targetname" "mark_gate2"
+				"origin" "-3064 -1993 177"
+			}
+			path_track
+			{
+				"targetname" "mark_hatch"
+				"origin" "-1132 1684 104"
+			}
+			path_track
+			{
+				"targetname" "mark_generator_one"
+				"origin" "-5020 135 127"
+			}
+			path_track
+			{
+				"targetname" "mark_generator_two"
+				"origin" "-2687 -61 63"
+			}
+			path_track
+			{
+				"targetname" "mark_generator_three"
+				"origin" "-2611 -560 251"
+			}
+			path_track
+			{
+				"targetname" "mark_generator_four"
+				"origin" "-1574 987 -1"
+			}
+			path_track
+			{
+				"targetname" "mark_generator_five"
+				"origin" "-615 1107 -1"
+			}
+			path_track
+			{
+				"targetname" "mark_generator_six"
+				"origin" "-940 1888 95"
+			}
+		}
+		intel_compass_boss
+		{
+			NoFixup 1
+			path_track
+			{
+				"targetname" "mark_boss"
+			}
+		}
+		generator_props
+		{
+			NoFixup 1
+			prop_dynamic
+			{
+				"targetname" "generator_prop_two"
+				"model" "models/props_frontline/generator.mdl"
+				"disableshadows" "1"
+				"solid" "6"
+				"origin" "-2687 -61 63"
+			}
+			prop_dynamic
+			{
+				"targetname" "generator_prop_three"
+				"model" "models/props_frontline/generator.mdl"
+				"disableshadows" "1"
+				"solid" "6"
+				"origin" "-2611 -560 251"
+			}
+			prop_dynamic
+			{
+				"targetname" "generator_prop_four"
+				"model" "models/props_frontline/generator.mdl"
+				"disableshadows" "1"
+				"solid" "6"
+				"origin" "-1574 987 -1"
+			}
+			prop_dynamic
+			{
+				"targetname" "generator_prop_five"
+				"model" "models/props_frontline/generator.mdl"
+				"disableshadows" "1"
+				"solid" "6"
+				"origin" "-615 1107 -1"
+				"angles" "0 90 0"
+			}
+			prop_dynamic
+			{
+				"targetname" "generator_prop_six"
+				"model" "models/props_frontline/generator.mdl"
+				"disableshadows" "1"
+				"solid" "6"
+				"origin" "-940 1888 95"
+				"angles" "0 -25 0"
+			}
+		}
 		wave3_logic
 		{
 			NoFixup 1

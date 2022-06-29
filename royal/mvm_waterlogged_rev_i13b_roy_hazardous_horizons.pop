@@ -821,7 +821,8 @@ WaveSchedule
 	{
 		Classname "tf_weapon_Compound_Bow"
 		"arrow hit kill time" 0.01
-		"special item description" "Fires explosive arrows that stick to enemies and surfaces. Arrows detonate after 3 seconds"
+		"special item description" "Fires explosive tipped arrows that stick to enemies and surfaces. Arrows detonate after 3 seconds after contact"
+        "special item description 2" "Splash damage is affected by damage bonus upgrade"
 	}
 
 	PlayerShootTemplate

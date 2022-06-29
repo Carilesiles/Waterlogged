@@ -603,7 +603,7 @@ WaveSchedule
 		"Freelance Mercenary" 
 		{
 			OriginalItemName "Halloween Spellbook" 
-			"special item description" "Hold the Action key to switch between classes on the fly"
+			"special item description" "Press the Action key to switch between classes on the fly"
 		}
 	}
 	

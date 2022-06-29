@@ -520,6 +520,48 @@ WaveSchedule
 				"OnNotEqualTo" "!activator,$SetVar$PreFreelanceSwitchHealth,,0,-1"
 			}
 
+            logic_case
+            {
+                "targetname" "class_select_menu"
+                "case16" "Select Class|0|Cancel" 
+                "case01" "Scout" 
+                "case02" "Soldier" 
+                "case03" "Pyro" 
+                "case04" "Demoman" 
+                "case05" "Heavy" 
+                "case06" "Engineer" 
+                "case07" "Medic" 
+                "case08" "Sniper" 
+                "case09" "Spy" 
+
+				"oncase01" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase01" "!activator,$SwitchClassInPlace,Scout,0,-1"
+
+				"oncase02" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase02" "!activator,$SwitchClassInPlace,Soldier,0,-1"
+
+				"oncase03" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase03" "!activator,$SwitchClassInPlace,Pyro,0,-1"
+
+				"oncase04" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase04" "!activator,$SwitchClassInPlace,Demoman,0,-1"
+
+				"oncase05" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase05" "!activator,$SwitchClassInPlace,Heavyweapons,0,-1"
+
+				"oncase06" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase06" "!activator,$SwitchClassInPlace,Engineer,0,-1"
+
+				"oncase07" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase07" "!activator,$SwitchClassInPlace,Medic,0,-1"
+
+				"oncase08" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase08" "!activator,$SwitchClassInPlace,Sniper,0,-1"
+
+				"oncase09" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase09" "!activator,$SwitchClassInPlace,Spy,0,-1"
+            }
+
 			$filter_sendprop
 			{
 				"targetname" "using_action"
@@ -528,8 +570,10 @@ WaveSchedule
 				"$compare" "equal"
 				"Negated" "1"
 
-				"OnPass" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
-				"OnPass" "!activator,$SwitchClassInPlace,$$= test ( !activator.m_iClass + 1 <= 9 , !activator.m_iClass + 1, 1 ) ,0,-1"
+                "OnPass" "class_select_menu,$DisplayMenu,!activator,0,-1"
+
+				// "OnPass" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				// "OnPass" "!activator,$SwitchClassInPlace,$$= test ( !activator.m_iClass + 1 <= 9 , !activator.m_iClass + 1, 1 ) ,0,-1"
 			}
 
 			logic_relay

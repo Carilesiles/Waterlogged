@@ -112,12 +112,12 @@ WaveSchedule
 	{ 
 		newRage 
 		{
-			Name "Dispensing Rage"
+			Name "Explosive Rage"
 			Cap 1
 			Increment 1 
-			Cost 200
+			Cost 300
 
-			Description "Deal damage to charge up your Dispense-O-Meter. When fully charged, press the Special-Attack key to activate your dispenser"
+			Description "Deal damage to charge up your rage meter. When fully charged, press the Special-Attack key to fire explosive rounds for 8 seconds"
 
 			Attribute "generate rage on damage" 
 
@@ -128,7 +128,7 @@ WaveSchedule
 
 			SecondaryAttributes 
 			{
-				"special item description" "Deal damage to charge up your Dispense-O-Meter. When fully charged, press the Special-Attack key to activate your dispenser"
+				"special item description" "Deal damage to charge up your rage meter. When fully charged, press the Special-Attack key to fire explosive rounds for 8 seconds"
 			}
 		}
 		//canteens
@@ -649,8 +649,7 @@ WaveSchedule
 		"Freelance Mercenary"
 		{
 			OriginalItemName "Halloween Spellbook"
-			"special item description" "Hold the Action key to switch between classes on the fly"
-			"special item description 2" "Cannot transform into a Sentry Buster if the Freelance Mercenary is equipped"
+			"special item description" "Press the Action key to switch between classes on the fly"
 		}
 	}
 	
@@ -811,6 +810,12 @@ WaveSchedule
 		Name Rage_Replacement
 		Class Heavyweapons 
 	}
+	
+	PlayerSpawnTemplate
+	{
+		Name spy_disguisefix
+		Class Spy
+	}
 
 	ItemAttributes 
 	{
@@ -843,32 +848,34 @@ WaveSchedule
 
 	PlayerItemEquipSpawnTemplate 
 	{
-		Name Vitasaw_Rework_Spawn
-		ItemName "The Vita-Saw"
-	}
-	PlayerItemEquipSpawnTemplate 
-	{
 		Name KirinAscension_Spawn
 		ItemName "Kirin's Ascension"
 	}
 
-	ItemAttributes 
-	{
-		ItemName "The Vita-Saw"
+	//PlayerItemEquipSpawnTemplate 
+	//{
+	//	Name Vitasaw_Rework_Spawn
+	//	ItemName "The Vita-Saw"
+	//}
 
-		"fire input on hit" "popscript^$vitasawOnHit^vitasaw_team_check"
-		
-		"damage penalty" 0.09
-		"max health additive penalty" 0
-
-		"special item description" "On Hit Teammate: Exchange 2 organs to give target every banner effect for 5 seconds"
-	}
+	//ItemAttributes 
+	//{
+	//	ItemName "The Vita-Saw"
+	//
+	//	"fire input on hit" "popscript^$vitasawOnHit^vitasaw_team_check"
+	//	
+	//	"damage penalty" 0.09
+	//	"max health additive penalty" 0
+	//
+	//	"special item description" "On Hit Teammate: Exchange 2 organs to give target every banner effect for 5 seconds"
+	//}
 	
 	ItemAttributes
 	{
 		Classname "tf_weapon_Compound_Bow"
 		"arrow hit kill time" 0.01
-		"special item description" "Fires explosive arrows that stick to enemies and surfaces. Arrows detonate after 3 seconds"
+		"special item description" "Fires explosive tipped arrows that stick to enemies and surfaces. Arrows detonate after 3 seconds after contact"
+		"special item description 2" "Splash damage is affected by damage bonus upgrade"
 	}
 
 	PlayerShootTemplate
@@ -3370,8 +3377,8 @@ WaveSchedule
 			Action Trigger
 		}
 		WaveSpawn
-		{                          
-			Where spawnbot_heli
+		{
+			Where spawnbot_tank
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
@@ -3686,6 +3693,14 @@ WaveSchedule
 		Name "generator_six_path"
 		Node "-940 1888 95"
 		Node "-762 1789 95"
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_tank"
+		TeamNum 2
+		X "-9662"
+		Y "1875"
+		Z "193"
 	}
 	ExtraSpawnPoint
 	{

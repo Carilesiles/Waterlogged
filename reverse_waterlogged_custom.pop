@@ -441,7 +441,6 @@ WaveSchedule
 
 			}
 		}
-
 		CanteenPurchase 
 		{
 			NoFixup 1
@@ -467,6 +466,7 @@ WaveSchedule
 				"OnTrigger" "!activator,$SetVar$canteenIndex,-1,0,-1"
 			}
 		}
+		
 		FreelanceMercenary_Logic
 		{
 			OnSpawnOutput 
@@ -516,6 +516,48 @@ WaveSchedule
 
 				"OnNotEqualTo" "!activator,$SetKey$health,$$=!activator.PreFreelanceSwitchHealth,-1,-1"
 				"OnNotEqualTo" "!activator,$SetVar$PreFreelanceSwitchHealth,,0,-1"
+			} 
+			
+			logic_case
+			{
+				"targetname" "class_select_menu"
+				"case16" "Select Class|0|Cancel" 
+				"case01" "Scout" 
+				"case02" "Soldier" 
+				"case03" "Pyro" 
+				"case04" "Demoman" 
+				"case05" "Heavy" 
+				"case06" "Engineer" 
+				"case07" "Medic" 
+				"case08" "Sniper" 
+				"case09" "Spy" 
+
+				"oncase01" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase01" "!activator,$SwitchClassInPlace,Scout,0,-1"
+
+				"oncase02" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase02" "!activator,$SwitchClassInPlace,Soldier,0,-1"
+
+				"oncase03" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase03" "!activator,$SwitchClassInPlace,Pyro,0,-1"
+
+				"oncase04" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase04" "!activator,$SwitchClassInPlace,Demoman,0,-1"
+
+				"oncase05" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase05" "!activator,$SwitchClassInPlace,Heavyweapons,0,-1"
+
+				"oncase06" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase06" "!activator,$SwitchClassInPlace,Engineer,0,-1"
+
+				"oncase07" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase07" "!activator,$SwitchClassInPlace,Medic,0,-1"
+
+				"oncase08" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase08" "!activator,$SwitchClassInPlace,Sniper,0,-1"
+
+				"oncase09" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"oncase09" "!activator,$SwitchClassInPlace,Spy,0,-1"
 			}
 
 			$filter_sendprop
@@ -526,8 +568,10 @@ WaveSchedule
 				"$compare" "equal"
 				"Negated" "1"
 
-				"OnPass" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
-				"OnPass" "!activator,$SwitchClassInPlace,$$= test ( !activator.m_iClass + 1 <= 9 , !activator.m_iClass + 1, 1 ) ,0,-1"
+				"OnPass" "class_select_menu,$DisplayMenu,!activator,0,-1"
+
+				// "OnPass" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				// "OnPass" "!activator,$SwitchClassInPlace,$$= test ( !activator.m_iClass + 1 <= 9 , !activator.m_iClass + 1, 1 ) ,0,-1"
 			}
 
 			logic_relay
@@ -1140,24 +1184,26 @@ WaveSchedule
 				Delay 0.1
 			}
 
-			dispenser_touch_trigger
-			{
-				"targetname" "heavy_dispenser_trigger"
-				"mins" "-400 -400 -400"
-				"maxs" "400 400 400"
-				"spawnflags" "1"
+			// dispenser_touch_trigger
+			// {
+			// 	"targetname" "heavy_dispenser_trigger"
+			// 	"mins" "-400 -400 -400"
+			// 	"maxs" "400 400 400"
+			// 	"spawnflags" "1"
 
-				"StartDisabled" "1"
-			}
+			// 	//"StartDisabled" "1"
+			// }
 			
-			mapobj_cart_dispenser
-			{
-				"targetname" "cart_dispenser"
-				"origin" "-40 -10 100"
-				"spawnflags" "10"
-				"TeamNum" "3"
-				"touch_trigger" "heavy_dispenser_trigger"
-			}
+			// mapobj_cart_dispenser
+			// {
+			// 	"targetname" "cart_dispenser"
+			// 	"origin" "-40 -10 100"
+			// 	"spawnflags" "10"
+			// 	"TeamNum" "3"
+			// 	"touch_trigger" "heavy_dispenser_trigger"
+
+			//     "OnUser1" "player,$DisplayTextChat,dispenser spawned,0,-1"
+			// }
 
 			//check when rage was activated by player
 			$filter_sendprop
@@ -1183,9 +1229,9 @@ WaveSchedule
 				"OnTrigger" "!activator,$SetClientProp$m_bRageDraining,1,0,-1"
 				"OnTrigger" "!activator,$SetProp$m_bRageDraining,0,0,-1"
 
-				"OnTrigger" "!activator,$AddCond,11,0,-1"
 				//effect
-				"OnTrigger" "heavy_dispenser_trigger,Enable,,0,-1"
+				//"OnTrigger" "heavy_dispenser_trigger,Enable,,0,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,explosive bullets|147|0,0,-1"
 
 				"OnTrigger" "rage_meter,SetValueNoFire,$$=!activator.m_flRageMeter,0,-1"
 				"OnTrigger" "rage_meter_drain,FireUser1,,0.01,-1"
@@ -1209,7 +1255,10 @@ WaveSchedule
 
 				"OnHitMin" "rage_meter_drain,$CancelPending,,0,0"
 
-				"OnHitMin" "heavy_dispenser_trigger,Disable,,0,-1"
+				//effect remove
+				//"OnHitMin" "heavy_dispenser_trigger,Disable,,0,-1"
+				"OnHitMin" "!activator,$RemoveItemAttribute,explosive bullets|0,0,-1"
+
 				"OnHitMin" "!activator,$SetClientProp$m_bRageDraining,0,0,-1"
 				"OnHitMin" "!activator,$ResetClientProp$m_flRageMeter,,0.03,-1"
 				"OnHitMin" "!activator,$SetProp$m_flRageMeter,0,0,-1"
@@ -1219,7 +1268,7 @@ WaveSchedule
 				"OnGetValue" "rage_meter,$SetVar$tempRageHolder,,0,-1"
 				"OnGetValue" "!activator,$SetClientProp$m_flRageMeter,$$=rage_meter.tempRageHolder,0.01,-1"
 
-				"OnUser1" "!self,Subtract,1,0,-1" //drain per interval
+				"OnUser1" "!self,Subtract,1.5,0,-1" //drain per interval
 				"OnUser1" "!self,GetValue,,0.01,-1"
 			}
 		}

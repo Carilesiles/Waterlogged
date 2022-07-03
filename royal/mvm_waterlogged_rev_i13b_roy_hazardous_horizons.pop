@@ -142,7 +142,7 @@ WaveSchedule
 			Attribute "mvm completed challenges bitmask" 
 			Cap 5
 			Increment 1 
-			Cost 25
+			Cost 0//25
 
 			UIGroup 2
 
@@ -186,7 +186,7 @@ WaveSchedule
 			Attribute "limited quantity item" 
 			Cap 10
 			Increment 1 
-			Cost 100
+			Cost 0//100
 
 			Description "Reprogram non-giant enemies in a radius"
 
@@ -233,7 +233,7 @@ WaveSchedule
 			Attribute "throwable healing" 
 			Cap 3
 			Increment 1 
-			Cost 25
+			Cost 0//25
 
 			Description "Locked to melee for 5 seconds, greatly increased melee power"
 
@@ -280,9 +280,9 @@ WaveSchedule
 			Attribute "throwable damage" 
 			Cap 3
 			Increment 1 
-			Cost 75
+			Cost 0//75
 
-			Description "Gain various buffs for 5 seconds, become weakened for a duration afterward"
+			Description "Gain various stat buffs for 5 seconds, become weakened for a duration afterward"
 
 			UIGroup 2
 
@@ -327,7 +327,7 @@ WaveSchedule
 			Attribute "throwable particle trail only" 
 			Cap 3
 			Increment 1 
-			Cost 50
+			Cost 0//50
 
 			Description "Cloak for up to 15 seconds, cloak is cancelled when attacking"
 
@@ -375,7 +375,7 @@ WaveSchedule
 			Attribute "decoded by itemdefindex" 
 			Cap 3
 			Increment 1 
-			Cost 25
+			Cost 0//25
 
 			Description "Apply Jarate to enemies within a large radius"
 
@@ -423,7 +423,7 @@ WaveSchedule
 			Attribute "elevate quality" 
 			Cap 3
 			Increment 1 
-			Cost 25
+			Cost 0//25
 
 			Description "Gain knockback resistance for 5 seconds"
 
@@ -467,7 +467,7 @@ WaveSchedule
 
 	SpawnTemplate DirectHit_Rework_Global
 	SpawnTemplate Axe_Rework_Global
-	SpawnTemplate Vitsaw_Rework_Global
+	// SpawnTemplate Vitsaw_Rework_Global
     //SpawnTemplate FrontalImpact_Global
     SpawnTemplate Murasama_Global
 

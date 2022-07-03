@@ -1,5 +1,6 @@
 #base robot_standard.pop
 #base robot_giant.pop
+#base reverse_waterlogged_custom_roy.pop
 
 tomboy
 {
@@ -1034,7 +1035,6 @@ tomboy
             }
         }
 
-
         T_TFBot_Chief_Yakuza
         {
             SpawnTemplate Yakuza_Styles
@@ -1121,10 +1121,82 @@ tomboy
 				"cannot be backstabbed" 1
 			}
         }
+
+        T_TFBot_Droneboy
+        {
+            SpawnTemplate test_mini_bot
+            SpawnTemplate Drone_Boy
+
+			Name "Drone man"
+            Class Engineer
+
+            Health 1000
+
+			WeaponRestrictions PrimaryOnly
+			Item "The Gunslinger"
+
+			Skill Expert
+			Attributes MiniBoss
+            Action Mobber
+
+            AddCond { Name "TF_COND_REPROGRAMMED" }
+
+            FireInput 
+            {
+                Target "switch_to_sentry_mode" 
+                Action "Trigger" 
+                Delay 1
+                Repeats 1
+            } 
+
+            FireWeapon //allows attacking with toolbox
+            {
+                Delay 0
+                Cooldown 0.1
+                Repeats 0 
+                IfSeeTarget 1 
+                Duration 0.5 
+                Type "Primary" 
+            }
+        }
     }
 
 	PointTemplates
 	{
+        Drone_Boy 
+        {
+            OnSpawnOutput
+            {
+                Target "start"
+                Action "Trigger"
+            }
+
+            OnSpawnOutput
+            {
+                Target "start"
+                Action "SetParent"
+                Param "!activator"
+            }
+
+            OnParentKilledOutput
+            {
+                Target "!activator"
+                Action "$RemoveOutput"
+                Param "$OnUser6"
+            }
+
+            logic_relay 
+            {
+                "targetname" "start"
+                "spawnflags" "2"
+
+                "OnTrigger" "!activator,AddOutput,$OnUser6 player:$DisplayTextChat:rebuild:3:-1,-1,-1"
+
+                "OnTrigger" "!activator,AddOutput,$OnUser6 !parent:$WeaponSwitchSlot:5:3:-1,-1,-1"
+                "OnTrigger" "!activator,AddOutput,$OnUser6 !parent:$AddPlayerAttribute:disable weapon switch|1:3.01:-1,-1,-1"
+            }
+        }
+
         SmolBuster 
         {
             KeepAlive 1
@@ -3774,6 +3846,9 @@ tomboy
 		ItemName "The Tide Turner"
 	}
 
+    SpawnTemplate Widowmaker_Dudebro_Logic
+    SpawnTemplate filters_mini
+
 	Wave //wave 1
 	{
 		StartWaveOutput
@@ -4251,6 +4326,36 @@ tomboy
             {
                 Template T_TFBot_Small_Buster
                 health 10
+            }
+        }
+    }
+
+    Wave //wave 10
+    {
+        StartWaveOutput
+        {
+            Target wave_start_relay
+            Action Trigger
+        }
+        DoneOutput
+        {
+            Target wave_finished_relay
+            Action Trigger
+        }
+
+        WaveSpawn
+		{                          
+			Where spawnbot
+			TotalCount 500
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 30
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+            TFBot
+            {
+                Template T_TFBot_Droneboy
             }
         }
     }

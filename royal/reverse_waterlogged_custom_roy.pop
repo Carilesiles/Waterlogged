@@ -144,7 +144,7 @@ WaveSchedule
 				"OnUser1" "!activator,$GetItemAttribute,9|building instant upgrade|vanilla_canteens_check|SetValueCompare|1988,0,-1"
 				"OnUser1" "vanilla_canteens_bool,Test,,0.01,-1"
 
-				"OnUser1" "!self,FireUser1,,0.2,-1"
+				"OnUser1" "canteen_input,FireUser1,,0.2,-1"
 			}
 
 			logic_compare
@@ -456,6 +456,8 @@ WaveSchedule
 				"$OnUser5" "@c@!activator,$SetProp$m_usNumCharges,,0,-1"
 				"$OnUser5" "!activator,$SetVar$currentCustomCanteenCharges,,0,-1"
 
+				"$OnUser5" "player,$DisplayTextChat,canteen updated,0,-1"
+
 				"$OnUser5" "!activator,$GetProp$m_iClass,!activator|$SetVar$lastUpdatedClass|69,0,-1"
 			}
 
@@ -463,6 +465,8 @@ WaveSchedule
 			{
 				"targetname" "on_canteen_empty"
 				"spawnflags" "2"
+
+                "OnTrigger" "player,$DisplayTextChat,canteen emptied !!!,0,-1"
 
 				"OnTrigger" "!activator,$RemoveItemAttribute,refill_ammo|9,0,-1"
 				"OnTrigger" "!activator,$RemoveItemAttribute,special item description|9,0,-1"
@@ -2139,6 +2143,100 @@ WaveSchedule
 				"renderamt" "0"
 			}
 		}
+		test_mini_bot
+		{
+			OnSpawnOutput
+			{
+				Target "triggerrefresh"
+				Action Open
+			}
+			OnSpawnOutput
+			{
+				Target "convertmini"
+				Action SetParent
+				Param "!activator"
+			}
+			func_door
+			{
+				"targetname" "triggerrefresh"
+				"rendermode" "10"
+				"spawnflags" "4108"
+				"speed" "1"
+				"wait" "0.01"
+				"onfullyclosed" "!self,open,,0,-1"
+			}
+			trigger_multiple
+			{
+				"targetname" "sentryDetect"
+				"parentname" "triggerrefresh"
+				"mins" "-96 -96 -96"
+				"maxs" "96 96 96"
+				"filtername" "filter_sentrygun"
+				"spawnflags" "64"
+				"onstarttouch" "convertmini,SetValueCompare,$$=?(!activator.m_bMiniBuilding == 1 && !activator.m_nSolidType > 0,1,0),0,-1"
+			}
+			logic_compare
+			{
+				"targetname" "convertmini"
+				"comparevalue" "1"
+				"onequalto" "!activator,SetParent,droneLocation,0.1,-1"
+				"onequalto" "!activator,SetParentAttachment,head,0.15,-1"
+				"onequalto" "!activator,$SetProp$m_iAmmoShells,99999999,0,-1" //gives them tons of ammo
+				"onequalto" "!activator,$SetProp$m_iAmmoShells,99999999,5,-1" //gives them tons of ammo
+				"onequalto" "!activator,$SetProp$m_nSolidType,0,0,-1" //stops them blocking the player, also used to detect if mini has been turned into a drone
+				"onequalto" "!activator,$SetModelOverride,models/rcat/rcat_level2.mdl,0,-1" // sets model | make sure to precache
+				"onequalto" "!activator,$SetProp$m_nSkin,2,0,-1"
+
+				"onequalto" "@e@m_hBuilder@!activator,$WeaponSwitchSlot,0,0.1,-1"
+                "onequalto" "@e@m_hBuilder@!activator,$RemovePlayerAttribute,disable weapon switch,0.11,-1" 
+
+                //switch back to sentry mode after delay
+                "onequalto" "!activator,AddOutput,$OnKilled player:$DisplayTextChat:died:0:-1,-1,-1"
+                "onequalto" "!activator,AddOutput,$OnKilled @e@m_hBuilder@!activator:$FireUser6::-1:-1,-1,-1"
+			}
+			prop_dynamic
+			{
+				"targetname" "droneLocation"
+				// invisible engineer doomed to carry the drone for all eternity
+				"model" "models/player/engineer.mdl"
+				"origin" "40 -50 15"
+				"disableshadows" "1"
+				"rendermode" "9"
+				"renderamt" "0"
+			}
+		}
+
+        Widowmaker_Dudebro_Logic 
+        {
+            NoFixup 1
+
+            logic_relay
+            {
+                "targetname" "switch_to_sentry_mode"
+                "spawnflags" "2"
+
+                "OnTrigger" "!activator,$WeaponSwitchSlot,5,0,-1"
+                "OnTrigger" "!activator,$AddPlayerAttribute,disable weapon switch|1,0.01,-1" 
+            }
+
+            logic_relay
+            {
+                "targetname" "switch_to_sentry_mode_with_delay"
+                "spawnflags" "2"
+
+                "OnTrigger" "switch_to_sentry_mode,Trigger,,5,-1"
+            }
+
+            logic_relay
+            {
+                "targetname" "switch_to_shotgun_mode"
+                "spawnflags" "2"
+
+                "OnTrigger" "!activator,$RemovePlayerAttribute,disable weapon switch,0,-1" 
+                "OnTrigger" "!activator,$WeaponSwitchSlot,0,0.1,-1"
+            }
+        }
+
 		rpg_shoottemplate
 		{
 			KeepAlive 1

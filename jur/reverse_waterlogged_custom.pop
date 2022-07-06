@@ -130,12 +130,12 @@ WaveSchedule
 			logic_relay 
 			{
 				"targetname" "canteen_input"
-                "spawnflags" "2"
+				"spawnflags" "2"
 
 				//since $getprop with @c@ work like an index loop doing the applied output on every child and default to a set value if the prop index doesn't exist 
 				//I can hook it to a logic_compare and see if the input is different from the default value
 				"OnUser1" "@c@!activator,$GetProp$m_usNumCharges,sanitize_canteen_input|SetValueCompare|6900,0,-1"
-               // "OnUser1" "@c@!activator,$GetProp$m_usNumCharges,!activator|$DisplayTextChat|def,0,-1"
+			   // "OnUser1" "@c@!activator,$GetProp$m_usNumCharges,!activator|$DisplayTextChat|def,0,-1"
 				"OnUser1" "vanilla_canteens_bool,SetValue,0,0,-1" //reset for this cycle
 
 				//test for vanilla cans 
@@ -175,14 +175,14 @@ WaveSchedule
 			$filter_variable
 			{
 				//check if player has any remaining canteen charges
-                //final step before using custom canteen based on id 
+				//final step before using custom canteen based on id 
 				"targetname" "canteen_owned_check"
 				"$name" "currentCustomCanteenCharges"
 				"$value" "0"
 				"$compare" "greater than"
 				"Negated" "0"
 
-                //"OnPass" "player,$DisplayTextChat,canteen not empty check passed,0.01,-1"
+				//"OnPass" "player,$DisplayTextChat,canteen not empty check passed,0.01,-1"
 				"OnPass" "canteen_effect,TestActivator,,0,-1"
 			}
 
@@ -1373,7 +1373,18 @@ WaveSchedule
 				Param "41"
 				Delay 0
 			}
-
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$SetVar$playerIsBuster"
+				Param 0
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$RemovePlayerAttribute"
+				Param "no resupply"
+			}
 			// $filter_sendprop
 			// {
 			//     "targetname" "filter_is_robot_wearable"
@@ -1383,7 +1394,7 @@ WaveSchedule
 			//     "Negated" "0"
 			// }
 
-            $filter_variable
+			$filter_variable
 			{
 				"targetname" "freelance_mercenary_not_equipped"
 				"$name" "FreelanceEquipped"
@@ -1393,6 +1404,8 @@ WaveSchedule
 				"Negated" "1"
 
 				"OnPass" "apply_buster_attributes,Trigger,,0,-1"
+				"OnFail" "!activator,$DisplayTextCenter,Cannot transform into sentry buster due to Freelance Mercenary being equipped,0,-1"
+
 				"OnFail" "player,$DisplayTextCenter,Cannot transform into sentry buster due to Freelance Mercenary being equipped,0,-1"
 			}
 

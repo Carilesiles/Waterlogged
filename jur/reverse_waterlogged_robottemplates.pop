@@ -4503,7 +4503,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"maxs" "0.1 0.1 0.1"
 
 				"dmg" "0"
-				"fanfriction" "100" 
+				"fanfriction" "100"
 				"maxspeed" "60"
 				"spawnflags" "64"
 				"volume" "0"

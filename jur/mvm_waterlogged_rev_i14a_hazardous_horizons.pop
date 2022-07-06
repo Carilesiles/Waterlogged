@@ -80,6 +80,7 @@ WaveSchedule
 
 	LuaScript"function vitasawOnHit(_, activat, calle) local teamCheckInstance = ents.FindByName('vitasaw_team_check'); teamCheckInstance:AcceptInput('TestActivator',_,calle,activat); activat:SetName('vitasaw_caller');
 	end"
+
 	LuaScriptFile "scripts/freelance_mercenary_logic.lua"
 
 	SpawnTemplate bossroom_collision
@@ -100,12 +101,11 @@ WaveSchedule
 	//	ClassName "tf_powerup_bottle"
 	//	Origin "0 0 0" 
 	//}
-	
+
 	PlayerSpawnTemplate 
 	{
 		Name CustomCanteens
 	}
-
 
 	PlayerSpawnOnceTemplate
 	{
@@ -182,14 +182,6 @@ WaveSchedule
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
 			}
-
-			OnRestore 
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Gain a speed boost for 5 seconds|9,0"
-
-				Output "!activator,$SetVar$canteenIndex,1,0"
-			}
 		}
 
 		re_can
@@ -236,14 +228,6 @@ WaveSchedule
 			{
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
-			}
-
-			OnRestore 
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Reprogram non-giant enemies in a radius|9,0"
-
-				Output "!activator,$SetVar$canteenIndex,2,0"
 			}
 		}
 
@@ -292,14 +276,6 @@ WaveSchedule
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
 			}
-
-			OnRestore
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Lock to melee but increase melee power|9,0"
-
-				Output "!activator,$SetVar$canteenIndex,3,0"
-			}
 		}
 
 		add_can
@@ -346,14 +322,6 @@ WaveSchedule
 			{
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
-			}
-
-			OnRestore
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Gain various buffs for 5 seconds and become fatigue briefly after duration|9,0"
-
-				Output "!activator,$SetVar$canteenIndex,4,0"
 			}
 		}
 
@@ -403,14 +371,6 @@ WaveSchedule
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
 			}
-
-			OnRestore
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Cloak for up to 15 seconds|9,0"
-
-				Output "!activator,$SetVar$canteenIndex,5,0"
-			}
 		}
 
 		piss_can
@@ -459,14 +419,6 @@ WaveSchedule
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
 			}
-
-			OnRestore
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Apply Jarate to enemies within a large radius|9,0"
-
-				Output "!activator,$SetVar$canteenIndex,6,0"
-			}
 		}
 
 		knock_can
@@ -514,14 +466,6 @@ WaveSchedule
 			{
 				Output "canteen_count_update,$FireUser5,"
 				Output "on_canteen_empty,Trigger,,0"
-			}
-
-			OnRestore
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Knockback resistance for 5 seconds|9,0"
-
-				Output "!activator,$SetVar$canteenIndex,69,0"
 			}
 		}
 	}
@@ -1387,7 +1331,7 @@ WaveSchedule
 					Delay 1 // Time before the first task starts (Default: 10)
 					Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
 					Cooldown 5 //Time between each task (Default: 10)
-					Duration 300 // How long should the ai be interrupted
+					Duration 1.5 // How long should the ai be interrupted
 					WaitUntilDone 1
 				}
 				SpawnTemplate "points_gpyro"
@@ -2771,7 +2715,7 @@ WaveSchedule
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
-			TotalCurrency 100
+			TotalCurrency 50
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 20
 			TFBot
@@ -2825,7 +2769,7 @@ WaveSchedule
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
-			TotalCurrency 100
+			TotalCurrency 50
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 20
 			TFBot
@@ -3271,7 +3215,7 @@ WaveSchedule
 			TotalCount 2
 			MaxActive 1
 			SpawnCount 1
-			TotalCurrency 100
+			TotalCurrency 50
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 25
 			Support Limited
@@ -3312,7 +3256,7 @@ WaveSchedule
 			TotalCount 2
 			MaxActive 1
 			SpawnCount 1
-			TotalCurrency 150
+			TotalCurrency 50
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 25
 			Support Limited
@@ -3354,7 +3298,7 @@ WaveSchedule
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
-			TotalCurrency 300
+			TotalCurrency 100
 			WaitBeforeStarting 5
 			WaitBetweenSpawns 0
 			DoneOutput

@@ -1284,8 +1284,6 @@ WaveSchedule
 		}
 		Caber_Buster
 		{
-			Caber_Buster
-		{
 			// OnSpawnOutput
 			// {
 			// 	Target "caber_taunt_checker"

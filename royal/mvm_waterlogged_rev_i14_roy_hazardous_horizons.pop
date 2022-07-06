@@ -81,6 +81,8 @@ WaveSchedule
 	LuaScript"function vitasawOnHit(_, activat, calle) local teamCheckInstance = ents.FindByName('vitasaw_team_check'); teamCheckInstance:AcceptInput('TestActivator',_,calle,activat); activat:SetName('vitasaw_caller');
 	end"
 
+    LuaScriptFile "scripts/freelance_mercenary_logic.lua"
+
 	SpawnTemplate bossroom_collision
 	SpawnTemplate Combo_Pyro
 	SpawnTemplate Alternating_Burst
@@ -93,17 +95,20 @@ WaveSchedule
 
 	SpawnTemplate CanteenPurchase
 
-	PlayerItemEquipSpawnTemplate 
+	// PlayerItemEquipSpawnTemplate 
+	// {
+	// 	Name CustomCanteens
+	// 	ClassName "tf_powerup_bottle"
+	// }
+ 
+	PlayerSpawnTemplate 
 	{
 		Name CustomCanteens
-		ClassName "tf_powerup_bottle"
-		Origin "0 0 0" 
 	}
 
 	PlayerSpawnOnceTemplate
 	{
 		Name CustomCanteensSetup
-		Origin "0 0 0"
 	}
 
 	//todo: handle wave restore 
@@ -607,7 +612,7 @@ WaveSchedule
 		"Freelance Mercenary" 
 		{
 			OriginalItemName "Halloween Spellbook" 
-			"special item description" "Press the Action key to switch between classes on the fly"
+			"special item description" "Press the Action key to switch between classes on the fly. Switching class have a 5 seconds cooldown between use"
 		}
 	}
 	

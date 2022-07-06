@@ -130,10 +130,12 @@ WaveSchedule
 			logic_relay 
 			{
 				"targetname" "canteen_input"
+                "spawnflags" "2"
 
 				//since $getprop with @c@ work like an index loop doing the applied output on every child and default to a set value if the prop index doesn't exist 
 				//I can hook it to a logic_compare and see if the input is different from the default value
 				"OnUser1" "@c@!activator,$GetProp$m_usNumCharges,sanitize_canteen_input|SetValueCompare|6900,0,-1"
+               // "OnUser1" "@c@!activator,$GetProp$m_usNumCharges,!activator|$DisplayTextChat|def,0,-1"
 				"OnUser1" "vanilla_canteens_bool,SetValue,0,0,-1" //reset for this cycle
 
 				//test for vanilla cans 
@@ -180,7 +182,7 @@ WaveSchedule
 				"$compare" "greater than"
 				"Negated" "0"
 
-                "OnPass" "player,$DisplayTextChat,canteen not empty check passed,0.01,-1"
+                //"OnPass" "player,$DisplayTextChat,canteen not empty check passed,0.01,-1"
 				"OnPass" "canteen_effect,TestActivator,,0,-1"
 			}
 
@@ -456,7 +458,7 @@ WaveSchedule
 				"$OnUser5" "@c@!activator,$SetProp$m_usNumCharges,,0,-1"
 				"$OnUser5" "!activator,$SetVar$currentCustomCanteenCharges,,0,-1"
 
-				"$OnUser5" "player,$DisplayTextChat,canteen updated,0,-1"
+				//"$OnUser5" "player,$DisplayTextChat,canteen updated,0,-1"
 
 				"$OnUser5" "!activator,$GetProp$m_iClass,!activator|$SetVar$lastUpdatedClass|69,0,-1"
 			}
@@ -466,7 +468,7 @@ WaveSchedule
 				"targetname" "on_canteen_empty"
 				"spawnflags" "2"
 
-                "OnTrigger" "player,$DisplayTextChat,canteen emptied !!!,0,-1"
+                //"OnTrigger" "player,$DisplayTextChat,canteen emptied !!!,0,-1"
 
 				"OnTrigger" "!activator,$RemoveItemAttribute,refill_ammo|9,0,-1"
 				"OnTrigger" "!activator,$RemoveItemAttribute,special item description|9,0,-1"
@@ -574,7 +576,9 @@ WaveSchedule
 				"$compare" "equal"
 				"Negated" "1"
 
-                "OnPass" "class_select_menu,$DisplayMenu,!activator,0,-1"
+                //"OnPass" "class_select_menu,$DisplayMenu,!activator,0,-1"
+                "OnPass" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+                "OnPass" "popscript,$FreelanceMerc_PromptMenu,$$=!activator.m_iClass,0,-1"
 
 				// "OnPass" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
 				// "OnPass" "!activator,$SwitchClassInPlace,$$= test ( !activator.m_iClass + 1 <= 9 , !activator.m_iClass + 1, 1 ) ,0,-1"

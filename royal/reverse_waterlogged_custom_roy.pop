@@ -1429,7 +1429,7 @@ WaveSchedule
 				"Negated" "1"
 
 				"OnPass" "apply_buster_attributes,Trigger,,0,-1"
-				"OnFail" "player,$DisplayTextCenter,Cannot transform into sentry buster due to Freelance Mercenary being equipped,0,-1"
+				"OnFail" "!activator,$DisplayTextCenter,Cannot transform into sentry buster due to Freelance Mercenary being equipped,0,-1"
 			}
 
 			info_particle_system

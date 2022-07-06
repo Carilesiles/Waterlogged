@@ -2,266 +2,6 @@ WaveSchedule
 {
 	PointTemplates
 	{
-		bossroom_collision
-		{
-			NoFixup 1
-			OnSpawnOutput
-			{
-				Target collider
-				Action $SetCollisionFilter
-				Param "filter_inSpawn"
-			}
-			OnSpawnOutput
-			{
-				Target bossroom_door_trigger
-				Action AddOutput
-				Param "OnStartTouch !activator:$SetVar$inSpawn:1:0:-1"
-			}
-			func_forcefield
-			{
-				"targetname" "collider"
-				"origin" "-1088 2504 -384"
-				"mins" "-92 -8 -64"
-				"maxs" "92 8 64"
-				"TeamNum" "3"
-			}
-			filter_activator_class
-			{
-				"targetname" "filter_player"
-				"filterclass" "player"
-				"negated" "1"
-			}
-			$filter_variable
-			{
-				"targetname" "filter_inSpawn"
-				"$name" "inSpawn"
-				"$value" "1"
-				"negated" "1"
-			}
-			filter_multi
-			{
-				"targetname" "filter_player_inSpawn"
-				"filtertype" "0"
-				"filter01" "filter_player"
-				"filter02" "filter_inSpawn"
-			}
-			trigger_multiple
-			{
-				"mins" "-136 -32 -64"
-				"maxs" "136 32 64"
-				"origin" "-1088 2688 -384"
-				"spawnflags" "1"
-				"filtername" "filter_blueteam"
-				"OnStartTouch" "!activator,$SetVar$inSpawn,0"
-			}
-			trigger_multiple
-			{
-				"mins" "-32 -96 -64"
-				"maxs" "32 96 64"
-				"origin" "-1256 2624 -384"
-				"spawnflags" "1"
-				"filtername" "filter_blueteam"
-				"OnStartTouch" "!activator,$SetVar$inSpawn,0"
-			}
-			trigger_multiple
-			{
-				"mins" "-32 -96 -64"
-				"maxs" "32 96 64"
-				"origin" "-920 2624 -384"
-				"spawnflags" "1"
-				"filtername" "filter_blueteam"
-				"OnStartTouch" "!activator,$SetVar$inSpawn,0"
-			}
-		}
-		annotations
-		{
-			NoFixup 1	
-			training_annotation
-			{
-				"targetname" "gate1_upgrade_sign"
-				"origin" "-6418.7 2833.5 516.4"
-				"display_text" "Come one come all! Get your upgrades here!"
-				"lifetime"     "22"
-			}
-			training_annotation
-			{
-				"targetname" "gate2_upgrade_sign"
-				"origin" "-4982.9 -2107.0 1184.9"
-				"display_text" "Hey fellas I'm back, come get your upgrades!"
-				"lifetime"     "22"
-			}
-			training_annotation
-			{
-				"targetname" "gate1_cappable_sign"
-				"origin" "-5434.7 1407.3 460.0"
-				"display_text" "The gate can now be captured!"
-				"lifetime"     "9"
-			}
-			training_annotation
-			{
-				"targetname" "gate2_cappable_sign"
-				"origin" "-3087.7 -2093.9 238.0"
-				"display_text" "The gate can now be captured!"
-				"lifetime"     "9"
-			}
-		}
-		speedtriggers
-		{
-			NoFixup 1
-			logic_auto
-			{
-				"OnMapSpawn" "wave_start_relay,AddOutput,OnTrigger speedboostrefire:Enable::0:-1"
-			}
-			logic_timer
-			{
-				"targetname" "speedboostrefire"
-				"refiretime" "1"
-				"startdisabled" "1"
-				"ontimer" "speedboost_*,enable,,0,-1"
-				"ontimer" "speedboost_*,disable,,0.9,-1"
-			}
-			trigger_add_tf_player_condition
-			{
-				"targetname" "speedboost_spawn"
-				"mins" "-1024 -640 -424"
-				"maxs" "1024 640 424"
-				"origin" "-9984 512 616"
-				"condition" "32"
-				"duration" "4"
-				"filtername" "filter_blueteam"
-				"spawnflags" "1"
-				"StartDisabled" "1"
-			}
-			trigger_add_tf_player_condition
-			{
-				"targetname" "speedboost_gate1"
-				"mins" "-464 -288 -160"
-				"maxs" "464 288 160"
-				"origin" "-5424 1888 616"
-				"condition" "32"
-				"duration" "4"
-				"filtername" "filter_blueteam"
-				"spawnflags" "1"
-				"StartDisabled" "1"
-			}
-			trigger_add_tf_player_condition
-			{
-				"targetname" "speedboost_gate1"
-				"mins" "-244 -592 -160"
-				"maxs" "244 592 160"
-				"origin" "-6132 2448 616"
-				"condition" "32"
-				"duration" "4"
-				"filtername" "filter_blueteam"
-				"spawnflags" "1"
-				"StartDisabled" "1"
-			}
-			trigger_add_tf_player_condition
-			{
-				"targetname" "speedboost_gate2"
-				"mins" "-1164 -176 -142"
-				"maxs" "1164 176 142"
-				"origin" "-3788 -2544 1262"
-				"condition" "32"
-				"duration" "4"
-				"filtername" "filter_blueteam"
-				"spawnflags" "1"
-				"StartDisabled" "1"
-			}
-			trigger_add_tf_player_condition
-			{
-				"targetname" "speedboost_gate2"
-				"mins" "-532 -216 -142"
-				"maxs" "532 216 142"
-				"origin" "-4420 -2152 1262"
-				"condition" "32"
-				"duration" "4"
-				"filtername" "filter_blueteam"
-				"spawnflags" "1"
-				"StartDisabled" "1"
-			}
-		}
-		bossarena_spawnindicators
-		{
-			NoFixup 1
-			prop_dynamic
-			{
-				"angles" "0 315 0"
-				"disableshadows" "1"
-				"model" "models/props_mvm/robot_spawnpoint.mdl"
-				"skin" "3"
-				"solid" "0"
-				"targetname" "spawn_hologram_building_1"
-				"origin" "-2808 5895 -192" //-2828 4119 -132
-			}
-			prop_dynamic
-			{
-				"angles" "0 315 0"
-				"disableshadows" "1"
-				"model" "models/props_mvm/robot_spawnpoint.mdl"
-				"skin" "3"
-				"solid" "0"
-				"targetname" "spawn_hologram_building_2"
-				"origin" "-2567 -203 243"
-			}
-			prop_dynamic
-			{
-				"angles" "0 135 0"
-				"disableshadows" "1"
-				"model" "models/props_mvm/robot_spawnpoint.mdl"
-				"skin" "3"
-				"solid" "0"
-				"targetname" "spawn_hologram_1"
-				"origin" "-2808 5895 -185"
-			}
-			info_particle_system
-			{
-				"targetname" "spawn_particle_1"
-				"origin" "-2808 5895 -242"
-				"effect_name" "teleporter_mvm_bot_persist"
-				//"effect_name" "teleporter_mvm_bot_persist_red"
-				"flag_as_weather" "0"
-				"start_active" "0"
-			}
-			prop_dynamic
-			{
-				"angles" "0 135 0"
-				"disableshadows" "1"
-				"model" "models/props_mvm/robot_spawnpoint.mdl"
-				"skin" "3"
-				"solid" "0"
-				"targetname" "spawn_hologram_2"
-				"origin" "667 4136 -185"
-			}
-			info_particle_system
-			{
-				"targetname" "spawn_particle_2"
-				"origin" "667 4136 -242"
-				"effect_name" "teleporter_mvm_bot_persist"
-				//"effect_name" "teleporter_mvm_bot_persist_red"
-				"flag_as_weather" "0"
-				"start_active" "0"
-			}
-			prop_dynamic
-			{
-				"angles" "0 135 0"
-				"disableshadows" "1"
-				"model" "models/props_mvm/robot_spawnpoint.mdl"
-				"skin" "3"
-				"solid" "0"
-				"targetname" "spawn_hologram_3"
-				"origin" "-2828 4120 -185"
-			}
-			info_particle_system
-			{
-				"targetname" "spawn_particle_3"
-				"origin" "-2828 4120 -230"
-				"effect_name" "teleporter_mvm_bot_persist"
-				//"effect_name" "teleporter_mvm_bot_persist_red"
-				"flag_as_weather" "0"
-				"start_active" "0"
-			}
-		}
 		general_logic
 		{
 			NoFixup 1
@@ -272,6 +12,7 @@ WaveSchedule
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger clearbuildings_trigger:Disable::0.1:-1"
 				"OnTrigger" "clearbuildings_trigger,Enable"
 				"OnTrigger" "clearbuildings_trigger,Disable,,0.1"
+				"OnTrigger" "spyteleport*,AddOutput,spawnflags 1"
 
 				"OnTrigger" "blu_init_teleport_boss,Disable"
 				"OnTrigger" "blu_init_teleport,Enable"
@@ -293,6 +34,10 @@ WaveSchedule
 
 				"OnTrigger" "gate1_door_trigger,Disable"
 				"OnTrigger" "gate2_door_trigger,Disable"
+				"OnTrigger" "gate1_door_trigger,AddOutput,OnStartCap gate1sign_refire:Disable::0:-1"
+				"OnTrigger" "gate1_door_trigger,AddOutput,OnEndCap gate1sign_refire:Enable::0:-1"
+				"OnTrigger" "gate2_door_trigger,AddOutput,OnStartCap gate2sign_refire:Disable::0:-1"
+				"OnTrigger" "gate2_door_trigger,AddOutput,OnEndCap gate2sign_refire:Enable::0:-1"
 				"OnTrigger" "wave_start_relay,AddOutput,OnTrigger gate1_door_trigger:Disable::0.11:-1"
 				"OnTrigger" "wave_start_relay,AddOutput,OnTrigger gate2_door_trigger:Disable::0.11:-1"
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger gate1_alarm_door_reset_relay:Enable::0:-1"
@@ -342,18 +87,26 @@ WaveSchedule
 				"targetname" "wave3_init_relay"
 				"OnTrigger" "general_setup_relay,Trigger"
 				"OnTrigger" "intel,Disable"
+				"OnTrigger" "intel,ForceResetSilent"
+				"OnTrigger" "intel,SetParent,compass_train,0.1"
 				
 				"OnTrigger" "spawnbot_scaffold,Enable"
 				"OnTrigger" "spawnbot_balcony,Enable"
 				
 				"OnTrigger" "barrier_factory_relay_disable,Trigger,,0.1"
+				//"OnTrigger" "barrier_gate1_relay_disable,Trigger,,0.1"
+				//"OnTrigger" "barrier_gate2_relay_disable,Trigger,,0.1"
 				"OnTrigger" "barrier_building_1,Enable"
 				"OnTrigger" "barrier_building_2,Enable"
+
 				"OnTrigger" "capturezone_blue,Disable"
 				"OnTrigger" "hatchshield,Enable"
 				"OnTrigger" "hatchshield_collision,Enable"
 				"OnTrigger" "hatchshield_collision_stuckfix,Enable"
 
+				"OnTrigger" "towers_alt_activation_relay,AddOutput,OnTrigger towers_alt_deactivation_relay:Disable::180:-1"
+				"OnTrigger" "towers_alt_activation_relay,AddOutput,OnTrigger capturezone_blue:Disable::180:-1"
+				"OnTrigger" "capturezone_blue,AddOutput,OnTrigger towers_alt_deactivation_relay:Trigger::0:-1"
 				"OnTrigger" "gate1_relay,AddOutput,OnTrigger general_gate1_relay:Trigger::0:-1"
 				"OnTrigger" "gate2_relay,AddOutput,OnTrigger general_gate2_relay:Trigger::0:-1"
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger gate1_alarm_door_reset_relay:Enable::0:-1"
@@ -362,6 +115,8 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "wave4_init_relay"
+				"OnTrigger" "general_setup_relay,Trigger"
+				"OnTrigger" "teleport_spawn_gate1,Enable,,0.5"
 			}
 			logic_relay
 			{
@@ -381,8 +136,13 @@ WaveSchedule
 				
 				"OnTrigger" "gate1_alarm_door_reset_relay,Disable"
 
+				"OnTrigger" "player,$AddCond,32"
+				"OnTrigger" "player,$RemoveCond,32,22"
+				"OnTrigger" "gate1sign_refire,Disable"
+				"OnTrigger" "gate1sign_refire,Disable,,1"
 				"OnTrigger" "gate1_upgrade_sign,Show"
 				"OnTrigger" "gate2_door_trigger,Disable,,24"
+				"OnTrigger" "barrier_gate1_disable_relay,Trigger,,22"
 
 				"OnTrigger" "wave1_gate1_relay,Trigger"
 				"OnTrigger" "wave3_gate1_relay,Trigger"
@@ -396,7 +156,12 @@ WaveSchedule
 				
 				"OnTrigger" "gate2_alarm_door_reset_relay,Disable"
 				
+				"OnTrigger" "player,$AddCond,32"
+				"OnTrigger" "player,$RemoveCond,32,22"
+				"OnTrigger" "gate2sign_refire,Disable"
+				"OnTrigger" "gate2sign_refire,Disable,,1"
 				"OnTrigger" "gate2_upgrade_sign,Show"
+				"OnTrigger" "barrier_gate2_disable_relay,Trigger,,22"
 
 				"OnTrigger" "spawnbot_hatch,Enable,,21"
 				"OnTrigger" "spawnbot_garage,Enable,,21"
@@ -494,7 +259,7 @@ WaveSchedule
 				"targetname" "stuckfix_destination"
 				"origin" "-1132 1400 164"
 			}
-			filter_multi 
+			filter_multi
 			{
 				"targetname" "filter_blue_notfella"
 				"Negated" "0"
@@ -520,6 +285,51 @@ WaveSchedule
 				"maxs" "7150 4880 2376"
 				"spawnflags" "3"
 				"StartDisabled" "1"
+			}
+			trigger_add_tf_player_condition
+			{
+				"targetname" "blue_stun_reprogram"
+				"condition" "71"
+				"duration" "1"
+				"filtername" "filter_blueteam"
+				"origin" "-4878 1552 952"
+				"mins" "-7150 -4880 -2376"
+				"maxs" "7150 4880 2376"
+				"spawnflags" "3"
+				"StartDisabled" "1"
+			}
+			trigger_add_tf_player_condition
+			{
+				"targetname" "blue_reprogram"
+				"condition" "43"
+				"duration" "6"
+				"filtername" "filter_blueteam"
+				"origin" "-4878 1552 952"
+				"mins" "-7150 -4880 -2376"
+				"maxs" "7150 4880 2376"
+				"spawnflags" "3"
+				"StartDisabled" "1"
+				"OnStartTouch" "!activator,SetCustomModel,models/bots/soldier/bot_soldier.mdl,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "towers_wipe_relay"
+				"OnTrigger" "blue_stun_reprogram,Enable,,0.1"
+				"OnTrigger" "blue_reprogram,Enable,,0.1"
+				"OnTrigger" "player,SetForcedTauntCam,1,0.1"
+				"OnTrigger" "wipe_fade_alt,Fade"
+				"OnTrigger" "wipe_loopfix,Trigger"
+				"OnTrigger" "red_win,RoundWin"
+			}
+			logic_relay
+			{
+				"targetname" "towers_alt_wipe_relay"
+				"OnTrigger" "blue_stun_reprogram,Enable,,0.1"
+				"OnTrigger" "blue_reprogram,Enable,,0.1"
+				"OnTrigger" "player,SetForcedTauntCam,1,0.1"
+				"OnTrigger" "wipe_fade_alt,Fade"
+				"OnTrigger" "wipe_loopfix,Trigger"
+				"OnTrigger" "red_win,RoundWin"
 			}
 		}
 		bomb_dud_template
@@ -672,6 +482,7 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "wave1_gate2_relay"
+				"OnTrigger" "barrier_gate2_relay_disable,Trigger,22"
 				"OnTrigger" "player,$ChangeAttributes,GateTwo_Capped,1"
 				"OnTrigger" "gate2_upgrade_sign2,Show,,2"
 			}
@@ -719,6 +530,7 @@ WaveSchedule
 				"max" "100"
 				"onhitmax" "gate1_door_trigger,Enable"
 				"onhitmax" "gate1_cappable_sign,Show"
+				"onhitmax" "gate1sign_refire,Enable"
 				"onhitmax" "!self,SetValue,0"
 				"onhitmax" "!self,Disable"
 				//"OutValue" "player,$DisplayTextCenter"
@@ -740,6 +552,7 @@ WaveSchedule
 				"max" "100"
 				"onhitmax" "gate2_door_trigger,Enable"
 				"onhitmax" "gate2_cappable_sign,Show"
+				"onhitmax" "gate2sign_refire,Enable"
 				"onhitmax" "!self,SetValue,0"
 				"onhitmax" "!self,Disable"
 				//"OutValue" "player,$DisplayTextCenter"
@@ -890,7 +703,7 @@ WaveSchedule
 				"Ontrigger" "teleport_shapeshift,Disable"
 				"OnTrigger" "teleport_shapeshift_back,Enable"
 				"OnTrigger" "teleport_shapeshift_back,Disable,,0.1"
-				"OnTrigger" "shapeshift_return_sign*,Show,0.1"
+				"OnTrigger" "shapeshift_return_sign*,Show,,0.2"
 				"OnTrigger" "player,$PlaySoundToSelf,ambient/machines/teleport1.wav"
 			}
 			logic_relay
@@ -1016,7 +829,7 @@ WaveSchedule
 				"lifetime"     "3"
 			}
 		}
-        compass_logic
+		compass_logic
 		{
 			NoFixup 1
 			func_tracktrain
@@ -1136,64 +949,20 @@ WaveSchedule
 		wave3_logic
 		{
 			NoFixup 1
-			OnSpawnOutput
+			env_hudhint
 			{
-				Target "intel"
-				Action Disable
+				"TargetName" "wave3_hints"
+				"Message" "OBJECTIVE: Kill the generator!"
+				"SpawnFlags" "1"
 			}
-			OnSpawnOutput
+			logic_relay
 			{
-				Target "nav_refresh"
-				Action RecomputeBlockers
-				Delay 1
-			}
-			func_brush
-			{
-				"targetname" "barrier_building_1"
-				"mins" "-193 -2.5 -112.5"
-				"maxs" "193 2.5 112.5"
-				"origin" "-5158 204 241"
-				"solidity" "0"
-			}
-			func_brush
-			{
-				"targetname" "barrier_building_1"
-				"mins" "-2.5 -176.5 -112.5"
-				"maxs" "2.5 176.5 112.5"
-				"origin" "-5348 384 241"
-				"solidity" "0"
-			}
-			func_brush
-			{
-				"targetname" "barrier_building_1"
-				"mins" "-193 -91.5 -1"
-				"maxs" "193 91.5 1"
-				"origin" "-5158 294 355"
-				"solidity" "0"
-			}
-			func_brush
-			{
-				"targetname" "barrier_building_2"
-				"mins" "-6 -64 -80"
-				"maxs" "6 64 80"
-				"origin" "-2776 -320 268"
-				"solidity" "0"
-			}
-			func_brush
-			{
-				"targetname" "barrier_building_2"
-				"mins" "-192 -52 -3"
-				"maxs" "192 52 3"
-				"origin" "-2443 -196 452"
-				"solidity" "0"
-			}
-			func_brush
-			{
-				"targetname" "barrier_building_2"
-				"mins" "-3 -64 -80"
-				"maxs" "3 64 80"
-				"origin" "-2244 -384 268"
-				"solidity" "0"
+				"OnSpawn" "intel,Enable"
+				"OnSpawn" "compass_train,TeleportToPathTrack,mark_generator_one"
+				//"OnSpawn" "barrier_gate1_relay_disable,Trigger,,0.1"
+				//"OnSpawn" "barrier_gate2_relay_disable,Trigger,,0.1"
+				//"OnSpawn" "wave3_hints,ShowHudHint,,0,-1"
+				"OnSpawn" "towers_alt_phase,SetValue,1,0.1"
 			}
 			func_flagdetectionzone
 			{
@@ -1206,7 +975,6 @@ WaveSchedule
 				"OnStartTouchFlag" "!activator,SetForcedTauntCam,1,0,-1"
 				"OnStartTouchFlag" "!activator,SetHUDVisibility,0,0.01,-1"
 				"OnStartTouchFlag" "!activator,DisableDamageForces,,0,-1"
-				//"OnStartTouchFlag" "!activator,SetAnimation,primary_deploybomb,0,-1"
 				"OnEndTouchFlag" "!activator,SetForcedTauntCam,0,0,-1"
 				"OnEndTouchFlag" "!activator,SetHUDVisibility,1,0.01,-1"
 				"OnEndTouchFlag" "!activator,EnableDamageForces,,0,-1"
@@ -1232,6 +1000,12 @@ WaveSchedule
 				"OnTrigger" "spawnbot_extra,Enable,,22"
 				"OnTrigger" "spawnbot_extra,Disable,,23"
 
+				"OnTrigger" "towers_alt_deactivation_relay,Trigger"
+				"OnTrigger" "towers_alt_phase,SetValue,2,22"
+				"OnTrigger" "generator_prop_two,Kill,,22"
+				"OnTrigger" "generator_prop_three,Kill,,22"
+
+				"OnTrigger" "barrier_gate1_right,Disable,22"
 				"OnTrigger" "player,$ChangeAttributes,BarrierDown"
 				"OnTrigger" "changeattribute_state,SetValueNoFire,1"
 			}
@@ -1240,6 +1014,15 @@ WaveSchedule
 				"targetname" "wave3_gate2_relay"
 				"OnTrigger" "spawnbot_extra,Enable,,22"
 				"OnTrigger" "spawnbot_extra,Disable,,23"
+
+				"OnTrigger" "generator_prop_four,Kill,,22"
+				"OnTrigger" "generator_prop_five,Kill,,22"
+				"OnTrigger" "generator_prop_six,Kill,,22"
+
+				"OnTrigger" "towers_alt_deactivation_relay,Trigger"
+				"OnTrigger" "towers_alt_phase,SetValue,3,22"
+
+				"OnTrigger" "barrier_gate2_relay_disable,Trigger,22"
 				"OnTrigger" "player,$ChangeAttributes,BarrierDown2"
 				"OnTrigger" "changeattribute_state2,SetValueNoFire,1"
 			}
@@ -1248,9 +1031,9 @@ WaveSchedule
 				"targetname" "heli_killed_relay"
 				"OnTrigger" "gate1_door_trigger,Enable"
 				"OnTrigger" "gate1_cappable_sign,Show"
+				"OnTrigger" "gate1sign_refire,Enable"
 				"OnTrigger" "player,$ChangeAttributes,CaptureGateOne"
 				"OnTrigger" "changeattribute_state,SetValueNoFire,2"
-				"OnTrigger" "gate1_cappable_sign, Show"
 				"OnTrigger" "collider_oneway,Disable"
 				"OnTrigger" "barrier_oneway*,Disable"
 			}
@@ -1259,20 +1042,24 @@ WaveSchedule
 				"targetname" "chief_killed_relay"
 				"OnTrigger" "gate2_door_trigger,Enable"
 				"OnTrigger" "gate2_cappable_sign,Show"
+				"OnTrigger" "gate2sign_refire,Enable"
 				"OnTrigger" "player,$ChangeAttributes,CaptureGateTwo"
 				"OnTrigger" "changeattribute_state2,SetValueNoFire,2"
+				"OnTrigger" "spawnbot_building_extra,Disable"
+				"OnTrigger" "spawnbot_side_extra,Disable"
 			}
 			logic_relay
 			{
 				"targetname" "doppler_killed_relay"
-				"OnTrigger" "intel,Enable"
-				"OnTrigger" "intel,$TeleportToEntity,bomb_prop"
+				"OnTrigger" "intel,ClearParent"
+				"OnTrigger" "intel,$TeleportToEntity,bomb_prop,0.01"
 				"OnTrigger" "bomb_prop,Disable"
 				"OnTrigger" "hatchshield,setanimation,disable"
 				"OnTrigger" "hatchshield_collision,Disable"
 				"OnTrigger" "hatchshield_collision_stuckfix,Disable"
 				"OnTrigger" "capturezone_blue,Enable"
 				"OnTrigger" "barrier_down_sign3,Show"
+				
 			}
 			logic_relay
 			{
@@ -1300,6 +1087,7 @@ WaveSchedule
 				"targetname" "generator_three_killed_relay"
 				"OnTrigger" "spawnbot_balcony_drain,Disable"
 				"OnTrigger" "spawnbot_side,Enable"
+				"OnTrigger" "barrier_gate1_relay_disable,Trigger"
 			}
 			logic_relay
 			{
@@ -1317,16 +1105,17 @@ WaveSchedule
 				"OnTrigger" "spawnbot_building,Disable"
 				"OnTrigger" "spawnbot_building_extra,Enable"
 				"OnTrigger" "spawnbot_side_extra,Enable"
-				"OnTrigger" "spawnbot_balcony_drain_extra,Enable"
+				"OnTrigger" "spawnbot_balcony_drain_extra,Disable"
 			}
 			logic_relay
 			{
 				"targetname" "generator_fourfivesix_killed_relay"
 				"OnTrigger" "spawnbot_hatch,Disable"
 				"OnTrigger" "spawnbot_garage,Disable"
-				"OnTrigger" "spawnbot_building_doppler,Enable"
+				"OnTrigger" "spawnbot_hatchshield,Enable"
 				"OnTrigger" "spawnbot_hatch_extra,Enable"
 				"OnTrigger" "spawnbot_garage_extra,Enable"
+				"OnTrigger" "barrier_gate2_relay_disable,Trigger"
 			}
 
 			math_counter
@@ -1403,88 +1192,6 @@ WaveSchedule
 				"display_text" "The bomb is now able to be deployed!"
 				"lifetime"     "6"
 			}
-
-			//OnSpawnOutput
-			//{
-			//	Target collider_oneway
-			//	Action $SetCollisionFilter
-			//	Param "filter_inFactory_or_red"
-			//}
-			//func_brush
-			//{
-			//	"targetname" "collider_oneway"
-			//	"origin" "-5920 832 492"
-			//	"mins" "-8 -192 -180"
-			//	"maxs" "8 192 180"
-			//	"startdisabled" "1"
-			//}
-			//func_brush
-			//{
-			//	"targetname" "collider_oneway"
-			//	"origin" "-5920 224 360"
-			//	"mins" "-8 -224 -232"
-			//	"maxs" "8 224 232"
-			//	"startdisabled" "1"
-			//}
-			//prop_dynamic
-			//{
-			//	"targetname" "barrier_oneway_1"
-			//	"model" "models/mvm/barrier/barrier_oneway_red1.mdl"
-			//	"origin" "-5920 832 492"
-			//	"angles" "0 270 0"
-			//	"solid" "0"
-			//	"startdisabled" "1"
-			//}
-			//prop_dynamic
-			//{
-			//	"targetname" "barrier_oneway_2"
-			//	"model" "models/mvm/barrier/barrier_oneway_red2.mdl"
-			//	"origin" "-5920 224 360"
-			//	"angles" "0 270 0"
-			//	"solid" "0"
-			//	"startdisabled" "1"
-			//}
-			//trigger_multiple
-			//{
-			//	"targetname" "trigger_inFactory"
-			//	"mins" "-233.5 -960 -448"
-			//	"maxs" "233.5 960 448"
-			//	"origin" "-6168 832 576"
-			//	"spawnflags" "1"
-			//	"filtername" "filter_blueteam"
-			//	"OnStartTouch" "!activator,$SetVar$inFactory,1"
-			//}
-			//trigger_multiple
-			//{
-			//	"targetname" "trigger_notInFactory"
-			//	"mins" "-232 -960 -448"
-			//	"maxs" "232 960 448"
-			//	"origin" "-5632 816 576"
-			//	"spawnflags" "1"
-			//	"filtername" "filter_blueteam"
-			//	"OnStartTouch" "!activator,$SetVar$inFactory,0"
-			//}
-			//$filter_variable
-			//{
-			//	"targetname" "filter_inFactory"
-			//	"$name" "inFactory"
-			//	"$value" "1"
-			//	"negated" "1"
-			//}
-			//filter_activator_tfteam 
-			//{
-			//	"targetname" "filter_is_not_red"
-			//	"Negated" "1"
-			//	"TeamNum" "2"
-			//}
-			//filter_multi
-			//{
-			//	"targetname" "filter_inFactory_or_red"
-			//	"Negated" "0"
-			//	"FilterType" "0"
-			//	"Filter01" "filter_is_not_red"
-			//	"Filter02" "filter_inFactory"
-			//}
 		}
 		wave4_logic
 		{
@@ -1496,7 +1203,17 @@ WaveSchedule
 			}
 			logic_relay
 			{
-				"targetname" "wave4_gate1_relay"
+				"origin" "-7896 124 480"
+				"OnSpawn" "@f@filter_bluespawnroom@func_respawnroomvisualizer,Disable"
+				"OnSpawn" "blu_spawn_shutter,Disable"
+				"OnSpawn" "gate1_spawn_door,Open"
+				"OnSpawn" "gate1_bot_blocker,Disable"
+			}
+			$filter_keyvalue
+			{
+				"targetname" "filter_bluespawnroom"
+				"$name" "respawnroomname"
+				"$value" "bluespawnroom"
 			}
 			logic_relay
 			{
@@ -1530,25 +1247,98 @@ WaveSchedule
 		wave5_logic
 		{
 			NoFixup 1
-			prop_dynamic
+		}
+		bossroom_collision
+		{
+			NoFixup 1
+			OnSpawnOutput
 			{
-				"angles" "0 315 0"
-				"disableshadows" "1"
-				"model" "models/props_mvm/robot_spawnpoint.mdl"
-				"skin" "3"
-				"solid" "0"
-				"targetname" "spawn_hologram_building_1"
-				"origin" "-2808 5895 -192" //-2828 4119 -132
+				Target collider
+				Action $SetCollisionFilter
+				Param "filter_inSpawn"
 			}
+			OnSpawnOutput
+			{
+				Target bossroom_door_trigger
+				Action AddOutput
+				Param "OnStartTouch !activator:$SetVar$inSpawn:1:0:-1"
+			}
+			func_forcefield
+			{
+				"targetname" "collider"
+				"origin" "-1088 2504 -384"
+				"mins" "-92 -8 -64"
+				"maxs" "92 8 64"
+				"TeamNum" "3"
+			}
+			filter_activator_class
+			{
+				"targetname" "filter_player"
+				"filterclass" "player"
+				"negated" "1"
+			}
+			$filter_variable
+			{
+				"targetname" "filter_inSpawn"
+				"$name" "inSpawn"
+				"$value" "1"
+				"negated" "1"
+			}
+			filter_multi
+			{
+				"targetname" "filter_player_inSpawn"
+				"filtertype" "0"
+				"filter01" "filter_player"
+				"filter02" "filter_inSpawn"
+			}
+			trigger_multiple
+			{
+				"mins" "-136 -32 -64"
+				"maxs" "136 32 64"
+				"origin" "-1088 2688 -384"
+				"spawnflags" "1"
+				"filtername" "filter_blueteam"
+				"OnStartTouch" "!activator,$SetVar$inSpawn,0"
+			}
+			trigger_multiple
+			{
+				"mins" "-32 -96 -64"
+				"maxs" "32 96 64"
+				"origin" "-1256 2624 -384"
+				"spawnflags" "1"
+				"filtername" "filter_blueteam"
+				"OnStartTouch" "!activator,$SetVar$inSpawn,0"
+			}
+			trigger_multiple
+			{
+				"mins" "-32 -96 -64"
+				"maxs" "32 96 64"
+				"origin" "-920 2624 -384"
+				"spawnflags" "1"
+				"filtername" "filter_blueteam"
+				"OnStartTouch" "!activator,$SetVar$inSpawn,0"
+			}
+		}
+		bossarena_spawnindicators
+		{
+			NoFixup 1
 			prop_dynamic
 			{
-				"angles" "0 315 0"
+				"angles" "0 135 0"
 				"disableshadows" "1"
 				"model" "models/props_mvm/robot_spawnpoint.mdl"
 				"skin" "3"
 				"solid" "0"
-				"targetname" "spawn_hologram_building_2"
-				"origin" "-2567 -203 243"
+				"targetname" "spawn_hologram_1"
+				"origin" "-2808 5895 -197"
+			}
+			info_particle_system
+			{
+				"targetname" "spawn_particle_1"
+				"origin" "-2808 5895 -242"
+				"effect_name" "teleporter_mvm_bot_persist_red"
+				"flag_as_weather" "0"
+				"start_active" "0"
 			}
 			prop_dynamic
 			{
@@ -1558,7 +1348,157 @@ WaveSchedule
 				"skin" "3"
 				"solid" "0"
 				"targetname" "spawn_hologram_2"
-				"origin" "667.24 4135.62 -191.955"
+				"origin" "667 4136 -197"
+			}
+			info_particle_system
+			{
+				"targetname" "spawn_particle_2"
+				"origin" "667 4136 -242"
+				"effect_name" "teleporter_mvm_bot_persist_red"
+				"flag_as_weather" "0"
+				"start_active" "0"
+			}
+			prop_dynamic
+			{
+				"angles" "0 135 0"
+				"disableshadows" "1"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"skin" "3"
+				"solid" "0"
+				"targetname" "spawn_hologram_3"
+				"origin" "-2828 4120 -197"
+			}
+			info_particle_system
+			{
+				"targetname" "spawn_particle_3"
+				"origin" "-2828 4120 -230"
+				"effect_name" "teleporter_mvm_bot_persist_red"
+				"flag_as_weather" "0"
+				"start_active" "0"
+			}
+		}
+		annotations
+		{
+			NoFixup 1	
+			training_annotation
+			{
+				"targetname" "gate1_upgrade_sign"
+				"origin" "-6418.7 2833.5 516.4"
+				"display_text" "Come one come all! Get your upgrades here!"
+				"lifetime"     "22"
+			}
+			training_annotation
+			{
+				"targetname" "gate2_upgrade_sign"
+				"origin" "-4982.9 -2107.0 1184.9"
+				"display_text" "Hey fellas I'm back, come get your upgrades!"
+				"lifetime"     "22"
+			}
+			logic_timer
+			{
+				"targetname" "gate1sign_refire"
+				"refiretime" "3.99"
+				"startdisabled" "1"
+				"ontimer" "gate1_cappable_sign,Show"
+			}
+			training_annotation
+			{
+				"targetname" "gate1_cappable_sign"
+				"origin" "-5434.7 1407.3 460.0"
+				"display_text" "The gate can now be captured!"
+				"lifetime"     "4"
+			}
+			logic_timer
+			{
+				"targetname" "gate2sign_refire"
+				"refiretime" "3.99"
+				"startdisabled" "1"
+				"ontimer" "gate2_cappable_sign,Show"
+			}
+			training_annotation
+			{
+				"targetname" "gate2_cappable_sign"
+				"origin" "-3087.7 -2093.9 238.0"
+				"display_text" "The gate can now be captured!"
+				"lifetime"     "4"
+			}
+		}
+		speedtriggers
+		{
+			NoFixup 1
+			logic_auto
+			{
+				"OnMapSpawn" "wave_start_relay,AddOutput,OnTrigger speedboost_refire:Enable::0:-1"
+				"OnMapSpawn" "wave_finished_relay,AddOutput,OnTrigger speedboost_refire:Disable::0:-1"
+				"OnMapSpawn" "wave_reset_relay,AddOutput,OnTrigger speedboost_refire:Disable::0:-1"
+			}
+			logic_timer
+			{
+				"targetname" "speedboost_refire"
+				"refiretime" "1"
+				"startdisabled" "1"
+				"ontimer" "speedboost_*,enable,,0,-1"
+				"ontimer" "speedboost_*,disable,,0.9,-1"
+			}
+			trigger_add_tf_player_condition
+			{
+				"targetname" "speedboost_spawn"
+				"mins" "-1024 -640 -424"
+				"maxs" "1024 640 424"
+				"origin" "-9984 512 616"
+				"condition" "32"
+				"duration" "4"
+				"filtername" "filter_blueteam"
+				"spawnflags" "1"
+				"StartDisabled" "1"
+			}
+			trigger_add_tf_player_condition
+			{
+				"targetname" "speedboost_gate1"
+				"mins" "-464 -288 -160"
+				"maxs" "464 288 160"
+				"origin" "-5424 1888 616"
+				"condition" "32"
+				"duration" "4"
+				"filtername" "filter_blueteam"
+				"spawnflags" "1"
+				"StartDisabled" "1"
+			}
+			trigger_add_tf_player_condition
+			{
+				"targetname" "speedboost_gate1"
+				"mins" "-244 -592 -160"
+				"maxs" "244 592 160"
+				"origin" "-6132 2448 616"
+				"condition" "32"
+				"duration" "4"
+				"filtername" "filter_blueteam"
+				"spawnflags" "1"
+				"StartDisabled" "1"
+			}
+			trigger_add_tf_player_condition
+			{
+				"targetname" "speedboost_gate2"
+				"mins" "-1164 -176 -142"
+				"maxs" "1164 176 142"
+				"origin" "-3788 -2544 1262"
+				"condition" "32"
+				"duration" "4"
+				"filtername" "filter_blueteam"
+				"spawnflags" "1"
+				"StartDisabled" "1"
+			}
+			trigger_add_tf_player_condition
+			{
+				"targetname" "speedboost_gate2"
+				"mins" "-532 -216 -142"
+				"maxs" "532 216 142"
+				"origin" "-4420 -2152 1262"
+				"condition" "32"
+				"duration" "4"
+				"filtername" "filter_blueteam"
+				"spawnflags" "1"
+				"StartDisabled" "1"
 			}
 		}
 		generator_template
@@ -1569,7 +1509,24 @@ WaveSchedule
 				"disableshadows" "1"
 				"solid" "0"
 			}
+			info_particle_system
+			{
+				"targetname" "generator_particle_1"
+				"origin" "-48 0 -15"
+				"effect_name" "utaunt_electricity_cloud_electricity_WY"
+				"flag_as_weather" "0"
+				"start_active" "1"
+			}
+			info_particle_system
+			{
+				"targetname" "generator_particle_2"
+				"origin" "16 0 -15"
+				"effect_name" "utaunt_electricity_cloud_electricity_WY"
+				"flag_as_weather" "0"
+				"start_active" "1"
+			}
 		}
+		
 		PlayerResInput
 		{
 			NoFixup 1

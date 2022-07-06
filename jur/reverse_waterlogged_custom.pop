@@ -30,33 +30,12 @@ WaveSchedule
 		}
 		CustomCanteens
 		{
-			OnSpawnOutput
+			logic_relay
 			{
-				Target "canteen_input"
-				Action "FireUser1"
-				Delay 0.1
-			}
-
-			OnSpawnOutput
-			{
-				Target "set_class_changed_value"
-				Action "$SetKey$case01"
-				Param "$$=!activator.m_iClass"
-				Delay 0
-			}
-
-			OnSpawnOutput
-			{
-				Target "set_class_changed_value"
-				Action "$Format"
-				Delay 0.01
-			}
-
-			OnSpawnOutput
-			{
-				Target "class_changed_check"
-				Action "TestActivator"
-				Delay 0.02
+				"OnSpawn" "canteen_input,FireUser1,,0.1"
+				"OnSpawn" "set_class_changed_value,$SetKey$case01,$$=!activator.m_iClass"
+				"OnSpawn" "set_class_changed_value,$Format,,0.01"
+				"OnSpawn" "class_changed_check,TestActivator,,0.02"
 			}
 
 			logic_case
@@ -473,42 +452,13 @@ WaveSchedule
 		
 		FreelanceMercenary_Logic
 		{
-			OnSpawnOutput 
+			logic_relay
 			{
-				Target "freelance_action_check"
-				Action "Trigger"
-				Delay 0
-			}
-
-			OnSpawnOutput 
-			{
-				Target "!activator"
-				Action "$SetVar$FreelanceEquipped"
-				Param "1"
-				Delay 0
-			}
-
-			OnSpawnOutput 
-			{
-				Target "!activator"
-				Action "$SetVar$FreelanceSwitched"
-				Param "0"
-				Delay 0.1
-			}
-
-			OnSpawnOutput 
-			{
-				Target "!activator"
-				Action "$GetVar$PreFreelanceSwitchHealth"
-				Param "apply_last_health|$SetKey$CompareValue|-1"
-				Delay 0
-			}
-
-			OnSpawnOutput 
-			{
-				Target "apply_last_health"
-				Action "Compare"
-				Delay 0.02//0.06
+				"OnSpawn" "freelance_action_check,Trigger"
+				"OnSpawn" "!activator,$SetVar$FreelanceEquipped,1"
+				"OnSpawn" "!activator,$SetVar$FreelanceSwitched,0,0.1"
+				"OnSpawn" "!activator,$GetVar$PreFreelanceSwitchHealth,apply_last_health|$SetKey$CompareValue|-1"
+				"OnSpawn" "apply_last_health,compare,,0.02"
 			}
 
 			OnParentKilledOutput 
@@ -1292,104 +1242,28 @@ WaveSchedule
 		}
 		Caber_Buster
 		{
-			// OnSpawnOutput
-			// {
-			// 	Target "caber_taunt_checker"
-			// 	Action "Trigger"
-			// 	Delay 0.1
-			// }
-			OnSpawnOutput 
+			logic_relay
 			{
-				Target "common_damage" 
-				Action "$SetOwner"
-				Param "!activator"
-				Delay 0
+				"OnSpawn" "common_damage,$SetOwner,!activator"
+				"OnSpawn" "giant_damage,$SetOwner,!activator"
+				"OnSpawn" "freelance_mercenary_not_equipped,TestActivator,,0.1"
 			}
-			OnSpawnOutput 
+			logic_relay
 			{
-				Target "giant_damage" 
-				Action "$SetOwner"
-				Param "!activator"
-				Delay 0
-			}
-
-			// OnSpawnOutput
-			// {
-			// 	Target "!activator"
-			// 	Action "$AddCond"
-			// 	Param "41"
-			// 	Delay 0
-			// }
-			// OnSpawnOutput
-			// {
-			// 	Target "!activator"
-			// 	Action "$AddCond"
-			// 	Param "85"
-			// 	Delay 0
-			// }
-			// OnSpawnOutput
-			// {
-			// 	Target "!activator"
-			// 	Action "$RemoveCond"
-			// 	Param "85"
-			// 	Delay 0.01
-			// }
-			OnSpawnOutput
-			{
-				Target "freelance_mercenary_not_equipped"
-				Action "TestActivator"
-				Delay 0.1
-			}
-			// OnSpawnOutput
-			// {
-			// 	Target "apply_buster_attributes"
-			// 	Action "Trigger"
-			// 	Delay 0.01
-			// }
-			OnParentKilledOutput 
-			{
-				Target "!activator"
-				Action "SetCustomModel"
-				Param ""
-				Delay 0
-			}
-			OnParentKilledOutput
-			{
-				Target "!activator"
-				Action "AddOutput"
-				Param "modelscale 1"
-				Delay 0
-			}
-			OnParentKilledOutput
-			{
-				Target "!activator"
-				Action "SetForcedTauntCam"
-				Param "0"
-				Delay 0
-			}
-			OnParentKilledOutput
-			{
-				Target "@c@!activator"
-				Action "$ShowToAll"
-				Delay 0.2
+				"targetname" "parent_killed_relay"
+				"OnTrigger" "!activator,SetCustomModel,,0"
+				"OnTrigger" "!activator,AddOutput,modelscale 1"
+				"OnTrigger" "!activator,SetForcedTauntCam,0"
+				"OnTrigger" "@c@!activator,$ShowToAll,,0.2"
+				"OnTrigger" "!activator,$RemoveCond,41"
 			}
 
 			OnParentKilledOutput
 			{
-				Target "!activator"
-				Action "$RemoveCond"
-				Param "41"
+				Target "parent_killed_relay,Trigger"
+				Action "Trigger"
 				Delay 0
 			}
-
-			// $filter_sendprop
-			// {
-			//     "targetname" "filter_is_robot_wearable"
-			//     "$name" "m_nModelIndex"
-			//     "$value" "914"
-			//     "$compare" "equal"
-			//     "Negated" "0"
-			// }
 
 			$filter_variable
 			{
@@ -1670,22 +1544,6 @@ WaveSchedule
 		}
 		Thunderdome_Spawn
 		{
-			OnSpawnOutput
-			{
-				Target "!activator"
-				Action "$AddItemAttribute"
-				Param "CARD: damage bonus|1.25|1"
-				Delay 0
-			}
-
-			OnSpawnOutput
-			{
-				Target "!activator"
-				Action "$AddItemAttribute"
-				Param "CARD: damage bonus|1.25|2"
-				Delay 0
-			}
-
 			OnParentKilledOutput
 			{
 				Target "!activator"
@@ -1702,85 +1560,24 @@ WaveSchedule
 				Delay 0
 			}
 
-			// OnSpawnOutput
-			// {
-			//     Target "@e@m_hMyWeapons@!activator"
-			//     Action "$SetProp$m_iClip1"
-			//     Param "0"
-			//     Delay 0
-			// }
-
-			//very weird hack to prevent switching to weapon
-			// OnSpawnOutput
-			// {
-			//     Target "@e@m_hMyWeapons@!activator"
-			//     Action "$SetProp$m_bFlipViewModel"
-			//     Param "0"
-			//     Delay 0.01
-			// }
-
-			OnSpawnOutput
+			logic_relay
 			{
-				Target "!activator"
-				Action "$WeaponSwitchSlot"
-				Param "1"
-				Delay 0
+				"OnSpawn" "!activator,$AddItemAttribute,CARD: damage bonus|1.25|1"
+				"OnSpawn" "!activator,$AddItemAttribute,CARD: damage bonus|1.25|2"
+				"OnSpawn" "!activator,$WeaponSwitchSlot,1"
+
+				"OnSpawn" "shield_hitbox,$SetOwner,!activator"
+				"OnSpawn" "shield_hitbox2,$SetOwner,!activator"
+
+				"OnSpawn" "projectile_shield,$SetModel,models/props_mvm/mvm_comically_small_player_shield.mdl"
+				"OnSpawn" "rotate,Start"
+				"OnSpawn" "rotate2,Start"
+				"OnSpawn" "rotate,SetParent,,0"
+				"OnSpawn" "rotate2,SetParent,,0"
+				"OnSpawn" "rotate_position,Trigger"
 			}
 
-			OnSpawnOutput
-			{
-				Target "shield_hitbox"
-				Action "$SetOwner"
-				Param "!activator"
-			}
-
-			OnSpawnOutput
-			{
-				Target "shield_hitbox2"
-				Action "$SetOwner"
-				Param "!activator"
-			}
-
-			OnSpawnOutput
-			{
-				Target "projectile_shield"
-				Action "$SetModel"
-				Param "models/props_mvm/mvm_comically_small_player_shield.mdl"
-			}
-
-			OnSpawnOutput
-			{
-				Target "rotate"
-				Action "Start"
-			}
-
-			OnSpawnOutput
-			{
-				Target "rotate2"
-				Action "Start"
-			}
-
-			OnSpawnOutput
-			{
-				Target "rotate"
-				Action "SetParent"
-				Param ""
-			}
-
-			OnSpawnOutput
-			{
-				Target "rotate2"
-				Action "SetParent"
-				Param ""
-			}
-
-			OnSpawnOutput
-			{
-				Target "rotate_position"
-				Action "Trigger"
-			}
-
-			filter_activator_tfteam 
+			filter_activator_tfteam
 			{
 				"targetname" "filter_is_blue"
 				"Negated" "0"

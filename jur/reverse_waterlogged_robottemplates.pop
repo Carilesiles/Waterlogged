@@ -4354,66 +4354,19 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 		}
 		Thunderdome_Bot
 		{
-			OnSpawnOutput
+			logic_relay
 			{
-				Target "!activator"
-				Action "$WeaponSwitchSlot"
-				Param "1"
-				Delay 0
+				"OnSpawn" "shield_hitbox_bot,$SetOwner,!activator"
+				"OnSpawn" "shield_hitbox2_bot,$SetOwner,!activator"
+
+				"OnSpawn" "projectile_shield_bot,$SetModel,models/props_mvm/mvm_comically_small_player_shield.mdl"
+				"OnSpawn" "rotate_bot,Start"
+				"OnSpawn" "rotate2_bot,Start"
+				"OnSpawn" "rotate_bot,SetParent,,0"
+				"OnSpawn" "rotate2_bot,SetParent,,0"
+				"OnSpawn" "rotate_bot_position,Trigger"
 			}
 
-			OnSpawnOutput
-			{
-				Target "shield_hitbox_bot"
-				Action "$SetOwner"
-				Param "!activator"
-			}
-
-			OnSpawnOutput
-			{
-				Target "shield_hitbox2_bot"
-				Action "$SetOwner"
-				Param "!activator"
-			}
-
-			OnSpawnOutput
-			{
-				Target "projectile_shield_bot"
-				Action "$SetModel"
-				Param "models/props_mvm/mvm_comically_small_player_shield.mdl"
-			}
-
-			OnSpawnOutput
-			{
-				Target "rotate_bot"
-				Action "Start"
-			}
-
-			OnSpawnOutput
-			{
-				Target "rotate2_bot"
-				Action "Start"
-			}
-
-			OnSpawnOutput
-			{
-				Target "rotate_bot"
-				Action "SetParent"
-				Param ""
-			}
-
-			OnSpawnOutput
-			{
-				Target "rotate2_bot"
-				Action "SetParent"
-				Param ""
-			}
-
-			OnSpawnOutput
-			{
-				Target "rotate_bot_position"
-				Action "Trigger"
-			}
 			filter_activator_tfteam 
 			{
 				"targetname" "filter_is_blue"

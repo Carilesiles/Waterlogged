@@ -650,9 +650,9 @@ WaveSchedule
 
 			filter_activator_tfteam 
 			{
-				"targetname" "filter_is_blue"
+				"targetname" "filter_is_red"
 				"Negated" "0"
-				"TeamNum" "3"
+				"TeamNum" "2"
 			}
 
 			logic_relay 
@@ -680,7 +680,8 @@ WaveSchedule
 				"maxs" "400 400 400"
 				"spawnflags" "1"
 
-				"filtername" "filter_is_blue"
+                "teamnum" "2"
+				"filtername" "filter_is_red"
 
 				"StartDisabled" "1"
 

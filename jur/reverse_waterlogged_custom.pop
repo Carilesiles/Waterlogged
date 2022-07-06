@@ -1064,7 +1064,7 @@ WaveSchedule
 				"spawnflags" "1"
 				"angles" "0 0 0"
 				"origin" "-1 0 -3"
-				"teamnum" "2"
+				"teamnum" "3"
 				"Crits" "0"
 				"Damage" "0"
 				"ModelScale" "1"

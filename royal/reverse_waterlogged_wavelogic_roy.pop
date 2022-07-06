@@ -1576,7 +1576,7 @@ WaveSchedule
 			}
 			math_counter
 			{
-				"startvalue" "4" // value to change
+				"startvalue" "9" // value to change
 
 
 				"targetname" "playerResVal3"
@@ -1600,6 +1600,8 @@ WaveSchedule
 			{
 				Target "didnt_switch_with_freelance_mercenary"
 				Action TestActivator
+                Delay 0.1
+
 			}
 			// OnParentKilledOutput
 			// {
@@ -1611,11 +1613,11 @@ WaveSchedule
             $filter_variable
 			{
 				"targetname" "didnt_switch_with_freelance_mercenary"
-				"$name" "PreFreelanceSwitchHealth"
-				"$value" "-1"
+				"$name" "FreelanceSwitched"
+				"$value" "1"
 				"$compare" "equal"
 
-				"Negated" "0"
+				"Negated" "1"
 
 				"OnPass" "playerResConfirm,InValue,$$=''..?(int(!activator.hasRes) > 0, ?(int(playerResInWaveTest.inWave) < 1,string('99'),string('1')),?(int(playerResInWaveTest.inWave) < 1,string('99'),string('0'))),0,-1"
                 // "OnPass" "player,$DisplayTextChat,$$=''..?(int(!activator.hasRes) > 0, ?(int(playerResInWaveTest.inWave) < 1,string('99'),string('1')),?(int(playerResInWaveTest.inWave) < 1,string('99'),string('0'))),0,-1"

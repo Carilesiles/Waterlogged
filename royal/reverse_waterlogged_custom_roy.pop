@@ -492,6 +492,14 @@ WaveSchedule
                 Delay 0
 			}
 
+            OnSpawnOutput 
+			{
+				Target "!activator"
+				Action "$SetVar$FreelanceSwitched"
+				Param "0"
+                Delay 0.1
+			}
+
 			OnSpawnOutput 
 			{
 				Target "!activator"
@@ -504,7 +512,7 @@ WaveSchedule
 			{
 				Target "apply_last_health"
 				Action "Compare"
-				Delay 0.06
+				Delay 0.02//0.06
 			}
 
             OnParentKilledOutput 
@@ -523,7 +531,9 @@ WaveSchedule
 				"InitialValue" "-1"
 
 				"OnNotEqualTo" "!activator,$SetKey$health,$$=!activator.PreFreelanceSwitchHealth,-1,-1"
+                
 				"OnNotEqualTo" "!activator,$SetVar$PreFreelanceSwitchHealth,,0,-1"
+				"OnNotEqualTo" "!activator,$SetVar$FreelanceSwitched,1,-1,-1"
 			}
 
             logic_case

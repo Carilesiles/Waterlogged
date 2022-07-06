@@ -111,8 +111,6 @@ WaveSchedule
 		Name CustomCanteensSetup
 	}
 
-	//todo: handle wave restore 
-
 	ExtendedUpgrades
 	{ 
 		newRage 

@@ -1567,7 +1567,7 @@ WaveSchedule
 				"start_active" "1"
 			}
 		}
-		
+
 		PlayerResInput
 		{
 			NoFixup 1
@@ -1637,10 +1637,12 @@ WaveSchedule
 				Target "set_norespawn_relay"
 				Action Trigger
 			}
-            OnParentKilledOutput
+			OnParentKilledOutput
 			{
 				Target "didnt_switch_with_freelance_mercenary"
 				Action TestActivator
+				Delay 0.1
+
 			}
 			// OnParentKilledOutput
 			// {
@@ -1649,17 +1651,17 @@ WaveSchedule
 			// 	Param  "$$=''..?(int(!activator.hasRes) > 0, ?(int(playerResInWaveTest.inWave) < 1,string('99'),string('1')),?(int(playerResInWaveTest.inWave) < 1,string('99'),string('0')))"
 			// }
 
-            $filter_variable
+			$filter_variable
 			{
 				"targetname" "didnt_switch_with_freelance_mercenary"
-				"$name" "PreFreelanceSwitchHealth"
-				"$value" "-1"
+				"$name" "FreelanceSwitched"
+				"$value" "1"
 				"$compare" "equal"
 
-				"Negated" "0"
+				"Negated" "1"
 
 				"OnPass" "playerResConfirm,InValue,$$=''..?(int(!activator.hasRes) > 0, ?(int(playerResInWaveTest.inWave) < 1,string('99'),string('1')),?(int(playerResInWaveTest.inWave) < 1,string('99'),string('0'))),0,-1"
-                // "OnPass" "player,$DisplayTextChat,$$=''..?(int(!activator.hasRes) > 0, ?(int(playerResInWaveTest.inWave) < 1,string('99'),string('1')),?(int(playerResInWaveTest.inWave) < 1,string('99'),string('0'))),0,-1"
+				// "OnPass" "player,$DisplayTextChat,$$=''..?(int(!activator.hasRes) > 0, ?(int(playerResInWaveTest.inWave) < 1,string('99'),string('1')),?(int(playerResInWaveTest.inWave) < 1,string('99'),string('0'))),0,-1"
 				// "OnFail" "player,$DisplayTextChat,$$=!activator.PreFreelanceSwitchHealth,0,-1"
 			}
 			logic_case
@@ -1796,30 +1798,7 @@ WaveSchedule
 				"$OnKilled" "playersLeftAlive,Subtract,1,0,0"
 			}
 		}
-		spy_disguisefix
-		{
-			OnSpawnOutput
-			{
-				Target "disguise_check"
-				Action "Trigger"
-			}
-			filter_tf_condition
-			{
-				"targetname" "filter_is_disguised"
-				"condition" "3"
-
-				"OnPass" "!activator,alpha,255"
-				"OnPass" "!activator,alpha,254,0.01"
-			}
-			logic_relay
-			{
-				"targetname" "disguise_check"
-				"spawnflags" "2"
-
-				"OnTrigger" "filter_is_disguised,TestActivator"
-				"OnTrigger" "!self,Trigger,,0.05"
-			}
-		}
+		
 		humananim_fix
 		{
 			OnSpawnOutput

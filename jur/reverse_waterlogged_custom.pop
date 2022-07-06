@@ -130,10 +130,12 @@ WaveSchedule
 			logic_relay 
 			{
 				"targetname" "canteen_input"
+				"spawnflags" "2"
 
 				//since $getprop with @c@ work like an index loop doing the applied output on every child and default to a set value if the prop index doesn't exist 
 				//I can hook it to a logic_compare and see if the input is different from the default value
 				"OnUser1" "@c@!activator,$GetProp$m_usNumCharges,sanitize_canteen_input|SetValueCompare|6900,0,-1"
+			   // "OnUser1" "@c@!activator,$GetProp$m_usNumCharges,!activator|$DisplayTextChat|def,0,-1"
 				"OnUser1" "vanilla_canteens_bool,SetValue,0,0,-1" //reset for this cycle
 
 				//test for vanilla cans 
@@ -144,12 +146,12 @@ WaveSchedule
 				"OnUser1" "!activator,$GetItemAttribute,9|building instant upgrade|vanilla_canteens_check|SetValueCompare|1988,0,-1"
 				"OnUser1" "vanilla_canteens_bool,Test,,0.01,-1"
 
-				"OnUser1" "!self,FireUser1,,0.2,-1"
+				"OnUser1" "canteen_input,FireUser1,,0.2,-1"
 			}
 
 			logic_compare
 			{
-				//check if canteen count is at 0
+				//check if canteen count is at 0 after use
 				"targetname" "canteen_is_empty"
 
 				"CompareValue" "0"
@@ -173,12 +175,14 @@ WaveSchedule
 			$filter_variable
 			{
 				//check if player has any remaining canteen charges
+				//final step before using custom canteen based on id 
 				"targetname" "canteen_owned_check"
 				"$name" "currentCustomCanteenCharges"
 				"$value" "0"
 				"$compare" "greater than"
 				"Negated" "0"
 
+				//"OnPass" "player,$DisplayTextChat,canteen not empty check passed,0.01,-1"
 				"OnPass" "canteen_effect,TestActivator,,0,-1"
 			}
 
@@ -487,6 +491,14 @@ WaveSchedule
 			OnSpawnOutput 
 			{
 				Target "!activator"
+				Action "$SetVar$FreelanceSwitched"
+				Param "0"
+				Delay 0.1
+			}
+
+			OnSpawnOutput 
+			{
+				Target "!activator"
 				Action "$GetVar$PreFreelanceSwitchHealth"
 				Param "apply_last_health|$SetKey$CompareValue|-1"
 				Delay 0
@@ -496,7 +508,7 @@ WaveSchedule
 			{
 				Target "apply_last_health"
 				Action "Compare"
-				Delay 0.06
+				Delay 0.02//0.06
 			}
 
 			OnParentKilledOutput 
@@ -515,9 +527,11 @@ WaveSchedule
 				"InitialValue" "-1"
 
 				"OnNotEqualTo" "!activator,$SetKey$health,$$=!activator.PreFreelanceSwitchHealth,-1,-1"
+				
 				"OnNotEqualTo" "!activator,$SetVar$PreFreelanceSwitchHealth,,0,-1"
-			} 
-			
+				"OnNotEqualTo" "!activator,$SetVar$FreelanceSwitched,1,-1,-1"
+			}
+
 			logic_case
 			{
 				"targetname" "class_select_menu"
@@ -568,7 +582,9 @@ WaveSchedule
 				"$compare" "equal"
 				"Negated" "1"
 
-				"OnPass" "class_select_menu,$DisplayMenu,!activator,0,-1"
+				//"OnPass" "class_select_menu,$DisplayMenu,!activator,0,-1"
+				"OnPass" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"OnPass" "popscript,$FreelanceMerc_PromptMenu,$$=!activator.m_iClass,0,-1"
 
 				// "OnPass" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
 				// "OnPass" "!activator,$SwitchClassInPlace,$$= test ( !activator.m_iClass + 1 <= 9 , !activator.m_iClass + 1, 1 ) ,0,-1"
@@ -583,6 +599,7 @@ WaveSchedule
 				"OnTrigger" "!self,Trigger,,0.1,-1"
 			}
 		}
+
 
 		ScoutNoOverheal 
 		{
@@ -640,9 +657,9 @@ WaveSchedule
 
 			filter_activator_tfteam 
 			{
-				"targetname" "filter_is_blue"
+				"targetname" "filter_is_red"
 				"Negated" "0"
-				"TeamNum" "3"
+				"TeamNum" "2"
 			}
 
 			logic_relay 
@@ -670,7 +687,8 @@ WaveSchedule
 				"maxs" "400 400 400"
 				"spawnflags" "1"
 
-				"filtername" "filter_is_blue"
+				"teamnum" "2"
+				"filtername" "filter_is_red"
 
 				"StartDisabled" "1"
 

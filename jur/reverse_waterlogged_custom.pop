@@ -1494,7 +1494,7 @@ WaveSchedule
 				"OnPass" "filter_still_demoman,TestActivator,,2,-1"
 			}	
 
-			filter_activator_tfteam 
+			filter_activator_tfteam
 			{
 				"targetname" "filter_is_red"
 				"Negated" "0"

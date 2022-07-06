@@ -1404,6 +1404,12 @@ WaveSchedule
 				Delay 0
 			}
 
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$RemovePlayerAttribute"
+				Param "no resupply"
+			}
 			// $filter_sendprop
 			// {
 			//     "targetname" "filter_is_robot_wearable"

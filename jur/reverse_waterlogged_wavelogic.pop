@@ -1292,17 +1292,20 @@ WaveSchedule
 		bossroom_collision
 		{
 			NoFixup 1
-			OnSpawnOutput
+			$filter_variable
 			{
-				Target collider
-				Action $SetCollisionFilter
-				Param "filter_inSpawn"
+				"targetname" "filter_player_is_buster"
+				"$name" "playerIsBuster"
+				"$value" "1"
+				"$compare" "equal"
+
+				"Negated" "1"
 			}
-			OnSpawnOutput
+			logic_relay
 			{
-				Target bossroom_door_trigger
-				Action AddOutput
-				Param "OnStartTouch !activator:$SetVar$inSpawn:1:0:-1"
+				"OnSpawn" "collider,$SetCollisionFilter,filter_collider"
+				"OnSpawn" "prop_locker*,$SetCollisionFilter,filter_player_is_buster"
+				"OnSpawn" "bossroom_door_trigger,AddOutput,OnStartTouch !activator:$SetVar$inSpawn:1:0:-1"
 			}
 			func_forcefield
 			{
@@ -1327,10 +1330,10 @@ WaveSchedule
 			}
 			filter_multi
 			{
-				"targetname" "filter_player_inSpawn"
-				"filtertype" "0"
-				"filter01" "filter_player"
-				"filter02" "filter_inSpawn"
+				"targetname" "filter_collider"
+				"filtertype" "1"
+				"filter01" "filter_inSpawn"
+				"filter02" "filter_player_is_buster"
 			}
 			trigger_multiple
 			{

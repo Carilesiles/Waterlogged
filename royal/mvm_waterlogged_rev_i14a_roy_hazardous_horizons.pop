@@ -507,7 +507,7 @@ WaveSchedule
 			"fire input on hit" "murasama_hit^Trigger^"
 
 			"special item description" "Each hit propels the user forward and upward"
-			"special item description 2" "Being propelled greatly extends melee range until you land"
+			"special item description 2" "Being propelled greatly extends melee range and provide a 20% ranged damage resistance until you land"
 			"special item description 3" "Restricted to melee with a charge"
 		}
 		"Murasama Charge"
@@ -517,9 +517,10 @@ WaveSchedule
 			"allow bunny hop" 1
 			"custom item model" "models/empty.mdl"
 			//"no_jump" 1
-			"kill refills meter" 0.4
+			//"kill refills meter" 0.4
 			"dmg taken from blast reduced" 1
 			"dmg taken from fire reduced" 1
+            //"dmg from melee increased" 0.8 //20% resistance
 
 			"special item description" "Charging greatly increases movement speed for 1 second"
 		}

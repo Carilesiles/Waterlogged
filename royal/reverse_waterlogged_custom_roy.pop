@@ -944,6 +944,14 @@ WaveSchedule
 				Action "Trigger"
 			}
 
+            OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "RemovePlayerAttribute"
+                Param "dmg from ranged reduced"
+                Delay 0.1
+			}
+
             logic_relay 
             {
                 "targetname" "murasama_spawn"
@@ -995,7 +1003,9 @@ WaveSchedule
 				"condition" "81"
         
 				"OnPass" "!activator,$AddItemAttribute,melee range multiplier|2.5|2,0,-1"
+				"OnPass" "!activator,$AddPlayerAttribute,dmg from ranged reduced|0.8,0,-1"
 				"OnFail" "!activator,$RemoveItemAttribute,melee range multiplier|2,0,-1"
+				"OnFail" "!activator,$RemovePlayerAttribute,dmg from ranged reduced|2,0,-1"
 			}
 
             $filter_sendprop

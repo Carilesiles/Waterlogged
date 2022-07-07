@@ -32,7 +32,7 @@ WaveSchedule
 
 	//Team/Player KVs
 	FastEntityNameLookup 1
-    FastWholeMapTriggers 1
+	FastWholeMapTriggers 1
 	NoReanimators 1
 	MaxSpectators 1
 	RobotLimit 24
@@ -48,7 +48,7 @@ WaveSchedule
 	RemoveBluVelocityLimit 1
 	NoRedBotsRandomCrit 1
 	NoRedSniperBotHeadshots 1
-    FastWholeMapTriggers 1
+	ForceRedMoney 1
 
 	//Visual/Audio KVs
 	TextPrintTime 0
@@ -80,49 +80,51 @@ WaveSchedule
 
 	LuaScript"function vitasawOnHit(_, activat, calle) local teamCheckInstance = ents.FindByName('vitasaw_team_check'); teamCheckInstance:AcceptInput('TestActivator',_,calle,activat); activat:SetName('vitasaw_caller');
 	end"
-
-    LuaScriptFile "scripts/freelance_mercenary_logic.lua"
+	LuaScriptFile "scripts/freelance_mercenary_logic.lua"
 
 	SpawnTemplate bossroom_collision
 	SpawnTemplate Combo_Pyro
 	SpawnTemplate Alternating_Burst
+	SpawnTemplate Widowmaker_Dudebro_Logic
 	Spawntemplate filters_mini
 	SpawnTemplate speedtriggers
 	SpawnTemplate annotations
 	SpawnTemplate bossarena_spawnindicators
-    SpawnTemplate compass_logic
-	SpawnTemplate generator_props
+	SpawnTemplate compass_logic
 
 	SpawnTemplate CanteenPurchase
 
-	// PlayerItemEquipSpawnTemplate 
-	// {
-	// 	Name CustomCanteens
-	// 	ClassName "tf_powerup_bottle"
-	// }
- 
+	//PlayerItemEquipSpawnTemplate 
+	//{
+	//	Name CustomCanteens
+	//	ClassName "tf_powerup_bottle"
+	//	Origin "0 0 0" 
+	//}
+	
 	PlayerSpawnTemplate 
 	{
 		Name CustomCanteens
 	}
 
+
 	PlayerSpawnOnceTemplate
 	{
 		Name CustomCanteensSetup
+		Origin "0 0 0"
 	}
+
+	//todo: handle wave restore 
 
 	ExtendedUpgrades
 	{ 
 		newRage 
 		{
-			//Name "Dispensing Rage"
-            Name "Explosive Rage"
+			Name "Explosive Rage"
 			Cap 1
 			Increment 1 
 			Cost 300
 
-            Description "Deal damage to charge up your rage meter. When fully charged, press the Special-Attack key to fire explosive rounds for 8 seconds"
-			//Description "Deal damage to charge up your Dispense-O-Meter. When fully charged, press the Special-Attack key to activate your dispenser"
+			Description "Deal damage to charge up your rage meter. When fully charged, press the Special-Attack key to fire explosive rounds for 8 seconds"
 
 			Attribute "generate rage on damage" 
 
@@ -145,7 +147,7 @@ WaveSchedule
 			Attribute "mvm completed challenges bitmask" 
 			Cap 5
 			Increment 1 
-			Cost 0//25
+			Cost 25
 
 			UIGroup 2
 
@@ -189,7 +191,7 @@ WaveSchedule
 			Attribute "limited quantity item" 
 			Cap 10
 			Increment 1 
-			Cost 0//100
+			Cost 100
 
 			Description "Reprogram non-giant enemies in a radius"
 
@@ -236,7 +238,7 @@ WaveSchedule
 			Attribute "throwable healing" 
 			Cap 3
 			Increment 1 
-			Cost 0//25
+			Cost 25
 
 			Description "Locked to melee for 5 seconds, greatly increased melee power"
 
@@ -283,9 +285,9 @@ WaveSchedule
 			Attribute "throwable damage" 
 			Cap 3
 			Increment 1 
-			Cost 0//75
+			Cost 75
 
-			Description "Gain various stat buffs for 5 seconds, become weakened for a duration afterward"
+			Description "Gain various buffs for 5 seconds, become weakened for a duration afterward"
 
 			UIGroup 2
 
@@ -330,7 +332,7 @@ WaveSchedule
 			Attribute "throwable particle trail only" 
 			Cap 3
 			Increment 1 
-			Cost 0//50
+			Cost 50
 
 			Description "Cloak for up to 15 seconds, cloak is cancelled when attacking"
 
@@ -378,7 +380,7 @@ WaveSchedule
 			Attribute "decoded by itemdefindex" 
 			Cap 3
 			Increment 1 
-			Cost 0//25
+			Cost 25
 
 			Description "Apply Jarate to enemies within a large radius"
 
@@ -426,7 +428,7 @@ WaveSchedule
 			Attribute "elevate quality" 
 			Cap 3
 			Increment 1 
-			Cost 0//25
+			Cost 25
 
 			Description "Gain knockback resistance for 5 seconds"
 
@@ -470,31 +472,57 @@ WaveSchedule
 
 	SpawnTemplate DirectHit_Rework_Global
 	SpawnTemplate Axe_Rework_Global
-	// SpawnTemplate Vitsaw_Rework_Global
-    //SpawnTemplate FrontalImpact_Global
-    SpawnTemplate Murasama_Global
+	SpawnTemplate Vitsaw_Rework_Global
+	SpawnTemplate Murasama_Global
 
 	CustomWeapon 
 	{
-        "Blundergat"
-        {
-            OriginalItemName "The Force-a-Nature"
+		"Blundergat"
+		{
+			OriginalItemName "The Force-a-Nature"
 
-            //"clip size penalty" 0.1
-            "can headshot" 1
-            "fire rate bonus" 1
-            "scattergun has knockback" 0
-            "is australium item" 1
-            "item style override" 1
-            "bullets per shot bonus" 2
-            "fire rate penalty" 1.3
-            //"move accuracy mult" 1.5
+			//"clip size penalty" 0.1
+			"can headshot" 1
+			"fire rate bonus" 1
+			"scattergun has knockback" 0
+			"is australium item" 1
+			"item style override" 1
+			"bullets per shot bonus" 2
+			"fire rate penalty" 1.3
+			//"move accuracy mult" 1.5
 
-            "special item description" "Curse of The Decommissioned: Cannot be overhealed"
-            // "special item description" "Curse of The Decommissioned: Lose all overheal on fire. Cannot be healed by Medics"
-            // "special item description 2" "+15% bullets per shot for every 100 overheal, rounded upward" 
-        }
+			"special item description" "Curse of The Decommissioned: Cannot be overhealed"
+			// "special item description" "Curse of The Decommissioned: Lose all overheal on fire. Cannot be healed by Medics"
+			// "special item description 2" "+15% bullets per shot for every 100 overheal, rounded upward" 
+		}
+		"Murasama"
+		{
+			OriginalItemName "The Half-Zatoichi"
+			"item color rgb" 25500
+			// "taunt attack time mult" 1.5
+			// "gesture speed increase" 1.5
+			"restore health on kill" 0
+			"increased air control" 3
+			//"melee cleave attack" 1
+			"fire input on hit" "murasama_hit^Trigger^"
 
+			"special item description" "Each hit propels the user forward and upward"
+			"special item description 2" "Being propelled greatly extends melee range until you land"
+			"special item description 3" "Restricted to melee with a charge"
+		}
+		"Murasama Charge"
+		{
+			OriginalItemName "The Tide Turner"
+			//"is invisible" 1
+			"allow bunny hop" 1
+			"custom item model" "models/empty.mdl"
+			//"no_jump" 1
+			"kill refills meter" 0.4
+			"dmg taken from blast reduced" 1
+			"dmg taken from fire reduced" 1
+
+			"special item description" "Charging greatly increases movement speed for 1 second"
+		}
 		"Anti-Aircraft Launcher"
 		{
 			OriginalItemName "The Liberty Launcher"
@@ -526,44 +554,6 @@ WaveSchedule
 			"special item description 2" "Increased damage for secondary and melee"
 			"special item description 3" "No primary weapon"
 		}
-        // "Frontal Impact"
-        // {
-        //     OriginalItemName "Festive Targe 2014"
-
-        //     "dmg taken from blast reduced" 1
-        //     "dmg taken from fire reduced" 1
-        //     "full charge turn control" 1
-        //     "fire input on hit" "frontalimpact_hit^Trigger^"
-        //     "special item description" "On charge impact: propel yourself backward in an arch"
-        // }
-        "Murasama"
-        {
-            OriginalItemName "The Half-Zatoichi"
-            "item color rgb" 25500
-            // "taunt attack time mult" 1.5
-            // "gesture speed increase" 1.5
-            "restore health on kill" 0
-            "increased air control" 3
-            //"melee cleave attack" 1
-            "fire input on hit" "murasama_hit^Trigger^"
-
-            "special item description" "Each hit propels the user forward and upward"
-            "special item description 2" "Being propelled greatly extends melee range until you land"
-            "special item description 3" "Restricted to melee with a charge"
-        }
-        "Murasama Charge"
-        {
-            OriginalItemName "The Tide Turner"
-            //"is invisible" 1
-            "allow bunny hop" 1
-            "custom item model" "models/empty.mdl"
-            //"no_jump" 1
-            "kill refills meter" 0.4
-            "dmg taken from blast reduced" 1
-            "dmg taken from fire reduced" 1
-
-            "special item description" "Charging greatly increases movement speed for 1 second"
-        }
 		"National Pride"
 		{
 			OriginalItemName "Upgradeable TF_WEAPON_PIPEBOMBLAUNCHER"
@@ -582,7 +572,7 @@ WaveSchedule
 
 			"special item description" "Stickybombs grant minicrit to nearby teammates"
 			"special item description 2" "Cannot detonate. only 1 sticky can be active at a time"
-			//"special item description 3" "-30% damage on primary weapon when at least 1 stickybomb is active"
+			"special item description 3" "-30% damage on primary weapon when at least 1 stickybomb is active"
 		}
 		"Kirin's Ascension"
 		{
@@ -594,12 +584,12 @@ WaveSchedule
 			"special item description" "On Cloak: Remove disguise and gain a speed boost with infinite air jumps"
 			"special item description 2" "No disguise while active"
 			"special item description 3" "No cloak effect"
-            "special item description 3" "Cannot gain cloak on hit from primary weapon"
+			"special item description 3" "Cannot gain cloak on hit from primary weapon"
 		}
 		"Rider On The Storm"
 		{
-			OriginalItemName "Activated Campaign 3 Pass" 
-            "attachment scale" 1.5
+			OriginalItemName "Activated Campaign 3 Pass"
+			"attachment scale" 1.5
 			"increased air control" 3
 			"dmg from ranged reduced" 0.9
 			"damage force increase" 2
@@ -607,10 +597,10 @@ WaveSchedule
 			"custom item model" "models/player/items/all_class/spacechem_pin.mdl"
 		}
 
-		"Freelance Mercenary" 
+		"Freelance Mercenary"
 		{
-			OriginalItemName "Halloween Spellbook" 
-			"special item description" "Press the Action key to switch between classes on the fly. Switching class have a 5 seconds cooldown between use"
+			OriginalItemName "Halloween Spellbook"
+			"special item description" "Press the Action key to switch between classes on the fly. 5 second cooldown between uses"
 		}
 	}
 	
@@ -619,7 +609,7 @@ WaveSchedule
 		Scout 
 		{
 			Action {Item "Rider On The Storm" Cost 10}
-            Primary {Item "Blundergat"}
+			Primary {Item "Blundergat"}
 		}
 		Heavyweapons
 		{
@@ -628,9 +618,11 @@ WaveSchedule
 		Demoman 
 		{
 			Secondary {Item "National Pride"}
-            // Secondary {Item "Frontal Impact"}
-            Melee {Item "Murasama"}
+			Melee {Item "Murasama"}
 		}
+
+
+
 		Spy 
 		{
 			PDA2 {Item "Kirin's Ascension"}
@@ -645,17 +637,17 @@ WaveSchedule
 		Name FreelanceMercenary_Logic
 		ItemName "Freelance Mercenary"
 	}
+	
+	PlayerItemEquipSpawnTemplate 
+	{
+		Name ScoutNoOverheal
+		ItemName "Blundergat"
+	}
 
 	PlayerItemEquipSpawnTemplate 
 	{
 		Name BabyFace_Spawn
 		ItemName "Baby Face's Blaster"
-	}
-    
-	PlayerItemEquipSpawnTemplate 
-	{
-		Name ScoutNoOverheal
-		ItemName "Blundergat"
 	}
 	
 	PlayerItemEquipSpawnTemplate 
@@ -664,7 +656,7 @@ WaveSchedule
 		ItemName "Thunderdome"
 	}
 
-	PlayerShootTemplate [$SIGSEGV]  
+	PlayerShootTemplate [$SIGSEGV]
 	{
 		Name rpg_shoottemplate
 		ItemName "Anti-Aircraft Launcher"
@@ -706,13 +698,13 @@ WaveSchedule
 
 		"special item description" "On Kill: Mark for death enemies within 400 hammer units for 5 seconds"
 	}
-	PlayerItemEquipSpawnTemplate 
+	PlayerItemEquipSpawnTemplate
 	{
 		Name Axe_Rework
 		ItemName "Festive Axtinguisher"
 	}
 
-	ItemAttributes 
+	ItemAttributes
 	{
 		ItemName "Festive Axtinguisher"
 
@@ -720,7 +712,7 @@ WaveSchedule
 
 		"special item description" "On Kill: Mark for death enemies within 400 hammer units for 5 seconds"
 	}
-	PlayerItemEquipSpawnTemplate 
+	PlayerItemEquipSpawnTemplate
 	{
 		Name Axe_Rework
 		ItemName "The Postal Pummeler"
@@ -745,7 +737,6 @@ WaveSchedule
 		ItemName "The Ullapool Caber"
 		"not solid to players" 1
 		"special item description" "Becomes a Sentry Buster. Taunt to detonate (revert back to a regular Demoman on detonation)"
-		"special item description 2" "Cannot transform into a Sentry Buster if the Freelance Mercenary is equipped"
 	}
 	PlayerShootTemplate
 	{
@@ -754,13 +745,12 @@ WaveSchedule
 		ItemName "National Pride"
 	}
 
-	PlayerItemEquipSpawnTemplate 
+	PlayerItemEquipSpawnTemplate
 	{
 		Name NationalPride_Spawn
 		ItemName "National Pride"
 	}
-
-	PlayerItemEquipSpawnTemplate 
+	PlayerItemEquipSpawnTemplate
 	{
 		Name Murasama_Spawn
 		ItemName "Murasama"
@@ -769,8 +759,10 @@ WaveSchedule
 	PlayerSpawnTemplate 
 	{
 		Name Rage_Replacement
-		Class Heavyweapons 
+		Class Heavyweapons
 	}
+	
+	PlayerSpawnTemplate "humananim_fix"
 
 	ItemAttributes 
 	{
@@ -801,35 +793,36 @@ WaveSchedule
 		BuildingType "Teleporter Exit" 
 	}
 
-	// PlayerItemEquipSpawnTemplate 
-	// {
-	// 	Name Vitasaw_Rework_Spawn
-	// 	ItemName "The Vita-Saw"
-	// }
 	PlayerItemEquipSpawnTemplate 
 	{
 		Name KirinAscension_Spawn
 		ItemName "Kirin's Ascension"
 	}
 
-	// ItemAttributes 
-	// {
-	// 	ItemName "The Vita-Saw"
+	//PlayerItemEquipSpawnTemplate 
+	//{
+	//	Name Vitasaw_Rework_Spawn
+	//	ItemName "The Vita-Saw"
+	//}
 
-	// 	"fire input on hit" "popscript^$vitasawOnHit^vitasaw_team_check"
-		
-	// 	"damage penalty" 0.09
-	// 	"max health additive penalty" 0
-
-	// 	"special item description" "On Hit Teammate: Exchange 2 organs to give target every banner effects for 5 seconds"
-	// }
+	//ItemAttributes 
+	//{
+	//	ItemName "The Vita-Saw"
+	//
+	//	"fire input on hit" "popscript^$vitasawOnHit^vitasaw_team_check"
+	//	
+	//	"damage penalty" 0.09
+	//	"max health additive penalty" 0
+	//
+	//	"special item description" "On Hit Teammate: Exchange 2 organs to give target every banner effect for 5 seconds"
+	//}
 	
 	ItemAttributes
 	{
 		Classname "tf_weapon_Compound_Bow"
 		"arrow hit kill time" 0.01
 		"special item description" "Fires explosive tipped arrows that stick to enemies and surfaces. Arrows detonate after 3 seconds after contact"
-        "special item description 2" "Splash damage is affected by damage bonus upgrade"
+		"special item description 2" "Splash damage is affected by damage bonus upgrade"
 	}
 
 	PlayerShootTemplate
@@ -1607,7 +1600,7 @@ WaveSchedule
 			}
 		}
 		WaveSpawn
-		{                          
+		{
 			Where summon_chief
 			TotalCount 4
 			MaxActive 4
@@ -1632,7 +1625,7 @@ WaveSchedule
 			}
 		}
 		WaveSpawn
-		{                          
+		{
 			Where summon_chief2
 			TotalCount 1
 			MaxActive 1
@@ -1684,13 +1677,13 @@ WaveSchedule
 		WaveSpawn 
 		{
 			Name "midphase1"
-			Where "spawnbot_arena_1"
-			Where "spawnbot_arena_2"
-			Where "spawnbot_arena_3"
+			Where "spawnbot_arena1"
+			Where "spawnbot_arena2"
+			Where "spawnbot_arena3"
+			Where "spawnbot_arena4"
 			TotalCount 2
 			MaxActive 2
 			SpawnCount 1
-			Support limited
 			TotalCurrency 50
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0
@@ -1698,12 +1691,13 @@ WaveSchedule
 			{
 				Class Scout
 				Name "Armored Scout"
-				ClassIcon scout_stun_giant_armored
+				ClassIcon scout_armored_pda
 				Attributes MiniBoss
 				Skill Expert
 				Health 3000
 				WeaponRestrictions PrimaryOnly
 				AddTemplate RedBot_Giant
+				SpawnTemplate AddBotGlow
 				CharacterAttributes
 				{
 					"override footstep sound set" 5
@@ -1714,13 +1708,13 @@ WaveSchedule
 		WaveSpawn 
 		{
 			Name "midphase1"
-			Where "spawnbot_arena_1"
-			Where "spawnbot_arena_2"
-			Where "spawnbot_arena_3"
+			Where "spawnbot_arena1"
+			Where "spawnbot_arena2"
+			Where "spawnbot_arena3"
+			Where "spawnbot_arena4"
 			TotalCount 3
 			MaxActive 3
 			SpawnCount 1
-			Support limited
 			TotalCurrency 50
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0
@@ -1728,14 +1722,16 @@ WaveSchedule
 			{
 				Template T_TFBot_Heavyweapons_Fist
 				AddTemplate RedBot
+				SpawnTemplate AddBotGlow
 			}
 		}
 		WaveSpawn 
 		{
 			Name "midphase1_support"
-			Where "spawnbot_arena_1"
-			Where "spawnbot_arena_2"
-			Where "spawnbot_arena_3"
+			Where "spawnbot_arena1"
+			Where "spawnbot_arena2"
+			Where "spawnbot_arena3"
+			Where "spawnbot_arena4"
 			TotalCount 5
 			MaxActive 5
 			SpawnCount 1
@@ -1763,9 +1759,10 @@ WaveSchedule
 		WaveSpawn 
 		{
 			Name "midphase2"
-			Where "spawnbot_arena_1"
-			Where "spawnbot_arena_2"
-			Where "spawnbot_arena_3"
+			Where "spawnbot_arena1"
+			Where "spawnbot_arena2"
+			Where "spawnbot_arena3"
+			Where "spawnbot_arena4"
 			WaitForAllDead "midphase1"
 			TotalCount 2
 			MaxActive 2
@@ -1773,20 +1770,21 @@ WaveSchedule
 			TotalCurrency 50
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0
-			Support Limited
 			TFBot
 			{
 				Template T_TFBot_Giant_Soldier_RocketShotgun
 				AddTemplate RedBot_Giant
+				SpawnTemplate AddBotGlow
 			}
 				
 		}
 		WaveSpawn 
 		{
 			Name "midphase2"
-			Where "spawnbot_arena_1"
-			Where "spawnbot_arena_2"
-			Where "spawnbot_arena_3"
+			Where "spawnbot_arena1"
+			Where "spawnbot_arena2"
+			Where "spawnbot_arena3"
+			Where "spawnbot_arena4"
 			WaitForAllDead "midphase1"
 			TotalCount 2
 			MaxActive 2
@@ -1794,11 +1792,11 @@ WaveSchedule
 			TotalCurrency 50
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 0
-			Support Limited
 			TFBot
 			{
 				Template T_TFBot_Sniper_Huntsman_Spammer
 				AddTemplate RedBot
+				SpawnTemplate AddBotGlow
 				ItemAttributes
 				{
 					ItemName "The Huntsman"
@@ -1815,9 +1813,10 @@ WaveSchedule
 		WaveSpawn
 		{
 			Name "midphase2_support"
-			Where "spawnbot_arena_1"
-			Where "spawnbot_arena_2"
-			Where "spawnbot_arena_3"
+			Where "spawnbot_arena1"
+			Where "spawnbot_arena2"
+			Where "spawnbot_arena3"
+			Where "spawnbot_arena4"
 			WaitForAllDead "midphase1"
 			TotalCount 5
 			MaxActive 5
@@ -1844,9 +1843,10 @@ WaveSchedule
 		WaveSpawn
 		{
 			Name "lastphase"
-			Where "spawnbot_arena_1"
-			Where "spawnbot_arena_2"
-			Where "spawnbot_arena_3"
+			Where "spawnbot_arena1"
+			Where "spawnbot_arena2"
+			Where "spawnbot_arena3"
+			Where "spawnbot_arena4"
 			WaitForAllDead "midphase2"
 			TotalCount 100
 			MaxActive 5
@@ -1935,9 +1935,27 @@ WaveSchedule
 			AddCond {Name "TF_COND_REPROGRAMMED" }
 		}
 	}
+	//Mission //Wave 3
+	//{
+	//	Where spawnbot_boss
+	//	Objective Engineer
+	//	BeginAtWave 3
+	//	RunForThisManyWaves 1
+	//	DesiredCount 2
+	//
+	//	InitialCooldown 5
+	//	CooldownTime 35
+	//
+	//	TFBot
+	//	{ 
+	//		Template T_TFBot_Engineer_Sentry_Battle_TeleIn
+	//		AddTemplate RedBot
+	//	}
+	//}
 	Wave // Wave #3
 	{
-		SpawnTemplate "wave3_logic"
+		SpawnTemplate wave3_logic
+		SpawnTemplate generator_props
 		StartWaveOutput
 		{
 			Target wave_start_relay
@@ -2535,7 +2553,7 @@ WaveSchedule
 			{
 				SpawnTemplate "Helicopter_Tank_Init"
 				ClassIcon blimp2_red_rocket_lite_2
-				Health 17500
+				Health 12500
 				Speed 0 
 				Scale 1.1
 				DisableSmokestack 1  
@@ -2725,7 +2743,7 @@ WaveSchedule
 			Support Limited
 			TotalCurrency 25
 			WaitBeforeStarting 10
-			WaitBetweenSpawns 20
+			WaitBetweenSpawns 35
 			RandomChoice
 			{
 				RandomChoice
@@ -2776,7 +2794,7 @@ WaveSchedule
 			SpawnCount 1
 			TotalCurrency 25
 			WaitBeforeStarting 10
-			WaitBetweenSpawns 20
+			WaitBetweenSpawns 35
 			RandomChoice
 			{
 				RandomChoice
@@ -2810,10 +2828,33 @@ WaveSchedule
 				Target chief_killed_relay
 				Action Trigger
 			}
-			TFBot
+			RandomChoice
 			{
-				Template T_TFBot_Chief_Soldier_Alternating
-				AddTemplate RedBot_Giant
+				RandomChoice
+				{
+					TFBot
+					{
+						Template T_TFBot_Chief_Soldier_Alternating
+						AddTemplate RedBot_Giant
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name dummy
+			WaitForAllDead "w3_subwavetwo_boss"
+			Where "spawnbot_boss"
+			TotalCount	1
+			SpawnCount	1
+			TotalCurrency 0
+			WaitBeforeStarting	1
+			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
+			{
+				Name "FakeIcon"
+				ClassIcon soldier_major_crits
+				IsCrit 1
+				IsMiniBoss 1
 			}
 		}
 		WaveSpawn 
@@ -2906,15 +2947,15 @@ WaveSchedule
 		WaveSpawn
 		{
 			Name "w3_subwavetwo_support"
-			Where "spawnbot_balcony_drain_extra"
-			Where "spawnbot_building"
+			Where "spawnbot_side_extra"
+			Where "spawnbot_building_extra"
 			WaitForAllSpawned "w3_subwavetwo_support_sss"
 			TotalCount 40
 			MaxActive 3
 			SpawnCount 1
 			TotalCurrency 40
-			WaitBeforeStarting 12
-			WaitBetweenSpawns 12
+			WaitBeforeStarting 14
+			WaitBetweenSpawns 14
 			Support Limited
 			RandomChoice
 			{
@@ -2970,25 +3011,48 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
-			Name "w3_subwavethree"
+			Name "w3_subwavethree_ash"
 			Where "spawnbot_hatch"
-			WaitForAllSpawned "w3_subwavethree_cfh"
+			WaitForAllDead "w3_subwavethree_cfh"
+			TotalCount 2
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 50
+			WaitBeforeStarting 4
+			WaitBetweenSpawns 15
+			TFBot
+			{
+				Class Scout
+				Name "Armored Scout"
+				ClassIcon scout_armored_pda
+				Attributes MiniBoss
+				Skill Expert
+				Health 3000
+				WeaponRestrictions PrimaryOnly
+				AddTemplate RedBot_Giant
+				CharacterAttributes
+				{
+					"override footstep sound set" 5
+					"move speed penalty" 0.75
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "w3_subwavethree_bhh"
+			Where "spawnbot_hatch"
+			WaitForAllDead "w3_subwavethree_ash"
 			TotalCount 10
 			MaxActive 1
 			SpawnCount 1
 			TotalCurrency 50
-			WaitBeforeStarting 25
-			WaitBetweenSpawns 15
-			RandomChoice
+			WaitBeforeStarting 8
+			WaitBetweenSpawns 35
+			Support Limited
+			TFBot
 			{
-				RandomChoice
-				{
-					TFBot
-					{
-						Template T_TFBot_Giant_Pyro_ComboFlare
-						AddTemplate RedBot_Giant
-					}
-				}
+				Template T_TFBot_Giant_Boxing_Heavy
+				AddTemplate RedBot_Giant
 			}
 		}
 		WaveSpawn
@@ -3009,37 +3073,59 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
-			Name "w3_subwavethree"
+			Name "w3_subwavethree_asg"
 			Where "spawnbot_garage"
-			WaitForAllSpawned "w3_subwavethree_cfg"
-			TotalCount 10
+			WaitForAllDead "w3_subwavethree_cfg"
+			TotalCount 2
 			MaxActive 1
 			SpawnCount 1
 			TotalCurrency 50
-			WaitBeforeStarting 25
+			WaitBeforeStarting 5
 			WaitBetweenSpawns 15
-			Support Limited
-			RandomChoice
+			TFBot
 			{
-				RandomChoice
+				Class Scout
+				Name "Armored Scout"
+				ClassIcon scout_armored_pda
+				Attributes MiniBoss
+				Skill Expert
+				Health 3000
+				WeaponRestrictions PrimaryOnly
+				AddTemplate RedBot_Giant
+				CharacterAttributes
 				{
-					TFBot
-					{
-						Template T_TFBot_Giant_Pyro_ComboFlare
-						AddTemplate RedBot_Giant
-					}
+					"override footstep sound set" 5
+					"move speed penalty" 0.75
 				}
 			}
 		}
 		WaveSpawn
 		{
-			Name "w3_subwavethree_support_de"
+			Name "w3_subwavethree_bhg"
+			Where "spawnbot_garage"
+			WaitForAllDead "w3_subwavethree_asg"
+			TotalCount 10
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 50
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 25
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Giant_Boxing_Heavy
+				AddTemplate RedBot_Giant
+			}
+		}
+		WaveSpawn
+		{
+			Name "w3_subwavethree_support_dei"
 			Where "spawnbot_hatch"
 			Where "spawnbot_garage"
 			TotalCount 6
 			MaxActive 6
 			SpawnCount 1
-			TotalCurrency 60
+			TotalCurrency 40
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 3
 			Support Limited
@@ -3051,17 +3137,16 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
-			Name "w3_subwavethree_support"
+			Name "w3_subwavethree_support_dea"
 			Where "spawnbot_hatch"
 			Where "spawnbot_garage"
-			WaitForAllSpawned "w3_subwavethree_support_de"
-			TotalCount 80
-			MaxActive 8
+			WaitForAllSpawned "w3_subwavethree_support_dei"
+			TotalCount 18
+			MaxActive 9
 			SpawnCount 1
-			TotalCurrency 40
-			WaitBeforeStarting 20
+			TotalCurrency 20
+			WaitBeforeStarting 14
 			WaitBetweenSpawns 3
-			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3076,12 +3161,61 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
+			Name "w3_subwavethree_support_deb"
+			Where "spawnbot_hatch"
+			Where "spawnbot_garage"
+			WaitForAllSpawned "w3_subwavethree_support_dea"
+			TotalCount 18
+			MaxActive 9
+			SpawnCount 1
+			TotalCurrency 20
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 3
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						Template T_TFBot_Pyro_Flaregun
+						AddTemplate RedBot
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "w3_subwavethree_support_dec"
+			Where "spawnbot_hatch"
+			Where "spawnbot_garage"
+			WaitForAllSpawned "w3_subwavethree_support_deb"
+			TotalCount 18
+			MaxActive 9
+			SpawnCount 1
+			TotalCurrency 20
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 3
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						Class Soldier
+						Skill Hard
+						AddTemplate RedBot
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
 			Name "w3_boss_support_sbh"
 			Where "spawnbot_hatch_extra"
 			TotalCount 2
 			MaxActive 1
 			SpawnCount 1
-			TotalCurrency 150
+			TotalCurrency 100
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 25
 			Support Limited
@@ -3159,7 +3293,7 @@ WaveSchedule
 		WaveSpawn 
 		{
 			Name "w3_subwavetwo_boss"
-			Where "spawnbot_building_doppler"
+			Where "spawnbot_hatchshield"
 			WaitForAllDead "generator_fourfivesix"
 			TotalCount 1
 			MaxActive 1
@@ -3198,8 +3332,8 @@ WaveSchedule
 			Action Trigger
 		}
 		WaveSpawn
-		{                          
-			Where spawnbot_heli
+		{
+			Where spawnbot_tank
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
@@ -3214,39 +3348,60 @@ WaveSchedule
 			TFBot
 			{
 				SpawnTemplate Yakuza_Title_Card_Corporal
+				SpawnTemplate AddBotGlow
 				Template T_TFBot_Chief_Canteen
 			}
 		}
-		WaveSpawn 
+		WaveSpawn
 		{
 			Name "w4_subwaveone"
-			Where "spawnbot_scaffold"
-			Where "spawnbot_balcony"
-			TotalCount 8
-			MaxActive 6
+			Where "spawnbot_invasion"
+			TotalCount 100
+			MaxActive 3
 			SpawnCount 1
 			Support limited
-			TotalCurrency 36
+			TotalCurrency 50
 			WaitBeforeStarting 1
-			WaitBetweenSpawns 1
+			WaitBetweenSpawns 12
 			TFBot
 			{
-				Template T_TFBot_Scout_Melee
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
+				Template T_TFBot_Small_Buster
+				AddTemplate RedBot
+				UseCustomModel "models/bots/demo/red_sentry_buster.mdl"
 			}
 		}
 		WaveSpawn
-		{                          
+		{
+			Name "w4_subwaveone"
+			Where "spawnbot_invasion"
+			TotalCount 100
+			MaxActive 6
+			SpawnCount 1
+			Support limited
+			TotalCurrency 50
+			WaitBeforeStarting 1
+			WaitBetweenSpawns 2
+			TFBot
+			{
+				Class Soldier
+				Name "Charged Soldier"
+				ClassIcon soldier_crit
+				Skill Normal
+				Item "The Original"
+				Attributes AlwaysCrit
+				WeaponRestrictions PrimaryOnly
+				ItemAttributes
+				{
+					ItemName "The Original"
+					"faster reload rate" 0.2
+					"fire rate bonus" 2
+					"Projectile speed increased" 0.5
+				}
+				AddTemplate RedBot
+			}
+		}
+		WaveSpawn
+		{
 			Where spawnbot_side
 			TotalCount 1
 			MaxActive 1
@@ -3263,40 +3418,63 @@ WaveSchedule
 			{
 				SpawnTemplate Yakuza_Title_Card_Kazuma
 				Template T_TFBot_Chief_Yakuza
-			}
-		}
-		WaveSpawn 
-		{
-			Name "w4_subwaveone"
-			Where "spawnbot_scaffold"
-			Where "spawnbot_balcony"
-			TotalCount 8
-			MaxActive 6
-			SpawnCount 1
-			Support limited
-			TotalCurrency 36
-			WaitBeforeStarting 1
-			WaitBetweenSpawns 1
-			TFBot
-			{
-				Template T_TFBot_Heavyweapons_Shotgun
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-					"voice pitch scale" 0
-				}
-				SpawnTemplate "points_common_one"
+				SpawnTemplate AddBotGlow
 			}
 		}
 		WaveSpawn
 		{
+			Name "w4_subwavetwo"
+			Where "spawnbot_side"
+			Where "spawnbot_building"
+			Where "spawnbot_balcony_drain"
+			TotalCount 36
+			MaxActive 8
+			SpawnCount 1
+			Support limited
+			TotalCurrency 50
+			WaitBeforeStarting 1
+			WaitBetweenSpawns 2
+			TFBot
+			{
+				Class Heavyweapons
+				Name "Burst Fire Shotgun Heavy"
+				ClassIcon heavy_shotgun_red_burst
+				WeaponRestrictions SecondaryOnly
+				Attributes HoldFireUntilFullReload
+				Item "Panic Attack Shotgun"
+				ItemAttributes
+				{
+					ItemName "Panic Attack Shotgun"
+					"faster reload rate" 0.65
+					"fire rate bonus" 0.25
+					"damage bonus" 0.65
+					"clip size upgrade atomic" 4
+				}
+				AddTemplate RedBot
+			}
+		}
+		WaveSpawn
+		{
+			Name "w4_subwavetwo"
+			Where "spawnbot_side"
+			Where "spawnbot_building"
+			Where "spawnbot_balcony_drain"
+			TotalCount 20
+			MaxActive 3
+			SpawnCount 1
+			Support limited
+			TotalCurrency 50
+			WaitBeforeStarting 1
+			WaitBetweenSpawns 12
+			TFBot
+			{
+				Template T_TFBot_Droneboy
+				AddTemplate RedBot_Giant
+			}
+		}
+		WaveSpawn
+		{
+			Name "w4_finalboss"
 			Where spawnbot_hatchshield
 			TotalCount 1
 			MaxActive 1
@@ -3304,78 +3482,15 @@ WaveSchedule
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
 			TotalCurrency 0
-			
-			DoneOutput
-			{
-				Target go_win_relay
-				Action Trigger
-			}
 			TFBot
 			{
-				//SpawnTemplate Yakuza_Title_Card_Corporal
 				Template T_TFBot_Chief_Canteen
+				SpawnTemplate AddBotGlow
 			}
 		}
 		WaveSpawn
 		{
-			Name "w4_subwaveone"
-			Where "spawnbot_side"
-			Where "spawnbot_balcony_drain"
-			TotalCount 8
-			MaxActive 6
-			SpawnCount 1
-			Support limited
-			TotalCurrency 36
-			WaitBeforeStarting 1
-			WaitBetweenSpawns 1
-			TFBot
-			{
-				Template T_TFBot_Scout_Melee
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-				}
-			}
-		}
-		WaveSpawn 
-		{
-			Name "w4_subwaveone"
-			Where "spawnbot_hatch"
-			Where "spawnbot_garage"
-			TotalCount 8
-			MaxActive 6
-			SpawnCount 1
-			Support limited
-			TotalCurrency 36
-			WaitBeforeStarting 1
-			WaitBetweenSpawns 1
-			TFBot
-			{
-				Template T_TFBot_Heavyweapons_Shotgun
-				Action Mobber  
-				BehaviorModifiers Mobber
-				Attributes IgnoreFlag
-				Attributes DisableDodge
-				UseMeleeThreatPrioritization 1  
-				AddCond { Name "TF_COND_REPROGRAMMED" }
-				CharacterAttributes
-				{
-					"crit mod disabled" 0
-					"force distribute currency on death" 1
-					"voice pitch scale" 0
-				}
-				SpawnTemplate "points_common_one"
-			}
-		}
-		WaveSpawn
-		{
+			Name "w4_finalboss"
 			Where spawnbot_hatchshield
 			TotalCount 1
 			MaxActive 1
@@ -3386,8 +3501,69 @@ WaveSchedule
 
 			TFBot
 			{
-				//SpawnTemplate Yakuza_Title_Card_Kazuma
 				Template T_TFBot_Chief_Yakuza
+				SpawnTemplate AddBotGlow
+			}
+		}
+		WaveSpawn 
+		{
+			Name "w4_subwavethree"
+			Where "spawnbot_hatch"
+			Where "spawnbot_garage"
+			TotalCount 32
+			MaxActive 4
+			SpawnCount 1
+			Support limited
+			TotalCurrency 50
+			WaitBeforeStarting 1
+			WaitBetweenSpawns 8
+			TFBot
+			{
+				
+				Template T_TFBot_Heavyweapons_Fist
+				AddTemplate RedBot
+			}
+		}
+		WaveSpawn 
+		{
+			Name "w4_subwavethree"
+			Where "spawnbot_hatch"
+			Where "spawnbot_garage"
+			TotalCount 100
+			MaxActive 6
+			SpawnCount 1
+			Support limited
+			TotalCurrency 50
+			WaitBeforeStarting 1
+			WaitBetweenSpawns 1
+			TFBot
+			{
+				
+				Template T_TFBot_Soldier_KO_Escapeplan
+				AddTemplate RedBot
+			}
+		}
+		WaveSpawn
+		{
+			WaitForAllDead "w4_finalboss"
+
+			DoneOutput
+			{
+				Target go_win_relay
+				Action Trigger
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			TotalCount 0
+			WaitBeforeStarting 9999
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot { Class Scout ClassIcon hellmet_blank }
+				}
 			}
 		}
 	}
@@ -3517,6 +3693,14 @@ WaveSchedule
 	}
 	ExtraSpawnPoint
 	{
+		Name "spawnbot_tank"
+		TeamNum 2
+		X "-9662"
+		Y "1875"
+		Z "193"
+	}
+	ExtraSpawnPoint
+	{
 		Name "spawnbot_extra"
 		StartDisabled 1
 		TeamNum 2
@@ -3526,8 +3710,8 @@ WaveSchedule
 	}
 	ExtraSpawnPoint
 	{
-		Name "spawnbot_hatchshield"  
-		StartDisabled 1 
+		Name "spawnbot_hatchshield"
+		StartDisabled 1
 		TeamNum 2
 		X "-1132"
 		Y "1686"
@@ -3535,8 +3719,8 @@ WaveSchedule
 	}
 	ExtraSpawnPoint
 	{
-		Name "spawnbot_hatch_extra"  
-		StartDisabled 1 
+		Name "spawnbot_hatch_extra"
+		StartDisabled 1
 		TeamNum 2
 		X "171"
 		Y "1657"
@@ -3544,8 +3728,8 @@ WaveSchedule
 	}
 	ExtraSpawnPoint
 	{
-		Name "spawnbot_garage_extra"  
-		StartDisabled 1 
+		Name "spawnbot_garage_extra"
+		StartDisabled 1
 		TeamNum 2
 		X "664"
 		Y "32"
@@ -3553,8 +3737,8 @@ WaveSchedule
 	}
 	ExtraSpawnPoint
 	{
-		Name "spawnbot_whatever"  
-		StartDisabled 1 
+		Name "spawnbot_whatever"
+		StartDisabled 1
 		TeamNum 2
 		X "-2130"
 		Y "765"
@@ -3572,8 +3756,8 @@ WaveSchedule
 	ExtraSpawnPoint
 	{
 		
-		Name "spawnbot_building_extra"  
-		StartDisabled 1 
+		Name "spawnbot_building_extra"
+		StartDisabled 1
 		TeamNum 2
 		X "-1128"
 		Y "8"
@@ -3582,7 +3766,7 @@ WaveSchedule
 	ExtraSpawnPoint
 	{
 		
-		Name "spawnbot_building_doppler" 
+		Name "spawnbot_building_doppler"
 		TeamNum 2
 		X "-1128"
 		Y "8"
@@ -3591,8 +3775,8 @@ WaveSchedule
 	ExtraSpawnPoint
 	{
 		
-		Name "spawnbot_side_extra"  
-		StartDisabled 1 
+		Name "spawnbot_side_extra"
+		StartDisabled 1
 		TeamNum 2
 		X "-1695"
 		Y "1688"
@@ -3600,7 +3784,7 @@ WaveSchedule
 	}
 	ExtraSpawnPoint 
 	{
-		Name "summon_chief"   
+		Name "summon_chief"
 		TeamNum 2
 		X "-3098.7"
 		Y "-1490.0"
@@ -3610,9 +3794,9 @@ WaveSchedule
 	}
 	ExtraSpawnPoint 
 	{
-		Name "summon_chief2"   
+		Name "summon_chief2"
 		TeamNum 2
-		X "-3098.7"  
+		X "-3098.7"
 		Y "-1490.0"
 		Z "276.6"
 
@@ -3620,9 +3804,9 @@ WaveSchedule
 	}
 	ExtraSpawnPoint 
 	{
-		Name "summon_chief3"   
+		Name "summon_chief3"
 		TeamNum 2
-		X "-3098.7"  
+		X "-3098.7"
 		Y "-1490.0"
 		Z "276.6"
 
@@ -3630,17 +3814,17 @@ WaveSchedule
 	}
 	ExtraSpawnPoint 
 	{
-		Name "spawnbot_heli"   
+		Name "spawnbot_heli"
 		TeamNum 2
-		X "-3098.7"  
+		X "-3098.7"
 		Y "-1490.0"
 		Z "276.6"
 	}
 	ExtraSpawnPoint 
 	{
-		Name "spawnbot_heli2"   
+		Name "spawnbot_heli2"
 		TeamNum 2
-		X "-2086"  
+		X "-2086"
 		Y "-304"
 		Z "276"
 	}
@@ -3652,7 +3836,7 @@ WaveSchedule
 		Y "-376"
 		Z "463"
 	}
-	ExtraSpawnPoint 
+	ExtraSpawnPoint
 	{
 		Name "spawnbot_balcony_extra"
 		TeamNum 2
@@ -3660,7 +3844,7 @@ WaveSchedule
 		Y "-424"
 		Z "463"
 	}
-	ExtraSpawnPoint 
+	ExtraSpawnPoint
 	{
 		Name "spawnbot_scaffold_extra"
 		TeamNum 2
@@ -3675,33 +3859,6 @@ WaveSchedule
 		X "-1164"
 		Y "5462"
 		Z "-379"
-	}
-	ExtraSpawnPoint 
-	{
-		Name "spawnbot_arena_1" 
-		TeamNum 2
-		X "-2808"
-		Y "5895"
-		Z "-145"
-		StartDisabled 1
-	}
-	ExtraSpawnPoint 
-	{
-		Name "spawnbot_arena_2"
-		TeamNum 2
-		X "667"  
-		Y "4136"
-		Z "-145"
-		StartDisabled 1
-	}
-	ExtraSpawnPoint 
-	{
-		Name "spawnbot_arena_3"
-		TeamNum 2
-		X "-2828"  
-		Y "4120"
-		Z "-132"
-		StartDisabled 1
 	}
 	ExtraSpawnPoint
 	{

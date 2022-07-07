@@ -81,13 +81,14 @@ WaveSchedule
 				"$compare" "equal"
 				"Negated" "1"
 
-				"OnPass" "player,$SetVar$currentCustomCanteenCharges,0,0,-1"
-				"OnPass" "player,$SetProp$m_usNumCharges,0,0,-1"
+				"OnPass" "!activator,$SetVar$currentCustomCanteenCharges,0,0,-1"
+				"OnPass" "@c@!activator,$SetProp$m_usNumCharges,0,0,-1"
 			}
 
 			logic_branch
 			{
 				//bool for if player has vanilla canteen
+                //reset their charges count if true
 				"targetname" "vanilla_canteens_bool"
 
 				"InitialValue" "0"
@@ -112,9 +113,9 @@ WaveSchedule
 				"targetname" "canteen_input_used_check"
 
 				"CompareValue" "69420" //to be set later
-
-				"OnLessThan" "canteen_owned_check,TestActivator,,0,-1"
+				"OnLessThan" "canteen_owned_check,TestActivator,,-1,-1"
 				//"OnLessThan" "player,$DisplayTextChat,true,0,-1"
+
 				//"OnGreaterThan" "player,$DisplayTextChat,nah,0,-1"
 			}
 
@@ -127,8 +128,8 @@ WaveSchedule
 				// "OnLessThan" "player,$DisplayTextChat,here,0,-1"
 				// "OnGreaterThan" "player,$DisplayTextChat,here 2,0,-1"
 				// "OnEqualTo" "player,$DisplayTextChat,here 3,0,-1"
-				"OnLessThan" "canteen_input_used_check,SetCompareValue,$$=!activator.currentCustomCanteenCharges,0,-1"
-				"OnLessThan" "canteen_input_used_check,SetValueCompare,,0.01,-1"
+				"OnLessThan" "canteen_input_used_check,SetCompareValue,$$=!activator.currentCustomCanteenCharges,-1,-1"
+				"OnLessThan" "canteen_input_used_check,SetValueCompare,,0,-1"
 			}
 
 			logic_relay 
@@ -139,8 +140,12 @@ WaveSchedule
 				//since $getprop with @c@ work like an index loop doing the applied output on every child and default to a set value if the prop index doesn't exist 
 				//I can hook it to a logic_compare and see if the input is different from the default value
 				"OnUser1" "@c@!activator,$GetProp$m_usNumCharges,sanitize_canteen_input|SetValueCompare|6900,-1,-1"
-                //"OnUser1" "@c@!activator,$GetProp$m_usNumCharges,!activator|$DisplayTextChat|def,0,-1"
-				"OnUser1" "vanilla_canteens_bool,SetValue,0,0,-1" //reset for this cycle
+
+                // "OnUser1" "@c@!activator,$GetProp$m_usNumCharges,!activator|$DisplayTextChat|def,0,-1"
+                // "OnUser1" "!activator,$DisplayTextChat,internal charges count:,-1,-1"
+                // "OnUser1" "!activator,$DisplayTextChat,$$=!activator.currentCustomCanteenCharges,0,-1"
+
+				"OnUser1" "vanilla_canteens_bool,SetValue,0,-1,-1" //reset for this cycle
 
 				//test for vanilla cans 
 				"OnUser1" "!activator,$GetItemAttribute,9|critboost|vanilla_canteens_check|SetValueCompare|1988,0,-1"
@@ -150,7 +155,7 @@ WaveSchedule
 				"OnUser1" "!activator,$GetItemAttribute,9|building instant upgrade|vanilla_canteens_check|SetValueCompare|1988,0,-1"
 				"OnUser1" "vanilla_canteens_bool,Test,,0.01,-1"
 
-				"OnUser1" "canteen_input,FireUser1,,0.2,-1"
+				"OnUser1" "canteen_input,FireUser1,,0.2,-1" 
 			}
 
 			logic_compare
@@ -171,9 +176,9 @@ WaveSchedule
 				"targetname" "canteen_input_success"
 				"spawnflags" "2"
 
-				"OnTrigger" "!activator,$SetVar$currentCustomCanteenCharges,$$=!activator.currentCustomCanteenCharges - 1,0,-1"
-				"OnTrigger" "@c@!activator,$SetProp$m_usNumCharges,$$=!activator.currentCustomCanteenCharges - 1,0,-1"
-				"OnTrigger" "canteen_is_empty,FireUser1,,0.01,-1"
+				"OnTrigger" "!activator,$SetVar$currentCustomCanteenCharges,$$=!activator.currentCustomCanteenCharges - 1,-1,-1"
+				"OnTrigger" "@c@!activator,$SetProp$m_usNumCharges,$$=!activator.currentCustomCanteenCharges - 1,-1,-1"
+				"OnTrigger" "canteen_is_empty,FireUser1,,0,-1"
 			}
 
 			$filter_variable
@@ -187,7 +192,7 @@ WaveSchedule
 				"Negated" "0"
 
                 //"OnPass" "player,$DisplayTextChat,canteen not empty check passed,0.01,-1"
-				"OnPass" "canteen_effect,TestActivator,,0,-1"
+				"OnPass" "canteen_effect,TestActivator,,-1,-1"
 			}
 
 			$filter_variable

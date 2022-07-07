@@ -1620,7 +1620,7 @@ WaveSchedule
 			}
 			math_counter
 			{
-				"startvalue" "4" // value to change
+				"startvalue" "9" // value to change
 
 
 				"targetname" "playerResVal3"

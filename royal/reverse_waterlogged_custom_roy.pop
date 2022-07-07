@@ -1233,6 +1233,22 @@ WaveSchedule
 				Delay 0.1
 			}
 
+			OnParentKilledOutput 
+			{
+				Target "!activator"
+				Action "$RemoveItemAttribute"
+                Param "explosive bullets|0"
+				Delay 0.1
+			}
+
+			OnParentKilledOutput 
+			{
+				Target "!activator"
+				Action "$RemoveItemAttribute"
+                Param "explosion particle|0"
+				Delay 0.1
+			}
+
 			// dispenser_touch_trigger
 			// {
 			// 	"targetname" "heavy_dispenser_trigger"
@@ -1281,6 +1297,8 @@ WaveSchedule
 				//effect
 				//"OnTrigger" "heavy_dispenser_trigger,Enable,,0,-1"
 				"OnTrigger" "!activator,$AddItemAttribute,explosive bullets|147|0,0,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,explosion particle|ExplosionCore_sapperdestroyed|0,0,-1"
+                
 
 				"OnTrigger" "rage_meter,SetValueNoFire,$$=!activator.m_flRageMeter,0,-1"
 				"OnTrigger" "rage_meter_drain,FireUser1,,0.01,-1"
@@ -1307,6 +1325,7 @@ WaveSchedule
                 //effect remove
 				//"OnHitMin" "heavy_dispenser_trigger,Disable,,0,-1"
 				"OnHitMin" "!activator,$RemoveItemAttribute,explosive bullets|0,0,-1"
+				"OnHitMin" "!activator,$RemoveItemAttribute,explosion particle|0,0,-1"
 
 				"OnHitMin" "!activator,$SetClientProp$m_bRageDraining,0,0,-1"
 				"OnHitMin" "!activator,$ResetClientProp$m_flRageMeter,,0.03,-1"
@@ -1316,8 +1335,9 @@ WaveSchedule
 
 				"OnGetValue" "rage_meter,$SetVar$tempRageHolder,,0,-1"
 				"OnGetValue" "!activator,$SetClientProp$m_flRageMeter,$$=rage_meter.tempRageHolder,0.01,-1"
+                "OnGetValue" "!activator,$SetProp$m_flRageMeter,-1000,0,-1" //prevent rage from being reused while active somehow
 
-				"OnUser1" "!self,Subtract,1.5,0,-1" //drain per interval
+				"OnUser1" "!self,Subtract,1.3,0,-1" //drain per interval
 				"OnUser1" "!self,GetValue,,0.01,-1"
 			}
 		}

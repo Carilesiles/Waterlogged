@@ -1035,6 +1035,43 @@ WaveSchedule
 			// }
         }
 
+        NoMercy_Spawn
+        {
+			OnSpawnOutput
+			{
+				Target "nomercy_check"
+				Action "Trigger"
+			}
+
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$SetData$m_flGravity"
+				Param "0"
+			}
+
+            logic_relay 
+            {
+                "targetname" "nomercy_check"
+				"spawnflags" "2"
+
+                "OnTrigger" "filter_ducked,TestActivator,,0,-1"
+				"OnTrigger" "!self,Trigger,,0.1,-1"
+            }
+
+			$filter_sendprop
+			{
+				"targetname" "filter_ducked"
+				"$name" "m_bDucked"
+				"$value" "0"
+				"$compare" "equal"
+				"Negated" "1"
+
+				"OnPass" "!activator,$SetData$m_flGravity,4,0,-1"
+				"OnFail" "!activator,$SetData$m_flGravity,0.3,0,-1"
+			}
+        }
+
 		Explosive_Tip
 		{
 			KeepAlive 1

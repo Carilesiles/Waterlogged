@@ -81,13 +81,14 @@ WaveSchedule
 				"$compare" "equal"
 				"Negated" "1"
 
-				"OnPass" "player,$SetVar$currentCustomCanteenCharges,0,0,-1"
-				"OnPass" "player,$SetProp$m_usNumCharges,0,0,-1"
+				"OnPass" "!activator,$SetVar$currentCustomCanteenCharges,0,0,-1"
+				"OnPass" "@c@!activator,$SetProp$m_usNumCharges,0,0,-1"
 			}
 
 			logic_branch
 			{
 				//bool for if player has vanilla canteen
+				//reset their charges count if true
 				"targetname" "vanilla_canteens_bool"
 
 				"InitialValue" "0"
@@ -112,8 +113,10 @@ WaveSchedule
 				"targetname" "canteen_input_used_check"
 
 				"CompareValue" "69420" //to be set later
+				"OnLessThan" "canteen_owned_check,TestActivator,,-1,-1"
+				//"OnLessThan" "player,$DisplayTextChat,true,0,-1"
 
-				"OnLessThan" "canteen_owned_check,TestActivator,,0,-1"
+				//"OnGreaterThan" "player,$DisplayTextChat,nah,0,-1"
 			}
 
 			logic_compare
@@ -122,9 +125,11 @@ WaveSchedule
 
 				"CompareValue" "6900"
 				
-				//"OnLessThan" "player,$DisplayTextChat,,0,-1"
-				"OnLessThan" "canteen_input_used_check,SetCompareValue,$$=!activator.currentCustomCanteenCharges,0,-1"
-				"OnLessThan" "canteen_input_used_check,SetValueCompare,,0.01,-1"
+				// "OnLessThan" "player,$DisplayTextChat,here,0,-1"
+				// "OnGreaterThan" "player,$DisplayTextChat,here 2,0,-1"
+				// "OnEqualTo" "player,$DisplayTextChat,here 3,0,-1"
+				"OnLessThan" "canteen_input_used_check,SetCompareValue,$$=!activator.currentCustomCanteenCharges,-1,-1"
+				"OnLessThan" "canteen_input_used_check,SetValueCompare,,0,-1"
 			}
 
 			logic_relay 
@@ -134,9 +139,13 @@ WaveSchedule
 
 				//since $getprop with @c@ work like an index loop doing the applied output on every child and default to a set value if the prop index doesn't exist 
 				//I can hook it to a logic_compare and see if the input is different from the default value
-				"OnUser1" "@c@!activator,$GetProp$m_usNumCharges,sanitize_canteen_input|SetValueCompare|6900,0,-1"
-			   // "OnUser1" "@c@!activator,$GetProp$m_usNumCharges,!activator|$DisplayTextChat|def,0,-1"
-				"OnUser1" "vanilla_canteens_bool,SetValue,0,0,-1" //reset for this cycle
+				"OnUser1" "@c@!activator,$GetProp$m_usNumCharges,sanitize_canteen_input|SetValueCompare|6900,-1,-1"
+
+				// "OnUser1" "@c@!activator,$GetProp$m_usNumCharges,!activator|$DisplayTextChat|def,0,-1"
+				// "OnUser1" "!activator,$DisplayTextChat,internal charges count:,-1,-1"
+				// "OnUser1" "!activator,$DisplayTextChat,$$=!activator.currentCustomCanteenCharges,0,-1"
+
+				"OnUser1" "vanilla_canteens_bool,SetValue,0,-1,-1" //reset for this cycle
 
 				//test for vanilla cans 
 				"OnUser1" "!activator,$GetItemAttribute,9|critboost|vanilla_canteens_check|SetValueCompare|1988,0,-1"
@@ -146,7 +155,7 @@ WaveSchedule
 				"OnUser1" "!activator,$GetItemAttribute,9|building instant upgrade|vanilla_canteens_check|SetValueCompare|1988,0,-1"
 				"OnUser1" "vanilla_canteens_bool,Test,,0.01,-1"
 
-				"OnUser1" "canteen_input,FireUser1,,0.2,-1"
+				"OnUser1" "canteen_input,FireUser1,,0.2,-1" 
 			}
 
 			logic_compare
@@ -167,9 +176,9 @@ WaveSchedule
 				"targetname" "canteen_input_success"
 				"spawnflags" "2"
 
-				"OnTrigger" "!activator,$SetVar$currentCustomCanteenCharges,$$=!activator.currentCustomCanteenCharges - 1,0,-1"
-				"OnTrigger" "@c@!activator,$SetProp$m_usNumCharges,$$=!activator.currentCustomCanteenCharges - 1,0,-1"
-				"OnTrigger" "canteen_is_empty,FireUser1,,0.01,-1"
+				"OnTrigger" "!activator,$SetVar$currentCustomCanteenCharges,$$=!activator.currentCustomCanteenCharges - 1,-1,-1"
+				"OnTrigger" "@c@!activator,$SetProp$m_usNumCharges,$$=!activator.currentCustomCanteenCharges - 1,-1,-1"
+				"OnTrigger" "canteen_is_empty,FireUser1,,0,-1"
 			}
 
 			$filter_variable
@@ -183,7 +192,7 @@ WaveSchedule
 				"Negated" "0"
 
 				//"OnPass" "player,$DisplayTextChat,canteen not empty check passed,0.01,-1"
-				"OnPass" "canteen_effect,TestActivator,,0,-1"
+				"OnPass" "canteen_effect,TestActivator,,-1,-1"
 			}
 
 			$filter_variable
@@ -218,15 +227,23 @@ WaveSchedule
 				"Negated" "0"
 			}
 
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_no_tag"
+				"Negated" "1"
+				"require_all_tags" "1"
+				"tags" "no_reprogram"
+			}	
+
 			filter_multi 
 			{
 				"targetname" "filter_can_be_sapped"
 				"Negated" "0"
 				"FilterType" "0"
 				"Filter01" "filter_is_red"
-				"Filter02" "filter_is_not_giant"
+				"Filter02" "filter_no_tag"
+				"Filter03" "filter_is_not_giant"
 			}
-
 
 			trigger_multiple
 			{
@@ -445,17 +462,20 @@ WaveSchedule
 
 			}
 		}
+
 		CanteenPurchase 
 		{
 			NoFixup 1
 
-			logic_relay 
+			logic_relay
 			{
 				"targetname" "canteen_count_update"
 				"spawnflags" "2"
 
 				"$OnUser5" "@c@!activator,$SetProp$m_usNumCharges,,0,-1"
 				"$OnUser5" "!activator,$SetVar$currentCustomCanteenCharges,,0,-1"
+
+				//"$OnUser5" "player,$DisplayTextChat,canteen updated,0,-1"
 
 				"$OnUser5" "!activator,$GetProp$m_iClass,!activator|$SetVar$lastUpdatedClass|69,0,-1"
 			}
@@ -464,6 +484,8 @@ WaveSchedule
 			{
 				"targetname" "on_canteen_empty"
 				"spawnflags" "2"
+
+				//"OnTrigger" "player,$DisplayTextChat,canteen emptied !!!,0,-1"
 
 				"OnTrigger" "!activator,$RemoveItemAttribute,refill_ammo|9,0,-1"
 				"OnTrigger" "!activator,$RemoveItemAttribute,special item description|9,0,-1"
@@ -875,6 +897,7 @@ WaveSchedule
 				"OnTrigger" "!activator,$SetForwardVelocity,300,0,-1"
 			}
 		}
+
 		Murasama_Spawn
 		{
 			// OnSpawnOutput
@@ -903,6 +926,14 @@ WaveSchedule
 			{
 				Target "charge_check"
 				Action "Trigger"
+			}
+
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "RemovePlayerAttribute"
+				Param "dmg from ranged reduced"
+				Delay 0.1
 			}
 
 			logic_relay 
@@ -956,7 +987,9 @@ WaveSchedule
 				"condition" "81"
 		
 				"OnPass" "!activator,$AddItemAttribute,melee range multiplier|2.5|2,0,-1"
+				"OnPass" "!activator,$AddPlayerAttribute,dmg from ranged reduced|0.8,0,-1"
 				"OnFail" "!activator,$RemoveItemAttribute,melee range multiplier|2,0,-1"
+				"OnFail" "!activator,$RemovePlayerAttribute,dmg from ranged reduced|2,0,-1"
 			}
 
 			$filter_sendprop
@@ -985,6 +1018,242 @@ WaveSchedule
 				
 			// }
 		}
+
+		NoMercy_Spawn
+		{
+			OnSpawnOutput
+			{
+				Target "nomercy_check"
+				Action "Trigger"
+			}
+
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$SetData$m_flGravity"
+				Param "0"
+			}
+
+			logic_relay 
+			{
+				"targetname" "nomercy_check"
+				"spawnflags" "2"
+
+				"OnTrigger" "filter_ducked,TestActivator,,0,-1"
+				"OnTrigger" "!self,Trigger,,0.1,-1"
+			}
+
+			$filter_sendprop
+			{
+				"targetname" "filter_ducked"
+				"$name" "m_bDucked"
+				"$value" "0"
+				"$compare" "equal"
+				"Negated" "1"
+
+				"OnPass" "!activator,$SetData$m_flGravity,4,0,-1"
+				"OnFail" "!activator,$SetData$m_flGravity,0.3,0,-1"
+			}
+		}
+
+		ComfortablyNumb_Spawn
+		{
+			OnSpawnOutput 
+			{
+				Target "numbcharge"
+				Action "Trigger"
+			}
+
+			OnSpawnOutput 
+			{
+				Target "sanitize_uber"
+				Action "SetParent"
+				Param "!activator"
+			}
+
+			OnSpawnOutput 
+			{
+				Target "is_numb_ubercharge_active"
+				Action "Trigger"
+				Delay 0.1
+			}
+
+			OnSpawnOutput 
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "$OnDamageReceived dmg_taken:$FireUser5::0:-1"
+			}
+
+			OnSpawnOutput 
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "$OnUser8 popscript:$dealDamageToActivator:$$=dmg_taken_while_uber.damageAmount * 5:-1:-1"
+			}
+
+			OnSpawnOutput 
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "$OnUser8 popscript:$healCaller:$$=dmg_taken_while_uber.damageAmount / 2:-1:-1"
+			}
+
+			OnSpawnOutput 
+			{
+				Target "dmg_taken_normal"
+				Action "SetParent"
+				Param "!activator"
+				Delay 0.1
+			}
+			OnSpawnOutput 
+			{
+				Target "dmg_taken_while_uber"
+				Action "SetParent"
+				Param "!activator"
+				Delay 0.1
+			}
+
+			OnParentKilledOutput 
+			{
+				Target "!activator"
+				Action "$RemoveOutput"
+				Param "$OnDamageReceived"
+			}
+
+			OnParentKilledOutput 
+			{
+				Target "!activator"
+				Action "$RemoveOutput"
+				Param "$OnUser8"
+			}
+
+			OnParentKilledOutput 
+			{
+				Target "@c@!activator"
+				Action "$ResetClientProp$m_flChargeLevel"
+				Delay 0.1
+			}
+
+			OnParentKilledOutput 
+			{
+				Target "!activator"
+				Action "$RemoveItemAttribute"
+				Param "add uber charge on hit|2"
+			}
+
+			logic_relay 
+			{
+				"targetname" "numbcharge"
+
+				"OnTrigger" "@c@!activator,$SetClientProp$m_flChargeLevel,0,0,-1"
+				"OnTrigger" "@c@!activator,$SetProp$m_flChargeLevel,-100000000,0,-1"
+
+				"OnTrigger" "!self,$SetVar$NumbChargeLevel,0,0,-1"
+			}
+
+			logic_compare
+			{
+				"targetname" "is_ubered_final"
+
+				"CompareValue" "1" 
+
+				"OnEqualTo" "dmg_taken_normal,Disable,,0,-1"
+				"OnEqualTo" "dmg_taken_while_uber,Enable,,0,-1"
+
+				//no ubersaw effect while ubered
+				"OnEqualTo" "!activator,$AddItemAttribute,add uber charge on hit|0|2,0,-1"
+
+				"OnEqualTo" "!activator,$AddCond,20,0,-1"
+				"OnEqualTo" "!activator,$AddCond,36,0,-1"
+
+				"OnNotEqualTo" "dmg_taken_normal,Enable,,0,-1"
+				"OnNotEqualTo" "dmg_taken_while_uber,Disable,,0,-1"
+
+				"OnNotEqualTo" "!activator,$RemoveItemAttribute,add uber charge on hit|2,0,-1"
+
+				"OnNotEqualTo" "!activator,$RemoveCond,20,0,-1"
+				"OnNotEqualTo" "!activator,$RemoveCond,36,0,-1"
+			}
+
+			//in hindsight I could've literally just checked for m_bChargeRelease instead of this overengineered unamintainable clusterfuck 
+			logic_compare
+			{
+				"targetname" "sanitize_uber"
+
+				"CompareValue" "-100000001" //comparevalue is set to 0.99 if uber is full and -100000001 if uber is not full 
+
+				//"OnLessThan" "player,$DisplayTextChat,,0,-1"
+
+				"OnLessThan" "sanitize_uber,$SetVar$isUbered,1,-1,-1"
+
+				"OnLessThan" "dmg_taken_normal,Disable,,0,-1"
+				"OnLessThan" "dmg_taken_while_uber,Enable,,0,-1"
+
+				"OnLessThan" "@c@!activator,$ResetClientProp$m_flChargeLevel,,0,-1"
+
+				"OnLessThan" "numbcharge,$SetVar$NumbChargeLevel,,0,-1"
+				"OnLessThan" "sanitize_uber,SetCompareValue,$$= ? (numbcharge.NumbChargeLevel > 0, 0.99, -100000001),0.01,-1"
+
+				//"OnGreaterThan" "@c@!parent,$SetClientProp$m_flChargeLevel,$$=numbcharge.NumbChargeLevel,-1,-1"
+				// "OnGreaterThan" "dmg_taken_normal,Enable,,0,-1"
+				// "OnGreaterThan" "dmg_taken_while_uber,Disable,,0,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "is_numb_ubercharge_active"
+				"spawnflags" "2"
+
+				// "OnTrigger" "@c@!activator,$SetProp$m_flChargeLevel,$$= ? (numbcharge.NumbChargeLevel >= 1, 1, -100000000),-1,-1"
+				// "OnTrigger" "sanitize_uber,SetCompareValue,$$= ? (numbcharge.NumbChargeLevel >= 1, 0.99, -100000001),-1,-1"
+
+				"OnTrigger" "sanitize_uber,$SetVar$isUbered,0,-1,-1"
+				"OnTrigger" "@c@!activator,$GetProp$m_flChargeLevel,sanitize_uber|SetValueCompare|1,0,-1"
+				"OnTrigger" "is_ubered_final,SetValueCompare,$$=sanitize_uber.isUbered,0.01,-1"
+
+				"OnTrigger" "!self,Trigger,,0.1,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "dmg_taken"
+				"spawnflags" "2"
+
+				"$OnUser5" "dmg_taken_normal,$SetVar$DmgTakenHolder,,-1,-1"
+				"$OnUser5" "dmg_taken_normal,Trigger,,0,-1"
+
+				"$OnUser5" "dmg_taken_while_uber,$SetVar$damageAmount,,-1,-1"
+				"$OnUser5" "dmg_taken_while_uber,Trigger,,0,-1"
+			}
+			logic_relay 
+			{
+				"targetname" "dmg_taken_normal"
+				"spawnflags" "2"
+
+				"OnTrigger" "!self,$SetVar$NumbChargeHolder,$$=numbcharge.NumbChargeLevel,-1,-1"
+
+				"OnTrigger" "numbcharge,$SetVar$NumbChargeLevel,$$= clamp ( float( dmg_taken_normal.NumbChargeHolder ) + ( float( dmg_taken_normal.DmgTakenHolder ) / 300 ), 0, 1 ),0,-1"
+
+				//"OnTrigger" "player,$DisplayTextChat,$$=numbcharge.NumbChargeLevel,0.01,-1"
+
+				"OnTrigger" "@c@!parent,$SetClientProp$m_flChargeLevel,$$=numbcharge.NumbChargeLevel,0.01,-1"
+				"OnTrigger" "@c@!parent,$SetProp$m_flChargeLevel,$$= ? (numbcharge.NumbChargeLevel >= 1, 1, -100000000),0.01,-1"
+				"OnTrigger" "sanitize_uber,SetCompareValue,$$= ? (numbcharge.NumbChargeLevel >= 1, 0.99, -100000001),0.01,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "dmg_taken_while_uber"
+				"spawnflags" "2"
+
+				"StartDisabled" "1"
+
+				"OnTrigger" "!parent,$FireUser8,$$=dmg_taken_while_uber.damageAmount,-1,-1"
+				//"OnTrigger" "player,$DisplayTextChat,$$=dmg_taken_while_uber.damageAmount,-1,-1"
+			}
+		}
+
 		
 		Explosive_Tip
 		{
@@ -1194,6 +1463,22 @@ WaveSchedule
 				Delay 0.1
 			}
 
+			OnParentKilledOutput 
+			{
+				Target "!activator"
+				Action "$RemoveItemAttribute"
+				Param "explosive bullets|0"
+				Delay 0.1
+			}
+
+			OnParentKilledOutput 
+			{
+				Target "!activator"
+				Action "$RemoveItemAttribute"
+				Param "explosion particle|0"
+				Delay 0.1
+			}
+
 			// dispenser_touch_trigger
 			// {
 			// 	"targetname" "heavy_dispenser_trigger"
@@ -1242,6 +1527,8 @@ WaveSchedule
 				//effect
 				//"OnTrigger" "heavy_dispenser_trigger,Enable,,0,-1"
 				"OnTrigger" "!activator,$AddItemAttribute,explosive bullets|147|0,0,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,explosion particle|ExplosionCore_sapperdestroyed|0,0,-1"
+				
 
 				"OnTrigger" "rage_meter,SetValueNoFire,$$=!activator.m_flRageMeter,0,-1"
 				"OnTrigger" "rage_meter_drain,FireUser1,,0.01,-1"
@@ -1268,6 +1555,7 @@ WaveSchedule
 				//effect remove
 				//"OnHitMin" "heavy_dispenser_trigger,Disable,,0,-1"
 				"OnHitMin" "!activator,$RemoveItemAttribute,explosive bullets|0,0,-1"
+				"OnHitMin" "!activator,$RemoveItemAttribute,explosion particle|0,0,-1"
 
 				"OnHitMin" "!activator,$SetClientProp$m_bRageDraining,0,0,-1"
 				"OnHitMin" "!activator,$ResetClientProp$m_flRageMeter,,0.03,-1"
@@ -1277,8 +1565,9 @@ WaveSchedule
 
 				"OnGetValue" "rage_meter,$SetVar$tempRageHolder,,0,-1"
 				"OnGetValue" "!activator,$SetClientProp$m_flRageMeter,$$=rage_meter.tempRageHolder,0.01,-1"
+				"OnGetValue" "!activator,$SetProp$m_flRageMeter,-1000,0,-1" //prevent rage from being reused while active somehow
 
-				"OnUser1" "!self,Subtract,1.5,0,-1" //drain per interval
+				"OnUser1" "!self,Subtract,1.3,0,-1" //drain per interval
 				"OnUser1" "!self,GetValue,,0.01,-1"
 			}
 		}

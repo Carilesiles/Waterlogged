@@ -86,7 +86,8 @@ WaveSchedule
 				"OnTrigger" "blu_init_teleport_boss,Enable"
 				"OnTrigger" "upgrade_trigger_boss,Enable"
 				"OnTrigger" "bossroom_door_trigger,Disable"
-				"OnTrigger" "spawnbot_arena*,Disable"
+				"OnTrigger" "spawnbot_arena_*,Disable"
+				"OnTrigger" "arena_indicator*,SetAnimation,idle"
 			}
 			logic_relay
 			{
@@ -131,7 +132,10 @@ WaveSchedule
 				"OnTrigger" "clearbuildings_trigger,Enable"
 				"OnTrigger" "clearbuildings_trigger,Disable,,0.1"
 				"OnTrigger" "blu_init_teleport_boss,Enable"
+				"OnTrigger" "upgrade_trigger_boss,Enable"
 				"OnTrigger" "bossroom_door_trigger,Disable"
+				"OnTrigger" "spawnbot_arena_*,Disable"
+				"OnTrigger" "arena_indicator*,SetAnimation,idle"
 			}
 			logic_relay
 			{
@@ -317,13 +321,13 @@ WaveSchedule
 				"maxs" "7150 4880 2376"
 				"spawnflags" "3"
 				"startdisabled" "1"
-				"OnStartTouch" "!activator,SetCustomModel,models/bots/soldier/bot_soldier.mdl,0,-1"
 			}
 			logic_relay
 			{
 				"targetname" "towers_wipe_relay"
 				"OnTrigger" "blue_stun_reprogram,Enable,,0.1"
 				"OnTrigger" "blue_reprogram,Enable,,0.1"
+				"OnTrigger" "@f@filter_blueteam@player,SetCustomModel,models/bots/soldier/bot_soldier.mdl,0,-1"
 				"OnTrigger" "player,SetForcedTauntCam,1,0.1"
 				"OnTrigger" "wipe_fade_alt,Fade"
 				"OnTrigger" "wipe_loopfix,Trigger"
@@ -695,16 +699,15 @@ WaveSchedule
 				"OnTrigger" "teleport_shapeshift,Enable,,1"
 				"OnTrigger" "shapeshift_retreat_sign*,Show"
 				"OnTrigger" "shapeshift_retreat_sign*,Hide,,7"
-				//"OnTrigger" "spawn_particle*,Start"
-				//"OnTrigger" "spawn_particle*,Stop,,2.5"
 				"OnTrigger" "spawnbot_arena_case2,PickRandom,,1.5"
-				"OnTrigger" "spawnbot_arena*,Disable,,3"
+				"OnTrigger" "spawnbot_arena_*,Disable,,3"
 				"OnTrigger" "player,$PlaySoundToSelf,mvm/mvm_tele_activate.wav"
 			}
 			logic_relay
 			{
 				"targetname" "midphase_end_relay"
 				"OnTrigger" "necromancer_summon*,Enable,0.1"
+				"OnTrigger" "arena_indicator*,SetAnimation,idle"
 				"OnTrigger" "!activator,$RemoveCond,4,0.1,-1"
 				"Ontrigger" "teleport_shapeshift,Disable"
 				"OnTrigger" "teleport_shapeshift_back,Enable"
@@ -716,7 +719,7 @@ WaveSchedule
 			{
 				"targetname" "lastphase_start_relay"
 				//"OnTrigger" "spawn_hologram*,AddOutput,skin 0,3"
-				//"OnTrigger" "spawnbot_arena*,Enable,,5"
+				//"OnTrigger" "spawnbot_arena_*,Enable,,5"
 				"OnTrigger" "rotate_arenaspawns_relay,Trigger,,5"
 				"OnTrigger" "player,$PlaySoundToSelf,mvm/mvm_tele_activate.wav,5"
 			}
@@ -725,35 +728,50 @@ WaveSchedule
 				"targetname" "rotate_arenaspawns_relay"
 				"spawnflags" "2"
 
-				"OnTrigger" "spawnbot_arena*,Disable"
+				"OnTrigger" "spawnbot_arena_*,Disable"
+				"OnTrigger" "arena_indicator*,SetAnimation,idle"
 				"OnTrigger" "spawnbot_arena_case,PickRandomShuffle,,0.01"
 				"OnTrigger" "!self,Trigger,,15"
 			}
 			logic_case
 			{
 				"targetname" "spawnbot_arena_case"
-				"OnCase01" "spawnbot_arena1,Enable,,1,-1"
-				"OnCase02" "spawnbot_arena2,Enable,,1,-1"
-				"OnCase03" "spawnbot_arena3,Enable,,1,-1"
-				"OnCase04" "spawnbot_arena4,Enable,,1,-1"
+				"OnCase01" "spawnbot_arena_1,Enable,,1,-1"
+				"OnCase01" "arena_indicator_1,SetAnimation,spin"
+				"OnCase02" "spawnbot_arena_2,Enable,,1,-1"
+				"OnCase02" "arena_indicator_2,SetAnimation,spin"
+				"OnCase03" "spawnbot_arena_3,Enable,,1,-1"
+				"OnCase03" "arena_indicator_3,SetAnimation,spin"
+				"OnCase04" "spawnbot_arena_4,Enable,,1,-1"
+				"OnCase04" "arena_indicator_4,SetAnimation,spin"
 			}	
 			logic_case
 			{
 				"targetname" "spawnbot_arena_case2"
-				"OnCase01" "spawnbot_arena1,Enable,,1,-1"
-				"OnCase01" "spawnbot_arena2,Enable,,1,-1"
+				"OnCase01" "spawnbot_arena_1,Enable,,1,-1"
+				"OnCase01" "spawnbot_arena_2,Enable,,1,-1"
+				"OnCase01" "arena_indicator_1,SetAnimation,spin"
+				"OnCase01" "arena_indicator_2,SetAnimation,spin"
 
-				"OnCase02" "spawnbot_arena2,Enable,,1,-1"
-				"OnCase02" "spawnbot_arena3,Enable,,1,-1"
+				"OnCase02" "spawnbot_arena_2,Enable,,1,-1"
+				"OnCase02" "spawnbot_arena_3,Enable,,1,-1"
+				"OnCase02" "arena_indicator_2,SetAnimation,spin"
+				"OnCase02" "arena_indicator_3,SetAnimation,spin"
 
-				"OnCase03" "spawnbot_arena3,Enable,,1,-1"
-				"OnCase03" "spawnbot_arena4,Enable,,1,-1"
+				"OnCase03" "spawnbot_arena_3,Enable,,1,-1"
+				"OnCase03" "spawnbot_arena_4,Enable,,1,-1"
+				"OnCase03" "arena_indicator_3,SetAnimation,spin"
+				"OnCase03" "arena_indicator_4,SetAnimation,spin"
 
-				"OnCase04" "spawnbot_arena2,Enable,,1,-1"
-				"OnCase04" "spawnbot_arena4,Enable,,1,-1"
+				"OnCase04" "spawnbot_arena_2,Enable,,1,-1"
+				"OnCase04" "spawnbot_arena_4,Enable,,1,-1"
+				"OnCase04" "arena_indicator_2,SetAnimation,spin"
+				"OnCase04" "arena_indicator_4,SetAnimation,spin"
 
-				"OnCase05" "spawnbot_arena4,Enable,,1,-1"
-				"OnCase05" "spawnbot_arena1,Enable,,1,-1"
+				"OnCase05" "spawnbot_arena_4,Enable,,1,-1"
+				"OnCase05" "spawnbot_arena_1,Enable,,1,-1"
+				"OnCase05" "arena_indicator_4,SetAnimation,spin"
+				"OnCase05" "arena_indicator_1,SetAnimation,spin"
 			}	
 			logic_relay
 			{
@@ -1317,9 +1335,99 @@ WaveSchedule
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 tower_*:AddOutput:targetname defunct_tower:2:-1"
 			}
 		}
+		PlaceHolder
+		{
+			NoFixup 1
+			logic_relay
+			{
+				"targetname" "perhaps"
+				"OnTrigger" "!self,Kill"
+			}
+		}
 		wave5_logic
 		{
 			NoFixup 1
+			logic_relay
+			{
+				"OnSpawn" "arena_indicator*,SetAnimation,spin"
+			}
+			logic_relay
+			{
+				"targetname" "midphase_one_relay"
+				"OnTrigger" "perhaps,Kill"
+				"OnTrigger" "spawnbot_arena,Disable"
+				"OnTrigger" "!activator,$ChangeAttributes,Stunned"
+				"OnTrigger" "rockethell_pattern,CancelPending"
+				"OnTrigger" "spellcard*,CancelPending"
+				"OnTrigger" "spawnbot_arena_case,PickRandom"
+				"OnTrigger" "arena_1_towers_phase,SetValue,2"
+				"OnTrigger" "arena_1_tower_capzone,Enable,,0.01"
+				"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 midphase_end_relay:Trigger::0:-1"
+			}
+			logic_relay
+			{
+				"targetname" "midphase_two_relay"
+				"OnTrigger" "perhaps,Kill"
+				"OnTrigger" "spawnbot_arena,Disable"
+				"OnTrigger" "!activator,$ChangeAttributes,Stunned"
+				"OnTrigger" "spawnbot_arena_case,PickRandom"
+			}
+			logic_relay
+			{
+				"targetname" "midphase_three_relay"
+				"OnTrigger" "perhaps,Kill"
+				"OnTrigger" "spawnbot_arena,Disable"
+				"OnTrigger" "!activator,$ChangeAttributes,Stunned"
+				"OnTrigger" "spawnbot_arena_case,PickRandom"
+				"OnTrigger" "arena_1_towers_phase,SetValue,1"
+				"OnTrigger" "arena_2_towers_phase,SetValue,1"
+				"OnTrigger" "arena_1_tower_capzone,Enable,,0.01"
+				"OnTrigger" "arena_2_tower_capzone,Enable,,0.01"
+				"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1"
+				"OnTrigger" "arena_2_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1"
+			}
+			math_counter
+			{
+				"targetname" "doubletower_counter"
+				"startvalue" "0"
+				"max" "2"
+				"OnHitMax" "midphase_end_relay,Trigger"
+			}
+			logic_relay
+			{
+				"targetname" "midphase_end_relay"
+				"OnTrigger" "player,$ChangeAttributes,PatternRestart"
+				"OnTrigger" "spawnbot_arena,Enable"
+				"OnTrigger" "spawnbot_arena_*,Disable"
+			}
+			logic_case
+			{
+				"targetname" "spawnbot_arena_case"
+				"OnCase01" "spawnbot_arena_1,Enable,,1,-1"
+				"OnCase01" "spawnbot_arena_2,Enable,,1,-1"
+				"OnCase01" "arena_indicator_1,SetAnimation,spin"
+				"OnCase01" "arena_indicator_2,SetAnimation,spin"
+
+				"OnCase02" "spawnbot_arena_2,Enable,,1,-1"
+				"OnCase02" "spawnbot_arena_3,Enable,,1,-1"
+				"OnCase02" "arena_indicator_2,SetAnimation,spin"
+				"OnCase02" "arena_indicator_3,SetAnimation,spin"
+
+				"OnCase03" "spawnbot_arena_3,Enable,,1,-1"
+				"OnCase03" "spawnbot_arena_4,Enable,,1,-1"
+				"OnCase03" "arena_indicator_3,SetAnimation,spin"
+				"OnCase03" "arena_indicator_4,SetAnimation,spin"
+
+				"OnCase04" "spawnbot_arena_2,Enable,,1,-1"
+				"OnCase04" "spawnbot_arena_4,Enable,,1,-1"
+				"OnCase04" "arena_indicator_2,SetAnimation,spin"
+				"OnCase04" "arena_indicator_4,SetAnimation,spin"
+
+				"OnCase05" "spawnbot_arena_4,Enable,,1,-1"
+				"OnCase05" "spawnbot_arena_1,Enable,,1,-1"
+				"OnCase05" "arena_indicator_4,SetAnimation,spin"
+				"OnCase05" "arena_indicator_1,SetAnimation,spin"
+			}
 		}
 		bossroom_collision
 		{
@@ -1653,7 +1761,7 @@ WaveSchedule
 			}
 			math_counter
 			{
-				"startvalue" "4" // value to change
+				"startvalue" "6" // value to change
 
 
 				"targetname" "playerResVal3"

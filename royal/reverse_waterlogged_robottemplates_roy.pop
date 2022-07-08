@@ -1518,7 +1518,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 						"faster reload rate" 0.1
 						"fire rate bonus" 0.3
 						"clip size upgrade atomic" 10.0
-						"Projectile speed increased" 0.4//1.3
+						"Projectile speed increased" 0.05//1.3
 					}
 				}
 

@@ -227,15 +227,23 @@ WaveSchedule
 				"Negated" "0"
 			}
 
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_no_tag"
+				"Negated" "1"
+				"require_all_tags" "1"
+				"tags" "no_reprogram"
+			}	
+
 			filter_multi 
 			{
 				"targetname" "filter_can_be_sapped"
 				"Negated" "0"
 				"FilterType" "0"
 				"Filter01" "filter_is_red"
-				"Filter02" "filter_is_not_giant"
+				"Filter02" "filter_no_tag"
+				"Filter03" "filter_is_not_giant"
 			}
-
 
 			trigger_multiple
 			{

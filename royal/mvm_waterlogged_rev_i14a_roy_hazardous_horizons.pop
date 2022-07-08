@@ -2575,7 +2575,7 @@ WaveSchedule
 			Where "spawnbot_scaffold_extra"
 			WaitForAllSpawned "heli_support_hf"
 			TotalCount 50
-			MaxActive 2
+			MaxActive 1
 			SpawnCount 1
 			TotalCurrency 50
 			WaitBeforeStarting 16
@@ -2659,6 +2659,8 @@ WaveSchedule
 							Delay 0.1
 							Repeats 1
 						}
+
+                        tag no_reprogram
 					}
 				}
 			}
@@ -2687,6 +2689,8 @@ WaveSchedule
 						SpawnTemplate "Helicopter_Shooter_Init" 
 						Template T_TFBot_Helicopter_Shoot
 						AddCond { Name "TF_COND_REPROGRAMMED" }
+
+                        tag no_reprogram
 					}
 				}
 			}
@@ -2919,8 +2923,8 @@ WaveSchedule
 			SpawnCount 1
 			TotalCurrency 0
 			WaitBeforeStarting 0
-			WaitBetweenSpawns 3
-			Support Limited
+			WaitBetweenSpawns 5
+			Support 1
 			RandomChoice
 			{
 				RandomChoice
@@ -3419,6 +3423,8 @@ WaveSchedule
 				Template T_TFBot_Small_Buster
 				AddTemplate RedBot
 				UseCustomModel "models/bots/demo/red_sentry_buster.mdl"
+
+                tag no_reprogram
 			}
 		}
 		WaveSpawn
@@ -3427,11 +3433,11 @@ WaveSchedule
 			Where "spawnbot_invasion"
 			TotalCount 100
 			MaxActive 6
-			SpawnCount 1
+			SpawnCount 3
 			Support limited
 			TotalCurrency 50
 			WaitBeforeStarting 1
-			WaitBetweenSpawns 2
+			WaitBetweenSpawns 8
 			TFBot
 			{
 				Class Soldier
@@ -3480,11 +3486,11 @@ WaveSchedule
 			Where "spawnbot_balcony_drain"
 			TotalCount 36
 			MaxActive 8
-			SpawnCount 1
+			SpawnCount 2
 			Support limited
 			TotalCurrency 50
 			WaitBeforeStarting 1
-			WaitBetweenSpawns 2
+			WaitBetweenSpawns 6
 			TFBot
 			{
 				Class Heavyweapons
@@ -3512,11 +3518,11 @@ WaveSchedule
 			Where "spawnbot_balcony_drain"
 			TotalCount 20
 			MaxActive 3
-			SpawnCount 1
+			SpawnCount 3
 			Support limited
 			TotalCurrency 50
 			WaitBeforeStarting 1
-			WaitBetweenSpawns 12
+			WaitBetweenSpawns 25
 			TFBot
 			{
 				Template T_TFBot_Droneboy
@@ -3562,7 +3568,7 @@ WaveSchedule
 			Where "spawnbot_hatch"
 			Where "spawnbot_garage"
 			TotalCount 32
-			MaxActive 4
+			MaxActive 1
 			SpawnCount 1
 			Support limited
 			TotalCurrency 50
@@ -3586,7 +3592,7 @@ WaveSchedule
 			Support limited
 			TotalCurrency 50
 			WaitBeforeStarting 1
-			WaitBetweenSpawns 1
+			WaitBetweenSpawns 4
 			TFBot
 			{
 				

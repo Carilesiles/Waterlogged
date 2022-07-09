@@ -520,23 +520,11 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				Stunned
 				{
 					Attributes MiniBoss
-					FireInput [$SIGSEGV] 
+					AddCond [$SIGSEGV] //Adds conditions to bots
 					{
-						Target "!activator" //Entity name to use
-						Action "$AddCond" //Input to fire
-						Param "52"
-						Delay 0 //Delay before firing the input
-						Cooldown 10 //Cooldown between firing the input
-						Repeats 0 //How many times should the input be fired
-					}
-					FireInput [$SIGSEGV] 
-					{
-						Target "!activator" //Entity name to use
-						Action "$AddCond" //Input to fire
-						Param "71"
-						Delay 0 //Delay before firing the input
-						Cooldown 10 //Cooldown between firing the input
-						Repeats 0 //How many times should the input be fired
+						Name "TF_COND_INVULNERABLE_HIDE_UNLESS_DAMAGED"
+						Delay 0
+						Duration -1
 					}
 				}
 
@@ -1313,9 +1301,8 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 		T_TFBot_Sergeant_Shapeshift
 		{
 			SpawnTemplate Shapeshift_Logic
-			//SpawnTemplate Shapeshift_Spawn
-			//SpawnTemplate Yakuza_Title_Card_Shapeshift
-			//SpawnTemplate AddBotGlow
+			SpawnTemplate Shapeshift_Spawn
+			SpawnTemplate Yakuza_Title_Card_Shapeshift
 
 			//no fucking clues what slot the invis watch is 
 			// StripItemSlot 3 
@@ -1464,9 +1451,9 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				}
 			}
 
-		   AddCond { Name "TF_COND_REPROGRAMMED" }
+			AddCond { Name "TF_COND_REPROGRAMMED" }
 		}
-
+		
 		T_TFBot_Sergeant_Shapeshift_Supreme
 		{
 			SpawnTemplate Yakuza_Title_Card_Shapeshift_Supreme
@@ -1605,7 +1592,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 						"faster reload rate" 0.1
 						"fire rate bonus" 0.3
 						"clip size upgrade atomic" 10.0
-						"Projectile speed increased" 0.05//1.3
+						"Projectile speed increased" 0.2//1.3
 					}
 				}
 
@@ -2294,7 +2281,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 				"OnTrigger" "!activator,$ChangeAttributes,Soldier,0,-1"
 
-				"OnTrigger" "!activator,$AddCond,40,0.1,-1"
+				//"OnTrigger" "!activator,$AddCond,40,0.1,-1"
 				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
 				
 				"OnTrigger" "!activator,SetCustomModel,models/bots/soldier_boss/bot_soldier_boss.mdl,0.1,-1" 
@@ -3767,7 +3754,6 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"OnUser1" "firer_angle_counter,FireUser1,0,-1"
 				"OnUser1" "!self,FireUser1,,0.03,-1" //interval
 			}
-				
 			math_counter
 			{
 				"targetname" "firer_angle_counter"

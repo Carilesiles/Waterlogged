@@ -35,14 +35,15 @@ WaveSchedule
 				"OnTrigger" "barrier_factory_relay_enable,Trigger"
 				"OnTrigger" "barrier_gate1_relay_enable,Trigger"
 				"OnTrigger" "barrier_gate2_relay_enable,Trigger"
-				"OnTrigger" "barrier_gate1_relay*,Enable"
 
 				"OnTrigger" "gate1_door_trigger,Disable"
 				"OnTrigger" "gate2_door_trigger,Disable"
 				"OnTrigger" "gate1_door_trigger,AddOutput,OnStartCap gate1sign_refire:Disable::0:-1"
 				"OnTrigger" "gate1_door_trigger,AddOutput,OnEndCap gate1sign_refire:Enable::0:-1"
+				"OnTrigger" "gate1_door_trigger,AddOutput,OnCapTeam2 gate1sign_refire:Disable::0:-1"
 				"OnTrigger" "gate2_door_trigger,AddOutput,OnStartCap gate2sign_refire:Disable::0:-1"
 				"OnTrigger" "gate2_door_trigger,AddOutput,OnEndCap gate2sign_refire:Enable::0:-1"
+				"OnTrigger" "gate2_door_trigger,AddOutput,OnCapTeam2 gate1sign_refire:Disable::0:-1"
 				"OnTrigger" "wave_start_relay,AddOutput,OnTrigger gate1_door_trigger:Disable::0.11:-1"
 				"OnTrigger" "wave_start_relay,AddOutput,OnTrigger gate2_door_trigger:Disable::0.11:-1"
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger gate1_alarm_door_reset_relay:Enable::0:-1"
@@ -75,8 +76,6 @@ WaveSchedule
 
 				"OnTrigger" "gate1_relay,AddOutput,OnTrigger general_gate1_relay:Trigger::0:-1"
 				"OnTrigger" "gate2_relay,AddOutput,OnTrigger general_gate2_relay:Trigger::0:-1"
-
-				"OnTrigger" "barrier_gate1_relay_disable,Disable,,0.1"
 			}
 			logic_relay
 			{
@@ -88,6 +87,7 @@ WaveSchedule
 				"OnTrigger" "bossroom_door_trigger,Disable"
 				"OnTrigger" "spawnbot_arena_*,Disable"
 				"OnTrigger" "arena_indicator*,SetAnimation,idle"
+				"OnTrigger" "arena_indicator*,AddOutput,skin 1"
 			}
 			logic_relay
 			{
@@ -136,6 +136,7 @@ WaveSchedule
 				"OnTrigger" "bossroom_door_trigger,Disable"
 				"OnTrigger" "spawnbot_arena_*,Disable"
 				"OnTrigger" "arena_indicator*,SetAnimation,idle"
+				"OnTrigger" "arena_indicator*,AddOutput,skin 1"
 			}
 			logic_relay
 			{
@@ -254,7 +255,27 @@ WaveSchedule
 				"TeamNum" "2"
 				"startdisabled" "1"
 			}
-			
+			training_annotation
+			{
+				"targetname" "gate1_upgrade_sign"
+				"origin" "-6418.7 2833.5 516.4"
+				"display_text" "Come one come all! Get your upgrades here!"
+				"lifetime"     "22"
+			}
+			training_annotation
+			{
+				"targetname" "gate2_upgrade_sign"
+				"origin" "-4982.9 -2107.0 1184.9"
+				"display_text" "Hey fellas I'm back, come get your upgrades!"
+				"lifetime"     "22"
+			}
+			training_annotation
+			{
+				"targetname" "gate2_upgrade_sign2"
+				"origin" " -4071.288574 -1997.408813 505.022308"
+				"display_text" "You can get to the shop through this nifty little vent here."
+				"lifetime"     "18"
+			}
 			trigger_teleport
 			{
 				"targetname" "hatchshield_collision_stuckfix"
@@ -327,7 +348,9 @@ WaveSchedule
 				"targetname" "towers_wipe_relay"
 				"OnTrigger" "blue_stun_reprogram,Enable,,0.1"
 				"OnTrigger" "blue_reprogram,Enable,,0.1"
-				"OnTrigger" "@f@filter_blueteam@player,SetCustomModel,models/bots/soldier/bot_soldier.mdl,0,-1"
+				//"OnTrigger" "@f@filter_blueteam@player,SetCustomModel,models/bots/soldier/bot_soldier.mdl,0,-1"
+				//"OnTrigger" "@f@filter_blueteam@player,AddOutput,targetname losers,0,-1"
+				//"OnTrigger" "losers,SetCustomModel,models/bots/soldier/bot_soldier.mdl,0.15,-1"
 				"OnTrigger" "player,SetForcedTauntCam,1,0.1"
 				"OnTrigger" "wipe_fade_alt,Fade"
 				"OnTrigger" "wipe_loopfix,Trigger"
@@ -338,6 +361,7 @@ WaveSchedule
 				"targetname" "towers_alt_wipe_relay"
 				"OnTrigger" "blue_stun_reprogram,Enable,,0.1"
 				"OnTrigger" "blue_reprogram,Enable,,0.1"
+				//"OnTrigger" "player,SetCustomModel,models/bots/soldier/bot_soldier.mdl,0,-1"
 				"OnTrigger" "player,SetForcedTauntCam,1,0.1"
 				"OnTrigger" "wipe_fade_alt,Fade"
 				"OnTrigger" "wipe_loopfix,Trigger"
@@ -439,13 +463,6 @@ WaveSchedule
 			}
 			training_annotation
 			{
-				"targetname" "gate2_upgrade_sign2"
-				"origin" " -4071.288574 -1997.408813 505.022308"
-				"display_text" "You can get to the shop through this nifty little vent here."
-				"lifetime"     "18"
-			}
-			training_annotation
-			{
 				"targetname" "losscondition_bomb_sign"
 				"origin" "-1128 1684 164"
 				"display_text" "Take out Sergeant Shapeshift before the bomb is defused!"
@@ -503,7 +520,7 @@ WaveSchedule
 				"targetname" "w1_subwaveone_complete_relay"
 				"OnTrigger" "player,$ChangeAttributes,SubwaveOne_Complete"
 				"OnTrigger" "barrier_factory_relay_disable,Trigger"
-				"OnTrigger" "spawnbot_factory*,Disable"
+				"OnTrigger" "factory_done_relay,Trigger"
 				"OnTrigger" "spawnbot_scaffold,Enable"
 				"OnTrigger" "spawnbot_balcony,Enable"
 			}
@@ -708,6 +725,7 @@ WaveSchedule
 				"targetname" "midphase_end_relay"
 				"OnTrigger" "necromancer_summon*,Enable,0.1"
 				"OnTrigger" "arena_indicator*,SetAnimation,idle"
+				"OnTrigger" "arena_indicator*,AddOutput,skin 1"
 				"OnTrigger" "!activator,$RemoveCond,4,0.1,-1"
 				"Ontrigger" "teleport_shapeshift,Disable"
 				"OnTrigger" "teleport_shapeshift_back,Enable"
@@ -730,6 +748,7 @@ WaveSchedule
 
 				"OnTrigger" "spawnbot_arena_*,Disable"
 				"OnTrigger" "arena_indicator*,SetAnimation,idle"
+				"OnTrigger" "arena_indicator*,AddOutput,skin 1"
 				"OnTrigger" "spawnbot_arena_case,PickRandomShuffle,,0.01"
 				"OnTrigger" "!self,Trigger,,15"
 			}
@@ -738,40 +757,55 @@ WaveSchedule
 				"targetname" "spawnbot_arena_case"
 				"OnCase01" "spawnbot_arena_1,Enable,,1,-1"
 				"OnCase01" "arena_indicator_1,SetAnimation,spin"
+				"OnCase01" "arena_indicator_1,AddOutput,skin 4"
 				"OnCase02" "spawnbot_arena_2,Enable,,1,-1"
 				"OnCase02" "arena_indicator_2,SetAnimation,spin"
+				"OnCase02" "arena_indicator_2,AddOutput,skin 4"
 				"OnCase03" "spawnbot_arena_3,Enable,,1,-1"
 				"OnCase03" "arena_indicator_3,SetAnimation,spin"
+				"OnCase03" "arena_indicator_3,AddOutput,skin 4"
 				"OnCase04" "spawnbot_arena_4,Enable,,1,-1"
 				"OnCase04" "arena_indicator_4,SetAnimation,spin"
+				"OnCase04" "arena_indicator_4,AddOutput,skin 4"
 			}	
 			logic_case
 			{
 				"targetname" "spawnbot_arena_case2"
 				"OnCase01" "spawnbot_arena_1,Enable,,1,-1"
-				"OnCase01" "spawnbot_arena_2,Enable,,1,-1"
 				"OnCase01" "arena_indicator_1,SetAnimation,spin"
+				"OnCase01" "arena_indicator_1,AddOutput,skin 4"
+				"OnCase01" "spawnbot_arena_2,Enable,,1,-1"
 				"OnCase01" "arena_indicator_2,SetAnimation,spin"
+				"OnCase01" "arena_indicator_2,AddOutput,skin 4"
 
 				"OnCase02" "spawnbot_arena_2,Enable,,1,-1"
-				"OnCase02" "spawnbot_arena_3,Enable,,1,-1"
+				"OnCase02" "arena_indicator_2,AddOutput,skin 4"
 				"OnCase02" "arena_indicator_2,SetAnimation,spin"
+				"OnCase02" "spawnbot_arena_3,Enable,,1,-1"
 				"OnCase02" "arena_indicator_3,SetAnimation,spin"
+				"OnCase02" "arena_indicator_3,AddOutput,skin 4"
 
 				"OnCase03" "spawnbot_arena_3,Enable,,1,-1"
-				"OnCase03" "spawnbot_arena_4,Enable,,1,-1"
 				"OnCase03" "arena_indicator_3,SetAnimation,spin"
+				"OnCase03" "arena_indicator_3,AddOutput,skin 4"
 				"OnCase03" "arena_indicator_4,SetAnimation,spin"
+				"OnCase03" "spawnbot_arena_4,Enable,,1,-1"
+				"OnCase03" "arena_indicator_4,AddOutput,skin 4"
 
 				"OnCase04" "spawnbot_arena_2,Enable,,1,-1"
-				"OnCase04" "spawnbot_arena_4,Enable,,1,-1"
 				"OnCase04" "arena_indicator_2,SetAnimation,spin"
+				"OnCase04" "arena_indicator_2,AddOutput,skin 4"
+				"OnCase04" "spawnbot_arena_4,Enable,,1,-1"
 				"OnCase04" "arena_indicator_4,SetAnimation,spin"
+				"OnCase04" "arena_indicator_4,AddOutput,skin 4"
+
 
 				"OnCase05" "spawnbot_arena_4,Enable,,1,-1"
-				"OnCase05" "spawnbot_arena_1,Enable,,1,-1"
 				"OnCase05" "arena_indicator_4,SetAnimation,spin"
+				"OnCase05" "arena_indicator_4,AddOutput,skin 4"
+				"OnCase05" "spawnbot_arena_1,Enable,,1,-1"
 				"OnCase05" "arena_indicator_1,SetAnimation,spin"
+				"OnCase05" "arena_indicator_1,AddOutput,skin 4"
 			}	
 			logic_relay
 			{
@@ -817,7 +851,7 @@ WaveSchedule
 			training_annotation
 			{
 				"targetname" "addspawn_sign1"
-				"origin" "-2808 5895 -192"
+				"origin" "740 4700 -260"
 				"display_text" "Defeat his subsidiaries to draw him out!"
 				"lifetime"     "3"
 			}
@@ -897,6 +931,10 @@ WaveSchedule
 			{
 				"targetname" "mark_generator_six"
 				"origin" "-940 1888 95"
+			}
+			path_track
+			{
+
 			}
 		}
 		intel_compass_boss
@@ -1230,6 +1268,13 @@ WaveSchedule
 				"display_text" "The tower can now be captured!"
 				"lifetime"     "4"
 			}
+			training_annotation
+			{
+				"targetname" "go_win_sign"
+				"origin" "-1190 2126 334"
+				"display_text" "Jump through!"
+				"lifetime"     "10"
+			}
 			logic_relay
 			{
 				"OnSpawn" "@f@filter_bluespawnroom@func_respawnroomvisualizer,Disable"
@@ -1239,6 +1284,7 @@ WaveSchedule
 				"OnSpawn" "gate1_spawn_door,Open"
 				"OnSpawn" "gate1_bot_blocker,Disable"
 				"OnSpawn" "towers_phase,SetValue,1"
+				"OnSpawn" "towers_template,AddOutput,OnEntitySpawned tower_capzone:SetTeamCanCap:3 0:0:-1"
 				"OnSpawn" "brush_hatch_window,Disable"
 				"OnSpawn" "barrier_hatch_window,Enable"
 			}
@@ -1285,8 +1331,8 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "chief_killed_relay"
-				"OnTrigger" "tower_capzone,Enable"
-				"OnTrigger" "tower_controlpoint,SetLocked,0"
+				"OnTrigger" "tower_capzone,SetTeamCanCap,3 1"
+				"OnTrigger" "tower_capzone_prop,Enable"
 				"OnTrigger" "tower1_cappable_sign,Show"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_invasion:Disable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_side:Enable::8:-1"
@@ -1298,8 +1344,8 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "chief2_killed_relay"
-				"OnTrigger" "tower_capzone,Enable"
-				"OnTrigger" "tower_controlpoint,SetLocked,0"
+				"OnTrigger" "tower_capzone,SetTeamCanCap,3 1"
+				"OnTrigger" "tower_capzone_prop,Enable"
 				"OnTrigger" "towers_capped_current,Disable"
 				"OnTrigger" "tower2_cappable_sign,Show"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_balcony_drain:Disable::0:-1"
@@ -1321,8 +1367,8 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "go_win_relay"
-				"OnTrigger" "tower_capzone,Enable"
-				"OnTrigger" "tower_controlpoint,SetLocked,0"
+				"OnTrigger" "tower_capzone,SetTeamCanCap,3 1"
+				"OnTrigger" "tower_capzone_prop,Enable"
 				"OnTrigger" "tower3_cappable_sign,Show"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_hatch:Disasble::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_garage:Disable::0:-1"
@@ -1330,6 +1376,7 @@ WaveSchedule
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_hatchshield:Enable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 barrier_hatch_window:Disable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 brush_portal_hatchwindow:$SetCollisionFilter:filter_redteam:0:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 go_win_sign:Show::0:-1"
 
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 towers_activation_relay:CancelPending::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 tower_*:AddOutput:targetname defunct_tower:2:-1"
@@ -1357,12 +1404,14 @@ WaveSchedule
 				"OnTrigger" "perhaps,Kill"
 				"OnTrigger" "spawnbot_arena,Disable"
 				"OnTrigger" "!activator,$ChangeAttributes,Stunned"
+				"OnTrigger" "bot_stun_reprogram_ranger,Enable"
+				"OnTrigger" "bot_stun_reprogram_ranger,Disable,,0.1"
 				"OnTrigger" "rockethell_pattern,CancelPending"
 				"OnTrigger" "spellcard*,CancelPending"
 				"OnTrigger" "spawnbot_arena_case,PickRandom"
 				"OnTrigger" "arena_1_towers_phase,SetValue,2"
 				"OnTrigger" "arena_1_tower_capzone,Enable,,0.01"
-				"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 midphase_end_relay:Trigger::0:-1"
+				"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 midphase_end_relay:Trigger::0:-1,0.1"
 			}
 			logic_relay
 			{
@@ -1370,6 +1419,8 @@ WaveSchedule
 				"OnTrigger" "perhaps,Kill"
 				"OnTrigger" "spawnbot_arena,Disable"
 				"OnTrigger" "!activator,$ChangeAttributes,Stunned"
+				"OnTrigger" "bot_stun_reprogram_ranger,Enable"
+				"OnTrigger" "bot_stun_reprogram_ranger,Disable,,0.1"
 				"OnTrigger" "spawnbot_arena_case,PickRandom"
 			}
 			logic_relay
@@ -1378,13 +1429,15 @@ WaveSchedule
 				"OnTrigger" "perhaps,Kill"
 				"OnTrigger" "spawnbot_arena,Disable"
 				"OnTrigger" "!activator,$ChangeAttributes,Stunned"
+				"OnTrigger" "bot_stun_reprogram_ranger,Enable"
+				"OnTrigger" "bot_stun_reprogram_ranger,Disable,,0.1"
 				"OnTrigger" "spawnbot_arena_case,PickRandom"
 				"OnTrigger" "arena_1_towers_phase,SetValue,1"
 				"OnTrigger" "arena_2_towers_phase,SetValue,1"
 				"OnTrigger" "arena_1_tower_capzone,Enable,,0.01"
 				"OnTrigger" "arena_2_tower_capzone,Enable,,0.01"
-				"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1"
-				"OnTrigger" "arena_2_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1"
+				"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1,0.1"
+				"OnTrigger" "arena_2_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1,0.1"
 			}
 			math_counter
 			{
@@ -1427,6 +1480,54 @@ WaveSchedule
 				"OnCase05" "spawnbot_arena_1,Enable,,1,-1"
 				"OnCase05" "arena_indicator_4,SetAnimation,spin"
 				"OnCase05" "arena_indicator_1,SetAnimation,spin"
+			}
+			trigger_add_tf_player_condition
+			{
+				"targetname" "bot_stun_reprogram_ranger"
+				"condition" "71"
+				"duration" "9999"
+				"filtername" "filter_ranger"
+				"origin" "-4878 1552 952"
+				"mins" "-7150 -4880 -2376"
+				"maxs" "7150 4880 2376"
+				"spawnflags" "3"
+				"startdisabled" "1"
+			}
+			filter_tf_bot_has_tag
+			{
+				"require_all_tags" "1"
+				"tags" "bot_ranger"
+				"targetname" "filter_ranger"
+			}
+			info_target
+			{
+				"targetname" "tele_destination_ranger"
+				"origin" "1008 -312 108"
+			}
+			trigger_teleport
+			{
+				"filtername" "filter_ranger"
+				"origin" "-352 2736 112"
+				"mins" "-2192 -3664 -656"
+				"maxs" "2192 3664 656"
+				"spawnflags" "1"
+				"startdisabled" "1"
+				"landmark" "!activator"
+				"target" "tele_destination_ranger"
+				"targetname" "teleport_ranger"
+				"OnStartTouch" "!activator,$SetProp$m_bGlowEnabled,0"
+			}
+			trigger_teleport
+			{
+				"filtername" "filter_ranger"
+				"origin" "-352 2736 112"
+				"mins" "-2192 -3664 -656"
+				"maxs" "2192 3664 656"
+				"spawnflags" "1"
+				"startdisabled" "1"
+				"target" "spawnbot_boss"
+				"targetname" "teleport_ranger_back"
+				"OnStartTouch" "!activator,$SetProp$m_bGlowEnabled,1"
 			}
 		}
 		bossroom_collision
@@ -1761,7 +1862,7 @@ WaveSchedule
 			}
 			math_counter
 			{
-				"startvalue" "6" // value to change
+				"startvalue" "7" // value to change
 
 
 				"targetname" "playerResVal3"
@@ -1819,7 +1920,8 @@ WaveSchedule
 				"OnCase01" "!activator,$AddCond,32 5,2.1,-1" //respawn uber, change 2nd number for duration
 				"OnCase01" "!activator,$SetVar$hasRes,$$=(int(!activator.hasRes) - 1),2,-1"
 				// formatting string for if you have lifes
-				"OnCase01" "player,$DisplayTextChat,$$=''.. '{f5c542}' .. string(!activator.m_szNetname) .. string('{ffffff} has been revived, they have {f5c542}') .. string(!activator.hasRes) .. string('{ffffff} more lives left.'),2,-1"
+				//"OnCase01" "player,$DisplayTextChat,$$=''.. '{f5c542}' .. string(!activator.m_szNetname) .. string('{ffffff} has been revived, they have {f5c542}') .. string(!activator.hasRes) .. string('{ffffff} more lives left.'),2,-1"
+				"OnCase01" "player,$DisplayTextChat,$$=''.. '{f5c542}' .. string(!activator.m_szNetname) .. string('{ffffff} has been revived, they have {f5c542}') .. string(!activator.hasRes) .. string('{ffffff} more ') .. ?(int(!activator.hasRes) > 1, string('lives left.'), string('life left.')),2,-1"
 				"OnCase01" "revivefx,PlaySound,,2.05,-1"
 				"OnCase01" "revivefx,PlaySound,,2.05,-1"
 				"OnCase01" "revivefx,kill,,3,-1"
@@ -1840,22 +1942,13 @@ WaveSchedule
 			ambient_generic
 			{
 				"targetname" "revivefx"
-				"origin" "0 0 0"
 				"volstart" "10"
 				"spawnflags" "17"
 				"radius" "999999"
-				"preset" "0"
 				"pitchstart" "125"
 				"pitch" "125"
-				"message" "#mvm\mvm_revive.wav" //to change respawn sound (plays globally)
-				"lfotype" "0"
-				"lforate" "0"
-				"lfomodvol" "0"
-				"lfomodpitch" "0"
+				"message" "#mvm/mvm_revive.wav" //to change respawn sound (plays globally)
 				"health" "7.5"
-				"fadeoutsecs" "0"
-				"fadeinsecs" "0"
-				"cspinup" "0"
 			}
 		}
 		PlayersLeftLogic

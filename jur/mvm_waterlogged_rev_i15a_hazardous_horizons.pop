@@ -29,6 +29,7 @@ WaveSchedule
 	BluHumanFlagPickup 1
 	FixHuntsmanDamageBonus 1
 	NoBluHumanFootsteps 1
+	SandmanStun 1
 
 	//Team/Player KVs
 	FastEntityNameLookup 1
@@ -40,6 +41,7 @@ WaveSchedule
 	BluHumanInfiniteAmmo 0
 	BluHumanInfiniteCloak 0
 	BluPlayersAreRobots 1
+	RedPlayersAreRobots 1
 	PlayerRobotsUsePlayerAnimation 1
 	BotsRandomCrit 0
 	MaxSpeedLimit 3500
@@ -1379,7 +1381,7 @@ WaveSchedule
 				}
 				InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
 				{
-					Target "trigger_that_does_nothing2"
+					Target "-3062.030273 -2069.409424 237.381378"
 					Delay 1 // Time before the first task starts (Default: 10)
 					Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
 					Cooldown 5 //Time between each task (Default: 10)
@@ -2549,7 +2551,7 @@ WaveSchedule
 				SpawnTemplate "Thunderdome_Bot"
 			}
 		}
-		WaveSpawn 
+		WaveSpawn
 		{
 			Name "heli"
 			Where spawnbot_heli
@@ -2575,10 +2577,10 @@ WaveSchedule
 				StartSound "misc/null.wav"
 				PingSound "misc/null.wav"
 				EngineLoopSound "misc/null.wav"
-				Gravity 0  
+				Gravity 0
 				TeamNum 2
-				DisableTracks 1  
-				DisableChildModels 1  
+				DisableTracks 1
+				DisableChildModels 1
 				Name "tankboss"
 				//StartingPathTrackNode "Helicopter_1"
 
@@ -2591,8 +2593,8 @@ WaveSchedule
 		}
 
 		WaveSpawn
-		{      
-			Name "heli"                          
+		{
+			Name "heli"
 			Where spawnbot_heli
 			TotalCount 1
 			MaxActive 1
@@ -3845,7 +3847,7 @@ WaveSchedule
 		}
 		WaveSpawn // Tank # HP
 		{
-			Name "generator_onetwothree"
+			Name "arena_generator_onetwothree"
 			WaitForAllDead "midphase_two"
 			TotalCount 1
 			MaxActive 1
@@ -3872,7 +3874,7 @@ WaveSchedule
 		}
 		WaveSpawn // Tank # HP
 		{
-			Name "generator_onetwothree"
+			Name "arena_generator_onetwothree"
 			WaitForAllDead "midphase_two"
 			TotalCount 1
 			MaxActive 1
@@ -3892,14 +3894,14 @@ WaveSchedule
 				EngineLoopSound "misc/null.wav"
 				Gravity 0  
 				DisableSmokestack 1
-				DisableTracks 1  
-				DisableChildModels 1  
+				DisableTracks 1
+				DisableChildModels 1
 				TeamNum 2
 			}
 		}
 		WaveSpawn // Tank # HP
 		{
-			Name "generator_onetwothree"
+			Name "arena_generator_onetwothree"
 			WaitForAllDead "midphase_two"
 			TotalCount 1
 			MaxActive 1
@@ -3924,6 +3926,17 @@ WaveSchedule
 				TeamNum 2
 			}
 		}
+
+		WaveSpawn
+		{
+			WaitForAllDead "arena_generator_onetwothree"
+			DoneOutput
+			{
+				Target midphase_end_Relay
+				Action Trigger
+			}
+		}
+		
 		WaveSpawn
 		{
 			Name "midphase_three"
@@ -4039,20 +4052,20 @@ WaveSchedule
 	ExtraTankPath  
 	{
 		Name "arena_generator_one_path"
-		Node "25 3261 -153"
-		Node "125 3261 -153"
+		Node "25 3261 -213"
+		Node "125 3261 -213"
 	}
 	ExtraTankPath  
 	{
 		Name "arena_generator_two_path"
-		Node "-2789 4143 -409"
-		Node "-2889 4143 -409"
+		Node "-2789 4143 -469"
+		Node "-2889 4143 -469"
 	}
 	ExtraTankPath  
 	{
 		Name "arena_generator_three_path"
-		Node "-2875 6220 -153"
-		Node "-2875 6120 -153"
+		Node "-2875 6220 -213"
+		Node "-2875 6120 -213"
 	}
 	ExtraSpawnPoint
 	{

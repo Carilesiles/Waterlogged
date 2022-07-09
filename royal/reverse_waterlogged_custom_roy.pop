@@ -1580,9 +1580,9 @@ WaveSchedule
 				"OnHitMin" "!activator,$RemoveItemAttribute,explosive bullets|0,0,-1"
 				"OnHitMin" "!activator,$RemoveItemAttribute,explosion particle|0,0,-1"
 
-				"OnHitMin" "!activator,$SetClientProp$m_bRageDraining,0,0,-1"
+				"OnHitMin" "!activator,$ResetClientProp$m_bRageDraining,,0,-1"
 				"OnHitMin" "!activator,$ResetClientProp$m_flRageMeter,,0.03,-1"
-				"OnHitMin" "!activator,$SetProp$m_flRageMeter,0,0,-1"
+				"OnHitMin" "!activator,$SetProp$m_flRageMeter,0,0.1,-1"
 
 				//"OnHitMin" "player,$DisplayTextChat,rage meter ended,0,-1"
 

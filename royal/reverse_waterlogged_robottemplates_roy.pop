@@ -1638,6 +1638,253 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			}
 			AddCond { Name "TF_COND_REPROGRAMMED" }
 		}
+
+		        T_TFBot_Sergeant_Shapeshift_Prototype_Type1
+        {
+			SpawnTemplate Shapeshift_Type1_Logic
+
+            Class Spy
+			Name "Shapeshift Prototype X-J7"
+			Skill Expert
+			Health 15000
+
+            Action Mobber
+
+			WeaponRestrictions PrimaryOnly
+
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			
+			Scale 1.9 
+
+			CharacterAttributes
+			{
+                "cannot disguise" 1
+
+				"move speed bonus"	0.5
+				"damage force reduction" 0.4
+				"airblast vulnerability multiplier" 0.4
+			}
+
+			ItemAttributes
+			{
+				ItemName TF_WEAPON_REVOLVER
+
+				"damage bonus" 1.25
+			}
+
+			EventChangeAttributes
+			{
+				Default 
+				{
+					Attributes MiniBoss
+				}
+
+				Soldier
+				{
+					Attributes MiniBoss
+					Attributes HoldFireUntilFullReload
+					Item "Armored Authority"
+
+					Item "Upgradeable TF_WEAPON_ROCKETLAUNCHER"
+
+					ItemAttributes
+					{
+						ItemName "Upgradeable TF_WEAPON_ROCKETLAUNCHER"
+						"damage bonus" 2.0
+						"faster reload rate" 0.4
+						"fire rate bonus" 0.2
+						"clip size upgrade atomic" 5.0
+					}
+				}
+
+                Heavy 
+                {
+                    Item "Magnificent Mongolian"
+                    Item "The Huo Long Heatmaker"
+                    WeaponRestrictions PrimaryOnly
+                    MaxVisionRange 1200
+                    Attributes MiniBoss
+
+                    ItemAttributes
+                    {
+                        ItemName "The Huo Long Heatmaker"
+                        "damage bonus"	1.5
+                    }
+                }
+
+                Engineer 
+                {
+                    Item "The Rescue Ranger"
+                    WeaponRestrictions PrimaryOnly
+
+					Attributes AlwaysFireWeapon
+
+                    Attributes MiniBoss
+
+                    ItemAttributes
+                    {
+                        ItemName "The Rescue Ranger"
+						"arrow hit kill time" 0.01
+						"mod projectile heat no predict target speed" 1
+						"mod projectile heat seek power" 360
+						"mod projectile heat aim error" 0
+						"mod projectile heat aim time" 10
+                        "fire rate penalty"	1.25
+						"Projectile speed decreased" 0.1
+
+						"projectile trail particle" ""
+						"mult projectile scale" 0.001
+                    }
+
+					ShootTemplate
+					{
+						Name SentryRanger
+                        AttachToProjectile 1
+					}
+                }
+			}
+
+           AddCond { Name "TF_COND_REPROGRAMMED" } 
+        }
+
+        T_TFBot_Sergeant_Shapeshift_Prototype_Type2
+        {
+			SpawnTemplate Shapeshift_Type2_Logic
+			SpawnTemplate ShapeshiftSpy_Position
+
+            Class Spy
+			Name "Shapeshift Prototype X-J8"
+			Skill Expert
+			Health 15000
+
+            Action Mobber
+
+			WeaponRestrictions PrimaryOnly
+
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			
+			Scale 1.9 
+
+			CharacterAttributes
+			{
+                "cannot disguise" 1
+
+				"move speed bonus"	0.5
+				"damage force reduction" 0.4
+				"airblast vulnerability multiplier" 0.4
+			}
+
+			ItemAttributes
+			{
+				ItemName TF_WEAPON_REVOLVER
+
+				"damage bonus" 1.25
+			}
+
+			EventChangeAttributes
+			{
+				Default 
+				{
+					Attributes MiniBoss
+				}
+
+				Scout
+				{
+					Attributes MiniBoss
+					Attributes HoldFireUntilFullReload
+					
+					WeaponRestrictions SecondaryOnly
+
+					Item "The Hermes"
+					Item "The Reserve Shooter"
+
+					ItemAttributes
+					{
+						ItemName "The Reserve Shooter"
+						"move speed bonus" 3
+						"fire rate bonus" 0.5
+						"faster reload rate" -0.8
+					}
+				}
+
+                Pyro 
+                {
+                    Item "Upgradeable TF_WEAPON_FLAMETHROWER"
+                    WeaponRestrictions PrimaryOnly
+                    MaxVisionRange 1200
+
+                    Attributes MiniBoss
+					Attributes AlwaysFireWeapon
+
+                    ItemAttributes
+                    {
+                        ItemName "Upgradeable TF_WEAPON_FLAMETHROWER"
+                        "damage bonus"	1.25
+                    }
+                }
+
+                Spy 
+                {
+                    Item "Upgradeable TF_WEAPON_REVOLVER"
+                    WeaponRestrictions PrimaryOnly
+
+                    Attributes MiniBoss
+
+					ItemAttributes
+                    {
+                        ItemName "Upgradeable TF_WEAPON_REVOLVER"
+                        "damage bonus"	1.25
+                    }
+                }
+			}
+
+           AddCond { Name "TF_COND_REPROGRAMMED" } 
+        }
+
+        T_TFBot_Sergeant_Shapeshift_Illusion
+        {
+			SpawnTemplate Illusion_Spawn
+
+            Class Spy
+			Name "Shapeshift Illusion"
+			Skill Expert
+			Health 3500
+
+            Action Mobber
+
+			WeaponRestrictions PrimaryOnly
+
+			Attributes MiniBoss
+			
+			Scale 1.9 
+
+			AddCond 
+			{
+				Index 4
+				Duration 0.5
+			}
+
+			CharacterAttributes
+			{
+                "cannot disguise" 1
+
+				"move speed bonus"	0.5
+				"damage force reduction" 0.4
+				"airblast vulnerability multiplier" 0.4
+			}
+
+			ItemAttributes
+			{
+				ItemName TF_WEAPON_REVOLVER
+
+				"damage bonus" 1.25
+			}
+
+			AddCond { Name "TF_COND_REPROGRAMMED" } 
+		}
+
 		T_TFBot_Small_Buster
 		{
 			SpawnTemplate "SmolBuster"
@@ -2774,6 +3021,326 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			
 
 			RemoveIfKilled "explosive_tip_relay"
+		}
+
+		SentryRanger
+		{
+			KeepAlive 1 
+
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname sentry_bolt"			
+			}
+			
+			OnSpawnOutput
+			{
+				Target "le_sentry"
+				Action "$InheritOwner"
+				Param "!activator"	
+			}
+
+			OnSpawnOutput
+			{
+				Target "droneModel"
+				Action "Trigger"
+			}
+
+			// OnSpawnOutput
+			// {
+			// 	Target "le_sentry"
+			// 	Action "$SetModelOverride"
+			// 	Param "models/rcat/rcat_level2"	
+			// 	Delay 0.1
+			// }
+			// OnSpawnOutput
+			// {
+			// 	Target "le_sentry"
+			// 	Action "$SetProp$m_nSkin"
+			// 	Param "2"	
+			// 	Delay 0.2
+			// }
+
+			OnParentKilledOutput
+			{
+				Target "le_sentry"
+				Action "RemoveHealth"
+				Param "100000000000000"			
+			}
+
+			OnParentKilledOutput
+			{
+				Target "le_sentry"
+				Action "Kill"
+				Delay 5
+			}
+
+			OnParentKilledOutput
+			{
+				Target "droneModel"
+				Action "Kill"	
+			}
+
+			logic_relay 
+			{
+				"targetname" "droneModel"
+
+				"OnTrigger" "le_sentry,$SetProp$m_nSolidType,0,0,-1" 
+				"OnTrigger" "le_sentry,$SetModelOverride,models/rcat/rcat_level2.mdl,0,-1" 
+				"OnTrigger" "le_sentry,$SetProp$m_nSkin,2,0,-1"
+			}
+
+			obj_sentrygun
+			{
+				"targetname" "le_sentry"
+				"teamnum" "2"
+				"defaultupgrade" "0"
+				"SolidToPlayer" "0"
+				"spawnflags" "10"
+			}
+		}
+
+		Shapeshift_Type1_Logic 
+		{
+			OnSpawnOutput
+			{
+				Target "shapeshift_start"
+				Action "Trigger"
+				Delay 3
+			}
+
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$SetProp$m_bUseBossHealthBar"
+				Param "0"
+				Delay 0
+			}
+
+			logic_relay
+			{
+				"targetname" "shapeshift_start"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$WeaponStripSlot,0,0.51,-1" 
+				"OnTrigger" "shapeshift_loop,Trigger,,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "shapeshift_global"
+				"spawnflags" "2"
+
+				"OnTrigger" "le_sentry*,RemoveHealth,100000000,0,-1"
+				"OnTrigger" "sentry_bolt*,Kill,,0.1,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "shapeshift_loop"
+				"spawnflags" "2"
+
+				"OnTrigger" "shapeshift_global,Trigger,,0,-1"
+				"OnTrigger" "soldier_shapeshift,Trigger,,0.5,-1"
+
+				"OnTrigger" "shapeshift_global,Trigger,,5,-1"
+				"OnTrigger" "heavy_shapeshift,Trigger,,5.5,-1"
+
+				"OnTrigger" "shapeshift_global,Trigger,,10,-1"
+				"OnTrigger" "engie_shapeshift,Trigger,,10.5,-1"
+
+				"OnTrigger" "!self,Trigger,,16,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "soldier_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Soldier,0,-1"
+
+				//"OnTrigger" "!activator,$AddCond,40,0.1,-1"
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+				
+				"OnTrigger" "!activator,SetCustomModel,models/bots/soldier_boss/bot_soldier_boss.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,soldier_burstfire,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "heavy_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Heavy,0,-1"
+
+				"OnTrigger" "!activator,$RemoveItem,Armored Authority,0.1,-1"
+
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+
+				"OnTrigger" "!activator,SetCustomModel,models/bots/heavy_boss/bot_heavy_boss.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,heavy_heater,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "engie_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Engineer,0,-1"
+
+				"OnTrigger" "!activator,$RemoveItem,Magnificent Mongolian,0.1,-1"
+				
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+
+				"OnTrigger" "!activator,SetCustomModel,models/bots/engineer/bot_engineer.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,engineer,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+		}
+		Shapeshift_Type2_Logic 
+		{
+			OnSpawnOutput
+			{
+				Target "shapeshift_start"
+				Action "Trigger"
+				Delay 3
+			}
+
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$SetProp$m_bUseBossHealthBar"
+				Param "0"
+				Delay 0
+			}
+
+			logic_relay
+			{
+				"targetname" "shapeshift_start"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$WeaponStripSlot,0,0.51,-1" 
+				"OnTrigger" "!activator,$WeaponStripSlot,1,0.51,-1" 
+				"OnTrigger" "shapeshift_loop,Trigger,,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "shapeshift_global"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$AddCond,4,0,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "shapeshift_loop"
+				"spawnflags" "2"
+
+				"OnTrigger" "shapeshift_global,Trigger,,0,-1"
+				"OnTrigger" "scout_shapeshift,Trigger,,0.5,-1"
+
+				"OnTrigger" "shapeshift_global,Trigger,,5,-1"
+				"OnTrigger" "pyro_shapeshift,Trigger,,5.5,-1"
+
+				"OnTrigger" "shapeshift_global,Trigger,,10,-1"
+				"OnTrigger" "spy_shapeshift,Trigger,,10.5,-1"
+
+				"OnTrigger" "!self,Trigger,,16,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "scout_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Scout,0,-1"
+
+				//"OnTrigger" "!activator,$AddCond,40,0.1,-1"
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+				
+				"OnTrigger" "!activator,SetCustomModel,models/bots/scout_boss/bot_scout_boss.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,scout,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "pyro_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Pyro,0,-1"
+
+				"OnTrigger" "!activator,$RemoveItem,The Hermes,0.1,-1"
+
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+				"OnTrigger" "!activator,$WeaponStripSlot,1,0.11,-1" 
+
+				"OnTrigger" "!activator,SetCustomModel,models/bots/pyro_boss/bot_pyro_boss.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,pyro,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "spy_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Spy,0,-1"
+
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+
+				"OnTrigger" "!activator,SetCustomModel,models/bots/spy/bot_spy.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,spy,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+				
+				"OnTrigger" "summon_illusion,Enable,4,0.55,-1"
+				"OnTrigger" "summon_illusion,Disable,4,0.65,-1"
+			}
+		}
+
+		ShapeshiftSpy_Position 
+		{
+			NoFixup 1
+
+			info_target 
+			{
+				"targetname" "shapeshift_illusion_target"
+
+				"Origin" "0 0 0"
+			}
+		}
+
+		Illusion_Spawn
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$TeleportToEntity"
+				Param "shapeshift_illusion_target"
+				Delay 0
+			}
 		}
 		Yakuza_Title_Card_HunterChopper
 		{

@@ -1,6 +1,7 @@
 #base robot_standard.pop
 #base robot_giant.pop
 #base reverse_waterlogged_custom_roy.pop
+#base reverse_waterlogged_robottemplates_roy.pop
 
 tomboy
 {
@@ -25,6 +26,7 @@ tomboy
     BotsRandomCrit 0
 
     PrecacheModel "models/props_frontline/helicopter_windows.mdl"
+    PrecacheModel "models/rcat/rcat_level2"
 
 	Templates 
 	{
@@ -281,13 +283,7 @@ tomboy
 			SpawnTemplate Yakuza_Title_Card_Shapeshift
 			SpawnTemplate Shapeshift_Logic
             SpawnTemplate Shapeshift_Spawn
-
-            //no fucking clues what slot the invis watch is 
-            // StripItemSlot 3 
-            // StripItemSlot 4
-            // StripItemSlot 5
-            // StripItemSlot 6
-
+			
             Class Spy
 			Name "Sergeant Shapeshift"
 			Skill Expert
@@ -430,6 +426,252 @@ tomboy
 
            AddCond { Name "TF_COND_REPROGRAMMED" } 
         }
+
+        T_TFBot_Sergeant_Shapeshift_Prototype_Type1
+        {
+			SpawnTemplate Shapeshift_Type1_Logic
+
+            Class Spy
+			Name "Shapeshift Prototype X-J7"
+			Skill Expert
+			Health 15000
+
+            Action Mobber
+
+			WeaponRestrictions PrimaryOnly
+
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			
+			Scale 1.9 
+
+			CharacterAttributes
+			{
+                "cannot disguise" 1
+
+				"move speed bonus"	0.5
+				"damage force reduction" 0.4
+				"airblast vulnerability multiplier" 0.4
+			}
+
+			ItemAttributes
+			{
+				ItemName TF_WEAPON_REVOLVER
+
+				"damage bonus" 1.25
+			}
+
+			EventChangeAttributes
+			{
+				Default 
+				{
+					Attributes MiniBoss
+				}
+
+				Soldier
+				{
+					Attributes MiniBoss
+					Attributes HoldFireUntilFullReload
+					Item "Armored Authority"
+
+					Item "Upgradeable TF_WEAPON_ROCKETLAUNCHER"
+
+					ItemAttributes
+					{
+						ItemName "Upgradeable TF_WEAPON_ROCKETLAUNCHER"
+						"damage bonus" 2.0
+						"faster reload rate" 0.4
+						"fire rate bonus" 0.2
+						"clip size upgrade atomic" 5.0
+					}
+				}
+
+                Heavy 
+                {
+                    Item "Magnificent Mongolian"
+                    Item "The Huo Long Heatmaker"
+                    WeaponRestrictions PrimaryOnly
+                    MaxVisionRange 1200
+                    Attributes MiniBoss
+
+                    ItemAttributes
+                    {
+                        ItemName "The Huo Long Heatmaker"
+                        "damage bonus"	1.5
+                    }
+                }
+
+                Engineer 
+                {
+                    Item "The Rescue Ranger"
+                    WeaponRestrictions PrimaryOnly
+
+					Attributes AlwaysFireWeapon
+
+                    Attributes MiniBoss
+
+                    ItemAttributes
+                    {
+                        ItemName "The Rescue Ranger"
+						"arrow hit kill time" 0.01
+						"mod projectile heat no predict target speed" 1
+						"mod projectile heat seek power" 360
+						"mod projectile heat aim error" 0
+						"mod projectile heat aim time" 10
+                        "fire rate penalty"	1.25
+						"Projectile speed decreased" 0.1
+
+						"projectile trail particle" ""
+						"mult projectile scale" 0.001
+                    }
+
+					ShootTemplate
+					{
+						Name SentryRanger
+                        AttachToProjectile 1
+					}
+                }
+			}
+
+           AddCond { Name "TF_COND_REPROGRAMMED" } 
+        }
+
+        T_TFBot_Sergeant_Shapeshift_Prototype_Type2
+        {
+			SpawnTemplate Shapeshift_Type2_Logic
+			SpawnTemplate ShapeshiftSpy_Position
+
+            Class Spy
+			Name "Shapeshift Prototype X-J8"
+			Skill Expert
+			Health 15000
+
+            Action Mobber
+
+			WeaponRestrictions PrimaryOnly
+
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			
+			Scale 1.9 
+
+			CharacterAttributes
+			{
+                "cannot disguise" 1
+
+				"move speed bonus"	0.5
+				"damage force reduction" 0.4
+				"airblast vulnerability multiplier" 0.4
+			}
+
+			ItemAttributes
+			{
+				ItemName TF_WEAPON_REVOLVER
+
+				"damage bonus" 1.25
+			}
+
+			EventChangeAttributes
+			{
+				Default 
+				{
+					Attributes MiniBoss
+				}
+
+				Scout
+				{
+					Attributes MiniBoss
+					Attributes HoldFireUntilFullReload
+					
+					WeaponRestrictions SecondaryOnly
+
+					Item "The Hermes"
+					Item "The Reserve Shooter"
+
+					ItemAttributes
+					{
+						ItemName "The Reserve Shooter"
+						"move speed bonus" 3
+						"fire rate bonus" 0.5
+						"faster reload rate" -0.8
+					}
+				}
+
+                Pyro 
+                {
+                    Item "Upgradeable TF_WEAPON_FLAMETHROWER"
+                    WeaponRestrictions PrimaryOnly
+                    MaxVisionRange 1200
+
+                    Attributes MiniBoss
+					Attributes AlwaysFireWeapon
+
+                    ItemAttributes
+                    {
+                        ItemName "Upgradeable TF_WEAPON_FLAMETHROWER"
+                        "damage bonus"	1.25
+                    }
+                }
+
+                Spy 
+                {
+                    Item "Upgradeable TF_WEAPON_REVOLVER"
+                    WeaponRestrictions PrimaryOnly
+
+                    Attributes MiniBoss
+
+					ItemAttributes
+                    {
+                        ItemName "Upgradeable TF_WEAPON_REVOLVER"
+                        "damage bonus"	1.25
+                    }
+                }
+			}
+
+           AddCond { Name "TF_COND_REPROGRAMMED" } 
+        }
+
+        T_TFBot_Sergeant_Shapeshift_Illusion
+        {
+			SpawnTemplate Illusion_Spawn
+
+            Class Spy
+			Name "Shapeshift Illusion"
+			Skill Expert
+			Health 3500
+
+            Action Mobber
+
+			WeaponRestrictions PrimaryOnly
+
+			Attributes MiniBoss
+			
+			Scale 1.9 
+
+			AddCond 
+			{
+				Index 4
+				Duration 0.5
+			}
+
+			CharacterAttributes
+			{
+                "cannot disguise" 1
+
+				"move speed bonus"	0.5
+				"damage force reduction" 0.4
+				"airblast vulnerability multiplier" 0.4
+			}
+
+			ItemAttributes
+			{
+				ItemName TF_WEAPON_REVOLVER
+
+				"damage bonus" 1.25
+			}
+
+			AddCond { Name "TF_COND_REPROGRAMMED" } 
+		}
 
         T_TFBot_Sergeant_Shapeshift_Supreme
         {
@@ -3840,6 +4082,17 @@ tomboy
 		StartDisabled 1
 	}
 
+	ExtraSpawnPoint 
+	{
+		Name "summon_illusion"   
+		TeamNum 3
+		X "-3098.7"  
+		Y "-1490.0"
+		Z "276.6"
+
+		StartDisabled 1
+	}
+
     PlayerItemEquipSpawnTemplate
 	{
 		Name "ShieldDashFix"
@@ -4330,7 +4583,7 @@ tomboy
         }
     }
 
-    Wave //wave 10
+    Wave //wave 11
     {
         StartWaveOutput
         {
@@ -4357,6 +4610,133 @@ tomboy
             {
                 Template T_TFBot_Droneboy
             }
+        }
+    }
+
+    Wave //wave 12
+    {
+        StartWaveOutput
+        {
+            Target wave_start_relay
+            Action Trigger
+        }
+        DoneOutput
+        {
+            Target wave_finished_relay
+            Action Trigger
+        }
+
+        WaveSpawn
+		{                          
+			Where helicopter
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+            TFBot
+            {
+                Template T_TFBot_Sergeant_Shapeshift_Prototype_Type1
+            }
+        }
+    }
+    Wave //wave 13
+    {
+        StartWaveOutput
+        {
+            Target wave_start_relay
+            Action Trigger
+        }
+        DoneOutput
+        {
+            Target wave_finished_relay
+            Action Trigger
+        }
+
+        WaveSpawn
+		{                          
+			Where helicopter
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+            TFBot
+            {
+                Template T_TFBot_Sergeant_Shapeshift_Prototype_Type2
+            }
+        }
+    }
+
+    Wave //wave 14
+    {
+        StartWaveOutput
+        {
+            Target wave_start_relay
+            Action Trigger
+        }
+        DoneOutput
+        {
+            Target wave_finished_relay
+            Action Trigger
+        }
+
+        WaveSpawn
+		{                          
+			Where helicopter
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+            TFBot
+            {
+                Template T_TFBot_Sergeant_Shapeshift_Prototype_Type1
+            }
+        }
+        WaveSpawn
+		{                          
+			Where helicopter
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+            TFBot
+            {
+                Template T_TFBot_Sergeant_Shapeshift_Prototype_Type2
+            }
+        }
+        WaveSpawn
+		{                          
+			Where summon_illusion
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+			Support 1
+
+			RandomChoice 
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						Template T_TFBot_Sergeant_Shapeshift_Illusion
+					}
+				}
+			}
         }
     }
 }

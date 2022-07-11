@@ -4102,6 +4102,20 @@ tomboy
     SpawnTemplate Widowmaker_Dudebro_Logic
     SpawnTemplate filters_mini
 
+	ItemAttributes
+	{
+		ItemName "The Short Circuit" 
+
+		"override projectile type" 2
+	}
+
+	PlayerShootTemplate
+	{
+		Name SentryRanger
+		AttachToProjectile 1
+		ItemName "The Short Circuit" 
+	}
+
 	Wave //wave 1
 	{
 		StartWaveOutput

@@ -10,6 +10,11 @@ WaveSchedule
 				"targetname" "tele_destination_gate1"
 				"origin" "-4712 -2304 1192"
 			}
+			logic_auto
+			{
+				"OnMapSpawn" "master_control_point,SetCapLayout,0 1"
+				"OnMapSpawn" "flagdetect_hatch,Kill"
+			}
 			logic_relay
 			{
 				"targetname" "general_setup_relay"
@@ -118,6 +123,8 @@ WaveSchedule
 				"OnTrigger" "gate2_relay,AddOutput,OnTrigger general_gate2_relay:Trigger::0:-1"
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger gate1_alarm_door_reset_relay:Enable::0:-1"
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger gate2_alarm_door_reset_relay:Enable::0:-1"
+				"OnTrigger" "gate1_door_trigger,$SetKey$area_time_to_cap,1"
+				"OnTrigger" "gate2_door_trigger,$SetKey$area_time_to_cap,1"
 			}
 			logic_relay
 			{
@@ -511,7 +518,7 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "wave1_gate2_relay"
-				"OnTrigger" "barrier_gate2_relay_disable,Trigger,22"
+				"OnTrigger" "barrier_gate2_relay_disable,Trigger,,22"
 				"OnTrigger" "player,$ChangeAttributes,GateTwo_Capped,1"
 				"OnTrigger" "gate2_upgrade_sign2,Show,,2"
 			}
@@ -1213,7 +1220,7 @@ WaveSchedule
 				"skin" "1"
 				"solid" "0"
 				"targetname" "spawn_hologram_barrier2"
-				"origin" "-2567 -203 183"
+				"origin" "-2667 -203 183"
 			}
 
 			training_annotation
@@ -1332,6 +1339,7 @@ WaveSchedule
 			{
 				"targetname" "chief_killed_relay"
 				"OnTrigger" "tower_capzone,SetTeamCanCap,3 1"
+				"OnTrigger" "tower_capzone,Enable"
 				"OnTrigger" "tower_capzone_prop,Enable"
 				"OnTrigger" "tower1_cappable_sign,Show"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_invasion:Disable::0:-1"
@@ -1345,6 +1353,7 @@ WaveSchedule
 			{
 				"targetname" "chief2_killed_relay"
 				"OnTrigger" "tower_capzone,SetTeamCanCap,3 1"
+				"OnTrigger" "tower_capzone,Enable"
 				"OnTrigger" "tower_capzone_prop,Enable"
 				"OnTrigger" "towers_capped_current,Disable"
 				"OnTrigger" "tower2_cappable_sign,Show"
@@ -1361,13 +1370,18 @@ WaveSchedule
 				
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 towers_activation_relay:CancelPending::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 tower_*:AddOutput:targetname defunct_tower:2:-1"
-				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 tower_controlpoint:SetOwner:2:22:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 towers_controlpoint:SetOwner:2:3:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 master_control_point:SetCapLayoutCustomPositionY:5:3:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 master_control_point:SetCapLayoutCustomPositionY:-1:3.25:-1"
+				"OnTrigger" "master_control_point,SetCapLayoutCustomPositionY,5"
+				"OnTrigger" "master_control_point,SetCapLayoutCustomPositionY,5"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 towers_phase:Add:1:22:-1"
 			}
 			logic_relay
 			{
 				"targetname" "go_win_relay"
 				"OnTrigger" "tower_capzone,SetTeamCanCap,3 1"
+				"OnTrigger" "tower_capzone,Enable"
 				"OnTrigger" "tower_capzone_prop,Enable"
 				"OnTrigger" "tower3_cappable_sign,Show"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_hatch:Disasble::0:-1"
@@ -1397,12 +1411,14 @@ WaveSchedule
 			logic_relay
 			{
 				"OnSpawn" "arena_indicator*,SetAnimation,spin"
+				"OnSpawn" "arena_indicator*,AddOutput,skin 1"
 			}
 			logic_relay
 			{
 				"targetname" "midphase_one_relay"
 				"OnTrigger" "perhaps,Kill"
 				"OnTrigger" "spawnbot_arena,Disable"
+				"OnTrigger" "!activator,$AddCond,71 9999"
 				"OnTrigger" "!activator,$ChangeAttributes,Stunned"
 				"OnTrigger" "bot_stun_reprogram_ranger,Enable"
 				"OnTrigger" "bot_stun_reprogram_ranger,Disable,,0.1"
@@ -1411,7 +1427,15 @@ WaveSchedule
 				"OnTrigger" "spawnbot_arena_case,PickRandom"
 				"OnTrigger" "arena_1_towers_phase,SetValue,2"
 				"OnTrigger" "arena_1_tower_capzone,Enable,,0.01"
-				"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 midphase_end_relay:Trigger::0:-1,0.1"
+				"OnTrigger" "meh,Trigger,,0.1"
+				//"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 midphase_end_relay:Trigger::0:-1,0.1"
+			}
+			logic_relay
+			{
+				"targetname" "meh"
+				"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 midphase_end_relay:Trigger::0:-1"
+				"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 player:$ChangeAttributes:PatternRestart:0:-1"
+				"OnTrigger" "rockethell_ranger,$ChangeAttributes,PatternRestart"
 			}
 			logic_relay
 			{
@@ -1428,14 +1452,22 @@ WaveSchedule
 				"targetname" "midphase_three_relay"
 				"OnTrigger" "perhaps,Kill"
 				"OnTrigger" "spawnbot_arena,Disable"
+				"OnTrigger" "!activator,$AddCond,71 9999"
 				"OnTrigger" "!activator,$ChangeAttributes,Stunned"
 				"OnTrigger" "bot_stun_reprogram_ranger,Enable"
 				"OnTrigger" "bot_stun_reprogram_ranger,Disable,,0.1"
 				"OnTrigger" "spawnbot_arena_case,PickRandom"
-				"OnTrigger" "arena_1_towers_phase,SetValue,1"
-				"OnTrigger" "arena_2_towers_phase,SetValue,1"
+				"OnTrigger" "arena_doubletower_relay,Trigger"
 				"OnTrigger" "arena_1_tower_capzone,Enable,,0.01"
 				"OnTrigger" "arena_2_tower_capzone,Enable,,0.01"
+				"OnTrigger" "meh2,Trigger,,0.1"
+				//"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1,0.1"
+				//"OnTrigger" "arena_2_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1,0.1"
+			}
+			
+			logic_relay
+			{
+				"targetname" "meh2"
 				"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1,0.1"
 				"OnTrigger" "arena_2_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1,0.1"
 			}
@@ -1445,13 +1477,17 @@ WaveSchedule
 				"startvalue" "0"
 				"max" "2"
 				"OnHitMax" "midphase_end_relay,Trigger"
+				"OnHitMax" "perhaps,Kill"
 			}
 			logic_relay
 			{
 				"targetname" "midphase_end_relay"
-				"OnTrigger" "player,$ChangeAttributes,PatternRestart"
+				"OnTrigger" "rockethell_ranger,$ChangeAttributes,PatternRestart"
+				"OnTrigger" "!activator,$RemoveCond,52"
+				"OnTrigger" "!activator,$RemoveCond,71"
 				"OnTrigger" "spawnbot_arena,Enable"
 				"OnTrigger" "spawnbot_arena_*,Disable"
+				"OnTrigger" "perhaps,Kill"
 			}
 			logic_case
 			{

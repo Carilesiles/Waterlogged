@@ -478,25 +478,14 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				{
 					Attributes MiniBoss
 				}
-
 				PatternRestart
 				{
 					Attributes MiniBoss
-					FireInput [$SIGSEGV] 
+					FireInput [$SIGSEGV]
 					{
-						Target "!activator" //Entity name to use
-						Action "$RemoveCond" //Input to fire
-						Param "52"
-						Delay 0 //Delay before firing the input
-						Cooldown 10 //Cooldown between firing the input
-						Repeats 0 //How many times should the input be fired
-					}
-					FireInput [$SIGSEGV] 
-					{
-						Target "!activator" //Entity name to use
-						Action "$RemoveCond" //Input to fire
-						Param "71"
-						Delay 0 //Delay before firing the input
+						Target "midphase_end_relay" //Entity name to use
+						Action "Trigger" //Input to fire
+						Delay 0.1 //Delay before firing the input
 						Cooldown 10 //Cooldown between firing the input
 						Repeats 0 //How many times should the input be fired
 					}
@@ -504,7 +493,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 					{
 						Target "rockethell_pattern" //Entity name to use
 						Action "Trigger" //Input to fire
-						Delay 0 //Delay before firing the input
+						Delay 0.1 //Delay before firing the input
 						Cooldown 10 //Cooldown between firing the input
 						Repeats 0 //How many times should the input be fired
 					}
@@ -512,7 +501,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 					{
 						Target "spellcard" //Entity name to use
 						Action "Trigger" //Input to fire
-						Delay 6.9 //Delay before firing the input
+						Delay 7 //Delay before firing the input
 						Cooldown 10 //Cooldown between firing the input
 						Repeats 0 //How many times should the input be fired
 					}
@@ -1304,12 +1293,6 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			SpawnTemplate Shapeshift_Spawn
 			SpawnTemplate Yakuza_Title_Card_Shapeshift
 
-			//no fucking clues what slot the invis watch is 
-			// StripItemSlot 3 
-			// StripItemSlot 4
-			// StripItemSlot 5
-			// StripItemSlot 6
-
 			Class Spy
 			Name "Sergeant Shapeshift"
 			Skill Expert
@@ -1452,6 +1435,253 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			}
 
 			AddCond { Name "TF_COND_REPROGRAMMED" }
+		}
+
+		T_TFBot_Sergeant_Shapeshift_Prototype_Type1
+		{
+			SpawnTemplate Shapeshift_Type1_Logic
+			SpawnTemplate Yakuza_Title_Card_Prototypes
+
+			Class Spy
+			Name "Shapeshift Prototype X-J7"
+			Skill Expert
+			Health 15000
+
+			Action Mobber
+
+			WeaponRestrictions PrimaryOnly
+
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+
+			Scale 1.9 
+
+			CharacterAttributes
+			{
+				"cannot disguise" 1
+
+				"move speed bonus"	0.5
+				"damage force reduction" 0.4
+				"airblast vulnerability multiplier" 0.4
+			}
+
+			ItemAttributes
+			{
+				ItemName TF_WEAPON_REVOLVER
+
+				"damage bonus" 1.25
+			}
+
+			EventChangeAttributes
+			{
+				Default 
+				{
+					Attributes MiniBoss
+				}
+
+				Soldier
+				{
+					Attributes MiniBoss
+					Attributes HoldFireUntilFullReload
+					Item "Armored Authority"
+
+					Item "Upgradeable TF_WEAPON_ROCKETLAUNCHER"
+
+					ItemAttributes
+					{
+						ItemName "Upgradeable TF_WEAPON_ROCKETLAUNCHER"
+						"damage bonus" 2.0
+						"faster reload rate" 0.4
+						"fire rate bonus" 0.2
+						"clip size upgrade atomic" 5.0
+					}
+				}
+
+				Heavy 
+				{
+					Item "Magnificent Mongolian"
+					Item "The Huo Long Heatmaker"
+					WeaponRestrictions PrimaryOnly
+					MaxVisionRange 1200
+					Attributes MiniBoss
+
+					ItemAttributes
+					{
+						ItemName "The Huo Long Heatmaker"
+						"damage bonus"	1.5
+					}
+				}
+
+				Engineer 
+				{
+					Item "The Rescue Ranger"
+					WeaponRestrictions PrimaryOnly
+
+					Attributes AlwaysFireWeapon
+
+					Attributes MiniBoss
+
+					ItemAttributes
+					{
+						ItemName "The Rescue Ranger"
+						"arrow hit kill time" 0.01
+						"mod projectile heat no predict target speed" 1
+						"mod projectile heat seek power" 360
+						"mod projectile heat aim error" 0
+						"mod projectile heat aim time" 10
+						"fire rate penalty"	1.25
+						"Projectile speed decreased" 0.1
+
+						"projectile trail particle" ""
+						"mult projectile scale" 0.001
+					}
+
+					ShootTemplate
+					{
+						Name SentryRanger
+						AttachToProjectile 1
+					}
+				}
+			}
+
+		   AddCond { Name "TF_COND_REPROGRAMMED" } 
+		}
+
+		T_TFBot_Sergeant_Shapeshift_Prototype_Type2
+		{
+			SpawnTemplate Shapeshift_Type2_Logic
+			SpawnTemplate ShapeshiftSpy_Position
+
+			Class Spy
+			Name "Shapeshift Prototype X-J8"
+			Skill Expert
+			Health 15000
+
+			Action Mobber
+
+			WeaponRestrictions PrimaryOnly
+
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+
+			Scale 1.9 
+
+			CharacterAttributes
+			{
+				"cannot disguise" 1
+
+				"move speed bonus"	0.5
+				"damage force reduction" 0.4
+				"airblast vulnerability multiplier" 0.4
+			}
+
+			ItemAttributes
+			{
+				ItemName TF_WEAPON_REVOLVER
+
+				"damage bonus" 1.25
+			}
+
+			EventChangeAttributes
+			{
+				Default 
+				{
+					Attributes MiniBoss
+				}
+
+				Scout
+				{
+					Attributes MiniBoss
+					Attributes HoldFireUntilFullReload
+
+					WeaponRestrictions SecondaryOnly
+
+					Item "The Hermes"
+					Item "The Reserve Shooter"
+
+					ItemAttributes
+					{
+						ItemName "The Reserve Shooter"
+						"move speed bonus" 3
+						"fire rate bonus" 0.5
+						"faster reload rate" -0.8
+					}
+				}
+
+				Pyro 
+				{
+					Item "Upgradeable TF_WEAPON_FLAMETHROWER"
+					WeaponRestrictions PrimaryOnly
+					MaxVisionRange 1200
+
+					Attributes MiniBoss
+					Attributes AlwaysFireWeapon
+
+					ItemAttributes
+					{
+						ItemName "Upgradeable TF_WEAPON_FLAMETHROWER"
+						"damage bonus"	1.25
+					}
+				}
+
+				Spy 
+				{
+					Item "Upgradeable TF_WEAPON_REVOLVER"
+					WeaponRestrictions PrimaryOnly
+
+					Attributes MiniBoss
+
+					ItemAttributes
+					{
+						ItemName "Upgradeable TF_WEAPON_REVOLVER"
+						"damage bonus"	1.25
+					}
+				}
+			}
+
+		   AddCond { Name "TF_COND_REPROGRAMMED" } 
+		}
+
+		T_TFBot_Sergeant_Shapeshift_Illusion
+		{
+			SpawnTemplate Illusion_Spawn
+
+			Class Spy
+			Name "Shapeshift Illusion"
+			Skill Expert
+			Health 3500
+
+			Action Mobber
+
+			WeaponRestrictions PrimaryOnly
+
+			Attributes MiniBoss
+
+			Scale 1.9 
+
+			AddCond 
+			{
+				Index 4
+				Duration 0.5
+			}
+
+			CharacterAttributes
+			{
+				"cannot disguise" 1
+
+				"move speed bonus"	0.5
+				"damage force reduction" 0.4
+				"airblast vulnerability multiplier" 0.4
+			}
+
+			ItemAttributes
+			{
+				ItemName TF_WEAPON_REVOLVER
+
+				"damage bonus" 1.25
+			}
+
+			AddCond { Name "TF_COND_REPROGRAMMED" } 
 		}
 		
 		T_TFBot_Sergeant_Shapeshift_Supreme
@@ -2843,6 +3073,56 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 			RemoveIfKilled "explosive_tip_relay"
 		}
+
+		Yakuza_Title_Card_Prototypes
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 0.2
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "PREDECESSORS OF THE SHAPESHIFTER"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				//"fadein" "0"
+				"holdtime" "5"
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "SHAPESHIFT PROTOTYPE X-J7 & X-J8"
+				"x" "-1"
+				"y" "0.45"
+				"channel" "0"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+
 		Yakuza_Title_Card_HunterChopper
 		{
 			OnSpawnOutput
@@ -3421,6 +3701,18 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				Delay 6.9
 			}
 
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "addoutput"
+				Param "targetname rockethell_ranger"
+				Delay 0.1
+			}
+
+			info_target
+			{
+				"targetname" "rockethell_target"
+			}
 			game_text
 			{
 				"origin" "1984 1984 99999"
@@ -3959,6 +4251,55 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"holdtime" "4.8"
 			}
 		}
+
+		Yakuza_Title_Card_Duo
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 0.2
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "CORPORAL CANTEEN"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				"holdtime" "5"
+			}
+
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "SERGEANT RECEIVER"
+				"x" "-1"
+				"y" "0.5"
+				"channel" "0"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+
 		DopplerShields
 		{
 			OnSpawnOutput

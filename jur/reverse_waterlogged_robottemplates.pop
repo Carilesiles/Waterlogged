@@ -477,6 +477,13 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				Default 
 				{
 					Attributes MiniBoss
+					//Message 
+					//{
+					//	Name "default" 
+					//	Delay 0.1
+					//	Cooldown 2
+					//	Repeats 0
+					//}
 				}
 				PatternRestart
 				{
@@ -491,29 +498,42 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 					}
 					FireInput [$SIGSEGV]
 					{
-						Target "rockethell_pattern" //Entity name to use
+						Target "rockethell_enable*" //Entity name to use
 						Action "Trigger" //Input to fire
 						Delay 0.1 //Delay before firing the input
 						Cooldown 10 //Cooldown between firing the input
 						Repeats 0 //How many times should the input be fired
 					}
-					FireInput [$SIGSEGV] 
+					ChangeAttributes [$SIGSEGV]  //Periodically changes bot attributes, defined in EventChangeAttributes
 					{
-						Target "spellcard" //Entity name to use
-						Action "Trigger" //Input to fire
-						Delay 7 //Delay before firing the input
-						Cooldown 10 //Cooldown between firing the input
-						Repeats 0 //How many times should the input be fired
+						Delay 8 //Time before the first bot attribute change (Default: 10)
+						Cooldown 10 //Time between each bot attribute change (Default: 10)
+						Repeats 0 //How many times should bot change attributes in total (Default: 0 - Infinite)
+						Name "Default" // Name of the bot attributes listed in EventChangeAttributes
 					}
+					//Message
+					//{
+					//	Name "pattern restart"
+					//	Delay 0.1
+					//	Cooldown 2
+					//	Repeats 0
+					//}
 				}
 				Stunned
 				{
 					Attributes MiniBoss
-					AddCond [$SIGSEGV] //Adds conditions to bots
+					//Message
+					//{
+					//	Name "stunned"
+					//	Delay 0.1
+					//	Cooldown 2
+					//	Repeats 0
+					//}
+					CharacterAttributes
 					{
-						Name "TF_COND_INVULNERABLE_HIDE_UNLESS_DAMAGED"
-						Delay 0
-						Duration -1
+						"no_attack" 1
+						"no_jump" 1
+						"move speed penalty" 0.001
 					}
 				}
 
@@ -714,6 +734,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 			UseCustomModel "models/empty.mdl" 
 			Scale 0.3
+			Tag bot_helimove
 
 			AddCond 
 			{
@@ -1454,15 +1475,15 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			Attributes MiniBoss
 			Attributes UseBossHealthBar
 
-			Scale 1.9 
+			Scale 1.9
 
 			CharacterAttributes
 			{
 				"cannot disguise" 1
 
 				"move speed bonus"	0.5
-				"damage force reduction" 0.4
-				"airblast vulnerability multiplier" 0.4
+				"damage force reduction" 0.1
+				"airblast vulnerability multiplier" 0.1
 			}
 
 			ItemAttributes
@@ -1571,8 +1592,8 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"cannot disguise" 1
 
 				"move speed bonus"	0.5
-				"damage force reduction" 0.4
-				"airblast vulnerability multiplier" 0.4
+				"damage force reduction" 0.1
+				"airblast vulnerability multiplier" 0.1
 			}
 
 			ItemAttributes
@@ -3073,7 +3094,324 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 			RemoveIfKilled "explosive_tip_relay"
 		}
+		SentryRanger
+		{
+			KeepAlive 1 
 
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname sentry_bolt"			
+			}
+			
+			OnSpawnOutput
+			{
+				Target "le_sentry"
+				Action "$InheritOwner"
+				Param "!activator"	
+			}
+
+			OnSpawnOutput
+			{
+				Target "droneModel"
+				Action "Trigger"
+			}
+
+			// OnSpawnOutput
+			// {
+			// 	Target "le_sentry"
+			// 	Action "$SetModelOverride"
+			// 	Param "models/rcat/rcat_level2"	
+			// 	Delay 0.1
+			// }
+			// OnSpawnOutput
+			// {
+			// 	Target "le_sentry"
+			// 	Action "$SetProp$m_nSkin"
+			// 	Param "2"	
+			// 	Delay 0.2
+			// }
+
+			OnParentKilledOutput
+			{
+				Target "le_sentry"
+				Action "RemoveHealth"
+				Param "100000000000000"			
+			}
+
+			OnParentKilledOutput
+			{
+				Target "le_sentry"
+				Action "Kill"
+				Delay 5
+			}
+
+			OnParentKilledOutput
+			{
+				Target "droneModel"
+				Action "Kill"	
+			}
+
+			logic_relay 
+			{
+				"targetname" "droneModel"
+
+				"OnTrigger" "le_sentry,$SetProp$m_nSolidType,0,0,-1" 
+				"OnTrigger" "le_sentry,$SetModelOverride,models/rcat/rcat_level2.mdl,0,-1" 
+				"OnTrigger" "le_sentry,$SetProp$m_nSkin,2,0,-1"
+			}
+
+			obj_sentrygun
+			{
+				"targetname" "le_sentry"
+				"teamnum" "2"
+				"defaultupgrade" "0"
+				"SolidToPlayer" "0"
+				"spawnflags" "10"
+			}
+		}
+
+		Shapeshift_Type1_Logic 
+		{
+			OnSpawnOutput
+			{
+				Target "shapeshift_start"
+				Action "Trigger"
+				Delay 3
+			}
+
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$SetProp$m_bUseBossHealthBar"
+				Param "0"
+				Delay 0
+			}
+
+			logic_relay
+			{
+				"targetname" "shapeshift_start"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$WeaponStripSlot,0,0.51,-1" 
+				"OnTrigger" "shapeshift_loop,Trigger,,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "shapeshift_global"
+				"spawnflags" "2"
+
+				"OnTrigger" "le_sentry*,RemoveHealth,100000000,0,-1"
+				"OnTrigger" "sentry_bolt*,Kill,,0.1,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "shapeshift_loop"
+				"spawnflags" "2"
+
+				"OnTrigger" "shapeshift_global,Trigger,,0,-1"
+				"OnTrigger" "soldier_shapeshift,Trigger,,0.5,-1"
+
+				"OnTrigger" "shapeshift_global,Trigger,,5,-1"
+				"OnTrigger" "heavy_shapeshift,Trigger,,5.5,-1"
+
+				"OnTrigger" "shapeshift_global,Trigger,,10,-1"
+				"OnTrigger" "engie_shapeshift,Trigger,,10.5,-1"
+
+				"OnTrigger" "!self,Trigger,,16,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "soldier_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Soldier,0,-1"
+
+				//"OnTrigger" "!activator,$AddCond,40,0.1,-1"
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+				
+				"OnTrigger" "!activator,SetCustomModel,models/bots/soldier_boss/bot_soldier_boss.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,soldier_burstfire,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "heavy_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Heavy,0,-1"
+
+				"OnTrigger" "!activator,$RemoveItem,Armored Authority,0.1,-1"
+
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+
+				"OnTrigger" "!activator,SetCustomModel,models/bots/heavy_boss/bot_heavy_boss.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,heavy_heater,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "engie_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Engineer,0,-1"
+
+				"OnTrigger" "!activator,$RemoveItem,Magnificent Mongolian,0.1,-1"
+				
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+
+				"OnTrigger" "!activator,SetCustomModel,models/bots/engineer/bot_engineer.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,engineer,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+		}
+		Shapeshift_Type2_Logic 
+		{
+			OnSpawnOutput
+			{
+				Target "shapeshift_start"
+				Action "Trigger"
+				Delay 3
+			}
+
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$SetProp$m_bUseBossHealthBar"
+				Param "0"
+				Delay 0
+			}
+
+			logic_relay
+			{
+				"targetname" "shapeshift_start"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$WeaponStripSlot,0,0.51,-1" 
+				"OnTrigger" "!activator,$WeaponStripSlot,1,0.51,-1" 
+				"OnTrigger" "shapeshift_loop,Trigger,,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "shapeshift_global"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$AddCond,4,0,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "shapeshift_loop"
+				"spawnflags" "2"
+
+				"OnTrigger" "shapeshift_global,Trigger,,0,-1"
+				"OnTrigger" "scout_shapeshift,Trigger,,0.5,-1"
+
+				"OnTrigger" "shapeshift_global,Trigger,,5,-1"
+				"OnTrigger" "pyro_shapeshift,Trigger,,5.5,-1"
+
+				"OnTrigger" "shapeshift_global,Trigger,,10,-1"
+				"OnTrigger" "spy_shapeshift,Trigger,,10.5,-1"
+
+				"OnTrigger" "!self,Trigger,,16,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "scout_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Scout,0,-1"
+
+				//"OnTrigger" "!activator,$AddCond,40,0.1,-1"
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+				
+				"OnTrigger" "!activator,SetCustomModel,models/bots/scout_boss/bot_scout_boss.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,scout,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "pyro_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Pyro,0,-1"
+
+				"OnTrigger" "!activator,$RemoveItem,The Hermes,0.1,-1"
+
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+				"OnTrigger" "!activator,$WeaponStripSlot,1,0.11,-1" 
+
+				"OnTrigger" "!activator,SetCustomModel,models/bots/pyro_boss/bot_pyro_boss.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,pyro,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "spy_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Spy,0,-1"
+
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+
+				"OnTrigger" "!activator,SetCustomModel,models/bots/spy/bot_spy.mdl,0.1,-1" 
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,spy,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
+				
+				"OnTrigger" "summon_illusion,Enable,4,0.55,-1"
+				"OnTrigger" "summon_illusion,Disable,4,0.65,-1"
+			}
+		}
+		ShapeshiftSpy_Position 
+		{
+			NoFixup 1
+
+			info_target 
+			{
+				"targetname" "shapeshift_illusion_target"
+
+				"Origin" "0 0 0"
+			}
+		}
+
+		Illusion_Spawn
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$TeleportToEntity"
+				Param "shapeshift_illusion_target"
+				Delay 0
+			}
+		}
 		Yakuza_Title_Card_Prototypes
 		{
 			OnSpawnOutput
@@ -3700,18 +4038,21 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				Action "Trigger"
 				Delay 6.9
 			}
-
-			OnSpawnOutput
+			
+			logic_relay
 			{
-				Target "!activator"
-				Action "addoutput"
-				Param "targetname rockethell_ranger"
-				Delay 0.1
+				"targetname" "rockethell_disable"
+				"OnTrigger" "!activator,$AddCond,52"
+				"OnTrigger" "!activator,$ChangeAttributes,Stunned"
+				"OnTrigger" "rockethell_pattern*,CancelPending"
+				"OnTrigger" "spellcard*,CancelPending"
 			}
-
-			info_target
+			logic_relay
 			{
-				"targetname" "rockethell_target"
+				"targetname" "rockethell_enable"
+				"OnTrigger" "!activator,$RemoveCond,52"
+				"OnTrigger" "rockethell_pattern,Trigger,,0.1"
+				"OnTrigger" "spellcard,Trigger,,6.9"
 			}
 			game_text
 			{

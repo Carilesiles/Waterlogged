@@ -79,8 +79,10 @@ WaveSchedule
 	PrecacheSound "rpg_sounds/rpg_explode.wav"
 	PrecacheSound "rpg_sounds/rocketfire1.wav"
 	PrecacheModel "models/props_mvm/mvm_comically_small_player_shield.mdl"
-    PrecacheModel "models/props_frontline/helicopter_windows.mdl"
-    PrecacheModel "models/rcat/rcat_level2"
+	PrecacheModel "models/props_frontline/helicopter_windows.mdl"
+	PrecacheModel "models/rcat/rcat_level2"
+	PrecacheModel "models/mvm/barrier/barrier_oneway_red1.mdl"
+	PrecacheModel "models/mvm/barrier/barrier_oneway_red2.mdl"
 
 	LuaScript"function vitasawOnHit(_, activat, calle) local teamCheckInstance = ents.FindByName('vitasaw_team_check'); teamCheckInstance:AcceptInput('TestActivator',_,calle,activat); activat:SetName('vitasaw_caller');
 	end"
@@ -730,9 +732,15 @@ WaveSchedule
 
 	ItemAttributes
 	{
-		ItemName "The Short Circuit" 
+		ItemName "The Short Circuit"
 
 		"override projectile type" 2
+		"alt-fire disabled" 1
+		"fire rate penalty" 10
+	}
+	ItemBlacklist [$SIGSEGV]
+	{
+		Name "The Short Circuit"
 	}
 
 	PlayerShootTemplate
@@ -741,6 +749,7 @@ WaveSchedule
 		AttachToProjectile 1
 		ItemName "The Short Circuit" 
 	}
+
 	PlayerItemEquipSpawnTemplate 
 	{
 		Name Axe_Rework
@@ -912,6 +921,8 @@ WaveSchedule
 	{
 		ItemName "The Gunslinger"
 		"cannot pick up buildings" 1
+		"build rate bonus" 0.2
+		"upgrade rate decrease" 4
 		"special item description" "Placed Mini-Sentries are converted into drones that will float alongside you."
 	}
 
@@ -3388,11 +3399,11 @@ WaveSchedule
 		{
 			Name "w4_subwaveone"
 			Where "spawnbot_invasion"
-			TotalCount 100
+			TotalCount 20
 			MaxActive 2
 			SpawnCount 1
 			Support limited
-			TotalCurrency 50
+			TotalCurrency 100
 			WaitBeforeStarting 1
 			WaitBetweenSpawns 16
 			TFBot
@@ -3449,7 +3460,7 @@ WaveSchedule
 			Where "spawnbot_building"
 			Where "spawnbot_balcony_drain"
 			TotalCount 36
-			MaxActive 6
+			MaxActive 4
 			SpawnCount 2
 			Support limited
 			TotalCurrency 100
@@ -3519,7 +3530,7 @@ WaveSchedule
 			SpawnCount 1
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
-			TotalCurrency 0
+			TotalCurrency 100
 
 			TFBot
 			{
@@ -3538,7 +3549,7 @@ WaveSchedule
 			MaxActive 3
 			SpawnCount 1
 			Support limited
-			TotalCurrency 50
+			TotalCurrency 100
 			WaitBeforeStarting 1
 			WaitBetweenSpawns 12
 			RandomChoice
@@ -3623,6 +3634,7 @@ WaveSchedule
 	{
 		SpawnTemplate "wave5_logic"
 		SpawnTemplate "PlayerResInput"
+		//SpawnTemplate "test"
 		PlayerAttributes  
 		{
 			"min respawn time" 9999
@@ -3715,8 +3727,8 @@ WaveSchedule
 			SpawnCount 1
 			Support limited
 			TotalCurrency 1000
-			WaitBeforeStarting 45
-			WaitBetweenSpawns 16
+			WaitBeforeStarting 30
+			WaitBetweenSpawns 12
 			TFBot
 			{
 				Template T_TFBot_Small_Buster
@@ -3735,7 +3747,7 @@ WaveSchedule
 			WaitBeforeStarting	0
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
-				Name "PlaceHolder"
+				Name "PlaceHolder_Start"
 			}
 		}
 		WaveSpawn
@@ -3751,7 +3763,7 @@ WaveSchedule
 			SpawnCount 1
 			TotalCurrency 200
 			WaitBeforeStarting 0
-			WaitBetweenSpawns 1
+			WaitBetweenSpawns 4
 			TFBot
 			{
 				Template T_TFBot_Droneboy
@@ -3767,7 +3779,7 @@ WaveSchedule
 			Where "spawnbot_arena_2"
 			Where "spawnbot_arena_3"
 			Where "spawnbot_arena_4"
-			TotalCount 100
+			TotalCount 10
 			MaxActive 5
 			SpawnCount 1
 			TotalCurrency 100
@@ -3798,7 +3810,7 @@ WaveSchedule
 			WaitBeforeStarting	3
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
-				Name "PlaceHolder"
+				Name "PlaceHolder_End"
 			}
 		}
 		WaveSpawn
@@ -3822,7 +3834,12 @@ WaveSchedule
 			WaitBeforeStarting	0
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
-				Name "PlaceHolder"
+				Name "PlaceHolder_Start"
+			}
+			FirstSpawnOutput
+			{
+				Target "midphase_done"
+				Action Trigger
 			}
 		}
 		WaveSpawn
@@ -3885,6 +3902,38 @@ WaveSchedule
 						"force distribute currency on death" 1
 					}
 					SpawnTemplate AddBotGlow
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "main_midphase_two"
+			Where "spawnbot_arena_1"
+			Where "spawnbot_arena_2"
+			Where "spawnbot_arena_3"
+			Where "spawnbot_arena_4"
+			WaitForAllDead "midphase1"
+			TotalCount 3
+			MaxActive 2
+			SpawnCount 1
+			TotalCurrency 50
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TFBot
+			{
+				Template T_TFBot_Sniper_Huntsman_Spammer
+				AddTemplate RedBot
+				SpawnTemplate AddBotGlow
+				ItemAttributes
+				{
+					ItemName "The Huntsman"
+					"fire rate bonus" 0.6
+					"cannot headshot" 1
+				}
+				CharacterAttributes
+				{
+					"damage force reduction" 0.6
+					"airblast vulnerability multiplier" 0.6
 				}
 			}
 		}
@@ -3981,16 +4030,6 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
-			WaitForAllDead "arena_generator_onetwothree"
-			DoneOutput
-			{
-				Target midphase_end_Relay
-				Action Trigger
-			}
-		}
-		
-		WaveSpawn
-		{
 			Name "midphase_three_start"
 			WaitForAllDead "midphase_two"
 			Where "spawnbot_boss"
@@ -4000,7 +4039,12 @@ WaveSchedule
 			WaitBeforeStarting	0
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
-				Name "PlaceHolder"
+				Name "PlaceHolder_Start"
+			}
+			FirstSpawnOutput
+			{
+				Target "midphase_done"
+				Action Trigger
 			}
 		}
 		WaveSpawn
@@ -4011,17 +4055,15 @@ WaveSchedule
 			Where "spawnbot_arena_2"
 			Where "spawnbot_arena_3"
 			Where "spawnbot_arena_4"
-			TotalCount 2
-			MaxActive 2
+			TotalCount 1
+			MaxActive 1
 			SpawnCount 1
-			TotalCurrency 200
+			TotalCurrency 100
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 1
 			TFBot
 			{
-				Template T_TFBot_Sergeant_Shapeshift
-
-				Name "Sergeant Shapeshift Prototype"
+				Template T_TFBot_Sergeant_Shapeshift_Prototype_Type1
 				SpawnTemplate AddBotGlow
 				CharacterAttributes
 				{
@@ -4031,8 +4073,98 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
-			Name "support_midphase_three"
+			Name "main_midphase_three"
 			WaitForAllDead "midphase_three_start"
+			Where "spawnbot_arena_1"
+			Where "spawnbot_arena_2"
+			Where "spawnbot_arena_3"
+			Where "spawnbot_arena_4"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 100
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TFBot
+			{
+				Template T_TFBot_Sergeant_Shapeshift_Prototype_Type2
+				SpawnTemplate AddBotGlow
+				CharacterAttributes
+				{
+					"force distribute currency on death" 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where summon_illusion
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+			Support 1
+
+			RandomChoice 
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						Template T_TFBot_Sergeant_Shapeshift_Illusion
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "midphase_three_end"
+			WaitForAllDead "midphase_two_start"
+			Where "spawnbot_boss"
+			TotalCount	1
+			SpawnCount	1
+			TotalCurrency 0
+			WaitBeforeStarting	3
+			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
+			{
+				Name "PlaceHolder_End"
+			}
+		}
+		WaveSpawn
+		{
+			Name "midphase_three"
+			WaitForAllDead "midphase_three_end"
+		}
+		WaveSpawn
+		{
+			Name "midphase_three"
+			WaitForAllDead "main_midphase_three"
+		}
+		WaveSpawn
+		{
+			Name "lastphase_start"
+			WaitForAllDead "midphase_three"
+			Where "spawnbot_boss"
+			TotalCount	1
+			SpawnCount	1
+			TotalCurrency 0
+			WaitBeforeStarting	0
+			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
+			{
+				Name "PlaceHolder_Start"
+			}
+			FirstSpawnOutput
+			{
+				Target "midphase_done"
+				Action Trigger
+			}
+		}
+		WaveSpawn
+		{
+			Name "support_lastphase"
+			WaitForAllDead "main_midphase_three"
 			Where "spawnbot_arena_1"
 			Where "spawnbot_arena_2"
 			Where "spawnbot_arena_3"
@@ -4042,7 +4174,7 @@ WaveSchedule
 			SpawnCount 1
 			TotalCurrency 200
 			WaitBeforeStarting 0
-			WaitBetweenSpawns 4
+			WaitBetweenSpawns 8
 			Support Limited
 		
 			TFBot
@@ -4090,7 +4222,7 @@ WaveSchedule
 		Node "-1574 987 -1"
 		Node "-1000 987 -1"
 	}
-	ExtraTankPath  
+	ExtraTankPath
 	{
 		Name "generator_five_path"
 		Node "-615 1107 -1"
@@ -4105,20 +4237,20 @@ WaveSchedule
 	ExtraTankPath  
 	{
 		Name "arena_generator_one_path"
-		Node "25 3261 -213"
-		Node "125 3261 -213"
+		Node "25 3261 -198"
+		Node "125 3261 -198"
 	}
 	ExtraTankPath  
 	{
 		Name "arena_generator_two_path"
-		Node "-2789 4143 -469"
-		Node "-2889 4143 -469"
+		Node "-2789 4143 -454"
+		Node "-2889 4143 -454"
 	}
 	ExtraTankPath  
 	{
 		Name "arena_generator_three_path"
-		Node "-2875 6220 -213"
-		Node "-2875 6120 -213"
+		Node "-2875 6220 -198"
+		Node "-2875 6120 -198"
 	}
 	ExtraSpawnPoint
 	{

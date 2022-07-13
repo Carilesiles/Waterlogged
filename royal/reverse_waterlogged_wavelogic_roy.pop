@@ -1654,6 +1654,15 @@ WaveSchedule
 			// 	Param  "$$=''..?(int(!activator.hasRes) > 0, ?(int(playerResInWaveTest.inWave) < 1,string('99'),string('1')),?(int(playerResInWaveTest.inWave) < 1,string('99'),string('0')))"
 			// }
 
+			filter_tf_condition
+			{
+				"targetname" "filter_didnt_recall"
+				"Negated" "1"
+				"condition" "32"
+
+				"OnPass" "playerResConfirm,InValue,$$=''..?(int(!activator.hasRes) > 0, ?(int(playerResInWaveTest.inWave) < 1,string('99'),string('1')),?(int(playerResInWaveTest.inWave) < 1,string('99'),string('0'))),0,-1"
+			}
+
 			$filter_variable
 			{
 				"targetname" "didnt_switch_with_freelance_mercenary"
@@ -1663,9 +1672,7 @@ WaveSchedule
 
 				"Negated" "1"
 
-				"OnPass" "playerResConfirm,InValue,$$=''..?(int(!activator.hasRes) > 0, ?(int(playerResInWaveTest.inWave) < 1,string('99'),string('1')),?(int(playerResInWaveTest.inWave) < 1,string('99'),string('0'))),0,-1"
-				// "OnPass" "player,$DisplayTextChat,$$=''..?(int(!activator.hasRes) > 0, ?(int(playerResInWaveTest.inWave) < 1,string('99'),string('1')),?(int(playerResInWaveTest.inWave) < 1,string('99'),string('0'))),0,-1"
-				// "OnFail" "player,$DisplayTextChat,$$=!activator.PreFreelanceSwitchHealth,0,-1"
+				"OnPass" "filter_didnt_recall,TestActivator,,0.1,-1" //delay is to make sure player don't trick the respawn by being whip boosted when they die
 			}
 			logic_case
 			{

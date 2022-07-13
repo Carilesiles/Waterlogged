@@ -604,7 +604,7 @@ WaveSchedule
 
             "effect cond override" 12 //just here to remove default uber
 
-            "special item description" "UberCharge deals 5 times the amount of damage taken back to the attacker and heal for half the damage taken (effect does not apply to heal target)"
+            "special item description" "UberCharge deals 5 times the amount of damage taken back to the attacker and heal for half the damage taken (effects do not apply to heal target)"
             "special item description 2" "UberCharge can only be built by taking damage at a 3:1 ratio"
             "special item description 3" "UberCharge remains active when switching to other weapons"
         }

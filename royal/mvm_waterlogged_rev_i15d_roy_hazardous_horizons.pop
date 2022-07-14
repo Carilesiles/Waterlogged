@@ -589,15 +589,18 @@ WaveSchedule
 		}
 		"No Mercy"
 		{
-			OriginalItemName "Wings of Purity"
+			OriginalItemName "Upgradeable TF_WEAPON_SYRINGEGUN_MEDIC"//"Wings of Purity" //potential buffer overflow hazard
 
 			"cancel falling damage" 1
 			"increased air control" 5
 			"increased jump height" 1.2
 
+			"hidden primary max ammo bonus" 0.0001
+			"clip size penalty HIDDEN" 0.00001
+			"cannot be upgraded" 1
 			"special item description" "Increased gravity and air control on wearer"
 			"special item description 2" "Hold DUCK to rapidly descend"
-			"special item description 3" "Wearer never takes falling damage"
+			//"special item description 3" "Wearer never takes falling damage"
 		}
 		"Comfortably Numb"
 		{
@@ -634,7 +637,8 @@ WaveSchedule
 			"dmg from ranged reduced" 0.9
 			"damage force increase" 2
 			"cancel falling damage" 1
-			"custom item model" "models/player/items/all_class/spacechem_pin.mdl"
+			//potential buffer overflow hazard
+			//"custom item model" "models/player/items/all_class/spacechem_pin.mdl"
 		}
 
 		"Freelance Mercenary"

@@ -96,7 +96,7 @@ WaveSchedule
 			logic_branch
 			{
 				//bool for if player has vanilla canteen
-                //reset their charges count if true
+				//reset their charges count if true
 				"targetname" "vanilla_canteens_bool"
 
 				"InitialValue" "0"
@@ -144,15 +144,15 @@ WaveSchedule
 			logic_relay 
 			{
 				"targetname" "canteen_input"
-                "spawnflags" "2"
+				"spawnflags" "2"
 
 				//since $getprop with @c@ work like an index loop doing the applied output on every child and default to a set value if the prop index doesn't exist 
 				//I can hook it to a logic_compare and see if the input is different from the default value
 				"OnUser1" "@c@!activator,$GetProp$m_usNumCharges,sanitize_canteen_input|SetValueCompare|6900,-1,-1"
 
-                // "OnUser1" "@c@!activator,$GetProp$m_usNumCharges,!activator|$DisplayTextChat|def,0,-1"
-                // "OnUser1" "!activator,$DisplayTextChat,internal charges count:,-1,-1"
-                // "OnUser1" "!activator,$DisplayTextChat,$$=!activator.currentCustomCanteenCharges,0,-1"
+				// "OnUser1" "@c@!activator,$GetProp$m_usNumCharges,!activator|$DisplayTextChat|def,0,-1"
+				// "OnUser1" "!activator,$DisplayTextChat,internal charges count:,-1,-1"
+				// "OnUser1" "!activator,$DisplayTextChat,$$=!activator.currentCustomCanteenCharges,0,-1"
 
 				"OnUser1" "vanilla_canteens_bool,SetValue,0,-1,-1" //reset for this cycle
 
@@ -193,14 +193,14 @@ WaveSchedule
 			$filter_variable
 			{
 				//check if player has any remaining canteen charges
-                //final step before using custom canteen based on id 
+				//final step before using custom canteen based on id 
 				"targetname" "canteen_owned_check"
 				"$name" "currentCustomCanteenCharges"
 				"$value" "0"
 				"$compare" "greater than"
 				"Negated" "0"
 
-                //"OnPass" "player,$DisplayTextChat,canteen not empty check passed,0.01,-1"
+				//"OnPass" "player,$DisplayTextChat,canteen not empty check passed,0.01,-1"
 				"OnPass" "canteen_effect,TestActivator,,-1,-1"
 			}
 
@@ -494,12 +494,13 @@ WaveSchedule
 				"targetname" "on_canteen_empty"
 				"spawnflags" "2"
 
-                //"OnTrigger" "player,$DisplayTextChat,canteen emptied !!!,0,-1"
+				//"OnTrigger" "player,$DisplayTextChat,canteen emptied !!!,0,-1"
 
 				"OnTrigger" "!activator,$RemoveItemAttribute,special item description|9,0,-1"
 				"OnTrigger" "!activator,$SetVar$canteenIndex,-1,0,-1"
 			}
 		}
+		
 		FreelanceMercenary_Logic
 		{
 			OnSpawnOutput 
@@ -509,20 +510,12 @@ WaveSchedule
 				Delay 0
 			}
 
-            OnSpawnOutput 
+			OnSpawnOutput 
 			{
 				Target "!activator"
 				Action "$SetVar$FreelanceEquipped"
 				Param "1"
-                Delay 0
-			}
-
-            OnSpawnOutput 
-			{
-				Target "!activator"
-				Action "$SetVar$FreelanceSwitched"
-				Param "0"
-                Delay 0.1
+				Delay 0
 			}
 
 			OnSpawnOutput 
@@ -537,17 +530,17 @@ WaveSchedule
 			{
 				Target "apply_last_health"
 				Action "Compare"
-				Delay 0.02//0.06
+				Delay 0.06
 			}
 
-            OnParentKilledOutput 
+			OnParentKilledOutput 
 			{
 				Target "!activator"
 				Action "$SetVar$FreelanceEquipped"
 				Param "0"
-                Delay -1
+				Delay -1
 			}
-            
+			
 			//apply health from previous class if switched
 			logic_compare
 			{
@@ -556,24 +549,24 @@ WaveSchedule
 				"InitialValue" "-1"
 
 				"OnNotEqualTo" "!activator,$SetKey$health,$$=!activator.PreFreelanceSwitchHealth,-1,-1"
-                
+				
 				"OnNotEqualTo" "!activator,$SetVar$PreFreelanceSwitchHealth,,0,-1"
 				"OnNotEqualTo" "!activator,$SetVar$FreelanceSwitched,1,-1,-1"
 			}
 
-            logic_case
-            {
-                "targetname" "class_select_menu"
-                "case16" "Select Class|0|Cancel" 
-                "case01" "Scout" 
-                "case02" "Soldier" 
-                "case03" "Pyro" 
-                "case04" "Demoman" 
-                "case05" "Heavy" 
-                "case06" "Engineer" 
-                "case07" "Medic" 
-                "case08" "Sniper" 
-                "case09" "Spy" 
+			logic_case
+			{
+				"targetname" "class_select_menu"
+				"case16" "Select Class|0|Cancel" 
+				"case01" "Scout" 
+				"case02" "Soldier" 
+				"case03" "Pyro" 
+				"case04" "Demoman" 
+				"case05" "Heavy" 
+				"case06" "Engineer" 
+				"case07" "Medic" 
+				"case08" "Sniper" 
+				"case09" "Spy" 
 
 				"oncase01" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
 				"oncase01" "!activator,$SwitchClassInPlace,Scout,0,-1"
@@ -601,7 +594,7 @@ WaveSchedule
 
 				"oncase09" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
 				"oncase09" "!activator,$SwitchClassInPlace,Spy,0,-1"
-            }
+			}
 
 			$filter_sendprop
 			{
@@ -611,9 +604,9 @@ WaveSchedule
 				"$compare" "equal"
 				"Negated" "1"
 
-                //"OnPass" "class_select_menu,$DisplayMenu,!activator,0,-1"
-                "OnPass" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
-                "OnPass" "popscript,$FreelanceMerc_PromptMenu,$$=!activator.m_iClass,0,-1"
+				//"OnPass" "class_select_menu,$DisplayMenu,!activator,0,-1"
+				"OnPass" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
+				"OnPass" "popscript,$FreelanceMerc_PromptMenu,$$=!activator.m_iClass,0,-1"
 
 				// "OnPass" "!activator,$SetVar$PreFreelanceSwitchHealth,$$= !activator.m_iHealth ,-1,-1"
 				// "OnPass" "!activator,$SwitchClassInPlace,$$= test ( !activator.m_iClass + 1 <= 9 , !activator.m_iClass + 1, 1 ) ,0,-1"
@@ -629,9 +622,10 @@ WaveSchedule
 			}
 		}
 
-        ScoutNoOverheal 
-        {
-            OnSpawnOutput
+
+		ScoutNoOverheal 
+		{
+			OnSpawnOutput
 			{
 				Target "overheal_remove"
 				Action "Trigger"
@@ -642,13 +636,13 @@ WaveSchedule
 				"targetname" "overheal_remove"
 				"spawnflags" "2"
 
-                //turn health above 125 to 125
-				"OnTrigger" "filter_overhealth,TestActivator,,-1,0"   
-	
-				"OnTrigger" "!self,Trigger,,0.02,-1"  
+				//turn health above 125 to 125
+				"OnTrigger" "filter_overhealth,TestActivator,,-1,0"
+
+				"OnTrigger" "!self,Trigger,,0.02,-1"
 			}
 
-            $filter_keyvalue
+			$filter_keyvalue
 			{
 				"targetname" "filter_overhealth"
 				"$name" "health"
@@ -658,8 +652,8 @@ WaveSchedule
 
 				"OnPass" "!activator,$SetKey$health,125,0,-1"
 			}
-        }
-
+		}
+		
 		Axe_Rework_Global
 		{
 			NoFixup 1 
@@ -715,7 +709,7 @@ WaveSchedule
 				"maxs" "400 400 400"
 				"spawnflags" "1"
 
-                "teamnum" "2"
+				"teamnum" "2"
 				"filtername" "filter_is_red"
 
 				"StartDisabled" "1"
@@ -791,8 +785,6 @@ WaveSchedule
 				"maxs" "200 200 200"
 				"spawnflags" "1"
 
-                "teamnum" "3"
-
 				"filtername" "filter_is_blu"
 
 				"OnTrigger" "!activator,$AddCond,16,0,-1"
@@ -806,8 +798,6 @@ WaveSchedule
 				"mins" "-200 -200 -200"
 				"maxs" "200 200 200"
 				"spawnflags" "1"
-
-                "teamnum" "3"
 
 				"StartDisabled" "1"
 
@@ -875,10 +865,10 @@ WaveSchedule
 				"Case04" "3"
 
 				"OnCase01" "!activator,$RemoveItemAttribute,no_attack|1,0,-1"
-				//"OnCase01" "!activator,$RemoveItemAttribute,dmg penalty vs players|0,0,-1"
+				"OnCase01" "!activator,$RemoveItemAttribute,dmg penalty vs players|0,0,-1"
 
 				"OnCase02" "!activator,$AddItemAttribute,no_attack|1|1,0,-1"
-				//"OnCase02" "!activator,$AddItemAttribute,dmg penalty vs players|0.7|0,0,-1"
+				"OnCase02" "!activator,$AddItemAttribute,dmg penalty vs players|0.7|0,0,-1"
 
 				//"OnCase01" "!activator,$RemovePlayerAttribute,mod weapon blocks healing,0,-1"
 
@@ -900,38 +890,24 @@ WaveSchedule
 				"OnTrigger" "!self,Trigger,,0.1,-1"
 			}
 		}
+		
+		Murasama_Global 
+		{
+			NoFixup 1
 
-        // FrontalImpact_Global 
-        // {
-        //     NoFixup 1
+			logic_relay 
+			{
+				"targetname" "murasama_hit"
+				"spawnflags" "2"
 
-        //     logic_relay 
-        //     {
-        //         "targetname" "frontalimpact_hit"
-        //         "spawnflags" "2"
+				"OnTrigger" "!activator,AddOutput,BaseVelocity 0 0 250,0,-1"
+				"OnTrigger" "!activator,$AddCond,81,0.1,-1"
+				"OnTrigger" "!activator,$SetForwardVelocity,300,0,-1"
+			}
+		}
 
-        //         "OnTrigger" "!activator,AddOutput,BaseVelocity 0 0 300,0,-1"
-        //         "OnTrigger" "!activator,$DisplayTextChat,hit,0,-1"
-        //         "OnTrigger" "!activator,$SetForwardVelocity,-300,0,-1"
-        //     }
-        // }
-        Murasama_Global 
-        {
-            NoFixup 1
-
-            logic_relay 
-            {
-                "targetname" "murasama_hit"
-                "spawnflags" "2"
-
-                "OnTrigger" "!activator,AddOutput,BaseVelocity 0 0 250,0,-1"
-                "OnTrigger" "!activator,$AddCond,81,0.1,-1"
-                "OnTrigger" "!activator,$SetForwardVelocity,300,0,-1"
-            }
-        }
-
-        Murasama_Spawn
-        {
+		Murasama_Spawn
+		{
 			// OnSpawnOutput
 			// {
 			// 	Target "!activator"
@@ -948,37 +924,37 @@ WaveSchedule
 			// 	Delay 0
 			// }
 
-            OnSpawnOutput
+			OnSpawnOutput
 			{
 				Target "murasama_spawn"
 				Action "Trigger"
 			}
 
-            OnSpawnOutput
+			OnSpawnOutput
 			{
 				Target "charge_check"
 				Action "Trigger"
 			}
 
-            OnParentKilledOutput
+			OnParentKilledOutput
 			{
 				Target "!activator"
 				Action "RemovePlayerAttribute"
-                Param "dmg from ranged reduced"
-                Delay 0.1
+				Param "dmg from ranged reduced"
+				Delay 0.1
 			}
 
-            logic_relay 
-            {
-                "targetname" "murasama_spawn"
+			logic_relay 
+			{
+				"targetname" "murasama_spawn"
 
-                "OnTrigger" "!activator,$WeaponStripSlot,0,0,-1"
-                "OnTrigger" "!activator,$WeaponSwitchSlot,2,0,-1"
-                "OnTrigger" "!activator,$GiveItem,Murasama Charge,0,-1"
-                // "OnTrigger" "!activator,$AddItemAttribute,is invisible|1|1,0.01,-1"
-                // "OnTrigger" "!activator,$AddItemAttribute,dmg taken from blast reduced|1|1,0.01,-1"
-                // "OnTrigger" "!activator,$AddItemAttribute,dmg taken from fire reduced|1|1,0.01,-1"
-            }
+				"OnTrigger" "!activator,$WeaponStripSlot,0,0,-1"
+				"OnTrigger" "!activator,$WeaponSwitchSlot,2,0,-1"
+				"OnTrigger" "!activator,$GiveItem,Murasama Charge,0,-1"
+				// "OnTrigger" "!activator,$AddItemAttribute,is invisible|1|1,0.01,-1"
+				// "OnTrigger" "!activator,$AddItemAttribute,dmg taken from blast reduced|1|1,0.01,-1"
+				// "OnTrigger" "!activator,$AddItemAttribute,dmg taken from fire reduced|1|1,0.01,-1"
+			}
 
 			logic_relay 
 			{
@@ -989,8 +965,8 @@ WaveSchedule
 				"OnTrigger" "filter_is_propelled,TestActivator,,0,-1"   
 				"OnTrigger" "filter_is_midair,TestActivator,,0,-1"   
 
-                //incase of resupply 
-                "OnTrigger" "murasama_spawn,Trigger,0,0,-1"
+				//incase of resupply 
+				"OnTrigger" "murasama_spawn,Trigger,0,0,-1"
 
 				"OnTrigger" "!self,Trigger,,0.05,-1"  
 			}
@@ -1005,11 +981,11 @@ WaveSchedule
 
 				"OnPass" "!activator,$AddCond,46,0,-1"
 				"OnPass" "!activator,$AddItemAttribute,CARD: move speed bonus|2.5|2,0,-1"
-                
-                "OnPass" "!activator,$RemoveCond,46,1,-1"
+				
+				"OnPass" "!activator,$RemoveCond,46,1,-1"
 				"OnPass" "!activator,$RemoveItemAttribute,CARD: move speed bonus|2,1,-1"
-                "OnPass" "!activator,$SetForwardVelocity,500,0,-1"
-                // "OnPass" "!activator,AddOutput,BaseVelocity 0 0 300,0,-1"
+				"OnPass" "!activator,$SetForwardVelocity,500,0,-1"
+				// "OnPass" "!activator,AddOutput,BaseVelocity 0 0 300,0,-1"
 			}
 
 			filter_tf_condition
@@ -1017,14 +993,14 @@ WaveSchedule
 				"targetname" "filter_is_propelled"
 				"Negated" "0"
 				"condition" "81"
-        
+		
 				"OnPass" "!activator,$AddItemAttribute,melee range multiplier|2.5|2,0,-1"
 				"OnPass" "!activator,$AddPlayerAttribute,dmg from ranged reduced|0.8,0,-1"
 				"OnFail" "!activator,$RemoveItemAttribute,melee range multiplier|2,0,-1"
 				"OnFail" "!activator,$RemovePlayerAttribute,dmg from ranged reduced|2,0,-1"
 			}
 
-            $filter_sendprop
+			$filter_sendprop
 			{
 				"targetname" "filter_is_midair"
 				"$name" "m_flFallVelocity"
@@ -1036,7 +1012,7 @@ WaveSchedule
 			}
 
 
-            // $filter_sendprop
+			// $filter_sendprop
 			// {
 			// 	"targetname" "filter_is_midair"
 			// 	"$name" "m_bJumping"
@@ -1047,12 +1023,12 @@ WaveSchedule
 			// 	"OnPass" "!activator,$AddItemAttribute,melee range multiplier|4|2,0,-1"
 			// 	"OnPass" "!activator,$DisplayTextChat,jumpin,0,-1"
 			// 	"OnFail" "!activator,$RemoveItemAttribute,melee range multiplier|2,0,-1"
-                
+				
 			// }
-        }
+		}
 
-        NoMercy_Spawn
-        {
+		NoMercy_Spawn
+		{
 			OnSpawnOutput
 			{
 				Target "nomercy_check"
@@ -1066,14 +1042,14 @@ WaveSchedule
 				Param "0"
 			}
 
-            logic_relay 
-            {
-                "targetname" "nomercy_check"
+			logic_relay 
+			{
+				"targetname" "nomercy_check"
 				"spawnflags" "2"
 
-                "OnTrigger" "filter_ducked,TestActivator,,0,-1"
+				"OnTrigger" "filter_ducked,TestActivator,,0,-1"
 				"OnTrigger" "!self,Trigger,,0.1,-1"
-            }
+			}
 
 			$filter_sendprop
 			{
@@ -1086,74 +1062,74 @@ WaveSchedule
 				"OnPass" "!activator,$SetData$m_flGravity,4,0,-1"
 				"OnFail" "!activator,$SetData$m_flGravity,0.3,0,-1"
 			}
-        }
+		}
 
-        ComfortablyNumb_Spawn
-        {
-            OnSpawnOutput 
+		ComfortablyNumb_Spawn
+		{
+			OnSpawnOutput 
 			{
 				Target "numbcharge"
 				Action "Trigger"
 			}
 
-            OnSpawnOutput 
+			OnSpawnOutput 
 			{
 				Target "sanitize_uber"
 				Action "SetParent"
 				Param "!activator"
 			}
 
-            OnSpawnOutput 
+			OnSpawnOutput 
 			{
 				Target "is_numb_ubercharge_active"
 				Action "Trigger"
-                Delay 0.1
+				Delay 0.1
 			}
 
-            OnSpawnOutput 
+			OnSpawnOutput 
 			{
 				Target "!activator"
 				Action "AddOutput"
 				Param "$OnDamageReceived dmg_taken:$FireUser5::0:-1"
 			}
 
-            OnSpawnOutput 
+			OnSpawnOutput 
 			{
 				Target "!activator"
 				Action "AddOutput"
 				Param "$OnUser8 popscript:$dealDamageToActivator:$$=dmg_taken_while_uber.damageAmount * 5:-1:-1"
 			}
 
-            OnSpawnOutput 
+			OnSpawnOutput 
 			{
 				Target "!activator"
 				Action "AddOutput"
 				Param "$OnUser8 popscript:$healCaller:$$=dmg_taken_while_uber.damageAmount / 2:-1:-1"
 			}
 
-            OnSpawnOutput 
+			OnSpawnOutput 
 			{
 				Target "dmg_taken_normal"
 				Action "SetParent"
 				Param "!activator"
-                Delay 0.1
+				Delay 0.1
 			}
-            OnSpawnOutput 
+			OnSpawnOutput 
 			{
 				Target "dmg_taken_while_uber"
 				Action "SetParent"
 				Param "!activator"
-                Delay 0.1
+				Delay 0.1
 			}
 
-            OnParentKilledOutput 
+			OnParentKilledOutput 
 			{
 				Target "!activator"
 				Action "$RemoveOutput"
 				Param "$OnDamageReceived"
 			}
 
-            OnParentKilledOutput 
+			OnParentKilledOutput 
 			{
 				Target "!activator"
 				Action "$RemoveOutput"
@@ -1171,44 +1147,44 @@ WaveSchedule
 			{
 				Target "!activator"
 				Action "$RemoveItemAttribute"
-                Param "add uber charge on hit|2"
+				Param "add uber charge on hit|2"
 			}
 
-            logic_relay 
-            {
-                "targetname" "numbcharge"
+			logic_relay 
+			{
+				"targetname" "numbcharge"
 
 				"OnTrigger" "@c@!activator,$SetClientProp$m_flChargeLevel,0,0,-1"
 				"OnTrigger" "@c@!activator,$SetProp$m_flChargeLevel,-100000000,0,-1"
 
 				"OnTrigger" "!self,$SetVar$NumbChargeLevel,0,0,-1"
-            }
+			}
 
-            logic_compare
+			logic_compare
 			{
 				"targetname" "is_ubered_final"
 
-                "CompareValue" "1" 
+				"CompareValue" "1" 
 
 				"OnEqualTo" "dmg_taken_normal,Disable,,0,-1"
 				"OnEqualTo" "dmg_taken_while_uber,Enable,,0,-1"
 
-                //no ubersaw effect while ubered
+				//no ubersaw effect while ubered
 				"OnEqualTo" "!activator,$AddItemAttribute,add uber charge on hit|0|2,0,-1"
 
 				"OnEqualTo" "!activator,$AddCond,20,0,-1"
 				"OnEqualTo" "!activator,$AddCond,36,0,-1"
 
-                "OnNotEqualTo" "dmg_taken_normal,Enable,,0,-1"
-                "OnNotEqualTo" "dmg_taken_while_uber,Disable,,0,-1"
+				"OnNotEqualTo" "dmg_taken_normal,Enable,,0,-1"
+				"OnNotEqualTo" "dmg_taken_while_uber,Disable,,0,-1"
 
-                "OnNotEqualTo" "!activator,$RemoveItemAttribute,add uber charge on hit|2,0,-1"
+				"OnNotEqualTo" "!activator,$RemoveItemAttribute,add uber charge on hit|2,0,-1"
 
-                "OnNotEqualTo" "!activator,$RemoveCond,20,0,-1"
-                "OnNotEqualTo" "!activator,$RemoveCond,36,0,-1"
-            }
+				"OnNotEqualTo" "!activator,$RemoveCond,20,0,-1"
+				"OnNotEqualTo" "!activator,$RemoveCond,36,0,-1"
+			}
 
-            //in hindsight I could've literally just checked for m_bChargeRelease instead of this overengineered unamintainable clusterfuck 
+			//in hindsight I could've literally just checked for m_bChargeRelease instead of this overengineered unamintainable clusterfuck 
 			logic_compare
 			{
 				"targetname" "sanitize_uber"
@@ -1222,70 +1198,71 @@ WaveSchedule
 				"OnLessThan" "dmg_taken_normal,Disable,,0,-1"
 				"OnLessThan" "dmg_taken_while_uber,Enable,,0,-1"
 
-                "OnLessThan" "@c@!activator,$ResetClientProp$m_flChargeLevel,,0,-1"
+				"OnLessThan" "@c@!activator,$ResetClientProp$m_flChargeLevel,,0,-1"
 
-                "OnLessThan" "numbcharge,$SetVar$NumbChargeLevel,,0,-1"
-                "OnLessThan" "sanitize_uber,SetCompareValue,$$= ? (numbcharge.NumbChargeLevel > 0, 0.99, -100000001),0.01,-1"
+				"OnLessThan" "numbcharge,$SetVar$NumbChargeLevel,,0,-1"
+				"OnLessThan" "sanitize_uber,SetCompareValue,$$= ? (numbcharge.NumbChargeLevel > 0, 0.99, -100000001),0.01,-1"
 
-                //"OnGreaterThan" "@c@!parent,$SetClientProp$m_flChargeLevel,$$=numbcharge.NumbChargeLevel,-1,-1"
-                // "OnGreaterThan" "dmg_taken_normal,Enable,,0,-1"
-                // "OnGreaterThan" "dmg_taken_while_uber,Disable,,0,-1"
+				//"OnGreaterThan" "@c@!parent,$SetClientProp$m_flChargeLevel,$$=numbcharge.NumbChargeLevel,-1,-1"
+				// "OnGreaterThan" "dmg_taken_normal,Enable,,0,-1"
+				// "OnGreaterThan" "dmg_taken_while_uber,Disable,,0,-1"
 			}
 
-            logic_relay 
-            {
-                "targetname" "is_numb_ubercharge_active"
-                "spawnflags" "2"
+			logic_relay 
+			{
+				"targetname" "is_numb_ubercharge_active"
+				"spawnflags" "2"
 
-                // "OnTrigger" "@c@!activator,$SetProp$m_flChargeLevel,$$= ? (numbcharge.NumbChargeLevel >= 1, 1, -100000000),-1,-1"
-                // "OnTrigger" "sanitize_uber,SetCompareValue,$$= ? (numbcharge.NumbChargeLevel >= 1, 0.99, -100000001),-1,-1"
+				// "OnTrigger" "@c@!activator,$SetProp$m_flChargeLevel,$$= ? (numbcharge.NumbChargeLevel >= 1, 1, -100000000),-1,-1"
+				// "OnTrigger" "sanitize_uber,SetCompareValue,$$= ? (numbcharge.NumbChargeLevel >= 1, 0.99, -100000001),-1,-1"
 
-                "OnTrigger" "sanitize_uber,$SetVar$isUbered,0,-1,-1"
+				"OnTrigger" "sanitize_uber,$SetVar$isUbered,0,-1,-1"
 				"OnTrigger" "@c@!activator,$GetProp$m_flChargeLevel,sanitize_uber|SetValueCompare|1,0,-1"
-                "OnTrigger" "is_ubered_final,SetValueCompare,$$=sanitize_uber.isUbered,0.01,-1"
+				"OnTrigger" "is_ubered_final,SetValueCompare,$$=sanitize_uber.isUbered,0.01,-1"
 
 				"OnTrigger" "!self,Trigger,,0.1,-1"
-            }
+			}
 
-            logic_relay 
-            {
-                "targetname" "dmg_taken"
-                "spawnflags" "2"
+			logic_relay 
+			{
+				"targetname" "dmg_taken"
+				"spawnflags" "2"
 
-                "$OnUser5" "dmg_taken_normal,$SetVar$DmgTakenHolder,,-1,-1"
-                "$OnUser5" "dmg_taken_normal,Trigger,,0,-1"
+				"$OnUser5" "dmg_taken_normal,$SetVar$DmgTakenHolder,,-1,-1"
+				"$OnUser5" "dmg_taken_normal,Trigger,,0,-1"
 
-                "$OnUser5" "dmg_taken_while_uber,$SetVar$damageAmount,,-1,-1"
-                "$OnUser5" "dmg_taken_while_uber,Trigger,,0,-1"
-            }
-            logic_relay 
-            {
-                "targetname" "dmg_taken_normal"
-                "spawnflags" "2"
+				"$OnUser5" "dmg_taken_while_uber,$SetVar$damageAmount,,-1,-1"
+				"$OnUser5" "dmg_taken_while_uber,Trigger,,0,-1"
+			}
+			logic_relay 
+			{
+				"targetname" "dmg_taken_normal"
+				"spawnflags" "2"
 
-                "OnTrigger" "!self,$SetVar$NumbChargeHolder,$$=numbcharge.NumbChargeLevel,-1,-1"
+				"OnTrigger" "!self,$SetVar$NumbChargeHolder,$$=numbcharge.NumbChargeLevel,-1,-1"
 
-                "OnTrigger" "numbcharge,$SetVar$NumbChargeLevel,$$= clamp ( float( dmg_taken_normal.NumbChargeHolder ) + ( float( dmg_taken_normal.DmgTakenHolder ) / 300 ), 0, 1 ),0,-1"
+				"OnTrigger" "numbcharge,$SetVar$NumbChargeLevel,$$= clamp ( float( dmg_taken_normal.NumbChargeHolder ) + ( float( dmg_taken_normal.DmgTakenHolder ) / 300 ), 0, 1 ),0,-1"
 
-                //"OnTrigger" "player,$DisplayTextChat,$$=numbcharge.NumbChargeLevel,0.01,-1"
+				//"OnTrigger" "player,$DisplayTextChat,$$=numbcharge.NumbChargeLevel,0.01,-1"
 
-                "OnTrigger" "@c@!parent,$SetClientProp$m_flChargeLevel,$$=numbcharge.NumbChargeLevel,0.01,-1"
-                "OnTrigger" "@c@!parent,$SetProp$m_flChargeLevel,$$= ? (numbcharge.NumbChargeLevel >= 1, 1, -100000000),0.01,-1"
-                "OnTrigger" "sanitize_uber,SetCompareValue,$$= ? (numbcharge.NumbChargeLevel >= 1, 0.99, -100000001),0.01,-1"
-            }
+				"OnTrigger" "@c@!parent,$SetClientProp$m_flChargeLevel,$$=numbcharge.NumbChargeLevel,0.01,-1"
+				"OnTrigger" "@c@!parent,$SetProp$m_flChargeLevel,$$= ? (numbcharge.NumbChargeLevel >= 1, 1, -100000000),0.01,-1"
+				"OnTrigger" "sanitize_uber,SetCompareValue,$$= ? (numbcharge.NumbChargeLevel >= 1, 0.99, -100000001),0.01,-1"
+			}
 
-            logic_relay 
-            {
-                "targetname" "dmg_taken_while_uber"
-                "spawnflags" "2"
+			logic_relay 
+			{
+				"targetname" "dmg_taken_while_uber"
+				"spawnflags" "2"
 
-                "StartDisabled" "1"
+				"StartDisabled" "1"
 
-                "OnTrigger" "!parent,$FireUser8,$$=dmg_taken_while_uber.damageAmount,-1,-1"
-                //"OnTrigger" "player,$DisplayTextChat,$$=dmg_taken_while_uber.damageAmount,-1,-1"
-            }
-        }
+				"OnTrigger" "!parent,$FireUser8,$$=dmg_taken_while_uber.damageAmount,-1,-1"
+				//"OnTrigger" "player,$DisplayTextChat,$$=dmg_taken_while_uber.damageAmount,-1,-1"
+			}
+		}
 
+		
 		Explosive_Tip
 		{
 			KeepAlive 1
@@ -1364,7 +1341,7 @@ WaveSchedule
 				"spawnflags" "1"
 				"angles" "0 0 0"
 				"origin" "-1 0 -3"
-				"teamnum" "2"
+				"teamnum" "3"
 				"Crits" "0"
 				"Damage" "0"
 				"ModelScale" "1"
@@ -1498,7 +1475,7 @@ WaveSchedule
 			{
 				Target "!activator"
 				Action "$RemoveItemAttribute"
-                Param "explosive bullets|0"
+				Param "explosive bullets|0"
 				Delay 0.1
 			}
 
@@ -1506,7 +1483,7 @@ WaveSchedule
 			{
 				Target "!activator"
 				Action "$RemoveItemAttribute"
-                Param "explosion particle|0"
+				Param "explosion particle|0"
 				Delay 0.1
 			}
 
@@ -1528,7 +1505,7 @@ WaveSchedule
 			// 	"TeamNum" "3"
 			// 	"touch_trigger" "heavy_dispenser_trigger"
 
-            //     "OnUser1" "player,$DisplayTextChat,dispenser spawned,0,-1"
+			//     "OnUser1" "player,$DisplayTextChat,dispenser spawned,0,-1"
 			// }
 
 			//check when rage was activated by player
@@ -1559,7 +1536,7 @@ WaveSchedule
 				//"OnTrigger" "heavy_dispenser_trigger,Enable,,0,-1"
 				"OnTrigger" "!activator,$AddItemAttribute,explosive bullets|147|0,0,-1"
 				"OnTrigger" "!activator,$AddItemAttribute,explosion particle|ExplosionCore_sapperdestroyed|0,0,-1"
-                
+				
 
 				"OnTrigger" "rage_meter,SetValueNoFire,$$=!activator.m_flRageMeter,0,-1"
 				"OnTrigger" "rage_meter_drain,FireUser1,,0.01,-1"
@@ -1583,12 +1560,12 @@ WaveSchedule
 
 				"OnHitMin" "rage_meter_drain,$CancelPending,,0,0"
 
-                //effect remove
+				//effect remove
 				//"OnHitMin" "heavy_dispenser_trigger,Disable,,0,-1"
 				"OnHitMin" "!activator,$RemoveItemAttribute,explosive bullets|0,0,-1"
 				"OnHitMin" "!activator,$RemoveItemAttribute,explosion particle|0,0,-1"
 
-				"OnHitMin" "!activator,$ResetClientProp$m_bRageDraining,,0,-1"
+				"OnHitMin" "!activator,$ResetClientProp$m_bRageDraining,0,0,-1"
 				"OnHitMin" "!activator,$ResetClientProp$m_flRageMeter,,0.03,-1"
 				"OnHitMin" "!activator,$SetProp$m_flRageMeter,0,0.1,-1"
 
@@ -1596,7 +1573,7 @@ WaveSchedule
 
 				"OnGetValue" "rage_meter,$SetVar$tempRageHolder,,0,-1"
 				"OnGetValue" "!activator,$SetClientProp$m_flRageMeter,$$=rage_meter.tempRageHolder,0.01,-1"
-                "OnGetValue" "!activator,$SetProp$m_flRageMeter,-100000,0,-1" //prevent rage from being reused while active
+				"OnGetValue" "!activator,$SetProp$m_flRageMeter,-1000,0,-1" //prevent rage from being reused while active somehow
 
 				"OnUser1" "!self,Subtract,1.3,0,-1" //drain per interval
 				"OnUser1" "!self,GetValue,,0.01,-1"
@@ -1693,7 +1670,12 @@ WaveSchedule
 				Param "41"
 				Delay 0
 			}
-
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$SetVar$playerIsBuster"
+				Param 0
+			}
 			OnParentKilledOutput
 			{
 				Target "!activator"
@@ -1709,7 +1691,7 @@ WaveSchedule
 			//     "Negated" "0"
 			// }
 
-            $filter_variable
+			$filter_variable
 			{
 				"targetname" "freelance_mercenary_not_equipped"
 				"$name" "FreelanceEquipped"
@@ -1745,6 +1727,8 @@ WaveSchedule
 			{
 				"targetname" "apply_buster_attributes"
 
+				"OnTrigger" "!activator,$SetVar$playerIsBuster,1"
+
 				"OnTrigger" "!activator,$AddCond,41,0,-1"
 				"OnTrigger" "!activator,$AddCond,85,0,-1"
 				"OnTrigger" "!activator,$RemoveCond,85,0.01,-1"
@@ -1777,6 +1761,8 @@ WaveSchedule
 				"targetname" "filter_still_demoman"
 				"Negated" "0"
 				"tfclass" "4"
+
+				"OnPass" "!activator,$SetVar$playerIsBuster,0"
 
 				"OnPass" "!activator,$RemoveItem,The Tartantaloons,2,-1"
 				"OnPass" "!activator,$RemoveItem,Robin Walkers,2,-1"
@@ -1830,7 +1816,7 @@ WaveSchedule
 				"OnPass" "filter_still_demoman,TestActivator,,2,-1"
 			}	
 
-			filter_activator_tfteam 
+			filter_activator_tfteam
 			{
 				"targetname" "filter_is_red"
 				"Negated" "0"
@@ -2098,13 +2084,6 @@ WaveSchedule
 				Action "Trigger"
 			}
 
-			filter_activator_tfteam 
-			{
-				"targetname" "filter_is_blue"
-				"Negated" "0"
-				"TeamNum" "3"
-			}
-
 			logic_relay
 			{
 				"targetname" "rotate_position"
@@ -2123,7 +2102,7 @@ WaveSchedule
 				"mins" "-12 -53 -51.5"
 				"maxs" "12 53 51.5"
 
-                "teamnum" "3"
+				"teamnum" "3"
 
 				"targetname" "shield_hitbox"
 				"spawnflags" "1"
@@ -2168,7 +2147,7 @@ WaveSchedule
 				"maxs" "12 53 51.5"
 				"origin" "-100 0 1"
 				// "angles" "180 0 0"
-                "teamnum" "3"
+				"teamnum" "3"
 
 				"targetname" "shield_hitbox2"
 				"spawnflags" "1"
@@ -2281,51 +2260,12 @@ WaveSchedule
 			}
 		}
 
-		Vitasaw_Rework_Spawn 
-		{
-			OnSpawnOutput
-			{
-				Target "vita_relay"
-				Action "Trigger"
-			}
-
-			logic_relay 
-			{
-				"targetname" "vita_relay"
-				"spawnflags" "2"
-
-				"OnTrigger" "filter_has_enough_organs,TestActivator,,0,-1"
-				"OnTrigger" "!self,Trigger,,0.2,-1"
-			}
-
-			$filter_sendprop
-			{
-				"targetname" "filter_has_enough_organs"
-				"$name" "m_iDecapitations"
-				"$value" "2"
-				"$compare" "greater than or equal"
-				"Negated" "0"
-
-				"OnPass" "!activator,$AddItemAttribute,allow friendly fire|1|2,0,-1"
-
-				"OnFail" "!activator,$RemoveItemAttribute,allow friendly fire|2,0,-1"
-				"OnFail" "!activator,$DisplayTextChat,fail,0,-1"
-			}
-		}
 		KirinAscension_Spawn 
 		{
 			OnSpawnOutput
 			{
 				Target "cloak_check"
 				Action "Trigger"
-			}
-
-			OnSpawnOutput
-			{
-				Target "!activator"
-				Action "$AddItemAttribute"
-                Param "add cloak on hit|0|1"
-                Delay 0.1
 			}
 
 			filter_tf_condition
@@ -2351,6 +2291,7 @@ WaveSchedule
 				"OnTrigger" "!self,Trigger,,0.05,-1"  
 			}
 		}
+
 		Vitsaw_Rework_Global 
 		{
 			NoFixup 1
@@ -2389,6 +2330,38 @@ WaveSchedule
 				"OnPass" "!activator,FireUser4,,0.02,-1" 
 			}
 		}
+		Vitasaw_Rework_Spawn 
+		{
+			OnSpawnOutput
+			{
+				Target "vita_relay"
+				Action "Trigger"
+			}
+
+			logic_relay 
+			{
+				"targetname" "vita_relay"
+				"spawnflags" "2"
+
+				
+				"OnTrigger" "filter_has_enough_organs,TestActivator,,0,-1"
+				"OnTrigger" "!self,Trigger,,0.2,-1"
+			}
+
+			$filter_sendprop
+			{
+				"targetname" "filter_has_enough_organs"
+				"$name" "m_iDecapitations"
+				"$value" "2"
+				"$compare" "greater than or equal"
+				"Negated" "0"
+
+				"OnPass" "!activator,$AddItemAttribute,allow friendly fire|1|2,0,-1"
+
+				"OnFail" "!activator,$RemoveItemAttribute,allow friendly fire|2,0,-1"
+			}
+		}
+
 		// mini buddy template
 		filters_mini
 		{
@@ -2454,100 +2427,6 @@ WaveSchedule
 				"renderamt" "0"
 			}
 		}
-		test_mini_bot
-		{
-			OnSpawnOutput
-			{
-				Target "triggerrefresh"
-				Action Open
-			}
-			OnSpawnOutput
-			{
-				Target "convertmini"
-				Action SetParent
-				Param "!activator"
-			}
-			func_door
-			{
-				"targetname" "triggerrefresh"
-				"rendermode" "10"
-				"spawnflags" "4108"
-				"speed" "1"
-				"wait" "0.01"
-				"onfullyclosed" "!self,open,,0,-1"
-			}
-			trigger_multiple
-			{
-				"targetname" "sentryDetect"
-				"parentname" "triggerrefresh"
-				"mins" "-96 -96 -96"
-				"maxs" "96 96 96"
-				"filtername" "filter_sentrygun"
-				"spawnflags" "64"
-				"onstarttouch" "convertmini,SetValueCompare,$$=?(!activator.m_bMiniBuilding == 1 && !activator.m_nSolidType > 0,1,0),0,-1"
-			}
-			logic_compare
-			{
-				"targetname" "convertmini"
-				"comparevalue" "1"
-				"onequalto" "!activator,SetParent,droneLocation,0.1,-1"
-				"onequalto" "!activator,SetParentAttachment,head,0.15,-1"
-				"onequalto" "!activator,$SetProp$m_iAmmoShells,99999999,0,-1" //gives them tons of ammo
-				"onequalto" "!activator,$SetProp$m_iAmmoShells,99999999,5,-1" //gives them tons of ammo
-				"onequalto" "!activator,$SetProp$m_nSolidType,0,0,-1" //stops them blocking the player, also used to detect if mini has been turned into a drone
-				"onequalto" "!activator,$SetModelOverride,models/rcat/rcat_level2.mdl,0,-1" // sets model | make sure to precache
-				"onequalto" "!activator,$SetProp$m_nSkin,2,0,-1"
-
-				"onequalto" "@e@m_hBuilder@!activator,$WeaponSwitchSlot,0,0.1,-1"
-                "onequalto" "@e@m_hBuilder@!activator,$RemovePlayerAttribute,disable weapon switch,0.11,-1" 
-
-                //switch back to sentry mode after delay
-                "onequalto" "!activator,AddOutput,$OnKilled player:$DisplayTextChat:died:0:-1,-1,-1"
-                "onequalto" "!activator,AddOutput,$OnKilled @e@m_hBuilder@!activator:$FireUser6::-1:-1,-1,-1"
-			}
-			prop_dynamic
-			{
-				"targetname" "droneLocation"
-				// invisible engineer doomed to carry the drone for all eternity
-				"model" "models/player/engineer.mdl"
-				"origin" "40 -50 15"
-				"disableshadows" "1"
-				"rendermode" "9"
-				"renderamt" "0"
-			}
-		}
-
-        Widowmaker_Dudebro_Logic 
-        {
-            NoFixup 1
-
-            logic_relay
-            {
-                "targetname" "switch_to_sentry_mode"
-                "spawnflags" "2"
-
-                "OnTrigger" "!activator,$WeaponSwitchSlot,5,0,-1"
-                "OnTrigger" "!activator,$AddPlayerAttribute,disable weapon switch|1,0.01,-1" 
-            }
-
-            logic_relay
-            {
-                "targetname" "switch_to_sentry_mode_with_delay"
-                "spawnflags" "2"
-
-                "OnTrigger" "switch_to_sentry_mode,Trigger,,5,-1"
-            }
-
-            logic_relay
-            {
-                "targetname" "switch_to_shotgun_mode"
-                "spawnflags" "2"
-
-                "OnTrigger" "!activator,$RemovePlayerAttribute,disable weapon switch,0,-1" 
-                "OnTrigger" "!activator,$WeaponSwitchSlot,0,0.1,-1"
-            }
-        }
-
 		rpg_shoottemplate
 		{
 			KeepAlive 1

@@ -4729,7 +4729,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 				"filtername" "filter_is_blue"
 
-				"Damage" "20" //damage is half of this
+				"Damage" "100" //damage is half of this
 				"damagetype" "512"
 			}
 
@@ -4771,7 +4771,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 				"filtername" "filter_is_blue"
 
-				"Damage" "20" //damage is half of this
+				"Damage" "100" //damage is half of this
 				"damagetype" "512"
 			}
 			

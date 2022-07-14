@@ -127,6 +127,13 @@ WaveSchedule
 		ItemName "Comfortably Numb" 
 	}
 
+	DisallowUpgrade	
+	{
+		Upgrade	"rocket specialist"
+		MaxLevel 0
+		ItemName "The Direct Hit" 
+	}
+
 	ExtendedUpgrades
 	{ 
 		newRage 

@@ -4117,10 +4117,10 @@ WaveSchedule
 		WaveSpawn
 		{
 			Where summon_illusion
-			TotalCount 2
-			MaxActive 2
+			TotalCount 4
+			MaxActive 4
 			SpawnCount 2
-			WaitBetweenSpawns 0
+			WaitBetweenSpawns 1
 			WaitBeforeStarting 0
 			TotalCurrency 0
 

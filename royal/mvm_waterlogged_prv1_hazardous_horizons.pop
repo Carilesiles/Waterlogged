@@ -1,9 +1,9 @@
 #base robot_standard.pop
 #base robot_giant.pop
 #base robot_gatebot.pop
-#base reverse_waterlogged_robottemplates_roy.pop
-#base reverse_waterlogged_wavelogic_roy.pop
-#base reverse_waterlogged_custom_roy.pop
+#base reverse_waterlogged_robottemplates.pop
+#base reverse_waterlogged_wavelogic.pop
+#base reverse_waterlogged_custom.pop
 
 WaveSchedule 
 {
@@ -91,6 +91,7 @@ WaveSchedule
 	LuaScriptFile "scripts/waterlogged_rev.lua"
 
 	SpawnTemplate bossroom_collision
+	SpawnTemplate heli_adjust
 	SpawnTemplate Combo_Pyro
 	SpawnTemplate Alternating_Burst
 	SpawnTemplate Widowmaker_Dudebro_Logic
@@ -133,14 +134,12 @@ WaveSchedule
 		MaxLevel 0
 		ItemName "The Direct Hit" 
 	}
-
 	DisallowUpgrade	
 	{
 		Upgrade	"damage bonus"
 		MaxLevel 2
 		ItemName "The Direct Hit" 
 	}
-
 	ExtendedUpgrades
 	{ 
 		newRage 
@@ -608,10 +607,11 @@ WaveSchedule
 			"cancel falling damage" 1
 			"increased air control" 5
 			"increased jump height" 1.2
-
+			
 			"hidden primary max ammo bonus" 0.0001
 			"clip size penalty HIDDEN" 0.00001
 			"cannot be upgraded" 1
+
 			"special item description" "Increased gravity and air control on wearer"
 			"special item description 2" "Hold DUCK to rapidly descend"
 			"special item description 3" "No primary weapon"
@@ -628,7 +628,7 @@ WaveSchedule
 
 			"effect cond override" 12 //just here to remove default uber
 
-			"special item description" "UberCharge deals 5 times the amount of damage taken back to the attacker and heal for half the damage taken (effect does not apply to heal target)"
+			"special item description" "UberCharge deals 5 times the amount of damage taken back to the attacker and heal for half the damage taken (effects do not apply to heal target)"
 			"special item description 2" "UberCharge can only be built by taking damage at a 3:1 ratio"
 			"special item description 3" "UberCharge remains active when switching to other weapons"
 		}
@@ -1661,6 +1661,15 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
+			WaitForAllDead "shapeshift"
+			DoneOutput
+			{
+				Target "music_cancel_relay"
+				Action Trigger
+			}
+		}
+		WaveSpawn
+		{
 			Where summon_chief
 			TotalCount 4
 			MaxActive 4
@@ -2675,8 +2684,8 @@ WaveSchedule
 		}
 
 		WaveSpawn
-		{      
-			Name "heli"                          
+		{
+			Name "heli"
 			Where spawnbot_heli
 			TotalCount 1
 			MaxActive 1
@@ -3374,6 +3383,15 @@ WaveSchedule
 				AddTemplate RedBot_Giant
 			}
 		}
+		WaveSpawn
+		{
+			WaitForAllDead "w3_subwavetwo_boss"
+			DoneOutput
+			{
+				Target "music_cancel_relay"
+				Action Trigger
+			}
+		}
 	}
 	Wave // Wave #4
 	{
@@ -3692,6 +3710,15 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
+			WaitForAllDead "ranger"
+			DoneOutput
+			{
+				Target music_cancel_relay
+				Action Trigger
+			}
+		}
+		WaveSpawn
+		{
 			FirstSpawnOutput
 			{
 				Target playerResVal3 //set res count to one of 3 set
@@ -3777,17 +3804,122 @@ WaveSchedule
 			Where "spawnbot_arena_2"
 			Where "spawnbot_arena_3"
 			Where "spawnbot_arena_4"
-			TotalCount 4
+			TotalCount 3
 			MaxActive 3
 			SpawnCount 1
 			TotalCurrency 200
 			WaitBeforeStarting 0
-			WaitBetweenSpawns 4
+			WaitBetweenSpawns 8
 			TFBot
 			{
 				Template T_TFBot_Droneboy
 				AddTemplate RedBot_Giant
 				SpawnTemplate AddBotGlow
+			}
+		}
+		WaveSpawn
+		{
+			Name "main_midphase_one"
+			Where spawnbot_heli_arena
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+			WaitForAllDead "midphase_one_start"
+
+			Tank
+			{
+				SpawnTemplate "Helicopter_Tank_Init"
+				ClassIcon blimp2_red_rocket_lite_2
+				Health 10000
+				Speed 0 
+				Scale 1.1
+				DisableSmokestack 1  
+				MaxTurnRate 0
+				Model "models/empty.mdl" 
+				ReplaceModelCollisions 1
+				StartSound "misc/null.wav"
+				PingSound "misc/null.wav"
+				EngineLoopSound "misc/null.wav"
+				Gravity 0
+				TeamNum 2
+				DisableTracks 1
+				DisableChildModels 1
+				Name "tankboss"
+				//StartingPathTrackNode "Helicopter_1"
+
+				OnKilledOutput
+				{
+					Target heli_killed_relay
+					Action Trigger
+				}
+			}
+		}
+
+		WaveSpawn
+		{
+			Name "main_midphase_one"
+			Where spawnbot_heli_arena
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+			Support Limited
+			WaitForAllDead "midphase_one_start"
+
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot 
+					{
+						SpawnTemplate "Helicopter_Base_Init"
+						Template T_TFBot_Helicopter_Base 
+						AddCond { Name "TF_COND_REPROGRAMMED" }
+						
+						InterruptAction
+						{
+							Target "-4080.4 -666.5 424.4"
+							Delay 0.1
+							Repeats 1
+						}
+						tag no_reprogram
+					}
+				}
+			}
+		}
+
+		WaveSpawn
+		{
+			Name "main_midphase_one"
+			Where spawnbot_heli_arena
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+			Support Limited
+			WaitForAllDead "midphase_one_start"
+
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot 
+					{
+						SpawnTemplate "Helicopter_Shooter_Init" 
+						Template T_TFBot_Helicopter_Shoot
+						AddCond { Name "TF_COND_REPROGRAMMED" }
+						tag no_reprogram
+					}
+				}
 			}
 		}
 		WaveSpawn
@@ -3798,12 +3930,12 @@ WaveSchedule
 			Where "spawnbot_arena_2"
 			Where "spawnbot_arena_3"
 			Where "spawnbot_arena_4"
-			TotalCount 10
-			MaxActive 5
+			TotalCount 8
+			MaxActive 4
 			SpawnCount 1
 			TotalCurrency 100
 			WaitBeforeStarting 0
-			WaitBetweenSpawns 1
+			WaitBetweenSpawns 2
 			Support Limited
 			TFBot
 			{
@@ -4120,7 +4252,7 @@ WaveSchedule
 			TotalCount 4
 			MaxActive 4
 			SpawnCount 2
-			WaitBetweenSpawns 1
+			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
 			TotalCurrency 0
 
@@ -4417,6 +4549,14 @@ WaveSchedule
 		X "-2086"
 		Y "-304"
 		Z "276"
+	}
+	ExtraSpawnPoint 
+	{
+		Name "spawnbot_heli_arena"
+		TeamNum 2
+		X "-336"
+		Y "2720"
+		Z "-401"
 	}
 	ExtraSpawnPoint
 	{

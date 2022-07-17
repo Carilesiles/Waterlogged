@@ -127,6 +127,18 @@ WaveSchedule
 		ItemName "Comfortably Numb" 
 	}
 
+	DisallowUpgrade	
+	{
+		Upgrade	"rocket specialist"
+		MaxLevel 0
+		ItemName "The Direct Hit" 
+	}
+	DisallowUpgrade	
+	{
+		Upgrade	"damage bonus"
+		MaxLevel 2
+		ItemName "The Direct Hit" 
+	}
 	ExtendedUpgrades
 	{ 
 		newRage 
@@ -589,15 +601,20 @@ WaveSchedule
 		}
 		"No Mercy"
 		{
-			OriginalItemName "Wings of Purity"
+			OriginalItemName "Upgradeable TF_WEAPON_SYRINGEGUN_MEDIC"//"Wings of Purity" //potential buffer overflow hazard
 
 			"cancel falling damage" 1
 			"increased air control" 5
 			"increased jump height" 1.2
+			
+			"hidden primary max ammo bonus" 0.0001
+			"clip size penalty HIDDEN" 0.00001
+			"cannot be upgraded" 1
 
 			"special item description" "Increased gravity and air control on wearer"
 			"special item description 2" "Hold DUCK to rapidly descend"
-			"special item description 3" "Wearer never takes falling damage"
+			"special item description 3" "No primary weapon"
+			//"special item description 3" "Wearer never takes falling damage"
 		}
 		"Comfortably Numb"
 		{
@@ -610,7 +627,7 @@ WaveSchedule
 
 			"effect cond override" 12 //just here to remove default uber
 
-			"special item description" "UberCharge deals 5 times the amount of damage taken back to the attacker and heal for half the damage taken (effect does not apply to heal target)"
+			"special item description" "UberCharge deals 5 times the amount of damage taken back to the attacker and heal for half the damage taken (effects do not apply to heal target)"
 			"special item description 2" "UberCharge can only be built by taking damage at a 3:1 ratio"
 			"special item description 3" "UberCharge remains active when switching to other weapons"
 		}
@@ -634,7 +651,8 @@ WaveSchedule
 			"dmg from ranged reduced" 0.9
 			"damage force increase" 2
 			"cancel falling damage" 1
-			"custom item model" "models/player/items/all_class/spacechem_pin.mdl"
+			//potential buffer overflow hazard
+			//"custom item model" "models/player/items/all_class/spacechem_pin.mdl"
 		}
 
 		"Freelance Mercenary"
@@ -724,7 +742,7 @@ WaveSchedule
 		ItemName "The Direct Hit"
 		"fire input on hit" "direct_hit_on_hit^Trigger^"
 		"clip size penalty" 0.25
-		"damage bonus" 1 
+		//"damage bonus" 1 
 		"Reload time increased" 1.3
 
 		"special item description" "On Hit: Reload one rocket"
@@ -4098,8 +4116,8 @@ WaveSchedule
 		WaveSpawn
 		{
 			Where summon_illusion
-			TotalCount 2
-			MaxActive 2
+			TotalCount 4
+			MaxActive 4
 			SpawnCount 2
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0

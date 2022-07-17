@@ -3509,6 +3509,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"holdtime" "4.8"
 			}
 		}
+		
 		Helicopter_Base_Init
 		{
 			NoFixup 1
@@ -3521,61 +3522,80 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				Delay 0
 			}
 
-			//OnSpawnOutput
-			//{
-			//	Target "helicopter_lowerer"
-			//	Action "SetParent"
-			//	Param "!activator"
-			//	Delay 0
-			//}
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "$OnUser5 helicopter_bot"
+				Delay 0
+			}
+
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "$OnUser5 popscript:$helicopterAscend::0:-1"
+			}
+
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "$OnUser6 update_positions:$FireUser5::0:-1"
+			}
 
 			OnParentKilledOutput
 			{
 				Target "!activator"
-				Action "AddOutput"
-				Param "targetname  "
-				Delay 0
+				Action "$RemoveOutput"
+				Param "$OnUser5"
+				Delay 0.1
 			}
 
-			//func_movelinear
-			//{
-			//	"targetname" "helicopter_lowerer"
-			//
-			//	"movedir" "0 0 -90"
-			//	"movedistance" "200"
-			//	"mins" "-8 -8 -8"
-			//	"maxs" "8 8 8"
-			//	"speed" "100"
-			//	"startposition" "0"
-			//	"origin" "0 0 420"
-			//}
-//
-			//prop_dynamic
-			//{
-			//	"targetname" "wheresthefuckingfrog"
-			//	"model" "models/props_2fort/frog.mdl"
-			//	"origin" "0 0 420"
-			//	"modelscale" "1.5"
-			//	"parentname" "helicopter_lowerer"
-			//}
-			//
-			//prop_dynamic
-			//{
-			//	"targetname" "helicopter_model"
-			//	"model" "models/props_frontline/helicopter_windows.mdl"//"models/combine_helicopter.mdl"
-			//	"origin" "0 0 -100"
-			//	"angles" "0 0 0"
-			//	"DefaultAnim" "fly_idle"
-			//	"modelscale" "1.5"
-			//	"skin" "0"
-			//	"solid" "0"
-			//}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$RemoveOutput"
+				Param "$OnUser6"
+				Delay 0.1
+			}
+
+			// OnSpawnOutput
+			// {
+			// 	Target "update_positions"
+			// 	Action "$SetVar$hitboxPosHolder"
+			// 	Param "-100 0 430"
+			// }
+			// OnSpawnOutput
+			// {
+			// 	Target "update_positions"
+			// 	Action "$SetVar$shooterPosHolder"
+			// 	Param "0 0 420"
+			// }
+
+			logic_relay 
+			{
+				"targetname" "update_positions"
+				//"spawnflags" "2"
+
+				"$OnUser5" "update_positions,$SetVar$addHolder,,-1,-1"
+				"$OnUser5" "update_positions,$SetVar$hitboxPosX,$$=x(helicopterhitbox_position.m_vecOrigin),-1,-1"
+				"$OnUser5" "update_positions,$SetVar$hitboxPosY,$$=y(helicopterhitbox_position.m_vecOrigin),-1,-1"
+				"$OnUser5" "update_positions,$SetVar$hitboxPosZ,$$=z(helicopterhitbox_position.m_vecOrigin),-1,-1"
+
+				"$OnUser5" "update_positions,$SetVar$shooterPosX,$$=x(helicoptershooter_position.m_vecOrigin),-1,-1"
+				"$OnUser5" "update_positions,$SetVar$shooterPosY,$$=y(helicoptershooter_position.m_vecOrigin),-1,-1"
+				"$OnUser5" "update_positions,$SetVar$shooterPosZ,$$=z(helicoptershooter_position.m_vecOrigin),-1,-1"
+
+
+				"$OnUser5" "helicopterhitbox_position,$SetLocalOrigin,$$=update_positions.hitboxPosX..' '..update_positions.hitboxPosY..' '..(update_positions.hitboxPosZ + update_positions.addHolder) ,0.01,-1"
+				"$OnUser5" "helicoptershooter_position,$SetLocalOrigin,$$=update_positions.shooterPosX..' '..update_positions.shooterPosY..' '..(update_positions.shooterPosZ + update_positions.addHolder) ,0.01,-1"
+			}
 			info_target
 			{
 				"targetname" "helicopterhitbox_position"
 				"origin" "-100 0 430"
 			} 
-
 
 			info_target
 			{
@@ -4729,7 +4749,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 				"filtername" "filter_is_blue"
 
-				"Damage" "20" //damage is half of this
+				"Damage" "100" //damage is half of this
 				"damagetype" "512"
 			}
 
@@ -4771,7 +4791,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 				"filtername" "filter_is_blue"
 
-				"Damage" "20" //damage is half of this
+				"Damage" "100" //damage is half of this
 				"damagetype" "512"
 			}
 			

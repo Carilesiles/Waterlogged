@@ -3315,7 +3315,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"OnTrigger" "!activator,$AddCond,4,0,-1"
 			}
 
-			logic_relay 
+			logic_relay
 			{
 				"targetname" "shapeshift_loop"
 				"spawnflags" "2"
@@ -3509,7 +3509,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"holdtime" "4.8"
 			}
 		}
-		
+
 		Helicopter_Base_Init
 		{
 			NoFixup 1

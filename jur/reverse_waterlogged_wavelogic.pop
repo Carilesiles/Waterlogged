@@ -1013,6 +1013,68 @@ WaveSchedule
 				"angles" "0 -25 0"
 			}
 		}
+		heli_adjust
+		{
+			NoFixup 1
+			trigger_multiple
+			{
+				"targetname" "heli_adjust_factory"
+				"origin" "-7296 1186 364"
+				"mins" "-1728 -1310 -236"
+				"maxs" "1728 1310 236"
+				"OnStartTouch" "!activator,$FireUser5,-50"
+				"OnEndTouch" "!activator,$FireUser5,50"
+			}
+			OnSpawnOutput
+			{
+				Target "heli_block_arena"
+				Action "$SetCollisionFilter"
+				Param "filter_helimove"
+				Delay 0.1
+			}
+			func_brush
+			{
+				"targetname" "heli_block_arena"
+				"origin" "-1080 4416 -192"
+				"mins" "-920 -32 -320"
+				"maxs" "920 32 320"
+			}
+			func_brush
+			{
+				"targetname" "heli_block_arena"
+				"origin" "-1928 4136 -116"
+				"mins" "-120 -280 -404"
+				"maxs" "120 280 404"
+			}
+			func_brush
+			{
+				"targetname" "heli_block_arena"
+				"origin" "-232 4032 -116"
+				"mins" "-120 -383.5 -404"
+				"maxs" "120 383.5 404"
+			}
+			func_brush
+			{
+				"targetname" "heli_block_arena"
+				"origin" "-2000 3808 -120"
+				"mins" "-64 -128 -392"
+				"maxs" "64 128 392"
+			}
+			func_brush
+			{
+				"targetname" "heli_block_arena"
+				"origin" "-192 3488 -360"
+				"mins" "-64 -128 -152"
+				"maxs" "64 128 152"
+			}
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_helimove"
+				"tags" "bot_helimove"
+				"require_all_tags" "1"
+				"negated" "1"
+			}
+		}
 		wave3_logic
 		{
 			NoFixup 1
@@ -1261,105 +1323,6 @@ WaveSchedule
 				"origin" "-1132 1688 164"
 				"display_text" "The bomb is now able to be deployed!"
 				"lifetime"     "6"
-			}
-			
-			OnSpawnOutput
-			{
-				Target "collider_oneway"
-				Action "$SetCollisionFilter"
-				Param "filter_heli_subwave"
-			}
-			func_brush
-			{
-				"targetname" "collider_oneway"
-				"origin" "-5920 832 492"
-				"mins" "-8 -192 -180"
-				"maxs" "8 192 180"
-				"startdisabled" "1"
-			}
-			func_brush
-			{
-				"targetname" "collider_oneway"
-				"origin" "-5920 224 360"
-				"mins" "-8 -224 -232"
-				"maxs" "8 224 232"
-				"startdisabled" "1"
-			}
-			prop_dynamic
-			{
-				"targetname" "barrier_oneway_1"
-				"model" "models/mvm/barrier/barrier_oneway_red1.mdl"
-				"origin" "-5920 832 492"
-				"angles" "0 270 0"
-				"solid" "0"
-				"startdisabled" "1"
-			}
-			prop_dynamic
-			{
-				"targetname" "barrier_oneway_2"
-				"model" "models/mvm/barrier/barrier_oneway_red2.mdl"
-				"origin" "-5920 224 360"
-				"angles" "0 270 0"
-				"solid" "0"
-				"startdisabled" "1"
-			}
-			trigger_multiple
-			{
-				"targetname" "yeah"
-				"mins" "-233.5 -960 -448"
-				"maxs" "233.5 960 448"
-				"origin" "-6168 832 576"
-				"spawnflags" "1"
-				"filtername" "filter_blueteam"
-				"OnStartTouch" "!activator,$SetVar$inFactory,1"
-			}
-			trigger_multiple
-			{
-				"targetname" "yeah2"
-				"mins" "-232 -960 -448"
-				"maxs" "232 960 448"
-				"origin" "-5632 816 576"
-				"spawnflags" "1"
-				"filtername" "filter_blueteam"
-				"OnStartTouch" "!activator,$SetVar$inFactory,0"
-			}
-			filter_activator_class
-			{
-				"targetname" "filter_player"
-				"filterclass" "player"
-				"negated" "1"
-			}
-			$filter_variable
-			{
-				"targetname" "filter_inFactory"
-				"$name" "inFactory"
-				"$value" "1"
-				"negated" "1"
-			}
-			filter_multi
-			{
-				"targetname" "filter_inFactory_and_blue"
-				//"Negated" "1"
-				"FilterType" "0"
-				"Filter01" "filter_blue"
-				"Filter02" "filter_inFactory"
-			}
-			filter_multi
-			{
-				"targetname" "filter_heli_subwave"
-				//"filtertype" "1"
-				//"filter01" "filter_blueteam"
-				//"filter02" "filter_redteam"
-				//"filter03" "filter_player_is_buster"
-				"filter01" "filter_helimove"
-				"negated" "1"
-			}
-			filter_tf_bot_has_tag
-			{
-				"targetname" "filter_helimove"
-				"tags" "bot_helimove"
-				"require_all_tags" "1"
-				"negated" "1"
 			}
 		}
 		wave4_logic

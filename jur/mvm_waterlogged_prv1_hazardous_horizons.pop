@@ -2674,8 +2674,8 @@ WaveSchedule
 		}
 
 		WaveSpawn
-		{      
-			Name "heli"                          
+		{
+			Name "heli"
 			Where spawnbot_heli
 			TotalCount 1
 			MaxActive 1
@@ -3651,6 +3651,7 @@ WaveSchedule
 	Wave //Wave #5
 	{
 		SpawnTemplate "wave5_logic"
+		SpawnTemplate "heli_adjust"
 		SpawnTemplate "PlayerResInput"
 		//SpawnTemplate "test"
 		PlayerAttributes  
@@ -3776,17 +3777,122 @@ WaveSchedule
 			Where "spawnbot_arena_2"
 			Where "spawnbot_arena_3"
 			Where "spawnbot_arena_4"
-			TotalCount 4
+			TotalCount 3
 			MaxActive 3
 			SpawnCount 1
 			TotalCurrency 200
 			WaitBeforeStarting 0
-			WaitBetweenSpawns 4
+			WaitBetweenSpawns 8
 			TFBot
 			{
 				Template T_TFBot_Droneboy
 				AddTemplate RedBot_Giant
 				SpawnTemplate AddBotGlow
+			}
+		}
+		WaveSpawn
+		{
+			Name "main_midphase_one"
+			Where spawnbot_heli_arena
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+			WaitForAllDead "midphase_one_start"
+
+			Tank
+			{
+				SpawnTemplate "Helicopter_Tank_Init"
+				ClassIcon blimp2_red_rocket_lite_2
+				Health 10000
+				Speed 0 
+				Scale 1.1
+				DisableSmokestack 1  
+				MaxTurnRate 0
+				Model "models/empty.mdl" 
+				ReplaceModelCollisions 1
+				StartSound "misc/null.wav"
+				PingSound "misc/null.wav"
+				EngineLoopSound "misc/null.wav"
+				Gravity 0
+				TeamNum 2
+				DisableTracks 1
+				DisableChildModels 1
+				Name "tankboss"
+				//StartingPathTrackNode "Helicopter_1"
+
+				OnKilledOutput
+				{
+					Target heli_killed_relay
+					Action Trigger
+				}
+			}
+		}
+
+		WaveSpawn
+		{
+			Name "main_midphase_one"
+			Where spawnbot_heli_arena
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+			Support Limited
+			WaitForAllDead "midphase_one_start"
+
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot 
+					{
+						SpawnTemplate "Helicopter_Base_Init"
+						Template T_TFBot_Helicopter_Base 
+						AddCond { Name "TF_COND_REPROGRAMMED" }
+						
+						InterruptAction
+						{
+							Target "-4080.4 -666.5 424.4"
+							Delay 0.1
+							Repeats 1
+						}
+						tag no_reprogram
+					}
+				}
+			}
+		}
+
+		WaveSpawn
+		{
+			Name "main_midphase_one"
+			Where spawnbot_heli_arena
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+
+			Support Limited
+			WaitForAllDead "midphase_one_start"
+
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot 
+					{
+						SpawnTemplate "Helicopter_Shooter_Init" 
+						Template T_TFBot_Helicopter_Shoot
+						AddCond { Name "TF_COND_REPROGRAMMED" }
+						tag no_reprogram
+					}
+				}
 			}
 		}
 		WaveSpawn
@@ -3797,12 +3903,12 @@ WaveSchedule
 			Where "spawnbot_arena_2"
 			Where "spawnbot_arena_3"
 			Where "spawnbot_arena_4"
-			TotalCount 10
-			MaxActive 5
+			TotalCount 8
+			MaxActive 4
 			SpawnCount 1
 			TotalCurrency 100
 			WaitBeforeStarting 0
-			WaitBetweenSpawns 1
+			WaitBetweenSpawns 2
 			Support Limited
 			TFBot
 			{
@@ -4416,6 +4522,14 @@ WaveSchedule
 		X "-2086"
 		Y "-304"
 		Z "276"
+	}
+	ExtraSpawnPoint 
+	{
+		Name "spawnbot_heli_arena"
+		TeamNum 2
+		X "-336"
+		Y "2720"
+		Z "-401"
 	}
 	ExtraSpawnPoint
 	{

@@ -3573,6 +3573,7 @@ WaveSchedule
 			{
 				Template T_TFBot_Chief_Yakuza
 				Health 15000
+				SpawnTemplate Wave4Duo_ChatMsg
 				SpawnTemplate Yakuza_Title_Card_Duo
 				SpawnTemplate AddBotGlow
 			}

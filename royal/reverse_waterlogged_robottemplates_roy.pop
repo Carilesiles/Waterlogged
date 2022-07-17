@@ -4994,6 +4994,31 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			}
 		}
 
+		Wave4Duo_ChatMsg
+		{
+			OnSpawnOutput
+			{
+				Target "player"
+				Action "$DisplayTextChat"
+				Param "{red}Corporal Canteen{reset} has used their {9BBF4D}SELF-REVIVE {reset}Power Up Canteen!"
+			}
+
+			// OnSpawnOutput
+			// {
+			// 	Target "player"
+			// 	Action "$PlaySoundToSelf"
+			// 	Param "=35|mvm/mvm_used_powerup.wav"
+			// }
+
+			OnSpawnOutput
+			{
+				Target "player"
+				Action "$DisplayTextChat"
+				Param "{red}Sergeant Receiver{reset} has {9BBF4D}bought back{reset} into the game for '1988' credits!"
+				// Delay 0.2
+			}
+		}
+
 		Yakuza_Styles
 		{
 			NoFixup 1

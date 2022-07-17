@@ -91,6 +91,7 @@ WaveSchedule
 	LuaScriptFile "scripts/waterlogged_rev.lua"
 
 	SpawnTemplate bossroom_collision
+	SpawnTemplate heli_adjust
 	SpawnTemplate Combo_Pyro
 	SpawnTemplate Alternating_Burst
 	SpawnTemplate Widowmaker_Dudebro_Logic
@@ -1656,6 +1657,15 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Sergeant_Shapeshift_Supreme
+			}
+		}
+		WaveSpawn
+		{
+			WaitForAllDead "shapeshift"
+			DoneOutput
+			{
+				Target "music_cancel_relay"
+				Action Trigger
 			}
 		}
 		WaveSpawn
@@ -3373,6 +3383,15 @@ WaveSchedule
 				AddTemplate RedBot_Giant
 			}
 		}
+		WaveSpawn
+		{
+			WaitForAllDead "w3_subwavetwo_boss"
+			DoneOutput
+			{
+				Target "music_cancel_relay"
+				Action Trigger
+			}
+		}
 	}
 	Wave // Wave #4
 	{
@@ -3651,7 +3670,6 @@ WaveSchedule
 	Wave //Wave #5
 	{
 		SpawnTemplate "wave5_logic"
-		SpawnTemplate "heli_adjust"
 		SpawnTemplate "PlayerResInput"
 		//SpawnTemplate "test"
 		PlayerAttributes  
@@ -3688,6 +3706,15 @@ WaveSchedule
 			{
 				Target playerResInWave //REQUIRED | Used to tell self res logic that wave is active/ turn it off again at the end of a wave
 				Action ToggleTest
+			}
+		}
+		WaveSpawn
+		{
+			WaitForAllDead "ranger"
+			DoneOutput
+			{
+				Target music_cancel_relay
+				Action Trigger
 			}
 		}
 		WaveSpawn

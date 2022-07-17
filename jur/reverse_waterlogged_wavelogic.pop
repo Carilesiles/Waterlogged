@@ -15,6 +15,7 @@ WaveSchedule
 				"OnMapSpawn" "master_control_point,SetCapLayout,0 1 2 3 4 5"
 				"OnMapSpawn" "master_control_point,SetCapLayout,0 1,0.1"
 				"OnMapSpawn" "flagdetect_hatch,Kill"
+				"OnMapSpawn" "wave_finished_relay,AddOutput,OnTrigger music_cancel_relay:Trigger::0:-1"
 			}
 			logic_relay
 			{
@@ -461,7 +462,7 @@ WaveSchedule
 				"OnTrigger" "bomb_dud_maker,ForceSpawnAtEntityOrigin,intel,8.2"
 
 				"OnTrigger" "music_cancel_relay,Trigger"
-				"OnTrigger" "music_loop_case,InValue,4,1"
+				"OnTrigger" "music_loop_case,InValue,4,2.1"
 
 			}
 			logic_relay
@@ -478,6 +479,7 @@ WaveSchedule
 				"OnTrigger" "player,$PlaySoundToSelf,player/spy_uncloak_feigndeath.wav,5"
 				"OnTrigger" "player,$PlaySoundToSelf,vo/mvm/norm/spy_mvm_laughlong01.mp3,4"
 				"OnTrigger" "bots_win,RoundWin,,6.5"
+				"OnTrigger" "music_cancel_relay,Trigger,,6.5"
 			}
 			training_annotation
 			{
@@ -1022,8 +1024,9 @@ WaveSchedule
 				"origin" "-7296 1186 364"
 				"mins" "-1728 -1310 -236"
 				"maxs" "1728 1310 236"
-				"OnStartTouch" "!activator,$FireUser5,-50"
-				"OnEndTouch" "!activator,$FireUser5,50"
+				"filtername" "filter_helimove"
+				"OnStartTouch" "player,$FireUser5,-50"
+				"OnEndTouch" "player,$FireUser5,50"
 			}
 			OnSpawnOutput
 			{
@@ -1072,7 +1075,7 @@ WaveSchedule
 				"targetname" "filter_helimove"
 				"tags" "bot_helimove"
 				"require_all_tags" "1"
-				"negated" "1"
+				//"negated" "1"
 			}
 		}
 		wave3_logic
@@ -1455,6 +1458,7 @@ WaveSchedule
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_side:Disable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 gate2_relay:Trigger::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 general_gate2_relay:Trigger::0:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_cancel_relay:Trigger::2:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_intro_case:InValue:3:4.77:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_hatchshield:Enable::22:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_hatch:Enable::22:-1"
@@ -1487,6 +1491,7 @@ WaveSchedule
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 barrier_hatch_window:Disable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 brush_portal_hatchwindow:$SetCollisionFilter:filter_redteam:0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 go_win_sign:Show::0:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_cancel_relay:Trigger::5:-1"
 
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 towers_activation_relay:CancelPending::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 tower_*:AddOutput:targetname defunct_tower:2:-1"

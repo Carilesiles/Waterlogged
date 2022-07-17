@@ -1,9 +1,9 @@
 #base robot_standard.pop
 #base robot_giant.pop
 #base robot_gatebot.pop
-#base reverse_waterlogged_robottemplates.pop
-#base reverse_waterlogged_wavelogic.pop
-#base reverse_waterlogged_custom.pop
+#base reverse_waterlogged_robottemplates_roy.pop
+#base reverse_waterlogged_wavelogic_roy.pop
+#base reverse_waterlogged_custom_roy.pop
 
 WaveSchedule 
 {
@@ -3881,7 +3881,7 @@ WaveSchedule
 						SpawnTemplate "Helicopter_Base_Init"
 						Template T_TFBot_Helicopter_Base 
 						AddCond { Name "TF_COND_REPROGRAMMED" }
-						
+
 						tag no_reprogram
 					}
 				}

@@ -15,6 +15,7 @@ WaveSchedule
 				"OnMapSpawn" "master_control_point,SetCapLayout,0 1 2 3 4 5"
 				"OnMapSpawn" "master_control_point,SetCapLayout,0 1,0.1"
 				"OnMapSpawn" "flagdetect_hatch,Kill"
+				"OnMapSpawn" "wave_finished_relay,AddOutput,OnTrigger music_cancel_relay:Trigger::0:-1"
 			}
 			logic_relay
 			{
@@ -24,6 +25,7 @@ WaveSchedule
 				"OnTrigger" "clearbuildings_trigger,Enable"
 				"OnTrigger" "clearbuildings_trigger,Disable,,0.1"
 				"OnTrigger" "spyteleport*,AddOutput,spawnflags 1"
+				"OnTrigger" "music_cancel_relay,Trigger"
 
 				"OnTrigger" "blu_init_teleport_boss,Disable"
 				"OnTrigger" "blu_init_teleport,Enable"
@@ -430,6 +432,10 @@ WaveSchedule
 			}
 			logic_relay
 			{
+				"OnSpawn" "music_intro_case,InValue,1"
+			}
+			logic_relay
+			{
 				"targetname" "wave1_loss_relay"
 				"OnTrigger" "red_win,RoundWin"
 			}
@@ -455,6 +461,9 @@ WaveSchedule
 				"OnTrigger" "losscondition_bomb_sign,Show,,10"
 				"OnTrigger" "bomb_dud_maker,ForceSpawnAtEntityOrigin,intel,8.2"
 
+				"OnTrigger" "music_cancel_relay,Trigger"
+				"OnTrigger" "music_loop_case,InValue,4,2.1"
+
 			}
 			logic_relay
 			{
@@ -470,6 +479,7 @@ WaveSchedule
 				"OnTrigger" "player,$PlaySoundToSelf,player/spy_uncloak_feigndeath.wav,5"
 				"OnTrigger" "player,$PlaySoundToSelf,vo/mvm/norm/spy_mvm_laughlong01.mp3,4"
 				"OnTrigger" "bots_win,RoundWin,,6.5"
+				"OnTrigger" "music_cancel_relay,Trigger,,6.5"
 			}
 			training_annotation
 			{
@@ -718,6 +728,10 @@ WaveSchedule
 		wave2_logic
 		{
 			NoFixup 1
+			logic_relay
+			{
+				"OnSpawn" "music_loop_case,InValue,3"
+			}
 			logic_relay
 			{
 				"targetname" "midphase_start_relay"
@@ -1001,6 +1015,69 @@ WaveSchedule
 				"angles" "0 -25 0"
 			}
 		}
+		heli_adjust
+		{
+			NoFixup 1
+			trigger_multiple
+			{
+				"targetname" "heli_adjust_factory"
+				"origin" "-7296 1186 364"
+				"mins" "-1728 -1310 -236"
+				"maxs" "1728 1310 236"
+				"filtername" "filter_helimove"
+				"OnStartTouch" "player,$FireUser5,-50"
+				"OnEndTouch" "player,$FireUser5,50"
+			}
+			OnSpawnOutput
+			{
+				Target "heli_block_arena"
+				Action "$SetCollisionFilter"
+				Param "filter_helimove"
+				Delay 0.1
+			}
+			func_brush
+			{
+				"targetname" "heli_block_arena"
+				"origin" "-1080 4416 -192"
+				"mins" "-920 -32 -320"
+				"maxs" "920 32 320"
+			}
+			func_brush
+			{
+				"targetname" "heli_block_arena"
+				"origin" "-1928 4136 -116"
+				"mins" "-120 -280 -404"
+				"maxs" "120 280 404"
+			}
+			func_brush
+			{
+				"targetname" "heli_block_arena"
+				"origin" "-232 4032 -116"
+				"mins" "-120 -383.5 -404"
+				"maxs" "120 383.5 404"
+			}
+			func_brush
+			{
+				"targetname" "heli_block_arena"
+				"origin" "-2000 3808 -120"
+				"mins" "-64 -128 -392"
+				"maxs" "64 128 392"
+			}
+			func_brush
+			{
+				"targetname" "heli_block_arena"
+				"origin" "-192 3488 -360"
+				"mins" "-64 -128 -152"
+				"maxs" "64 128 152"
+			}
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_helimove"
+				"tags" "bot_helimove"
+				"require_all_tags" "1"
+				//"negated" "1"
+			}
+		}
 		wave3_logic
 		{
 			NoFixup 1
@@ -1012,6 +1089,7 @@ WaveSchedule
 				//"OnSpawn" "barrier_gate2_relay_disable,Trigger,,0.1"
 				//"OnSpawn" "wave3_hints,ShowHudHint,,0,-1"
 				"OnSpawn" "towers_alt_phase,SetValue,1,0.1"
+				"OnSpawn" "music_intro_case,InValue,2"
 			}
 			func_flagdetectionzone
 			{
@@ -1249,105 +1327,6 @@ WaveSchedule
 				"display_text" "The bomb is now able to be deployed!"
 				"lifetime"     "6"
 			}
-			
-			OnSpawnOutput
-			{
-				Target "collider_oneway"
-				Action "$SetCollisionFilter"
-				Param "filter_heli_subwave"
-			}
-			func_brush
-			{
-				"targetname" "collider_oneway"
-				"origin" "-5920 832 492"
-				"mins" "-8 -192 -180"
-				"maxs" "8 192 180"
-				"startdisabled" "1"
-			}
-			func_brush
-			{
-				"targetname" "collider_oneway"
-				"origin" "-5920 224 360"
-				"mins" "-8 -224 -232"
-				"maxs" "8 224 232"
-				"startdisabled" "1"
-			}
-			prop_dynamic
-			{
-				"targetname" "barrier_oneway_1"
-				"model" "models/mvm/barrier/barrier_oneway_red1.mdl"
-				"origin" "-5920 832 492"
-				"angles" "0 270 0"
-				"solid" "0"
-				"startdisabled" "1"
-			}
-			prop_dynamic
-			{
-				"targetname" "barrier_oneway_2"
-				"model" "models/mvm/barrier/barrier_oneway_red2.mdl"
-				"origin" "-5920 224 360"
-				"angles" "0 270 0"
-				"solid" "0"
-				"startdisabled" "1"
-			}
-			trigger_multiple
-			{
-				"targetname" "yeah"
-				"mins" "-233.5 -960 -448"
-				"maxs" "233.5 960 448"
-				"origin" "-6168 832 576"
-				"spawnflags" "1"
-				"filtername" "filter_blueteam"
-				"OnStartTouch" "!activator,$SetVar$inFactory,1"
-			}
-			trigger_multiple
-			{
-				"targetname" "yeah2"
-				"mins" "-232 -960 -448"
-				"maxs" "232 960 448"
-				"origin" "-5632 816 576"
-				"spawnflags" "1"
-				"filtername" "filter_blueteam"
-				"OnStartTouch" "!activator,$SetVar$inFactory,0"
-			}
-			filter_activator_class
-			{
-				"targetname" "filter_player"
-				"filterclass" "player"
-				"negated" "1"
-			}
-			$filter_variable
-			{
-				"targetname" "filter_inFactory"
-				"$name" "inFactory"
-				"$value" "1"
-				"negated" "1"
-			}
-			filter_multi
-			{
-				"targetname" "filter_inFactory_and_blue"
-				//"Negated" "1"
-				"FilterType" "0"
-				"Filter01" "filter_blue"
-				"Filter02" "filter_inFactory"
-			}
-			filter_multi
-			{
-				"targetname" "filter_heli_subwave"
-				//"filtertype" "1"
-				//"filter01" "filter_blueteam"
-				//"filter02" "filter_redteam"
-				//"filter03" "filter_player_is_buster"
-				"filter01" "filter_helimove"
-				"negated" "1"
-			}
-			filter_tf_bot_has_tag
-			{
-				"targetname" "filter_helimove"
-				"tags" "bot_helimove"
-				"require_all_tags" "1"
-				"negated" "1"
-			}
 		}
 		wave4_logic
 		{
@@ -1408,6 +1387,7 @@ WaveSchedule
 				"OnSpawn" "towers_template,AddOutput,OnEntitySpawned tower_capzone:SetTeamCanCap:3 0:0:-1"
 				"OnSpawn" "brush_hatch_window,Disable"
 				"OnSpawn" "barrier_hatch_window,Enable"
+				"OnSpawn" "music_loop_case,InValue,5"
 			}
 			func_forcefield
 			{
@@ -1478,6 +1458,8 @@ WaveSchedule
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_side:Disable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 gate2_relay:Trigger::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 general_gate2_relay:Trigger::0:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_cancel_relay:Trigger::2:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_intro_case:InValue:3:4.77:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_hatchshield:Enable::22:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_hatch:Enable::22:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_garage:Enable::22:-1"
@@ -1506,10 +1488,10 @@ WaveSchedule
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_hatch:Disasble::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_garage:Disable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 bossroom_cap_template:ForceSpawn::0:-1"
-				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_hatchshield:Enable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 barrier_hatch_window:Disable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 brush_portal_hatchwindow:$SetCollisionFilter:filter_redteam:0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 go_win_sign:Show::0:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_cancel_relay:Trigger::5:-1"
 
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 towers_activation_relay:CancelPending::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 tower_*:AddOutput:targetname defunct_tower:2:-1"
@@ -1564,6 +1546,8 @@ WaveSchedule
 				"OnSpawn" "arena_indicator*,AddOutput,skin 1"
 				"OnSpawn" "arena_indicator*,SetAnimation,spin,30"
 				"OnSpawn" "arena_indicator*,AddOutput,skin 4,30"
+
+				"OnSpawn" "music_loop_case,InValue,2"
 			}
 			logic_relay
 			{

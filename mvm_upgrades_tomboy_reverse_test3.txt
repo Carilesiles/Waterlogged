@@ -198,14 +198,14 @@
 			"cap"		"4.0"
 			"cost"		"400"
 		}
-		"17"
-		{
-			"attribute" "engy sentry fire rate increased"
-			"icon"		"achievements/tf_engineer_sentry_kill_lifetime_grind"
-			"increment"	"-0.1"
-			"cap"		"0.7"
-			"cost"		"350"
-		}
+"17"
+        {
+            "attribute" "engy sentry fire rate increased"
+            "icon"        "achievements/tf_engineer_sentry_kill_lifetime_grind"
+            "increment"    "-0.5"
+            "cap"        "0.5"
+            "cost"        "350"
+        }
 		"17.2"
 		{
 			"attribute" "engy dispenser radius increased"
@@ -429,9 +429,9 @@
 		{
 			"attribute"	"generate rage on heal"	// Projectile Shield
 			"icon"		"achievements/tf_demoman_kill_x_defending"
-			"increment"	"1"
+			"increment"	"2"
 			"cap"		"2"
-			"cost"		"300"
+			"cost"		"350"
 		}
 		"50"
 		{

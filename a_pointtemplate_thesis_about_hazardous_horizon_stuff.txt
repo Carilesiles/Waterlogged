@@ -12,6 +12,8 @@ Custom upgrade file:
 (!)Destroy projectiles price is reduced to 250$ 
 (!)Ball Marks Target price is reduced to 100$
 (!)Heavy's firing rate upgrade now costs 400 per tick, decreases by 0.15 each tick instead of 0.1, caps at 0.55 instead of 0.6 with 3 ticks (0.55 is effectively still the same as 0.6 on 66 ticks server)
+(!)Sentry firing rate upgrade now decreases by 0.5 each tick and cap at -0.5 for 2 ticks. Idk what the gameplay implication of this change is other than make no upgrade do nothing ask jurrell
+(!)Projectile Shield upgrade now has 1 tick that gives the power of 2nd projectile shield's damage in 1 purchase, cost is 350
 
 Custom upgrades: 
 (+)Explosive Rage upgrade to replace knockback rage, 300$ with 1 tick

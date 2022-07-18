@@ -1774,9 +1774,9 @@ WaveSchedule
 				"OnPass" "!activator,$RemoveCond,41,0,-1"
 				"OnPass" "!activator,SetForcedTauntCam,0,0,-1"
 				"OnPass" "!activator,$AddCond,57,0,-1"
-				"OnPass" "!activator,$AddCond,32,0,-1"
+				// "OnPass" "!activator,$AddCond,32 2,0,-1"
 				"OnPass" "!activator,$RemoveCond,57,2,-1"
-				"OnPass" "!activator,$RemoveCond,32,2,-1"
+				// "OnPass" "!activator,$RemoveCond,32,2,-1"
 
 				"OnPass" "common_damage,FireUser1,,0,-1"
 				"OnPass" "giant_damage,FireUser1,,0,-1"

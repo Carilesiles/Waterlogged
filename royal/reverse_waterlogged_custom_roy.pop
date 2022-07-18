@@ -4,13 +4,13 @@ WaveSchedule
 	{
 		CustomCanteensSetup
 		{
-			OnSpawnOutput
-			{
-				Target "@c@!activator"
-				Action "$SetProp$m_usNumCharges"
-				Param 0
-				Delay 0
-			}
+			// OnSpawnOutput
+			// {
+			// 	Target "@c@!activator"
+			// 	Action "$SetProp$m_usNumCharges"
+			// 	Param 0
+			// 	Delay 0
+			// }
 
 			OnSpawnOutput
 			{

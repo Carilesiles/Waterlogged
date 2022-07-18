@@ -134,12 +134,12 @@ WaveSchedule
 		MaxLevel 0
 		ItemName "The Direct Hit" 
 	}
-	DisallowUpgrade	
-	{
-		Upgrade	"damage bonus"
-		MaxLevel 2
-		ItemName "The Direct Hit" 
-	}
+	// DisallowUpgrade	
+	// {
+	// 	Upgrade	"damage bonus"
+	// 	MaxLevel 2
+	// 	ItemName "The Direct Hit" 
+	// }
 	ExtendedUpgrades
 	{ 
 		newRage 

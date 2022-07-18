@@ -850,7 +850,7 @@ WaveSchedule
 	ItemAttributes
 	{
 		ClassName "TF_WEAPON_MEDIGUN"
-		"special item description 4" "Projectile Shield size is reduced. Charge rate is increased"
+		"special item description 4" "Projectile Shield size is reduced. Charge rate is increased. Each upgrade increases damage"
 	}
 	
 	PlayerItemEquipSpawnTemplate

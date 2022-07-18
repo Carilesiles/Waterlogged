@@ -14,7 +14,7 @@ WaveSchedule
 	FixedRespawnWaveTimeBlue 		1
 	AddSentryBusterWhenDamageDealtExceeds 0
 
-	CustomUpgradesFile mvm_upgrades_tomboy_reverse_test3.txt //remember to rename this on release :)
+	CustomUpgradesFile mvm_upgrades_tomboy_reverse_test4.txt //remember to rename this on release :)
 
 	//Reverse KVs
 	ReverseWinConditions 1

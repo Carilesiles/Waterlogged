@@ -788,7 +788,8 @@ WaveSchedule
 				"filtername" "filter_is_blu"
 
 				"OnTrigger" "!activator,$AddCond,16,0,-1"
-				"OnEndTouch" "!activator,$RemoveCond,16,0,-1"
+				"OnStartTouch" "!activator,$AddCond,16,0,-1"
+				"OnEndTouch" "!activator,$RemoveCond,16,0.01,-1"
 			}
 
 			trigger_multiple

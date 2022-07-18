@@ -1,3 +1,43 @@
+--smol shield replacement
+function replaceAllMedigunShields()
+	for _, shield in pairs(ents.FindAllByClass("entity_medigun_shield")) do
+		local shieldOwner = shield:DumpProperties()["m_hOwnerEntity"]
+
+		if not shieldOwner then
+			goto continue
+		end
+
+		if shieldOwner:DumpProperties()["shieldReplacementFlag"] ~= 1 then
+			goto continue
+		end
+
+		shield:SetModel("models/props_mvm/mvm_comically_small_player_shield.mdl")
+
+		::continue::
+	end
+end
+
+--set shield charge to 25% whenever it'd be below that to mimic charging faster
+function setDefaultShieldCharge(_, activator)
+	local properties = activator:DumpProperties()
+
+	if properties["m_bRageDraining"] ~= 0 then
+		goto continue
+	end
+
+	if properties["m_flRageMeter"] >= 25 then
+		goto continue
+	end
+
+	activator:AcceptInput("$SetProp$m_flRageMeter", 25)
+
+	::continue::
+end
+
+function OnGameTick()
+	replaceAllMedigunShields()
+end
+
 function dealDamageToActivator(damage, activator, caller)
 	if activator == caller then
 		return
@@ -34,9 +74,12 @@ function helicopterAscend(units, _, caller)
 	local iterated = 0
 
 	for i = 0, units, units / 20 do
-		timer.Simple(0.02 * iterated, function()
-			caller:FireUser6(i)
-		end)
+		timer.Simple(
+			0.02 * iterated,
+			function()
+				caller:FireUser6(i)
+			end
+		)
 
 		iterated = iterated + 1
 	end
@@ -127,4 +170,3 @@ function registerShieldDoppler(shieldEntName, activator)
 
 	_register(shieldEnt, 2, ownerTeamnum, activator)
 end
-

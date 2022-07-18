@@ -1065,6 +1065,41 @@ WaveSchedule
 			}
 		}
 
+		MedigunsShieldReplacement
+		{
+			OnSpawnOutput 
+			{
+				Target "!activator"
+				Action "$SetVar$shieldReplacementFlag"
+				Param "1"
+			}
+
+			OnSpawnOutput 
+			{
+				Target "default_shield_charge_set"
+				Action "Trigger"
+				Delay 0
+			}
+
+			OnParentKilledOutput 
+			{
+				Target "!activator"
+				Action "$SetVar$shieldReplacementFlag"
+				Param "0"
+			}
+
+			logic_relay 
+			{
+				"targetname" "default_shield_charge_set"
+				"spawnflags" "2"
+
+				"OnTrigger" "popscript,$setDefaultShieldCharge,,0,-1"
+
+				"OnTrigger" "!self,Trigger,,0.1,-1"
+			}
+
+		}
+
 		ComfortablyNumb_Spawn
 		{
 			OnSpawnOutput 

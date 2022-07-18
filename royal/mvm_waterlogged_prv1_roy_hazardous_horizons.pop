@@ -843,6 +843,18 @@ WaveSchedule
 
 	PlayerItemEquipSpawnTemplate
 	{
+		Name MedigunsShieldReplacement
+		ClassName "TF_WEAPON_MEDIGUN"
+	}
+
+	ItemAttributes
+	{
+		ClassName "TF_WEAPON_MEDIGUN"
+		"special item description 4" "Projectile Shield size is reduced. Charge rate is increased"
+	}
+	
+	PlayerItemEquipSpawnTemplate
+	{
 		Name NoMercy_Spawn
 		ItemName "No Mercy"
 	}

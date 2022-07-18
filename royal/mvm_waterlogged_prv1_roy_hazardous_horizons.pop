@@ -216,7 +216,7 @@ WaveSchedule
 			Attribute "limited quantity item" 
 			Cap 10
 			Increment 1 
-			Cost 100
+			Cost 75
 
 			Description "Reprogram non-giant enemies in a radius"
 
@@ -357,7 +357,7 @@ WaveSchedule
 			Attribute "throwable particle trail only" 
 			Cap 3
 			Increment 1 
-			Cost 50
+			Cost 25
 
 			Description "Cloak for up to 15 seconds, cloak is cancelled when attacking"
 
@@ -405,7 +405,7 @@ WaveSchedule
 			Attribute "decoded by itemdefindex" 
 			Cap 3
 			Increment 1 
-			Cost 25
+			Cost 75
 
 			Description "Apply Jarate to enemies within a large radius"
 
@@ -453,7 +453,7 @@ WaveSchedule
 			Attribute "elevate quality" 
 			Cap 3
 			Increment 1 
-			Cost 25
+			Cost 10
 
 			Description "Gain knockback resistance for 5 seconds"
 

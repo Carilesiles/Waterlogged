@@ -820,7 +820,7 @@ WaveSchedule
 	ItemAttributes
 	{
 		ItemName "The Ullapool Caber"
-		"not solid to players" 1
+		// "not solid to players" 1
 		"special item description" "Becomes a Sentry Buster. Taunt to detonate (revert back to a regular Demoman on detonation)"
 	}
 	PlayerShootTemplate

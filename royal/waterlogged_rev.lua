@@ -41,3 +41,90 @@ function helicopterAscend(units, _, caller)
 		iterated = iterated + 1
 	end
 end
+
+local LEVELS_INFO = {
+	[1] = {
+		Damage = 6,
+		Cooldown = 0.05
+	},
+	[2] = {
+		Damage = 8,
+		Cooldown = 0.05
+	}
+}
+
+local registeredShields = {} --value is debounce players
+
+function _register(shieldEnt, level, ownerTeamnum, activator)
+	local handle = shieldEnt:GetHandleIndex()
+
+	registeredShields[handle] = {}
+
+	shieldEnt:AddCallback(
+		ON_REMOVE,
+		function()
+			registeredShields[handle] = nil
+		end
+	)
+
+	local levelInfo = LEVELS_INFO[level]
+
+	shieldEnt:AddCallback(
+		ON_TOUCH,
+		function(_, target, hitPos)
+			if not target or not target:IsPlayer() then
+				return
+			end
+
+			local targetHandle = target:GetHandleIndex()
+
+			local nextAllowedDamageTickOnTarget = registeredShields[handle][targetHandle] or -1
+
+			if CurTime() < nextAllowedDamageTickOnTarget then
+				return
+			end
+
+			local targetTeamnum = target:DumpProperties()["m_iTeamNum"]
+
+			if targetTeamnum == ownerTeamnum then
+				return
+			end
+
+			local damageInfo = {
+				Attacker = activator,
+				Inflictor = nil,
+				Weapon = nil,
+				Damage = levelInfo.Damage,
+				DamageType = DMG_SHOCK,
+				DamageCustom = 0,
+				DamagePosition = hitPos,
+				DamageForce = Vector(0, 0, 0),
+				ReportedPosition = hitPos
+			}
+
+			local dmg = target:TakeDamage(damageInfo)
+
+			registeredShields[handle][targetHandle] = CurTime() + levelInfo.Cooldown
+
+			-- print("damage dealt " .. dmg)
+		end
+	)
+end
+
+function registerShieldThunderdome(shieldEntName, activator)
+	local shieldEnt = ents.FindByName(shieldEntName)
+
+	-- local owner = shieldEnt:DumpProperties()["m_hOwnerEntity"]
+	local ownerTeamnum = activator:DumpProperties()["m_iTeamNum"]
+
+	_register(shieldEnt, 1, ownerTeamnum, activator)
+end
+
+function registerShieldDoppler(shieldEntName, activator)
+	local shieldEnt = ents.FindByName(shieldEntName)
+
+	local ownerTeamnum = activator:DumpProperties()["m_iTeamNum"]
+
+	_register(shieldEnt, 2, ownerTeamnum, activator)
+end
+

@@ -27,6 +27,7 @@
 // Lite - Original Mini-Sentry detector template used to make mini rework
 // https://steamcommunity.com/profiles/76561198300633951/
 
+
 #base robot_standard.pop
 #base robot_giant.pop
 #base robot_gatebot.pop

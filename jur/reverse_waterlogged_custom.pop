@@ -2085,6 +2085,13 @@ WaveSchedule
 				Action "$SetModel"
 				Param "models/props_mvm/mvm_comically_small_player_shield.mdl"
 			}
+			
+			OnSpawnOutput
+			{
+				Target "projectile_shield2"
+				Action "$SetModel"
+				Param "models/props_mvm/mvm_comically_small_player_shield.mdl"
+			}
 
 			OnSpawnOutput
 			{

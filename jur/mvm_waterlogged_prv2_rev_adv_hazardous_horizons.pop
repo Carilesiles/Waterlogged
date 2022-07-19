@@ -157,6 +157,13 @@ WaveSchedule
 		MaxLevel 0
 		ItemName "Comfortably Numb" 
 	}
+	
+	DisallowUpgrade	
+	{
+		Upgrade	"engy disposable sentries"
+		MaxLevel 0
+		ItemName "The Gunslinger"
+	}
 
 	DisallowUpgrade	
 	{

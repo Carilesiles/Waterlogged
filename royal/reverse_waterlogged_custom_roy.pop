@@ -2042,23 +2042,6 @@ WaveSchedule
 				Delay 0
 			}
 
-			// OnSpawnOutput
-			// {
-			//     Target "@e@m_hMyWeapons@!activator"
-			//     Action "$SetProp$m_iClip1"
-			//     Param "0"
-			//     Delay 0
-			// }
-
-			//very weird hack to prevent switching to weapon
-			// OnSpawnOutput
-			// {
-			//     Target "@e@m_hMyWeapons@!activator"
-			//     Action "$SetProp$m_bFlipViewModel"
-			//     Param "0"
-			//     Delay 0.01
-			// }
-
 			OnSpawnOutput
 			{
 				Target "!activator"
@@ -2066,20 +2049,6 @@ WaveSchedule
 				Param "1"
 				Delay 0
 			}
-
-			// OnSpawnOutput
-			// {
-			// 	Target "shield_hitbox"
-			// 	Action "$SetOwner"
-			// 	Param "!activator"
-			// }
-
-			// OnSpawnOutput
-			// {
-			// 	Target "shield_hitbox2"
-			// 	Action "$SetOwner"
-			// 	Param "!activator"
-			// }
 
 			OnSpawnOutput
 			{
@@ -2154,25 +2123,6 @@ WaveSchedule
 				"OnTrigger" "!self,Trigger,,0.01,-1"
 			}
 
-			// trigger_hurt
-			// {
-			// 	"parentname" "rotate"
-			// 	"origin" "100 0 1"
-			// 	"mins" "-12 -53 -51.5"
-			// 	"maxs" "12 53 51.5"
-
-			// 	"teamnum" "3"
-
-			// 	"targetname" "shield_hitbox"
-			// 	"spawnflags" "1"
-
-
-			// 	"filtername" "filter_is_red"
-
-			// 	"Damage" "60" //damage is half of this
-			// 	"damagetype" "512"
-			// }
-
 			entity_medigun_shield
 			{
 				"parentname" "rotate"
@@ -2199,24 +2149,6 @@ WaveSchedule
 			}
 
 			//2nd shield
-			// trigger_hurt
-			// {
-			// 	"parentname" "rotate2"
-			// 	"mins" "-12 -53 -51.5"
-			// 	"maxs" "12 53 51.5"
-			// 	"origin" "-100 0 1"
-			// 	// "angles" "180 0 0"
-			// 	"teamnum" "3"
-
-			// 	"targetname" "shield_hitbox2"
-			// 	"spawnflags" "1"
-
-			// 	"filtername" "filter_is_red"
-
-			// 	"Damage" "60" //damage is half of this
-			// 	"damagetype" "512"
-			// }
-
 			entity_medigun_shield
 			{
 				"parentname" "rotate2"

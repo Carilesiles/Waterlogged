@@ -47,6 +47,10 @@ Rebalances (Weapon):
 >The Ullapool Caber
 (+)Becomes a Sentry Buster. Taunt to detonate (revert back to a regular Demoman on detonation)
 
+>The Short Circuit
+(+)"Launches an energy ball that leaves behind a damaging electricity field"
+(-)Alt-fire is disabled
+
 >All bows 
 (+)Fires explosive tipped arrows that stick to enemies and surfaces. Arrows detonate after 3 seconds after contact
 (+)Splash damage is affected by damage bonus upgrade

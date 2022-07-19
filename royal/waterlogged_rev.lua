@@ -1,4 +1,4 @@
---smol shield replacement
+-- smol shield replacement
 function replaceAllMedigunShields()
 	for _, shield in pairs(ents.FindAllByClass("entity_medigun_shield")) do
 		local shieldOwner = shield:DumpProperties()["m_hOwnerEntity"]
@@ -16,6 +16,35 @@ function replaceAllMedigunShields()
 		::continue::
 	end
 end
+
+-- function replaceShieldModel(shield)
+-- 	local shieldOwner = shield:DumpProperties()["m_hOwnerEntity"]
+
+-- 	if not shieldOwner then
+-- 		goto continue
+-- 	end
+
+-- 	if shieldOwner:DumpProperties()["shieldReplacementFlag"] ~= 1 then
+-- 		goto continue
+-- 	end
+
+-- 	shield:SetModel("models/props_mvm/mvm_comically_small_player_shield.mdl")
+
+-- 	::continue::
+-- end
+
+-- ents.AddCreateCallback(
+-- 	"entity_medigun_shield",
+-- 	function(shield)
+-- 		print(shield)
+-- 		timer.Simple(
+-- 			-1,
+-- 			function()
+-- 				replaceShieldModel(shield)
+-- 			end
+-- 		)
+-- 	end
+-- )
 
 --set shield charge to 25% whenever it'd be below that to mimic charging faster
 function setDefaultShieldCharge(_, activator)

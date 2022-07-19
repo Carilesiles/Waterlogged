@@ -431,7 +431,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			Attributes MiniBoss
 			Attributes UseBossHealthBar
 			
-			Scale 1.9 
+			Scale 1.9
 
 			AddCond { Name "TF_COND_REPROGRAMMED" }
 
@@ -2309,13 +2309,13 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 			}	
 
-			logic_relay 
+			logic_relay
 			{
 				"targetname" "buster_det_checker"
 				"spawnflags" "2"
 
-				"OnTrigger" "buster_det_checker,Trigger,,0.1,-1"  
-				"OnTrigger" "filter_is_taunting,TestActivator,!activator,0,-1"    
+				"OnTrigger" "buster_det_checker,Trigger,,0.1,-1"
+				"OnTrigger" "filter_is_taunting,TestActivator,!activator,0,-1"
 			}
 		}
 		// Fake Icon Template
@@ -2326,6 +2326,40 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			{
 				"targetname" "perhaps"
 				"OnSpawn" "!self,Kill"
+			}
+		}
+		FakeIcon_Hold
+		{
+			NoFixup 1
+			logic_relay
+			{
+				"targetname" "kill_perhaps"
+				"OnTrigger" "perhaps,Kill"
+			}
+			logic_relay
+			{
+				"targetname" "perhaps"
+				"OnTrigger" "!self,Kill"
+			}
+		}
+		FakeIcon_Hold2
+		{
+			NoFixup 1
+			logic_relay
+			{
+				"targetname" "kill_perhaps_all"
+				"OnTrigger" "perhaps,Kill"
+				"OnTrigger" "perhaps2,Kill"
+			}
+			logic_relay
+			{
+				"targetname" "kill_perhaps2"
+				"OnTrigger" "perhaps,Kill"
+			}
+			logic_relay
+			{
+				"targetname" "perhaps2"
+				"OnTrigger" "!self,Kill"
 			}
 		}
 		AddBotGlow

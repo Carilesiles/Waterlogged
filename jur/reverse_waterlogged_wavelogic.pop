@@ -1249,7 +1249,6 @@ WaveSchedule
 				"OnTrigger" "hatchshield_collision_stuckfix,Disable"
 				"OnTrigger" "capturezone_blue,Enable"
 				"OnTrigger" "barrier_down_sign3,Show"
-				
 			}
 			
 			logic_relay
@@ -1624,6 +1623,11 @@ WaveSchedule
 				"OnSpawn" "engineer_nest*,Disable"
 				"OnSpawn" "engineer_nest_arena*,Enable,,0.1"
 				"OnSpawn" "spawnbot_extra,Enable"
+			}
+			logic_relay
+			{
+				"targetname" "lower_heli_relay"
+				"OnTrigger" ""
 			}
 			logic_relay
 			{

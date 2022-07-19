@@ -2514,45 +2514,6 @@ WaveSchedule
 		}
 		WaveSpawn 
 		{
-			Name "w3_subwaveone_demo"
-			Where "spawnbot_balcony"
-			Where "spawnbot_scaffold"
-			TotalCount 1
-			MaxActive 1
-			SpawnCount 1
-			TotalCurrency 75
-			WaitBeforeStarting 15
-			WaitBetweenSpawns 0
-			Support Limited
-			RandomChoice
-			{
-				RandomChoice
-				{
-					TFBot
-					{
-						Template T_TFBot_Giant_Demoknight_NoShield
-						AddTemplate RedBot_Giant
-					}
-				}
-			}
-		}
-		WaveSpawn
-		{
-			Name dummy
-			WaitForAllDead "w3_subwaveone_demo"
-			Where "spawnbot_boss"
-			TotalCount	1
-			SpawnCount	1
-			TotalCurrency 0
-			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
-			{
-				Name "FakeIcon"
-				ClassIcon demoknight_giant
-				IsMiniBoss 1
-			}
-		}
-		WaveSpawn 
-		{
 			Name "heli_support_hf"
 			WaitForAllSpawned "heli"
 			Where "spawnbot_balcony_extra"
@@ -3078,10 +3039,39 @@ WaveSchedule
 			TotalCurrency 50
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 15
-			TFBot
+			RandomChoice
 			{
-				Template T_TFBot_Giant_Pyro_ComboFlare
-				AddTemplate RedBot_Giant
+				RandomChoice
+				{
+					TFBot
+					{
+						Template T_TFBot_Giant_Pyro_ComboFlare
+						AddTemplate RedBot_Giant
+					}
+				}
+			}
+			FirstSpawnOutput
+			{
+				Target "perhaps"
+				Action Kill
+			}
+			LastSpawnOutput
+			{
+				Target "perhaps"
+				Action Kill
+			}
+		}
+		WaveSpawn
+		{
+			Name dummy
+			Where "spawnbot_hatch"
+			TotalCount	2
+			SpawnCount	2
+			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
+			{
+				Name "FakeIcon_Hold"
+				ClassIcon pyro_degreaser_flare
+				IsMiniBoss 1
 			}
 		}
 		WaveSpawn
@@ -3095,21 +3085,51 @@ WaveSchedule
 			TotalCurrency 50
 			WaitBeforeStarting 4
 			WaitBetweenSpawns 15
-			TFBot
+			RandomChoice
 			{
-				Class Scout
-				Name "Armored Scout"
-				ClassIcon scout_armored_pda
-				Attributes MiniBoss
-				Skill Expert
-				Health 3000
-				WeaponRestrictions PrimaryOnly
-				AddTemplate RedBot_Giant
-				CharacterAttributes
+				RandomChoice
 				{
-					"override footstep sound set" 5
-					"move speed penalty" 0.75
+					TFBot
+					{
+						Class Scout
+						Name "Armored Scout"
+						ClassIcon scout_armored_pda
+						Attributes MiniBoss
+						Skill Expert
+						Health 3000
+						WeaponRestrictions PrimaryOnly
+						AddTemplate RedBot_Giant
+						CharacterAttributes
+						{
+							"override footstep sound set" 5
+							"move speed penalty" 0.75
+						}
+					}
 				}
+			}
+			FirstSpawnOutput
+			{
+				Target "perhaps"
+				Action Kill
+			}
+			LastSpawnOutput
+			{
+				Target "perhaps"
+				Action Kill
+			}
+		}
+		WaveSpawn
+		{
+			Name dummy
+			Where "spawnbot_hatch"
+			WaitForAllDead "w3_subwavethree_cfh"
+			TotalCount	2
+			SpawnCount	2
+			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
+			{
+				Name "FakeIcon_Hold"
+				ClassIcon scout_armored_pda
+				IsMiniBoss 1
 			}
 		}
 		WaveSpawn
@@ -3140,10 +3160,39 @@ WaveSchedule
 			TotalCurrency 50
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 15
-			TFBot
+			RandomChoice
 			{
-				Template T_TFBot_Giant_Pyro_ComboFlare
-				AddTemplate RedBot_Giant
+				RandomChoice
+				{
+					TFBot
+					{
+						Template T_TFBot_Giant_Pyro_ComboFlare
+						AddTemplate RedBot_Giant
+					}
+				}
+			}
+			FirstSpawnOutput
+			{
+				Target "perhaps2"
+				Action Kill
+			}
+			LastSpawnOutput
+			{
+				Target "perhaps2"
+				Action Kill
+			}
+		}
+		WaveSpawn
+		{
+			Name dummy
+			Where "spawnbot_garage"
+			TotalCount	2
+			SpawnCount	2
+			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
+			{
+				Name "FakeIcon_Hold2"
+				ClassIcon pyro_degreaser_flare
+				IsMiniBoss 1
 			}
 		}
 		WaveSpawn
@@ -3157,21 +3206,50 @@ WaveSchedule
 			TotalCurrency 50
 			WaitBeforeStarting 5
 			WaitBetweenSpawns 15
-			TFBot
+			RandomChoice
 			{
-				Class Scout
-				Name "Armored Scout"
-				ClassIcon scout_armored_pda
-				Attributes MiniBoss
-				Skill Expert
-				Health 3000
-				WeaponRestrictions PrimaryOnly
-				AddTemplate RedBot_Giant
-				CharacterAttributes
+				RandomChoice
 				{
-					"override footstep sound set" 5
-					"move speed penalty" 0.75
+					TFBot
+					{
+						Class Scout
+						Name "Armored Scout"
+						ClassIcon scout_armored_pda
+						Attributes MiniBoss
+						Skill Expert
+						Health 3000
+						WeaponRestrictions PrimaryOnly
+						AddTemplate RedBot_Giant
+						CharacterAttributes
+						{
+							"override footstep sound set" 5
+							"move speed penalty" 0.75
+						}
+					}
 				}
+			}
+			FirstSpawnOutput
+			{
+				Target "perhaps2"
+				Action Kill
+			}
+			LastSpawnOutput
+			{
+				Target "perhaps2"
+				Action Kill
+			}
+		}
+		WaveSpawn
+		{
+			Name dummy
+			WaitForAllDead "w3_subwavethree_cfg"
+			TotalCount	2
+			SpawnCount	2
+			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
+			{
+				Name "FakeIcon_Hold2"
+				ClassIcon scout_armored_pda
+				IsMiniBoss 1
 			}
 		}
 		WaveSpawn
@@ -3189,6 +3267,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Boxing_Heavy
+				ClassIcon heavy_champ_red
 				AddTemplate RedBot_Giant
 			}
 		}
@@ -3376,6 +3455,11 @@ WaveSchedule
 			TotalCurrency 100
 			WaitBeforeStarting 5
 			WaitBetweenSpawns 0
+			FirstSpawnOutput
+			{
+				Target kill_perhaps_all
+				Action Trigger
+			}
 			DoneOutput
 			{
 				Target doppler_killed_relay
@@ -3929,6 +4013,11 @@ WaveSchedule
 
 			Support Limited
 			WaitForAllDead "midphase_one_start"
+			FirstSpawnOutput
+			{
+				Target "lower_heli_relay"
+				Action Trigger
+			}
 
 			RandomChoice
 			{

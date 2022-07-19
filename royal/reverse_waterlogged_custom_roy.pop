@@ -866,10 +866,10 @@ WaveSchedule
 				"Case04" "3"
 
 				"OnCase01" "!activator,$RemoveItemAttribute,no_attack|1,0,-1"
-				"OnCase01" "!activator,$RemoveItemAttribute,dmg penalty vs players|0,0,-1"
+				// "OnCase01" "!activator,$RemoveItemAttribute,dmg penalty vs players|0,0,-1"
 
 				"OnCase02" "!activator,$AddItemAttribute,no_attack|1|1,0,-1"
-				"OnCase02" "!activator,$AddItemAttribute,dmg penalty vs players|0.7|0,0,-1"
+				// "OnCase02" "!activator,$AddItemAttribute,dmg penalty vs players|0.7|0,0,-1"
 
 				//"OnCase01" "!activator,$RemovePlayerAttribute,mod weapon blocks healing,0,-1"
 

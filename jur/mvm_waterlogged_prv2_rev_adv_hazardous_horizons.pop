@@ -27,6 +27,7 @@
 // Lite - Original Mini-Sentry detector template used to make mini rework
 // https://steamcommunity.com/profiles/76561198300633951/
 
+
 #base robot_standard.pop
 #base robot_giant.pop
 #base robot_gatebot.pop
@@ -627,7 +628,7 @@ WaveSchedule
 
 			"special item description" "Stickybombs grant minicrit to nearby teammates"
 			"special item description 2" "Cannot detonate. only 1 sticky can be active at a time"
-			"special item description 3" "-30% damage on primary weapon when at least 1 stickybomb is active"
+			//"special item description 3" "-30% damage on primary weapon when at least 1 stickybomb is active"
 		}
 		"No Mercy"
 		{

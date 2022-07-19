@@ -5279,23 +5279,33 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 		{
 			OnSpawnOutput
 			{
-				Target "shield_hitbox_bot"
-				Action "$SetOwner"
-				Param "!activator"
-			}
-
-			OnSpawnOutput
-			{
-				Target "shield_hitbox2_bot"
-				Action "$SetOwner"
-				Param "!activator"
-			}
-
-			OnSpawnOutput
-			{
 				Target "projectile_shield_bot"
 				Action "$SetModel"
 				Param "models/props_mvm/mvm_comically_small_player_shield.mdl"
+			}
+
+			OnSpawnOutput
+			{
+				Target "projectile_shield_bot2"
+				Action "$SetModel"
+				Param "models/props_mvm/mvm_comically_small_player_shield.mdl"
+			}
+
+
+			OnSpawnOutput
+			{
+				Target "popscript"
+				Action "$registerShieldThunderdome"
+				Param "projectile_shield_bot"
+				Delay 0.1
+			}
+
+			OnSpawnOutput
+			{
+				Target "popscript"
+				Action "$registerShieldThunderdome"
+				Param "projectile_shield_bot2"
+				Delay 0.1
 			}
 
 			OnSpawnOutput
@@ -5330,13 +5340,6 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				Action "Trigger"
 			}
 
-			filter_activator_tfteam 
-			{
-				"targetname" "filter_is_blue"
-				"Negated" "0"
-				"TeamNum" "3"
-			}
-
 			logic_relay 
 			{
 				"targetname" "rotate_bot_position"
@@ -5346,23 +5349,6 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"OnTrigger" "rotate2_bot,$TeleportToEntity,!activator,0,-1"
 
 				"OnTrigger" "!self,Trigger,,0.01,-1"
-			}
-
-			trigger_hurt
-			{
-				"parentname" "rotate_bot"
-				"origin" "100 0 31"
-				"mins" "-12 -53 -51.5"
-				"maxs" "12 53 51.5"
-
-				"targetname" "shield_hitbox_bot"
-				"spawnflags" "1"
-
-
-				"filtername" "filter_is_blue"
-
-				"Damage" "60" //damage is half of this
-				"damagetype" "512"
 			}
 
 			entity_medigun_shield
@@ -5390,27 +5376,10 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			}
 
 			//2nd shield
-			trigger_hurt
-			{
-				"parentname" "rotate2_bot"
-				"mins" "-12 -53 -51.5"
-				"maxs" "12 53 51.5"
-				"origin" "-100 0 31"
-				// "angles" "180 0 0"
-
-				"targetname" "shield_hitbox2_bot"
-				"spawnflags" "1"
-
-				"filtername" "filter_is_blue"
-
-				"Damage" "60" //damage is half of this
-				"damagetype" "512"
-			}
-
 			entity_medigun_shield
 			{
 				"parentname" "rotate2_bot"
-				"targetname" "projectile_shield_bot"
+				"targetname" "projectile_shield_bot2"
 				"origin" "-100 0 30"
 				"angles" "-180 0 -180"
 				"spawnflags" "1"
@@ -5444,6 +5413,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"OnTrigger" "rotate_bot,Stop"
 				"OnTrigger" "rotate2_bot,Stop"
 				"OnTrigger" "projectile_shield_bot,$SetModel,models/empty.mdl"
+				"OnTrigger" "projectile_shield_bot2,$SetModel,models/empty.mdl"
 				"OnTrigger" "shield_hitbox_bot,Disable"
 				"OnTrigger" "shield_hitbox2_bot,Disable"
 				"OnTrigger" "!self,Disable"
@@ -5455,6 +5425,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"OnTrigger" "rotate_bot,Start"
 				"OnTrigger" "rotate2_bot,Start"
 				"OnTrigger" "projectile_shield_bot,$SetModel,models/props_mvm/mvm_comically_small_player_shield.mdl"
+				"OnTrigger" "projectile_shield_bot2,$SetModel,models/props_mvm/mvm_comically_small_player_shield.mdl"
 				"OnTrigger" "shield_hitbox_bot,Enable"
 				"OnTrigger" "shield_hitbox2_bot,Enable"
 				"OnTrigger" "!self,Disable"

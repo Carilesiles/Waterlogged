@@ -847,6 +847,12 @@ WaveSchedule
 		ClassName "TF_WEAPON_MEDIGUN"
 	}
 
+	PlayerItemEquipSpawnTemplate
+	{
+		Name MedigunsShieldReplacement
+		ItemName "Comfortably Numb"
+	}
+
 	ItemAttributes
 	{
 		ClassName "TF_WEAPON_MEDIGUN"

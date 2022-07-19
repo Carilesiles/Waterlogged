@@ -1,3 +1,32 @@
+// Xarcks - Creator of Waterlogged
+// https://steamcommunity.com/id/Xarcks
+// https://steamcommunity.com/sharedfiles/filedetails/?id=2141860433 - Original map workshop link
+//
+// Non The Ninja - Artist behind Launch Sequence and Digital Divination
+// https://steamcommunity.com/id/NontheNinja
+// https://www.youtube.com/watch?v=XU-s4kqqM2Q - Launch Sequence
+// https://www.youtube.com/watch?v=w9TwtJRvMNs - Digital Divination
+//
+// Royal - Mission Co-Creator / Custom rebalancing / Neat point templates and also lua / Resident cool fella
+// https://steamcommunity.com/profiles/76561198835403557
+//
+// Jurrell - Map edits / Mission Co-Creator
+// https://steamcommunity.com/id/Jurrell
+//
+// Birchly - Mapping advice / Worker drones overlay
+// https://steamcommunity.com/id/Birchly
+// https://tf2maps.net/threads/mvm-encounter-overlays.46695/ - Encounter overlays
+// 
+// Eve - Mapping advice / Gunslinger drone template / probably many other templates as well
+// https://steamcommunity.com/id/EveLan/
+//
+// That Guy Mike - RCAT sentry model for gunslinger rework
+// https://steamcommunity.com/id/electronicfox
+// https://steamcommunity.com/sharedfiles/filedetails/?id=219340497 - Rcat Flying Sentry
+//
+// Lite - Original Mini-Sentry detector template used to make mini rework
+// https://steamcommunity.com/profiles/76561198300633951/
+
 #base robot_standard.pop
 #base robot_giant.pop
 #base robot_gatebot.pop
@@ -765,7 +794,8 @@ WaveSchedule
 		"explosion particle" "drg_cow_explosioncore_charged_blue"
 		"projectile trail particle" "drg_cow_rockettrail_normal_blue"
 		"custom impact sound" "weapons/cow_mangler_explosion_normal_01.wav"
-		"special item description" "Launches an energy ball that leaves behind a short lived electricity field"
+		"special item description" "Launches an energy ball that leaves behind a damaging electricity field"
+		"special item description 2" "Alt-fire is disabled"
 		//"custom weapon fire sound" "weapons/cow_mangler_main_shot.wav"
 	}
 	//ItemBlacklist [$SIGSEGV]

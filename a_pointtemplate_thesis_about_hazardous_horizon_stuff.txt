@@ -47,6 +47,12 @@ Rebalances (Weapon):
 >The Ullapool Caber
 (+)Becomes a Sentry Buster. Taunt to detonate (revert back to a regular Demoman on detonation)
 
+>The Gunslinger
+(+)Placed Mini-Sentries are converted into drones that will float alongside you
+(+)Faster build rate
+(-)Cannot pick up buildings
+Same as encounter's
+
 >The Short Circuit
 (+)"Launches an energy ball that leaves behind a damaging electricity field"
 (-)Alt-fire is disabled

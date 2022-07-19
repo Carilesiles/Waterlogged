@@ -5,7 +5,7 @@
 #base reverse_waterlogged_wavelogic.pop
 #base reverse_waterlogged_custom.pop
 
-WaveSchedule 
+WaveSchedule
 {
 	//Standard KVs
 	StartingCurrency				1350
@@ -14,7 +14,7 @@ WaveSchedule
 	FixedRespawnWaveTimeBlue 		1
 	AddSentryBusterWhenDamageDealtExceeds 0
 
-	CustomUpgradesFile mvm_upgrades_tomboy_reverse_test2.txt //remember to rename this on release :)
+	CustomUpgradesFile mvm_upgrades_tomboy_reverse_test4.txt //remember to rename this on release :)
 
 	//Reverse KVs
 	ReverseWinConditions 1
@@ -110,7 +110,7 @@ WaveSchedule
 	//	Origin "0 0 0" 
 	//}
 
-	PlayerSpawnTemplate 
+	PlayerSpawnTemplate
 	{
 		Name CustomCanteens
 	}
@@ -134,12 +134,12 @@ WaveSchedule
 		MaxLevel 0
 		ItemName "The Direct Hit" 
 	}
-	DisallowUpgrade	
-	{
-		Upgrade	"damage bonus"
-		MaxLevel 2
-		ItemName "The Direct Hit" 
-	}
+	//DisallowUpgrade	
+	//{
+	//	Upgrade	"damage bonus"
+	//	MaxLevel 2
+	//	ItemName "The Direct Hit" 
+	//}
 	ExtendedUpgrades
 	{ 
 		newRage 
@@ -216,7 +216,7 @@ WaveSchedule
 			Attribute "limited quantity item" 
 			Cap 10
 			Increment 1 
-			Cost 100
+			Cost 75
 
 			Description "Reprogram non-giant enemies in a radius"
 
@@ -357,7 +357,7 @@ WaveSchedule
 			Attribute "throwable particle trail only" 
 			Cap 3
 			Increment 1 
-			Cost 50
+			Cost 25
 
 			Description "Cloak for up to 15 seconds, cloak is cancelled when attacking"
 
@@ -405,7 +405,7 @@ WaveSchedule
 			Attribute "decoded by itemdefindex" 
 			Cap 3
 			Increment 1 
-			Cost 25
+			Cost 75
 
 			Description "Apply Jarate to enemies within a large radius"
 
@@ -453,7 +453,7 @@ WaveSchedule
 			Attribute "elevate quality" 
 			Cap 3
 			Increment 1 
-			Cost 25
+			Cost 10
 
 			Description "Gain knockback resistance for 5 seconds"
 
@@ -722,17 +722,17 @@ WaveSchedule
 	{
 		Name rpg_shoottemplate
 		ItemName "Anti-Aircraft Launcher"
-		AttachToProjectile 1 
+		AttachToProjectile 1
 	}
 
-	ItemAttributes 
+	ItemAttributes
 	{
 		ItemName "Baby Face's Blaster"
 
 		"special item description" "Initial Scout: Gain increase to reload and fire rate while at full boost"
 	}
 	
-	PlayerItemEquipSpawnTemplate 
+	PlayerItemEquipSpawnTemplate
 	{
 		Name DirectHit_Spawn
 		ItemName "The Direct Hit"
@@ -743,7 +743,7 @@ WaveSchedule
 		ItemName "The Direct Hit"
 		"fire input on hit" "direct_hit_on_hit^Trigger^"
 		"clip size penalty" 0.25
-		//"damage bonus" 1 
+		//"damage bonus" 1
 		"Reload time increased" 1.3
 
 		"special item description" "On Hit: Reload one rocket"
@@ -753,20 +753,31 @@ WaveSchedule
 	{
 		ItemName "The Short Circuit"
 
+		"damage bonus HIDDEN" 6
 		"override projectile type" 2
 		"alt-fire disabled" 1
-		"fire rate penalty" 10
+		"fire rate penalty" 9
+		"mod ammo per shot" 65
+		"projectile gravity" 1200
+		"self dmg push force increased" 4
+		"blast dmg to self increased" 4
+		"custom projectile model" "models/empty.mdl"
+		"explosion particle" "drg_cow_explosioncore_charged_blue"
+		"projectile trail particle" "drg_cow_rockettrail_normal_blue"
+		"custom impact sound" "weapons/cow_mangler_explosion_normal_01.wav"
+		"special item description" "Launches an energy ball that leaves behind a short lived electricity field"
+		//"custom weapon fire sound" "weapons/cow_mangler_main_shot.wav"
 	}
-	ItemBlacklist [$SIGSEGV]
-	{
-		Name "The Short Circuit"
-	}
+	//ItemBlacklist [$SIGSEGV]
+	//{
+	//	Name "The Short Circuit"
+	//}
 
 	PlayerShootTemplate
 	{
-		Name SentryRanger
+		Name shortcircuit_rebalance
 		AttachToProjectile 1
-		ItemName "The Short Circuit" 
+		ItemName "The Short Circuit"
 	}
 
 	PlayerItemEquipSpawnTemplate 
@@ -820,7 +831,7 @@ WaveSchedule
 	ItemAttributes
 	{
 		ItemName "The Ullapool Caber"
-		"not solid to players" 1
+		//"not solid to players" 1
 		"special item description" "Becomes a Sentry Buster. Taunt to detonate (revert back to a regular Demoman on detonation)"
 	}
 	PlayerShootTemplate
@@ -839,6 +850,18 @@ WaveSchedule
 	{
 		Name Murasama_Spawn
 		ItemName "Murasama"
+	}
+	
+	PlayerItemEquipSpawnTemplate
+	{
+		Name MedigunsShieldReplacement
+		ClassName "TF_WEAPON_MEDIGUN"
+	}
+
+	ItemAttributes
+	{
+		ClassName "TF_WEAPON_MEDIGUN"
+		"special item description 4" "Projectile Shield size is reduced. Charge rate is increased"
 	}
 
 	PlayerItemEquipSpawnTemplate
@@ -1767,6 +1790,7 @@ WaveSchedule
 				WeaponRestrictions PrimaryOnly
 				AddTemplate RedBot_Giant
 				SpawnTemplate AddBotGlow
+				SpawnTemplate AddParticle
 				CharacterAttributes
 				{
 					"override footstep sound set" 5
@@ -1792,6 +1816,7 @@ WaveSchedule
 				Template T_TFBot_Heavyweapons_Fist
 				AddTemplate RedBot
 				SpawnTemplate AddBotGlow
+				SpawnTemplate AddParticle
 			}
 		}
 		WaveSpawn 
@@ -1844,6 +1869,7 @@ WaveSchedule
 				Template T_TFBot_Giant_Soldier_RocketShotgun
 				AddTemplate RedBot_Giant
 				SpawnTemplate AddBotGlow
+				SpawnTemplate AddParticle
 			}
 				
 		}
@@ -1866,6 +1892,7 @@ WaveSchedule
 				Template T_TFBot_Sniper_Huntsman_Spammer
 				AddTemplate RedBot
 				SpawnTemplate AddBotGlow
+				SpawnTemplate AddParticle
 				ItemAttributes
 				{
 					ItemName "The Huntsman"
@@ -2004,27 +2031,9 @@ WaveSchedule
 			AddCond {Name "TF_COND_REPROGRAMMED" }
 		}
 	}
-	//Mission //Wave 3
-	//{
-	//	Where spawnbot_boss
-	//	Objective Engineer
-	//	BeginAtWave 3
-	//	RunForThisManyWaves 1
-	//	DesiredCount 2
-	//
-	//	InitialCooldown 5
-	//	CooldownTime 35
-	//
-	//	TFBot
-	//	{ 
-	//		Template T_TFBot_Engineer_Sentry_Battle_TeleIn
-	//		AddTemplate RedBot
-	//	}
-	//}
 	Wave // Wave #3
 	{
 		SpawnTemplate wave3_logic
-		SpawnTemplate generator_props
 		StartWaveOutput
 		{
 			Target wave_start_relay
@@ -2142,7 +2151,7 @@ WaveSchedule
 		
 			DoneOutput
 			{
-				Target "generator_twothree_killed_relay" 
+				Target "generator_twothree_killed_relay"
 				Action Trigger
 			}
 		}
@@ -2505,46 +2514,41 @@ WaveSchedule
 		}
 		WaveSpawn 
 		{
-			Name "w3_subwaveone"
+			Name "w3_subwaveone_demo"
 			Where "spawnbot_balcony"
 			Where "spawnbot_scaffold"
-			TotalCount 3
-			MaxActive 3
-			SpawnCount 3
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
 			TotalCurrency 75
 			WaitBeforeStarting 15
 			WaitBetweenSpawns 0
-			Squad
+			Support Limited
+			RandomChoice
 			{
-				TFBot
+				RandomChoice
 				{
-					Template T_TFBot_Giant_Demoknight_NoShield
-					AddTemplate RedBot_Giant
-				}
-				TFBot
-				{
-					Template T_TFBot_Medic_QuickFix
-					Attributes IgnoreFlag
-					Attributes DisableDodge
-					AddCond { Name "TF_COND_REPROGRAMMED" }
-					CharacterAttributes
+					TFBot
 					{
-						"crit mod disabled" 0
-						"force distribute currency on death" 1
+						Template T_TFBot_Giant_Demoknight_NoShield
+						AddTemplate RedBot_Giant
 					}
 				}
-				TFBot
-				{
-					Template T_TFBot_Medic_QuickFix
-					Attributes IgnoreFlag
-					Attributes DisableDodge
-					AddCond { Name "TF_COND_REPROGRAMMED" }
-					CharacterAttributes
-					{
-						"crit mod disabled" 0
-						"force distribute currency on death" 1
-					}
-				}
+			}
+		}
+		WaveSpawn
+		{
+			Name dummy
+			WaitForAllDead "w3_subwaveone_demo"
+			Where "spawnbot_boss"
+			TotalCount	1
+			SpawnCount	1
+			TotalCurrency 0
+			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
+			{
+				Name "FakeIcon"
+				ClassIcon demoknight_giant
+				IsMiniBoss 1
 			}
 		}
 		WaveSpawn 
@@ -3361,7 +3365,7 @@ WaveSchedule
 				}
 			}
 		}
-		WaveSpawn 
+		WaveSpawn
 		{
 			Name "w3_subwavetwo_boss"
 			Where "spawnbot_hatchshield"
@@ -3471,6 +3475,7 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
+			Name "yakuza"
 			Where spawnbot_side
 			TotalCount 1
 			MaxActive 1
@@ -3483,13 +3488,35 @@ WaveSchedule
 				Target chief2_killed_relay
 				Action Trigger
 			}
-			TFBot
+			RandomChoice
 			{
-				SpawnTemplate Yakuza_Title_Card_Kazuma
-				Template T_TFBot_Chief_Yakuza
-				SpawnTemplate AddBotGlow
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate Yakuza_Title_Card_Kazuma
+						Template T_TFBot_Chief_Yakuza
+						SpawnTemplate AddBotGlow
+					}
+				}
 			}
 		}
+		WaveSpawn
+		{
+			Name dummy
+			WaitForAllDead "yakuza"
+			Where "spawnbot_boss"
+			TotalCount	1
+			SpawnCount	1
+			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
+			{
+				Name "FakeIcon"
+				ClassIcon boss_yakuza
+				IsCrit 1
+				IsMiniBoss 1
+			}
+		}
+		
 		WaveSpawn
 		{
 			Name "w4_subwavetwo"
@@ -3560,7 +3587,7 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
-			Name "w4_finalboss"
+			Name "w4_finalboss_yakuza"
 			Where spawnbot_hatchshield
 			TotalCount 1
 			MaxActive 1
@@ -3568,13 +3595,34 @@ WaveSchedule
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
 			TotalCurrency 100
-
-			TFBot
+			RandomChoice
 			{
-				Template T_TFBot_Chief_Yakuza
-				Health 15000
-				SpawnTemplate Yakuza_Title_Card_Duo
-				SpawnTemplate AddBotGlow
+				RandomChoice
+				{
+					TFBot
+					{
+						Template T_TFBot_Chief_Yakuza
+						Health 15000
+						SpawnTemplate Wave4Duo_ChatMsg
+						SpawnTemplate Yakuza_Title_Card_Duo
+						SpawnTemplate AddBotGlow
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name dummy
+			WaitForAllDead "w4_finalboss_yakuza"
+			Where "spawnbot_boss"
+			TotalCount	1
+			SpawnCount	1
+			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
+			{
+				Name "FakeIcon"
+				ClassIcon boss_yakuza
+				IsCrit 1
+				IsMiniBoss 1
 			}
 		}
 		WaveSpawn 
@@ -3815,6 +3863,16 @@ WaveSchedule
 				Template T_TFBot_Droneboy
 				AddTemplate RedBot_Giant
 				SpawnTemplate AddBotGlow
+				SpawnTemplate AddParticle
+				InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
+				{
+					Target "-1110 3720 -251"
+					Delay 0.1 // Time before the first task starts (Default: 10)
+					Repeats 1 // How many times should bot do the task in total (Default: 0 - Infinite)
+					Cooldown 5 //Time between each task (Default: 10)
+					Duration 1 // How long should the ai be interrupted
+					WaitUntilDone 1
+				}
 			}
 		}
 		WaveSpawn
@@ -3834,11 +3892,11 @@ WaveSchedule
 				SpawnTemplate "Helicopter_Tank_Init"
 				ClassIcon blimp2_red_rocket_lite_2
 				Health 10000
-				Speed 0 
+				Speed 0
 				Scale 1.1
-				DisableSmokestack 1  
+				DisableSmokestack 1
 				MaxTurnRate 0
-				Model "models/empty.mdl" 
+				Model "models/empty.mdl"
 				ReplaceModelCollisions 1
 				StartSound "misc/null.wav"
 				PingSound "misc/null.wav"
@@ -3876,18 +3934,11 @@ WaveSchedule
 			{
 				RandomChoice
 				{
-					TFBot 
+					TFBot
 					{
 						SpawnTemplate "Helicopter_Base_Init"
-						Template T_TFBot_Helicopter_Base 
+						Template T_TFBot_Helicopter_Base
 						AddCond { Name "TF_COND_REPROGRAMMED" }
-						
-						InterruptAction
-						{
-							Target "-4080.4 -666.5 424.4"
-							Delay 0.1
-							Repeats 1
-						}
 						tag no_reprogram
 					}
 				}
@@ -3948,6 +3999,15 @@ WaveSchedule
 					"airblast disabled" 1
 				}
 				AddTemplate RedBot
+				InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
+				{
+					Target "-1110 3720 -251"
+					Delay 0.1 // Time before the first task starts (Default: 10)
+					Repeats 1 // How many times should bot do the task in total (Default: 0 - Infinite)
+					Cooldown 5 //Time between each task (Default: 10)
+					Duration 1 // How long should the ai be interrupted
+					WaitUntilDone 1
+				}
 			}
 		}
 		WaveSpawn
@@ -3997,14 +4057,11 @@ WaveSchedule
 		{
 			Name "main_midphase_two"
 			WaitForAllDead "midphase_two_start"
-			Where "spawnbot_arena_1"
-			Where "spawnbot_arena_2"
 			Where "spawnbot_arena_3"
-			Where "spawnbot_arena_4"
-			TotalCount 8
+			TotalCount 4
 			MaxActive 4
 			SpawnCount 4
-			TotalCurrency 200
+			TotalCurrency 100
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 1
 			Squad
@@ -4014,6 +4071,147 @@ WaveSchedule
 					Template T_TFBot_Giant_Heavyweapons
 					AddTemplate RedBot_Giant
 					SpawnTemplate AddBotGlow
+					SpawnTemplate AddParticle
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+					Attributes IgnoreFlag
+					Attributes DisableDodge
+					AddCond { Name "TF_COND_REPROGRAMMED" }
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+						"force distribute currency on death" 1
+					}
+					SpawnTemplate AddBotGlow
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+					Attributes IgnoreFlag
+					Attributes DisableDodge
+					AddCond { Name "TF_COND_REPROGRAMMED" }
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+						"force distribute currency on death" 1
+					}
+					SpawnTemplate AddBotGlow
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+					Attributes IgnoreFlag
+					Attributes DisableDodge
+					AddCond { Name "TF_COND_REPROGRAMMED" }
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+						"force distribute currency on death" 1
+					}
+					SpawnTemplate AddBotGlow
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "main_midphase_two"
+			WaitForAllDead "midphase_two_start"
+			Where "spawnbot_arena_1"
+			TotalCount 4
+			MaxActive 4
+			SpawnCount 4
+			TotalCurrency 100
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Heavyweapons
+					AddTemplate RedBot_Giant
+					SpawnTemplate AddBotGlow
+					SpawnTemplate AddParticle
+					InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
+					{
+						Target "131 3738 -126"
+						Delay 0.1 // Time before the first task starts (Default: 10)
+						Repeats 1 // How many times should bot do the task in total (Default: 0 - Infinite)
+						Cooldown 5 //Time between each task (Default: 10)
+						Duration 1 // How long should the ai be interrupted
+						WaitUntilDone 1
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+					Attributes IgnoreFlag
+					Attributes DisableDodge
+					AddCond { Name "TF_COND_REPROGRAMMED" }
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+						"force distribute currency on death" 1
+					}
+					SpawnTemplate AddBotGlow
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+					Attributes IgnoreFlag
+					Attributes DisableDodge
+					AddCond { Name "TF_COND_REPROGRAMMED" }
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+						"force distribute currency on death" 1
+					}
+					SpawnTemplate AddBotGlow
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+					Attributes IgnoreFlag
+					Attributes DisableDodge
+					AddCond { Name "TF_COND_REPROGRAMMED" }
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+						"force distribute currency on death" 1
+					}
+					SpawnTemplate AddBotGlow
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "main_midphase_two"
+			WaitForAllDead "midphase_two_start"
+			Where "spawnbot_arena_4"
+			TotalCount 4
+			MaxActive 4
+			SpawnCount 4
+			TotalCurrency 100
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Heavyweapons
+					AddTemplate RedBot_Giant
+					SpawnTemplate AddBotGlow
+					SpawnTemplate AddParticle
+					InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
+					{
+						Target "-2471 4481 -382"
+						Delay 0.1 // Time before the first task starts (Default: 10)
+						Repeats 1 // How many times should bot do the task in total (Default: 0 - Infinite)
+						Cooldown 5 //Time between each task (Default: 10)
+						Duration 1 // How long should the ai be interrupted
+						WaitUntilDone 1
+					}
 				}
 				TFBot
 				{
@@ -4065,7 +4263,7 @@ WaveSchedule
 			Where "spawnbot_arena_4"
 			WaitForAllDead "midphase1"
 			TotalCount 3
-			MaxActive 2
+			MaxActive 3
 			SpawnCount 1
 			TotalCurrency 50
 			WaitBeforeStarting 0
@@ -4075,6 +4273,7 @@ WaveSchedule
 				Template T_TFBot_Sniper_Huntsman_Spammer
 				AddTemplate RedBot
 				SpawnTemplate AddBotGlow
+				SpawnTemplate AddParticle
 				ItemAttributes
 				{
 					ItemName "The Huntsman"
@@ -4173,6 +4372,11 @@ WaveSchedule
 		{
 			Name "midphase_two"
 			WaitForAllDead "arena_generator_onetwothree"
+			DoneOutput
+			{
+				Target "attack_relay"
+				Action Trigger
+			}
 		}
 		WaveSpawn
 		{
@@ -4216,6 +4420,7 @@ WaveSchedule
 			{
 				Template T_TFBot_Sergeant_Shapeshift_Prototype_Type1
 				SpawnTemplate AddBotGlow
+				SpawnTemplate AddParticle
 				CharacterAttributes
 				{
 					"force distribute currency on death" 1
@@ -4240,6 +4445,7 @@ WaveSchedule
 			{
 				Template T_TFBot_Sergeant_Shapeshift_Prototype_Type2
 				SpawnTemplate AddBotGlow
+				SpawnTemplate AddParticle
 				CharacterAttributes
 				{
 					"force distribute currency on death" 1
@@ -4321,11 +4527,11 @@ WaveSchedule
 			Where "spawnbot_arena_3"
 			Where "spawnbot_arena_4"
 			TotalCount 100
-			MaxActive 4
-			SpawnCount 1
+			MaxActive 6
+			SpawnCount 2
 			TotalCurrency 200
 			WaitBeforeStarting 0
-			WaitBetweenSpawns 8
+			WaitBetweenSpawns 5
 			Support Limited
 		
 			TFBot

@@ -3707,7 +3707,7 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
-			Name "w4_finalboss_yakuza"
+			Name "w4_finalboss"
 			Where spawnbot_hatchshield
 			TotalCount 1
 			MaxActive 1
@@ -3728,21 +3728,6 @@ WaveSchedule
 						SpawnTemplate AddBotGlow
 					}
 				}
-			}
-		}
-		WaveSpawn
-		{
-			Name dummy
-			WaitForAllDead "w4_finalboss_yakuza"
-			Where "spawnbot_boss"
-			TotalCount	1
-			SpawnCount	1
-			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
-			{
-				Name "FakeIcon"
-				ClassIcon boss_yakuza
-				IsCrit 1
-				IsMiniBoss 1
 			}
 		}
 		WaveSpawn 

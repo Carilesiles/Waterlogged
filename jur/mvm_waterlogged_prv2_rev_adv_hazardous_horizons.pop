@@ -536,6 +536,7 @@ WaveSchedule
 	SpawnTemplate Axe_Rework_Global
 	SpawnTemplate Vitsaw_Rework_Global
 	SpawnTemplate Murasama_Global
+	SpawnTemplate ComfortablyNumb_Global
 
 	CustomWeapon 
 	{
@@ -659,6 +660,7 @@ WaveSchedule
 			OriginalItemName "Upgradeable TF_WEAPON_MEDIGUN"
 
 			"mod weapon blocks healing" 1
+			"ubercharge rate penalty" 1
 
 			"paintkit_proto_def_index" 235 //skull study 
 			"set_item_texture_wear" 0
@@ -3875,7 +3877,7 @@ WaveSchedule
 		}
 		SpawnTemplate "wave5_logic"
 		SpawnTemplate "PlayerResInput"
-		//SpawnTemplate "test"
+		SpawnTemplate "test"
 		PlayerAttributes  
 		{
 			"min respawn time" 9999

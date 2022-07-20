@@ -67,6 +67,109 @@ function OnGameTick()
 	replaceAllMedigunShields()
 end
 
+local comfortablyNumbUsers = {}
+
+function clamp(number, min, max)
+	return math.min(math.max(number, min), max)
+end
+
+local NUMB_CHARGE_RATIO = 3
+
+function comfortablyNumbSpawn(_, activator)
+	local handle = activator:GetHandleIndex()
+
+	local applier = ents.FindByName("apply_numb_charge")
+
+	local medigun = activator.m_hMyWeapons[1]
+
+	if comfortablyNumbUsers[handle] then
+		comfortablyNumbUnspawn(_, activator)
+	end
+
+	comfortablyNumbUsers[handle] = {
+		Medigun = medigun,
+		Callbacks = {},
+		ChargeApplyTimerID = false,
+		Charge = 0
+	}
+
+	local data = comfortablyNumbUsers[handle]
+
+	data.Callbacks.damageCallback = {
+		Type = 4,
+		ID = activator:AddCallback(
+			4,
+			function(_, damageInfo)
+				local propeties = medigun:DumpProperties()
+
+				if propeties.m_bChargeRelease == 0 then
+					local numbChargeToAdd = clamp(damageInfo.Damage / (NUMB_CHARGE_RATIO * 100), 0, 1)
+
+					data.Charge = data.Charge + numbChargeToAdd
+				else 
+					--deflect n heal
+					local deflectDmgInfo = {
+						Attacker = activator, 
+						Inflictor = nil, 
+						Weapon = medigun,
+						Damage = damageInfo.Damage * 5,
+						DamageType = 0, 
+						DamageCustom = 0, 
+						DamagePosition = Vector(0, 0, 0), 
+						DamageForce = Vector(0, 0, 0),
+						ReportedPosition = Vector(0, 0, 0) 
+					}
+
+					damageInfo.Attacker:TakeDamage(deflectDmgInfo)
+					caller:AddHealth(damageInfo.Damage / 2, true)
+				end
+			end
+		)
+	}
+
+	data.ChargeApplyTimerID =
+		timer.Create(
+		0.05,
+		function()
+			-- medigun:AcceptInput("$SetProp$m_flChargeLevel", data.Charge)
+			local propeties = medigun:DumpProperties()
+
+			if propeties.m_bChargeRelease == 0 then
+				activator:AcceptInput("$SetVar$numbCharge", math.floor(data.Charge * 100))
+				applier:FireUser5(_, activator)
+			else
+				--ubercharging 
+				data.Charge = propeties.m_flChargeLevel
+				activator:AddCond(20, 0.1)
+				activator:AddCond(36, 0.1)
+			end
+		end,
+		0
+	)
+end
+
+--for debugging
+function forceSetNumbCharge(charge, activator)
+	print(charge)
+	local handle = activator:GetHandleIndex()
+
+	comfortablyNumbUsers[handle].Charge = charge
+end
+
+function comfortablyNumbUnspawn(_, activator)
+	local handle = activator:GetHandleIndex()
+
+	local data = comfortablyNumbUsers[handle]
+
+	timer.Stop(data.ChargeApplyTimerID)
+
+	for _, callbackData in pairs(data.Callbacks) do
+		activator:RemoveCallback(callbackData.Type, callbackData.ID)
+	end
+
+	comfortablyNumbUsers[handle] = nil
+end
+
 function dealDamageToActivator(damage, activator, caller)
 	if activator == caller then
 		return

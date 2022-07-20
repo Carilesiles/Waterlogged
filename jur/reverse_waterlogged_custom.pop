@@ -2012,7 +2012,7 @@ WaveSchedule
 			{
 				Target "!activator"
 				Action "$AddItemAttribute"
-				Param "CARD: damage bonus|1.25|1"
+				Param "CARD: damage bonus|1.5|1"
 				Delay 0
 			}
 

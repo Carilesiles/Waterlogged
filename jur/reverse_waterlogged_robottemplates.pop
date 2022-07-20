@@ -4849,7 +4849,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 				"dmg" "0"
 				"fanfriction" "100" 
-				"maxspeed" "40"
+				"maxspeed" "30"
 				"spawnflags" "64"
 				"volume" "0"
 			}
@@ -4892,7 +4892,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 				"dmg" "0"
 				"fanfriction" "100" 
-				"maxspeed" "40"
+				"maxspeed" "30"
 				"spawnflags" "64"
 				"volume" "0"
 			}

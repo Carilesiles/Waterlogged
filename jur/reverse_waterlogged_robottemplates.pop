@@ -1987,7 +1987,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			SpawnTemplate "SmolBuster"
 
 			Class Demoman
-			Name "Smol Buster"
+			Name "Small Buster"
 			Skill Expert
 			Health 650
 			Scale 1.4
@@ -2054,7 +2054,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			SpawnTemplate test_mini_bot
 			SpawnTemplate Drone_Boy
 
-			Name "Drone man"
+			Name "Drone Boy"
 			Class Engineer
 
 			Health 2800

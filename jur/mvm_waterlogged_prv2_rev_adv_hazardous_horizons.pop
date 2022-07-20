@@ -659,7 +659,7 @@ WaveSchedule
 		{
 			OriginalItemName "Upgradeable TF_WEAPON_MEDIGUN"
 
-			"mod weapon blocks healing" 1
+			//"mod weapon blocks healing" 1
 			"ubercharge rate penalty" 1
 
 			"paintkit_proto_def_index" 235 //skull study 
@@ -1020,7 +1020,7 @@ WaveSchedule
 		{
 			Line "{f5c542}This mission features custom music!"
 			Line "{f5c542}Make sure your music is on | snd_musicvolume 1 or the music slider in audio options"
-			Line "{66abff}JN-10R: {reset}Howdy fellas, my name is JN-10R, but you can call me Junior. I'll be your designated worker drone for the duration of your mission here."
+			Line "{66abff}JN-10R: {reset}Howdy fellas, my callsign is JN-10R, but you can call me Junior. I'll be your designated worker drone for the duration of your mission here."
 			Line "{66abff}JN-10R: {reset}Your objective is simple: Guard the bomb carrier on his way to the hatch."
 			Line "{66abff}JN-10R: {reset}His attachment module seems to be on the fritz, not even our best worker drone has been able to get the bomb off his back. Keep him alive or we'll be forced to withdraw."
 		}
@@ -3877,7 +3877,7 @@ WaveSchedule
 		}
 		SpawnTemplate "wave5_logic"
 		SpawnTemplate "PlayerResInput"
-		SpawnTemplate "test"
+		//SpawnTemplate "test"
 		PlayerAttributes  
 		{
 			"min respawn time" 9999

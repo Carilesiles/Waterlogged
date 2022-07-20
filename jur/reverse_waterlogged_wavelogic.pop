@@ -2030,7 +2030,7 @@ WaveSchedule
 				"targetname" "wave4_explanation_refire"
 				"refiretime" "7.99"
 				"startdisabled" "1"
-				"ontimer" "wave3_explanation,Show"
+				"ontimer" "wave4_explanation,Show"
 			}
 			training_annotation
 			{

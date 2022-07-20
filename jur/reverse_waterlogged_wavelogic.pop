@@ -61,6 +61,7 @@ WaveSchedule
 				"OnTrigger" "cap_layout_standard,Trigger"
 				"OnTrigger" "clearbuildings_trigger,Enable"
 				"OnTrigger" "clearbuildings_trigger,Disable,,0.1"
+				"OnTrigger" "killtrigger*,Disable"
 				"OnTrigger" "spyteleport*,AddOutput,spawnflags 1"
 				"OnTrigger" "music_cancel_relay,Trigger"
 
@@ -121,6 +122,9 @@ WaveSchedule
 
 				"OnTrigger" "gate1_relay,AddOutput,OnTrigger general_gate1_relay:Trigger::0:-1"
 				"OnTrigger" "gate2_relay,AddOutput,OnTrigger general_gate2_relay:Trigger::0:-1"
+
+				"OnTrigger" "wave1_explanation_refire,Enable"
+				"OnTrigger" "wave1_explanation,Show"
 			}
 			logic_relay
 			{
@@ -141,6 +145,9 @@ WaveSchedule
 				"OnTrigger" "intel,Disable"
 				"OnTrigger" "intel,ForceResetSilent"
 				"OnTrigger" "intel,SetParent,compass_train,0.1"
+
+				"OnTrigger" "wave3_explanation_refire,Enable"
+				"OnTrigger" "wave3_explanation,Show"
 				
 				"OnTrigger" "spawnbot_scaffold,Enable"
 				"OnTrigger" "spawnbot_balcony,Enable"
@@ -172,8 +179,10 @@ WaveSchedule
 				"OnTrigger" "general_setup_relay,Trigger"
 				"OnTrigger" "teleport_spawn_gate1,Enable,,0.5"
 				"OnTrigger" "barrier_factory_relay_disable,Trigger,,0.1"
-				"OnTrigger" "cap_hatch_destroy_delete_prop,Disable"
-				"OnTrigger" "cap_hatch_destroy_animated_prop,Enable"
+				//"OnTrigger" "cap_hatch_destroy_delete_prop,Disable"
+				//"OnTrigger" "cap_hatch_destroy_animated_prop,Enable"
+				"OnTrigger" "wave4_explanation_refire,Enable"
+				"OnTrigger" "wave4_explanation,Show"
 			}
 			logic_relay
 			{
@@ -307,27 +316,6 @@ WaveSchedule
 				"maxs" "120 120 60"
 				"TeamNum" "2"
 				"startdisabled" "1"
-			}
-			training_annotation
-			{
-				"targetname" "gate1_upgrade_sign"
-				"origin" "-6418.7 2833.5 516.4"
-				"display_text" "Come one come all! Get your upgrades here!"
-				"lifetime"     "22"
-			}
-			training_annotation
-			{
-				"targetname" "gate2_upgrade_sign"
-				"origin" "-4982.9 -2107.0 1184.9"
-				"display_text" "Hey fellas I'm back, come get your upgrades!"
-				"lifetime"     "22"
-			}
-			training_annotation
-			{
-				"targetname" "gate2_upgrade_sign2"
-				"origin" " -4071.288574 -1997.408813 505.022308"
-				"display_text" "You can get to the shop through this nifty little vent here."
-				"lifetime"     "18"
 			}
 			trigger_teleport
 			{
@@ -487,6 +475,7 @@ WaveSchedule
 			logic_relay
 			{
 				"OnSpawn" "music_intro_case,InValue,1"
+				"OnSpawn" "wave1_explanation_refire,Disable"
 			}
 			logic_relay
 			{
@@ -580,6 +569,7 @@ WaveSchedule
 				"targetname" "wave1_gate1_relay"
 				"OnTrigger" "spawnbot_balcony_extra,Enable,22"
 				"OnTrigger" "spawnbot_balcony_drain_extra,Enable,,27"
+				"OnTrigger" "killtrigger_scaffold,Enable"
 				"OnTrigger" "player,$ChangeAttributes,GateOne_Capped"
 			}
 			logic_relay
@@ -587,6 +577,7 @@ WaveSchedule
 				"targetname" "wave1_gate2_relay"
 				"OnTrigger" "barrier_gate2_relay_disable,Trigger,,22"
 				"OnTrigger" "player,$ChangeAttributes,GateTwo_Capped,1"
+				"OnTrigger" "gate2_done_relay,Trigger"
 				"OnTrigger" "gate2_upgrade_sign2,Show,,2"
 			}
 			logic_relay
@@ -1182,6 +1173,7 @@ WaveSchedule
 				//"OnSpawn" "wave3_hints,ShowHudHint,,0,-1"
 				"OnSpawn" "towers_alt_phase,SetValue,1,0.1"
 				//"OnSpawn" "music_intro_case,InValue,4"
+				"OnSpawn" "wave3_explanation_refire,Disable"
 			}
 			func_flagdetectionzone
 			{
@@ -1492,6 +1484,7 @@ WaveSchedule
 				"OnSpawn" "brush_hatch_window,Disable"
 				"OnSpawn" "barrier_hatch_window,Enable"
 				"OnSpawn" "music_loop_case,InValue,5"
+				"OnSpawn" "wave4_explanation_refire,Disable"
 			}
 			func_forcefield
 			{
@@ -2004,6 +1997,48 @@ WaveSchedule
 		annotations
 		{
 			NoFixup 1
+			logic_timer
+			{
+				"targetname" "wave1_explanation_refire"
+				"refiretime" "7.99"
+				"startdisabled" "1"
+				"ontimer" "wave1_explanation,Show"
+			}
+			training_annotation
+			{
+				"targetname" "wave1_explanation"
+				"origin" "-9827 624 333"
+				"display_text" "Guard the bomb carrier on his way to the hatch!"
+				"lifetime"     "8"
+			}
+			logic_timer
+			{
+				"targetname" "wave3_explanation_refire"
+				"refiretime" "7.99"
+				"startdisabled" "1"
+				"ontimer" "wave3_explanation,Show"
+			}
+			training_annotation
+			{
+				"targetname" "wave3_explanation"
+				"origin" "-9827 624 333"
+				"display_text" "Destroy the generators to draw out enemy chiefs!"
+				"lifetime"     "8"
+			}
+			logic_timer
+			{
+				"targetname" "wave4_explanation_refire"
+				"refiretime" "7.99"
+				"startdisabled" "1"
+				"ontimer" "wave3_explanation,Show"
+			}
+			training_annotation
+			{
+				"targetname" "wave4_explanation"
+				"origin" "-6418.7 2833.5 516.4"
+				"display_text" "The chiefs will prevent you from deactivating the towers as long as they've alive. Destroy them!"
+				"lifetime"     "8"
+			}
 			training_annotation
 			{
 				"targetname" "gate2_upgrade_sign"
@@ -2038,6 +2073,27 @@ WaveSchedule
 				"origin" "-3087.7 -2093.9 238.0"
 				"display_text" "The gate can now be captured!"
 				"lifetime"     "4"
+			}
+			training_annotation
+			{
+				"targetname" "gate1_upgrade_sign"
+				"origin" "-6418.7 2833.5 516.4"
+				"display_text" "Come one come all! Get your upgrades here!"
+				"lifetime"     "22"
+			}
+			training_annotation
+			{
+				"targetname" "gate2_upgrade_sign"
+				"origin" "-4982.9 -2107.0 1184.9"
+				"display_text" "Hey fellas I'm back, come get your upgrades!"
+				"lifetime"     "22"
+			}
+			training_annotation
+			{
+				"targetname" "gate2_upgrade_sign2"
+				"origin" " -4071.288574 -1997.408813 505.022308"
+				"display_text" "You can get to the shop through this nifty little vent here."
+				"lifetime"     "18"
 			}
 		}
 		speedtriggers

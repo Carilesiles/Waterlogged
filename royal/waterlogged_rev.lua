@@ -7,7 +7,6 @@ function replaceAllMedigunShields()
 			goto continue
 		end
 
-		print(shieldOwner.shieldReplacementFlag)
 		if shieldOwner.shieldReplacementFlag ~= 1 then
 			goto continue
 		end
@@ -72,7 +71,7 @@ function dealDamageToActivator(damage, activator, caller)
 	if activator == caller then
 		return
 	end
-	
+
 	local damageInfo = {
 		Attacker = caller, -- Attacker
 		Inflictor = nil, -- Direct cause of damage, usually a projectile

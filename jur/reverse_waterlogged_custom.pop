@@ -753,7 +753,7 @@ WaveSchedule
 				Delay 0
 			}
 
-			filter_activator_tfteam 
+			filter_activator_tfteam
 			{
 				"targetname" "filter_is_blu"
 				"Negated" "0"
@@ -780,8 +780,8 @@ WaveSchedule
 			{
 				"targetname" "stickybomb_buff"
 				"origin" "0 0 0"
-				"mins" "-200 -200 -200"
-				"maxs" "200 200 200"
+				"mins" "-256 -256 -256"
+				"maxs" "256 256 256"
 				"spawnflags" "1"
 
 				"filtername" "filter_is_blu"
@@ -795,8 +795,8 @@ WaveSchedule
 			{
 				"targetname" "stickybomb_unapply_buff" //unapply buffs on surrounding player on explosion
 				"origin" "0 0 0"
-				"mins" "-200 -200 -200"
-				"maxs" "200 200 200"
+				"mins" "-256 -256 -256"
+				"maxs" "256 256 256"
 				"spawnflags" "1"
 
 				"StartDisabled" "1"

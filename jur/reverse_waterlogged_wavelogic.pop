@@ -1877,7 +1877,7 @@ WaveSchedule
 			{
 				"OnSpawn" "collider,$SetCollisionFilter,filter_collider"
 				"OnSpawn" "prop_locker*,$SetCollisionFilter,filter_player_is_buster"
-				"OnSpawn" "bossroom_door,$SetCollisionFilter,filter_player_is_buster"
+				//"OnSpawn" "bossroom_door,$SetCollisionFilter,filter_player_is_buster"
 				"OnSpawn" "bossroom_door_trigger,AddOutput,OnStartTouch !activator:$SetVar$inSpawn:1:0:-1"
 			}
 			func_forcefield

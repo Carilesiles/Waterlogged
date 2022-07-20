@@ -1098,201 +1098,227 @@ WaveSchedule
 			}
 
 		}
+		// ComfortablyNumb_Spawn
+		// {
+		// 	OnSpawnOutput 
+		// 	{
+		// 		Target "numbcharge"
+		// 		Action "Trigger"
+		// 	}
+
+		// 	OnSpawnOutput 
+		// 	{
+		// 		Target "sanitize_uber"
+		// 		Action "SetParent"
+		// 		Param "!activator"
+		// 	}
+
+		// 	OnSpawnOutput 
+		// 	{
+		// 		Target "is_numb_ubercharge_active"
+		// 		Action "Trigger"
+		// 		Delay 0.1
+		// 	}
+
+		// 	OnSpawnOutput 
+		// 	{
+		// 		Target "!activator"
+		// 		Action "AddOutput"
+		// 		Param "$OnDamageReceived dmg_taken:$FireUser5::0:-1"
+		// 	}
+
+		// 	OnSpawnOutput 
+		// 	{
+		// 		Target "!activator"
+		// 		Action "AddOutput"
+		// 		Param "$OnUser8 popscript:$dealDamageToActivator:$$=dmg_taken_while_uber.damageAmount * 5:-1:-1"
+		// 	}
+
+		// 	OnSpawnOutput 
+		// 	{
+		// 		Target "!activator"
+		// 		Action "AddOutput"
+		// 		Param "$OnUser8 popscript:$healCaller:$$=dmg_taken_while_uber.damageAmount / 2:-1:-1"
+		// 	}
+
+		// 	OnSpawnOutput 
+		// 	{
+		// 		Target "dmg_taken_normal"
+		// 		Action "SetParent"
+		// 		Param "!activator"
+		// 		Delay 0.1
+		// 	}
+		// 	OnSpawnOutput 
+		// 	{
+		// 		Target "dmg_taken_while_uber"
+		// 		Action "SetParent"
+		// 		Param "!activator"
+		// 		Delay 0.1
+		// 	}
+
+		// 	OnParentKilledOutput 
+		// 	{
+		// 		Target "!activator"
+		// 		Action "$RemoveOutput"
+		// 		Param "$OnDamageReceived"
+		// 	}
+
+		// 	OnParentKilledOutput 
+		// 	{
+		// 		Target "!activator"
+		// 		Action "$RemoveOutput"
+		// 		Param "$OnUser8"
+		// 	}
+
+		// 	OnParentKilledOutput 
+		// 	{
+		// 		Target "@c@!activator"
+		// 		Action "$ResetClientProp$m_flChargeLevel"
+		// 		Delay 0.1
+		// 	}
+
+		// 	OnParentKilledOutput 
+		// 	{
+		// 		Target "!activator"
+		// 		Action "$RemoveItemAttribute"
+		// 		Param "add uber charge on hit|2"
+		// 	}
+
+		// 	logic_relay 
+		// 	{
+		// 		"targetname" "numbcharge"
+
+		// 		"OnTrigger" "@c@!activator,$SetClientProp$m_flChargeLevel,0,0,-1"
+		// 		"OnTrigger" "@c@!activator,$SetProp$m_flChargeLevel,-100000000,0,-1"
+
+		// 		"OnTrigger" "!self,$SetVar$NumbChargeLevel,0,0,-1"
+		// 	}
+
+		// 	logic_compare
+		// 	{
+		// 		"targetname" "is_ubered_final"
+
+		// 		"CompareValue" "1" 
+
+		// 		"OnEqualTo" "dmg_taken_normal,Disable,,0,-1"
+		// 		"OnEqualTo" "dmg_taken_while_uber,Enable,,0,-1"
+
+		// 		//no ubersaw effect while ubered
+		// 		"OnEqualTo" "!activator,$AddItemAttribute,add uber charge on hit|0|2,0,-1"
+
+		// 		"OnEqualTo" "!activator,$AddCond,20,0,-1"
+		// 		"OnEqualTo" "!activator,$AddCond,36,0,-1"
+
+		// 		"OnNotEqualTo" "dmg_taken_normal,Enable,,0,-1"
+		// 		"OnNotEqualTo" "dmg_taken_while_uber,Disable,,0,-1"
+
+		// 		"OnNotEqualTo" "!activator,$RemoveItemAttribute,add uber charge on hit|2,0,-1"
+
+		// 		"OnNotEqualTo" "!activator,$RemoveCond,20,0,-1"
+		// 		"OnNotEqualTo" "!activator,$RemoveCond,36,0,-1"
+		// 	}
+
+			// //in hindsight I could've literally just checked for m_bChargeRelease instead of this overengineered unamintainable clusterfuck 
+			// logic_compare
+			// {
+			// 	"targetname" "sanitize_uber"
+
+			// 	"CompareValue" "-100000001" //comparevalue is set to 0.99 if uber is full and -100000001 if uber is not full 
+
+			// 	//"OnLessThan" "player,$DisplayTextChat,,0,-1"
+
+			// 	"OnLessThan" "sanitize_uber,$SetVar$isUbered,1,-1,-1"
+
+			// 	"OnLessThan" "dmg_taken_normal,Disable,,0,-1"
+			// 	"OnLessThan" "dmg_taken_while_uber,Enable,,0,-1"
+
+			// 	"OnLessThan" "@c@!activator,$ResetClientProp$m_flChargeLevel,,0,-1"
+
+			// 	"OnLessThan" "numbcharge,$SetVar$NumbChargeLevel,,0,-1"
+			// 	"OnLessThan" "sanitize_uber,SetCompareValue,$$= ? (numbcharge.NumbChargeLevel > 0, 0.99, -100000001),0.01,-1"
+
+			// 	//"OnGreaterThan" "@c@!parent,$SetClientProp$m_flChargeLevel,$$=numbcharge.NumbChargeLevel,-1,-1"
+			// 	// "OnGreaterThan" "dmg_taken_normal,Enable,,0,-1"
+			// 	// "OnGreaterThan" "dmg_taken_while_uber,Disable,,0,-1"
+			// }
+
+		// 	logic_relay 
+		// 	{
+		// 		"targetname" "is_numb_ubercharge_active"
+		// 		"spawnflags" "2"
+
+		// 		// "OnTrigger" "@c@!activator,$SetProp$m_flChargeLevel,$$= ? (numbcharge.NumbChargeLevel >= 1, 1, -100000000),-1,-1"
+		// 		// "OnTrigger" "sanitize_uber,SetCompareValue,$$= ? (numbcharge.NumbChargeLevel >= 1, 0.99, -100000001),-1,-1"
+
+		// 		"OnTrigger" "sanitize_uber,$SetVar$isUbered,0,-1,-1"
+		// 		"OnTrigger" "@c@!activator,$GetProp$m_flChargeLevel,sanitize_uber|SetValueCompare|1,0,-1"
+		// 		"OnTrigger" "is_ubered_final,SetValueCompare,$$=sanitize_uber.isUbered,0.01,-1"
+
+		// 		"OnTrigger" "!self,Trigger,,0.1,-1"
+		// 	}
+
+		// 	logic_relay 
+		// 	{
+		// 		"targetname" "dmg_taken"
+		// 		"spawnflags" "2"
+
+		// 		"$OnUser5" "dmg_taken_normal,$SetVar$DmgTakenHolder,,-1,-1"
+		// 		"$OnUser5" "dmg_taken_normal,Trigger,,0,-1"
+
+		// 		"$OnUser5" "dmg_taken_while_uber,$SetVar$damageAmount,,-1,-1"
+		// 		"$OnUser5" "dmg_taken_while_uber,Trigger,,0,-1"
+		// 	}
+		// 	logic_relay 
+		// 	{
+		// 		"targetname" "dmg_taken_normal"
+		// 		"spawnflags" "2"
+
+		// 		"OnTrigger" "!self,$SetVar$NumbChargeHolder,$$=numbcharge.NumbChargeLevel,-1,-1"
+
+		// 		"OnTrigger" "numbcharge,$SetVar$NumbChargeLevel,$$= clamp ( float( dmg_taken_normal.NumbChargeHolder ) + ( float( dmg_taken_normal.DmgTakenHolder ) / 300 ), 0, 1 ),0,-1"
+
+		// 		//"OnTrigger" "player,$DisplayTextChat,$$=numbcharge.NumbChargeLevel,0.01,-1"
+
+		// 		"OnTrigger" "@c@!parent,$SetClientProp$m_flChargeLevel,$$=numbcharge.NumbChargeLevel,0.01,-1"
+		// 		"OnTrigger" "@c@!parent,$SetProp$m_flChargeLevel,$$= ? (numbcharge.NumbChargeLevel >= 1, 1, -100000000),0.01,-1"
+		// 		"OnTrigger" "sanitize_uber,SetCompareValue,$$= ? (numbcharge.NumbChargeLevel >= 1, 0.99, -100000001),0.01,-1"
+		// 	}
+
+		// 	logic_relay 
+		// 	{
+		// 		"targetname" "dmg_taken_while_uber"
+		// 		"spawnflags" "2"
+
+		// 		"StartDisabled" "1"
+
+		// 		"OnTrigger" "!parent,$FireUser8,$$=dmg_taken_while_uber.damageAmount,-1,-1"
+		// 		//"OnTrigger" "player,$DisplayTextChat,$$=dmg_taken_while_uber.damageAmount,-1,-1"
+		// 	}
+		// }
+
 		ComfortablyNumb_Spawn
 		{
 			OnSpawnOutput 
 			{
-				Target "numbcharge"
-				Action "Trigger"
+				Target "popscript"
+				Action "$comfortablyNumbSpawn"
 			}
-
-			OnSpawnOutput 
-			{
-				Target "sanitize_uber"
-				Action "SetParent"
-				Param "!activator"
-			}
-
-			OnSpawnOutput 
-			{
-				Target "is_numb_ubercharge_active"
-				Action "Trigger"
-				Delay 0.1
-			}
-
-			OnSpawnOutput 
-			{
-				Target "!activator"
-				Action "AddOutput"
-				Param "$OnDamageReceived dmg_taken:$FireUser5::0:-1"
-			}
-
-			OnSpawnOutput 
-			{
-				Target "!activator"
-				Action "AddOutput"
-				Param "$OnUser8 popscript:$dealDamageToActivator:$$=dmg_taken_while_uber.damageAmount * 5:-1:-1"
-			}
-
-			OnSpawnOutput 
-			{
-				Target "!activator"
-				Action "AddOutput"
-				Param "$OnUser8 popscript:$healCaller:$$=dmg_taken_while_uber.damageAmount / 2:-1:-1"
-			}
-
-			OnSpawnOutput 
-			{
-				Target "dmg_taken_normal"
-				Action "SetParent"
-				Param "!activator"
-				Delay 0.1
-			}
-			OnSpawnOutput 
-			{
-				Target "dmg_taken_while_uber"
-				Action "SetParent"
-				Param "!activator"
-				Delay 0.1
-			}
-
 			OnParentKilledOutput 
 			{
-				Target "!activator"
-				Action "$RemoveOutput"
-				Param "$OnDamageReceived"
+				Target "popscript"
+				Action "$comfortablyNumbUnspawn"
 			}
+		}
 
-			OnParentKilledOutput 
-			{
-				Target "!activator"
-				Action "$RemoveOutput"
-				Param "$OnUser8"
-			}
-
-			OnParentKilledOutput 
-			{
-				Target "@c@!activator"
-				Action "$ResetClientProp$m_flChargeLevel"
-				Delay 0.1
-			}
-
-			OnParentKilledOutput 
-			{
-				Target "!activator"
-				Action "$RemoveItemAttribute"
-				Param "add uber charge on hit|2"
-			}
-
+		ComfortablyNumb_Global
+		{
+			NoFixup 1
 			logic_relay 
 			{
-				"targetname" "numbcharge"
-
-				"OnTrigger" "@c@!activator,$SetClientProp$m_flChargeLevel,0,0,-1"
-				"OnTrigger" "@c@!activator,$SetProp$m_flChargeLevel,-100000000,0,-1"
-
-				"OnTrigger" "!self,$SetVar$NumbChargeLevel,0,0,-1"
-			}
-
-			logic_compare
-			{
-				"targetname" "is_ubered_final"
-
-				"CompareValue" "1" 
-
-				"OnEqualTo" "dmg_taken_normal,Disable,,0,-1"
-				"OnEqualTo" "dmg_taken_while_uber,Enable,,0,-1"
-
-				//no ubersaw effect while ubered
-				"OnEqualTo" "!activator,$AddItemAttribute,add uber charge on hit|0|2,0,-1"
-
-				"OnEqualTo" "!activator,$AddCond,20,0,-1"
-				"OnEqualTo" "!activator,$AddCond,36,0,-1"
-
-				"OnNotEqualTo" "dmg_taken_normal,Enable,,0,-1"
-				"OnNotEqualTo" "dmg_taken_while_uber,Disable,,0,-1"
-
-				"OnNotEqualTo" "!activator,$RemoveItemAttribute,add uber charge on hit|2,0,-1"
-
-				"OnNotEqualTo" "!activator,$RemoveCond,20,0,-1"
-				"OnNotEqualTo" "!activator,$RemoveCond,36,0,-1"
-			}
-
-			//in hindsight I could've literally just checked for m_bChargeRelease instead of this overengineered unamintainable clusterfuck 
-			logic_compare
-			{
-				"targetname" "sanitize_uber"
-
-				"CompareValue" "-100000001" //comparevalue is set to 0.99 if uber is full and -100000001 if uber is not full 
-
-				//"OnLessThan" "player,$DisplayTextChat,,0,-1"
-
-				"OnLessThan" "sanitize_uber,$SetVar$isUbered,1,-1,-1"
-
-				"OnLessThan" "dmg_taken_normal,Disable,,0,-1"
-				"OnLessThan" "dmg_taken_while_uber,Enable,,0,-1"
-
-				"OnLessThan" "@c@!activator,$ResetClientProp$m_flChargeLevel,,0,-1"
-
-				"OnLessThan" "numbcharge,$SetVar$NumbChargeLevel,,0,-1"
-				"OnLessThan" "sanitize_uber,SetCompareValue,$$= ? (numbcharge.NumbChargeLevel > 0, 0.99, -100000001),0.01,-1"
-
-				//"OnGreaterThan" "@c@!parent,$SetClientProp$m_flChargeLevel,$$=numbcharge.NumbChargeLevel,-1,-1"
-				// "OnGreaterThan" "dmg_taken_normal,Enable,,0,-1"
-				// "OnGreaterThan" "dmg_taken_while_uber,Disable,,0,-1"
-			}
-
-			logic_relay 
-			{
-				"targetname" "is_numb_ubercharge_active"
+				"targetname" "apply_numb_charge"
 				"spawnflags" "2"
 
-				// "OnTrigger" "@c@!activator,$SetProp$m_flChargeLevel,$$= ? (numbcharge.NumbChargeLevel >= 1, 1, -100000000),-1,-1"
-				// "OnTrigger" "sanitize_uber,SetCompareValue,$$= ? (numbcharge.NumbChargeLevel >= 1, 0.99, -100000001),-1,-1"
-
-				"OnTrigger" "sanitize_uber,$SetVar$isUbered,0,-1,-1"
-				"OnTrigger" "@c@!activator,$GetProp$m_flChargeLevel,sanitize_uber|SetValueCompare|1,0,-1"
-				"OnTrigger" "is_ubered_final,SetValueCompare,$$=sanitize_uber.isUbered,0.01,-1"
-
-				"OnTrigger" "!self,Trigger,,0.1,-1"
-			}
-
-			logic_relay 
-			{
-				"targetname" "dmg_taken"
-				"spawnflags" "2"
-
-				"$OnUser5" "dmg_taken_normal,$SetVar$DmgTakenHolder,,-1,-1"
-				"$OnUser5" "dmg_taken_normal,Trigger,,0,-1"
-
-				"$OnUser5" "dmg_taken_while_uber,$SetVar$damageAmount,,-1,-1"
-				"$OnUser5" "dmg_taken_while_uber,Trigger,,0,-1"
-			}
-			logic_relay 
-			{
-				"targetname" "dmg_taken_normal"
-				"spawnflags" "2"
-
-				"OnTrigger" "!self,$SetVar$NumbChargeHolder,$$=numbcharge.NumbChargeLevel,-1,-1"
-
-				"OnTrigger" "numbcharge,$SetVar$NumbChargeLevel,$$= clamp ( float( dmg_taken_normal.NumbChargeHolder ) + ( float( dmg_taken_normal.DmgTakenHolder ) / 300 ), 0, 1 ),0,-1"
-
-				//"OnTrigger" "player,$DisplayTextChat,$$=numbcharge.NumbChargeLevel,0.01,-1"
-
-				"OnTrigger" "@c@!parent,$SetClientProp$m_flChargeLevel,$$=numbcharge.NumbChargeLevel,0.01,-1"
-				"OnTrigger" "@c@!parent,$SetProp$m_flChargeLevel,$$= ? (numbcharge.NumbChargeLevel >= 1, 1, -100000000),0.01,-1"
-				"OnTrigger" "sanitize_uber,SetCompareValue,$$= ? (numbcharge.NumbChargeLevel >= 1, 0.99, -100000001),0.01,-1"
-			}
-
-			logic_relay 
-			{
-				"targetname" "dmg_taken_while_uber"
-				"spawnflags" "2"
-
-				"StartDisabled" "1"
-
-				"OnTrigger" "!parent,$FireUser8,$$=dmg_taken_while_uber.damageAmount,-1,-1"
-				//"OnTrigger" "player,$DisplayTextChat,$$=dmg_taken_while_uber.damageAmount,-1,-1"
+				"$OnUser5" "@c@!activator,$SetProp$m_flChargeLevel,$$=float(!activator.numbCharge) / float(100),0,-1"
 			}
 		}
 

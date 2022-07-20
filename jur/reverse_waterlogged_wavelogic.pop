@@ -1676,7 +1676,7 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "lower_heli_relay"
-				"OnTrigger" "player,$FireUser5,-15,0.1"
+				"OnTrigger" "player,$FireUser5,-20,0.1"
 			}
 			logic_relay
 			{

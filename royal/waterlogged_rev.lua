@@ -1,13 +1,14 @@
 -- smol shield replacement
 function replaceAllMedigunShields()
 	for _, shield in pairs(ents.FindAllByClass("entity_medigun_shield")) do
-		local shieldOwner = shield:DumpProperties()["m_hOwnerEntity"]
+		local shieldOwner = shield.m_hOwnerEntity
 
-		if not shieldOwner then
+		if (not shieldOwner) or tostring(shieldOwner) == "Invalid entity handle id: -1" then
 			goto continue
 		end
 
-		if shieldOwner:DumpProperties()["shieldReplacementFlag"] ~= 1 then
+		print(shieldOwner.shieldReplacementFlag)
+		if shieldOwner.shieldReplacementFlag ~= 1 then
 			goto continue
 		end
 
@@ -71,14 +72,7 @@ function dealDamageToActivator(damage, activator, caller)
 	if activator == caller then
 		return
 	end
-
-	-- local dump = caller:DumpProperties()
-	-- local damage = dump.damageAmount
-
-	-- local damager = ents.FindByName('damager')
-
-	-- print(damager)
-
+	
 	local damageInfo = {
 		Attacker = caller, -- Attacker
 		Inflictor = nil, -- Direct cause of damage, usually a projectile
@@ -156,7 +150,7 @@ function _register(shieldEnt, level, ownerTeamnum, activator)
 				return
 			end
 
-			local targetTeamnum = target:DumpProperties()["m_iTeamNum"]
+			local targetTeamnum = target.m_iTeamNum
 
 			if targetTeamnum == ownerTeamnum then
 				return
@@ -186,8 +180,7 @@ end
 function registerShieldThunderdome(shieldEntName, activator)
 	local shieldEnt = ents.FindByName(shieldEntName)
 
-	-- local owner = shieldEnt:DumpProperties()["m_hOwnerEntity"]
-	local ownerTeamnum = activator:DumpProperties()["m_iTeamNum"]
+	local ownerTeamnum = activator.m_iTeamNum
 
 	_register(shieldEnt, 1, ownerTeamnum, activator)
 end
@@ -195,7 +188,7 @@ end
 function registerShieldDoppler(shieldEntName, activator)
 	local shieldEnt = ents.FindByName(shieldEntName)
 
-	local ownerTeamnum = activator:DumpProperties()["m_iTeamNum"]
+	local ownerTeamnum = activator.m_iTeamNum
 
 	_register(shieldEnt, 2, ownerTeamnum, activator)
 end

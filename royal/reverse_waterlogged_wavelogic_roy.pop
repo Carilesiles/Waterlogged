@@ -10,18 +10,55 @@ WaveSchedule
 				"targetname" "tele_destination_gate1"
 				"origin" "-4712 -2304 1192"
 			}
+			logic_relay
+			{
+				"targetname" "cap_layout_standard"
+				"OnTrigger" "master_control_point,SetCapLayout,0 1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$0,1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$1,1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$2,0"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$3,0"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,0,0.05"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,1,0.1"
+			}
+			logic_relay
+			{
+				"targetname" "cap_layout_singletower"
+				"OnTrigger" "master_control_point,SetCapLayout,2"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$0,0"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$1,0"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$2,1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$3,0"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,0,0.05"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,1,0.1"
+			}
+			logic_relay
+			{
+				"targetname" "cap_layout_doubletower"
+				"OnTrigger" "master_control_point,SetCapLayout,3 2 1 0"
+				"OnTrigger" "master_control_point,SetCapLayout,3 2,0.1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$0,0"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$1,0"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$2,1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$3,1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,0,0.05"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,1,0.1"
+			}
 			logic_auto
 			{
-				"OnMapSpawn" "master_control_point,SetCapLayout,0 1 2 3 4 5"
+				"OnMapSpawn" "master_control_point,SetCapLayout,0 1 2 3 4"
 				"OnMapSpawn" "master_control_point,SetCapLayout,0 1,0.1"
 				"OnMapSpawn" "flagdetect_hatch,Kill"
 				"OnMapSpawn" "wave_finished_relay,AddOutput,OnTrigger music_cancel_relay:Trigger::0:-1"
+				"OnMapSpawn" "bots_win,AddOutput,OnRoundWin music_cancel_relay:Trigger::0:-1"
+				"OnMapSpawn" "red_win,AddOutput,OnRoundWin music_cancel_relay:Trigger::0:-1"
 			}
 			logic_relay
 			{
 				"targetname" "general_setup_relay"
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger clearbuildings_trigger:Enable::0:-1"
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger clearbuildings_trigger:Disable::0.1:-1"
+				"OnTrigger" "cap_layout_standard,Trigger"
 				"OnTrigger" "clearbuildings_trigger,Enable"
 				"OnTrigger" "clearbuildings_trigger,Disable,,0.1"
 				"OnTrigger" "spyteleport*,AddOutput,spawnflags 1"
@@ -141,6 +178,10 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "wave5_init_relay"
+				"OnTrigger" "intel,Disable"
+				"OnTrigger" "intel,ForceResetSilent"
+				"OnTrigger" "intel,SetParent,compass_train,0.1"
+				"OnTrigger" "engineer_nest_arena*,$SetKey$teamnum,3"
 				"OnTrigger" "clearbuildings_trigger,Enable"
 				"OnTrigger" "clearbuildings_trigger,Disable,,0.1"
 				"OnTrigger" "blu_init_teleport_boss,Enable"
@@ -379,6 +420,19 @@ WaveSchedule
 				"OnTrigger" "wipe_loopfix,Trigger"
 				"OnTrigger" "red_win,RoundWin"
 			}
+			logic_relay
+			{
+				"targetname" "arena_towers_wipe_relay"
+				"OnTrigger" "blue_stun_reprogram,Enable,,0.1"
+				"OnTrigger" "blue_reprogram,Enable,,0.1"
+				//"OnTrigger" "@f@filter_blueteam@player,SetCustomModel,models/bots/soldier/bot_soldier.mdl,0,-1"
+				//"OnTrigger" "@f@filter_blueteam@player,AddOutput,targetname losers,0,-1"
+				//"OnTrigger" "losers,SetCustomModel,models/bots/soldier/bot_soldier.mdl,0.15,-1"
+				"OnTrigger" "player,SetForcedTauntCam,1,0.1"
+				"OnTrigger" "wipe_fade_alt,Fade"
+				"OnTrigger" "wipe_loopfix,Trigger"
+				"OnTrigger" "red_win,RoundWin"
+			}
 		}
 		bomb_dud_template
 		{
@@ -461,8 +515,8 @@ WaveSchedule
 				"OnTrigger" "losscondition_bomb_sign,Show,,10"
 				"OnTrigger" "bomb_dud_maker,ForceSpawnAtEntityOrigin,intel,8.2"
 
-				"OnTrigger" "music_cancel_relay,Trigger"
-				"OnTrigger" "music_loop_case,InValue,4,2.1"
+				//"OnTrigger" "music_cancel_relay,Trigger"
+				//"OnTrigger" "music_loop_case,InValue,4,0.1"
 
 			}
 			logic_relay
@@ -763,7 +817,7 @@ WaveSchedule
 				//"OnTrigger" "spawn_hologram*,AddOutput,skin 0,3"
 				//"OnTrigger" "spawnbot_arena_*,Enable,,5"
 				"OnTrigger" "rotate_arenaspawns_relay,Trigger,,5"
-				"OnTrigger" "player,$PlaySoundToSelf,mvm/mvm_tele_activate.wav,5"
+				//"OnTrigger" "player,$PlaySoundToSelf,mvm/mvm_tele_activate.wav,5"
 			}
 			logic_relay
 			{
@@ -928,6 +982,11 @@ WaveSchedule
 			}
 			path_track
 			{
+				"targetname" "mark_this"
+				"origin" "-1142 5423 -382"
+			}
+			path_track
+			{
 				"targetname" "mark_generator_one"
 				"origin" "-5020 135 127"
 			}
@@ -955,10 +1014,6 @@ WaveSchedule
 			{
 				"targetname" "mark_generator_six"
 				"origin" "-940 1888 95"
-			}
-			path_track
-			{
-
 			}
 		}
 		intel_compass_boss
@@ -1018,15 +1073,47 @@ WaveSchedule
 		heli_adjust
 		{
 			NoFixup 1
+			OnSpawnOutput
+			{
+				Target "heli_block_factory"
+				Action "$SetCollisionFilter"
+				Param "filter_helimove"
+				Delay 0.1
+			}
+			func_forcefield
+			{
+				"targetname" "heli_block_factory"
+				"TeamNum" "3"
+				"origin" "-6592 1824 444"
+				"mins" "-112 -32 -132"
+				"maxs" "112 32 132"
+			}
+			func_forcefield
+			{
+				"targetname" "heli_block_factory"
+				"TeamNum" "3"
+				"origin" "-6944 496 304"
+				"mins" "-160 -368 -176"
+				"maxs" "160 368 176"
+			}
+			func_forcefield
+			{
+				"targetname" "heli_block_factory"
+				"TeamNum" "3"
+				"origin" "-8504 1616 356"
+				"mins" "-232 -176 -228"
+				"maxs" "232 176 228"
+			}
 			trigger_multiple
 			{
 				"targetname" "heli_adjust_factory"
 				"origin" "-7296 1186 364"
 				"mins" "-1728 -1310 -236"
 				"maxs" "1728 1310 236"
+				"spawnflags" "1"
 				"filtername" "filter_helimove"
-				"OnStartTouch" "player,$FireUser5,-50"
-				"OnEndTouch" "player,$FireUser5,50"
+				"OnStartTouch" "player,$FireUser5,-35"
+				"OnEndTouch" "player,$FireUser5,35"
 			}
 			OnSpawnOutput
 			{
@@ -1035,37 +1122,42 @@ WaveSchedule
 				Param "filter_helimove"
 				Delay 0.1
 			}
-			func_brush
+			func_forcefield
 			{
 				"targetname" "heli_block_arena"
+				"TeamNum" "3"
 				"origin" "-1080 4416 -192"
 				"mins" "-920 -32 -320"
 				"maxs" "920 32 320"
 			}
-			func_brush
+			func_forcefield
 			{
 				"targetname" "heli_block_arena"
+				"TeamNum" "3"
 				"origin" "-1928 4136 -116"
 				"mins" "-120 -280 -404"
 				"maxs" "120 280 404"
 			}
-			func_brush
+			func_forcefield
 			{
 				"targetname" "heli_block_arena"
+				"TeamNum" "3"
 				"origin" "-232 4032 -116"
 				"mins" "-120 -383.5 -404"
 				"maxs" "120 383.5 404"
 			}
-			func_brush
+			func_forcefield
 			{
 				"targetname" "heli_block_arena"
+				"TeamNum" "3"
 				"origin" "-2000 3808 -120"
 				"mins" "-64 -128 -392"
 				"maxs" "64 128 392"
 			}
-			func_brush
+			func_forcefield
 			{
 				"targetname" "heli_block_arena"
+				"TeamNum" "3"
 				"origin" "-192 3488 -360"
 				"mins" "-64 -128 -152"
 				"maxs" "64 128 152"
@@ -1084,12 +1176,12 @@ WaveSchedule
 			logic_relay
 			{
 				"OnSpawn" "intel,Enable"
-				"OnSpawn" "compass_train,TeleportToPathTrack,mark_generator_one"
+				"OnSpawn" "compass_train,TeleportToPathTrack,mark_hatch"
 				//"OnSpawn" "barrier_gate1_relay_disable,Trigger,,0.1"
 				//"OnSpawn" "barrier_gate2_relay_disable,Trigger,,0.1"
 				//"OnSpawn" "wave3_hints,ShowHudHint,,0,-1"
 				"OnSpawn" "towers_alt_phase,SetValue,1,0.1"
-				"OnSpawn" "music_intro_case,InValue,2"
+				//"OnSpawn" "music_intro_case,InValue,4"
 			}
 			func_flagdetectionzone
 			{
@@ -1161,6 +1253,8 @@ WaveSchedule
 				"OnTrigger" "gate1sign_refire,Enable"
 				"OnTrigger" "player,$ChangeAttributes,CaptureGateOne"
 				"OnTrigger" "changeattribute_state,SetValueNoFire,2"
+				"OnTrigger" "music_cancel_relay,Trigger"
+				"OnTrigger" "music_intro_case,InValue,4,0.1"
 
 				//"OnTrigger" "barrier_factory_right,$SetCollisionFilter,,0.1"
 				//"OnTrigger" "barrier_factory_left,$SetCollisionFilter,,0.1"
@@ -1190,7 +1284,6 @@ WaveSchedule
 				"OnTrigger" "hatchshield_collision_stuckfix,Disable"
 				"OnTrigger" "capturezone_blue,Enable"
 				"OnTrigger" "barrier_down_sign3,Show"
-				
 			}
 			
 			logic_relay
@@ -1209,6 +1302,8 @@ WaveSchedule
 
 				"OnTrigger" "player,$ChangeAttributes,BarrierDown"
 				"OnTrigger" "changeattribute_state,SetValueNoFire,1"
+				"OnTrigger" "music_cancel_relay,Trigger"
+				"OnTrigger" "music_intro_case,InValue,2,0.1"
 
 				"OnTrigger" "spawnbot_factory*,Disable"
 				"OnTrigger" "spawnbot_balcony,Disable"
@@ -1251,6 +1346,7 @@ WaveSchedule
 				"OnTrigger" "spawnbot_hatch_extra,Enable"
 				"OnTrigger" "spawnbot_garage_extra,Enable"
 				"OnTrigger" "barrier_gate2_relay_disable,Trigger"
+				"OnTrigger" "doppler_sign,Show,,0.5"
 			}
 
 			math_counter
@@ -1327,6 +1423,13 @@ WaveSchedule
 				"display_text" "The bomb is now able to be deployed!"
 				"lifetime"     "6"
 			}
+			training_annotation
+			{
+				"targetname" "doppler_sign"
+				"origin" "-1132 1688 164"
+				"display_text" "Defeat Doctor Doppler to bring down the barrier!"
+				"lifetime"     "6"
+			}
 		}
 		wave4_logic
 		{
@@ -1384,6 +1487,7 @@ WaveSchedule
 				"OnSpawn" "gate1_bot_blocker,Disable"
 				"OnSpawn" "master_control_point,SetCapLayout,0 2"
 				"OnSpawn" "towers_phase,SetValue,1,0.1"
+				"OnSpawn" "cap_layout_singletower,Trigger,,0.1"
 				"OnSpawn" "towers_template,AddOutput,OnEntitySpawned tower_capzone:SetTeamCanCap:3 0:0:-1"
 				"OnSpawn" "brush_hatch_window,Disable"
 				"OnSpawn" "barrier_hatch_window,Enable"
@@ -1458,7 +1562,7 @@ WaveSchedule
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_side:Disable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 gate2_relay:Trigger::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 general_gate2_relay:Trigger::0:-1"
-				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_cancel_relay:Trigger::2:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_cancel_relay:Trigger::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_intro_case:InValue:3:4.77:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_hatchshield:Enable::22:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_hatch:Enable::22:-1"
@@ -1491,7 +1595,7 @@ WaveSchedule
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 barrier_hatch_window:Disable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 brush_portal_hatchwindow:$SetCollisionFilter:filter_redteam:0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 go_win_sign:Show::0:-1"
-				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_cancel_relay:Trigger::5:-1"
+				//"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_cancel_relay:Trigger::5:-1"
 
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 towers_activation_relay:CancelPending::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 tower_*:AddOutput:targetname defunct_tower:2:-1"
@@ -1514,7 +1618,7 @@ WaveSchedule
 			{
 				"targetname" "start"
 				"OnTrigger" "!self,Kill"
-				"$OnKilled" "player,$displaytextchat,killed_start"
+				//"$OnKilled" "player,$displaytextchat,killed_start"
 			}
 		}
 		PlaceHolder_Mid
@@ -1524,7 +1628,7 @@ WaveSchedule
 			{
 				"targetname" "mid"
 				"OnTrigger" "!self,Kill"
-				"$OnKilled" "player,$displaytextchat,killed_mid"
+				//"$OnKilled" "player,$displaytextchat,killed_mid"
 			}
 		}
 		PlaceHolder_End
@@ -1534,7 +1638,7 @@ WaveSchedule
 			{
 				"targetname" "end"
 				"OnTrigger" "!self,Kill"
-				"$OnKilled" "player,$displaytextchat,killed_end"
+				//"$OnKilled" "player,$displaytextchat,killed_end"
 			}
 		}
 		wave5_logic
@@ -1548,6 +1652,38 @@ WaveSchedule
 				"OnSpawn" "arena_indicator*,AddOutput,skin 4,30"
 
 				"OnSpawn" "music_loop_case,InValue,2"
+
+				"OnSpawn" "intel,Enable"
+				"OnSpawn" "compass_train,TeleportToPathTrack,mark_rockethell"
+
+				"OnSpawn" "engineer_nest*,Disable"
+				"OnSpawn" "engineer_nest_arena*,Enable,,0.1"
+				"OnSpawn" "spawnbot_extra,Enable"
+			}
+			logic_relay
+			{
+				"targetname" "captower_sign_relay"
+				"OnTrigger" "captower_1_sign,Show"
+				"OnTrigger" "captower_2_sign,Show"
+			}
+			training_annotation
+			{
+				"targetname" "captower_1_sign"
+				"origin" "-224 5312 -248"
+				"display_text" "Capture the towers!"
+				"lifetime"     "5"
+			}
+			training_annotation
+			{
+				"targetname" "captower_2_sign"
+				"origin" "-1968 5312 -248"
+				"display_text" "Capture the towers!"
+				"lifetime"     "5"
+			}
+			logic_relay
+			{
+				"targetname" "lower_heli_relay"
+				"OnTrigger" "player,$FireUser5,-15,0.1"
 			}
 			logic_relay
 			{
@@ -1558,8 +1694,9 @@ WaveSchedule
 				"OnTrigger" "spawnbot_arena,Disable"
 				"OnTrigger" "spawnbot_arena_case,PickRandom"
 
-				//"OnTrigger" "arena_1_tower_capzone,$SetKey$area_time_to_cap,1,0.1"
+				"OnTrigger" "arena_1_tower_capzone,$SetKey$area_time_to_cap,8,0.1"
 				"OnTrigger" "arena_1_towers_phase,SetValue,2"
+				"OnTrigger" "cap_layout_singletower,Trigger"
 				"OnTrigger" "arena_1_tower_capzone,Enable,,0.01"
 				"OnTrigger" "meh,Trigger,,0.1"
 				//"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 midphase_end_relay:Trigger::0:-1,0.1"
@@ -1570,6 +1707,12 @@ WaveSchedule
 				//"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 midphase_end_relay:Trigger::0:-1"
 				//"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 player:$ChangeAttributes:PatternRestart:0:-1"
 				"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 end:Kill::0:-1"
+				"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 attack_relay:Trigger::0:-1"
+			}
+			logic_relay
+			{
+				"targetname" "attack_relay"
+				"OnTrigger" "particle_attack,Start"
 			}
 			logic_relay
 			{
@@ -1583,8 +1726,18 @@ WaveSchedule
 				
 				"OnTrigger" "rockethell_disable*,Trigger"
 
-				"OnTrigger" "spawnbot_arena_case,PickRandom"
+				//"OnTrigger" "spawnbot_arena_case,PickRandom"
 				"OnTrigger" "spawnbot_arena,Disable"
+
+				"OnTrigger" "spawnbot_arena_1,Enable,,1,-1"
+				"OnTrigger" "arena_indicator_1,SetAnimation,spin"
+				"OnTrigger" "arena_indicator_1,AddOutput,skin 4"
+				"OnTrigger" "spawnbot_arena_3,Enable,,1,-1"
+				"OnTrigger" "arena_indicator_3,SetAnimation,spin"
+				"OnTrigger" "arena_indicator_3,AddOutput,skin 4"
+				"OnTrigger" "spawnbot_arena_4,Enable,,1,-1"
+				"OnTrigger" "arena_indicator_4,SetAnimation,spin"
+				"OnTrigger" "arena_indicator_4,AddOutput,skin 4"
 			}
 			logic_relay
 			{
@@ -1593,14 +1746,21 @@ WaveSchedule
 				"OnTrigger" "rockethell_disable*,Trigger"
 
 				"OnTrigger" "spawnbot_arena,Disable"
-				"OnTrigger" "spawnbot_arena_case,PickRandom"
+				//"OnTrigger" "spawnbot_arena_case,PickRandom"
+				"OnTrigger" "spawnbot_arena_2,Enable,,1,-1"
+				"OnTrigger" "arena_indicator_2,SetAnimation,spin"
+				"OnTrigger" "arena_indicator_2,AddOutput,skin 4"
+				"OnTrigger" "spawnbot_arena_4,Enable,,1,-1"
+				"OnTrigger" "arena_indicator_4,SetAnimation,spin"
+				"OnTrigger" "arena_indicator_4,AddOutput,skin 4"
 
 				"OnTrigger" "arena_doubletower_relay,Trigger,,6"
+				"OnTrigger" "cap_layout_doubletower,Trigger,,6"
 				"OnTrigger" "arena_2_tower_capzone,Enable,,6.01"
 				"OnTrigger" "arena_1_tower_capzone,Enable,,6.01"
 				"OnTrigger" "meh2,Trigger,,6.1"
-				//"OnTrigger" "arena_1_tower_capzone,$SetKey$area_time_to_cap,1,6.1"
-				//"OnTrigger" "arena_2_tower_capzone,$SetKey$area_time_to_cap,1,6.1"
+				"OnTrigger" "arena_1_tower_capzone,$SetKey$area_time_to_cap,8,6.1"
+				"OnTrigger" "arena_2_tower_capzone,$SetKey$area_time_to_cap,8,6.1"
 				//"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1,0.1"
 				//"OnTrigger" "arena_2_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1,0.1"
 			}
@@ -1618,6 +1778,8 @@ WaveSchedule
 				"max" "2"
 				//"OnHitMax" "player,$ChangeAttributes,PatternRestart"
 				"OnHitMax" "end,Kill"
+				"OnHitMax" "attack_relay,Trigger"
+				"OnHitMax" "captower_sign_relay,Disable"
 			}
 			logic_relay
 			{
@@ -1722,6 +1884,7 @@ WaveSchedule
 			{
 				"OnSpawn" "collider,$SetCollisionFilter,filter_collider"
 				"OnSpawn" "prop_locker*,$SetCollisionFilter,filter_player_is_buster"
+				"OnSpawn" "bossroom_door,$SetCollisionFilter,filter_player_is_buster"
 				"OnSpawn" "bossroom_door_trigger,AddOutput,OnStartTouch !activator:$SetVar$inSpawn:1:0:-1"
 			}
 			func_forcefield
@@ -1840,7 +2003,7 @@ WaveSchedule
 		}
 		annotations
 		{
-			NoFixup 1	
+			NoFixup 1
 			training_annotation
 			{
 				"targetname" "gate2_upgrade_sign"
@@ -2289,6 +2452,7 @@ WaveSchedule
 				"OnSpawn" "@f@filter_blueteam@player,$AddItemAttribute,fire rate bonus|0.6|0"
 				"OnSpawn" "@f@filter_blueteam@player,$AddItemAttribute,maxammo primary increased|2.5|0"
 				"OnSpawn" "@f@filter_blueteam@player,$AddItemAttribute,faster reload rate|0.4|0"
+				"OnSpawn" "@f@filter_blueteam@player,$AddItemAttribute,clip size bonus upgrade|3|0"
 				"OnSpawn" "@f@filter_blueteam@player,$AddPlayerAttribute,dmg taken from fire reduced|0.25"
 				"OnSpawn" "@f@filter_blueteam@player,$AddPlayerAttribute,dmg taken from blast reduced|0.25"
 				"OnSpawn" "@f@filter_blueteam@player,$AddPlayerAttribute,dmg taken from bullets reduced|0.25"

@@ -4,13 +4,13 @@ WaveSchedule
 	{
 		CustomCanteensSetup
 		{
-			// OnSpawnOutput
-			// {
-			// 	Target "@c@!activator"
-			// 	Action "$SetProp$m_usNumCharges"
-			// 	Param 0
-			// 	Delay 0
-			// }
+			//OnSpawnOutput
+			//{
+			//	Target "@c@!activator"
+			//	Action "$SetProp$m_usNumCharges"
+			//	Param 0
+			//	Delay 0
+			//}
 
 			OnSpawnOutput
 			{
@@ -468,11 +468,10 @@ WaveSchedule
 
 				"OnPass" "!activator,$Removecond,20,5,-1"
 				"OnPass" "!activator,$RemovePlayerAttribute,damage force reduction,5,-1"
-
 			}
 		}
 
-		CanteenPurchase 
+		CanteenPurchase
 		{
 			NoFixup 1
 
@@ -866,10 +865,10 @@ WaveSchedule
 				"Case04" "3"
 
 				"OnCase01" "!activator,$RemoveItemAttribute,no_attack|1,0,-1"
-				// "OnCase01" "!activator,$RemoveItemAttribute,dmg penalty vs players|0,0,-1"
+				//"OnCase01" "!activator,$RemoveItemAttribute,dmg penalty vs players|0,0,-1"
 
 				"OnCase02" "!activator,$AddItemAttribute,no_attack|1|1,0,-1"
-				// "OnCase02" "!activator,$AddItemAttribute,dmg penalty vs players|0.7|0,0,-1"
+				//"OnCase02" "!activator,$AddItemAttribute,dmg penalty vs players|0.7|0,0,-1"
 
 				//"OnCase01" "!activator,$RemovePlayerAttribute,mod weapon blocks healing,0,-1"
 
@@ -1099,7 +1098,6 @@ WaveSchedule
 			}
 
 		}
-
 		ComfortablyNumb_Spawn
 		{
 			OnSpawnOutput 
@@ -1810,9 +1808,9 @@ WaveSchedule
 				"OnPass" "!activator,$RemoveCond,41,0,-1"
 				"OnPass" "!activator,SetForcedTauntCam,0,0,-1"
 				"OnPass" "!activator,$AddCond,57,0,-1"
-				// "OnPass" "!activator,$AddCond,32 2,0,-1"
+				//"OnPass" "!activator,$AddCond,32,0,-1"
 				"OnPass" "!activator,$RemoveCond,57,2,-1"
-				// "OnPass" "!activator,$RemoveCond,32,2,-1"
+				//"OnPass" "!activator,$RemoveCond,32,2,-1"
 
 				"OnPass" "common_damage,FireUser1,,0,-1"
 				"OnPass" "giant_damage,FireUser1,,0,-1"
@@ -2042,6 +2040,23 @@ WaveSchedule
 				Delay 0
 			}
 
+			// OnSpawnOutput
+			// {
+			//     Target "@e@m_hMyWeapons@!activator"
+			//     Action "$SetProp$m_iClip1"
+			//     Param "0"
+			//     Delay 0
+			// }
+
+			//very weird hack to prevent switching to weapon
+			// OnSpawnOutput
+			// {
+			//     Target "@e@m_hMyWeapons@!activator"
+			//     Action "$SetProp$m_bFlipViewModel"
+			//     Param "0"
+			//     Delay 0.01
+			// }
+
 			OnSpawnOutput
 			{
 				Target "!activator"
@@ -2050,13 +2065,27 @@ WaveSchedule
 				Delay 0
 			}
 
+			// OnSpawnOutput
+			// {
+			// 	Target "shield_hitbox"
+			// 	Action "$SetOwner"
+			// 	Param "!activator"
+			// }
+
+			// OnSpawnOutput
+			// {
+			// 	Target "shield_hitbox2"
+			// 	Action "$SetOwner"
+			// 	Param "!activator"
+			// }
+
 			OnSpawnOutput
 			{
 				Target "projectile_shield"
 				Action "$SetModel"
 				Param "models/props_mvm/mvm_comically_small_player_shield.mdl"
 			}
-
+			
 			OnSpawnOutput
 			{
 				Target "projectile_shield2"
@@ -2123,6 +2152,25 @@ WaveSchedule
 				"OnTrigger" "!self,Trigger,,0.01,-1"
 			}
 
+			// trigger_hurt
+			// {
+			// 	"parentname" "rotate"
+			// 	"origin" "100 0 1"
+			// 	"mins" "-12 -53 -51.5"
+			// 	"maxs" "12 53 51.5"
+
+			// 	"teamnum" "3"
+
+			// 	"targetname" "shield_hitbox"
+			// 	"spawnflags" "1"
+
+
+			// 	"filtername" "filter_is_red"
+
+			// 	"Damage" "60" //damage is half of this
+			// 	"damagetype" "512"
+			// }
+
 			entity_medigun_shield
 			{
 				"parentname" "rotate"
@@ -2149,6 +2197,24 @@ WaveSchedule
 			}
 
 			//2nd shield
+			// trigger_hurt
+			// {
+			// 	"parentname" "rotate2"
+			// 	"mins" "-12 -53 -51.5"
+			// 	"maxs" "12 53 51.5"
+			// 	"origin" "-100 0 1"
+			// 	// "angles" "180 0 0"
+			// 	"teamnum" "3"
+
+			// 	"targetname" "shield_hitbox2"
+			// 	"spawnflags" "1"
+
+			// 	"filtername" "filter_is_red"
+
+			// 	"Damage" "60" //damage is half of this
+			// 	"damagetype" "512"
+			// }
+
 			entity_medigun_shield
 			{
 				"parentname" "rotate2"
@@ -2466,6 +2532,88 @@ WaveSchedule
 				"StartDisabled" "0"
 			}
 			RemoveIfKilled "rpg_template_aliveness"
+		}
+		shortcircuit_rebalance
+		{
+			KeepAlive 1
+			OnSpawnOutput
+			{
+				Target discharge_particle
+				Action $SetFakeParent
+				Param discharge
+			}
+			OnSpawnOutput
+			{
+				Target discharge
+				Action $SetFakeParent
+				Param !activator
+			}
+			OnSpawnOutput
+			{
+				Target discharge_damage
+				Action $InHeritOwner
+				Param !activator
+			}
+			OnParentKilledOutput
+			{
+				Target "discharge"
+				Action Kill
+			}
+			info_target
+			{
+				"targetname" "discharge"
+				"origin" "0 0 0"
+				"$onKilled" "discharge_damage,enable,,0,-1"
+				"$onKilled" "discharge_pulse,enable,,0.1,-1"
+				//"$onKilled" "discharge_sfx,playsound,,0.1,-1"
+				//"$onKilled" "discharge_sfx,stopsound,,4.8,-1"
+				//"$onKilled" "discharge_sfx,kill,,5,-1"
+				"$onKilled" "discharge_particle,kill,,1,-1"
+				"$onKilled" "discharge_pulse,kill,,1,-1"
+				"$onKilled" "discharge_damage,kill,,1.5,-1"
+			}
+			logic_timer
+			{
+				"targetname" "discharge_pulse"
+				"startDisabled" "1"
+				"RefireTime" "0.5"
+				"onTimer" "discharge_particle,start,,0,-1"
+				"onTimer" "discharge_particle,stop,,0.4,-1"
+			}
+			info_particle_system
+			{
+				"targetname" "discharge_particle"
+				"effect_name" "drg_cow_explosion_sparkles_charged_blue"
+				"start_active" "0"
+				"$modules" "fakeparent"
+			}
+			//ambient_generic
+			//{
+			//	"targetname" "discharge_sfx"
+			//	"parentname" "discharge_particle"
+			//	"health" "7"
+			//	"pitch" "50"
+			//	"message" "weapons/flame_thrower_fire_hit.wav"
+			//	"spawnflags" "16"
+			//	"volstart" "7"
+			//	"radius" "2000"
+			//}
+			trigger_hurt
+			{
+				"filtername" "filter_redteam"
+				"targetname" "discharge_damage"
+				"parentname" "discharge_particle"
+				"startDisabled" "1"
+				"spawnflags" "1"
+				"mins" "-128 -128 0"
+				"maxs" "128 128 32"
+				"damagetype" "512"
+				"damage" "30"
+				"damagecap" "30"
+				"damagemodel" "1"
+				"nodmgforce" "1"
+			}
+			RemoveIfKilled "discharge_damage"
 		}
 	}
 }

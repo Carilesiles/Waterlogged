@@ -32,6 +32,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"airblast vulnerability multiplier" 0.1
 				"crit mod disabled" 0
 				"force distribute currency on death" 1
+				"cancel falling damage" 1
 			}
 		}
 		T_TFBot_Giant_Heavyweapons_Fist
@@ -285,7 +286,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			Name "Corporal Canteen"
 			Class Heavyweapons
 
-			ClassIcon heavy_shotgun_burst_lite     
+			ClassIcon heavy_shotgun_red_burst_giant
 			Health 30000
 
 			WeaponRestrictions SecondaryOnly 
@@ -420,9 +421,10 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			SpawnTemplate Rockethell_Logic
 
 			Class Soldier
+			ClassIcon soldier_barrage
 			Name "Ranger Rockethell"
 			Skill Expert
-			Health 64000
+			Health 68000
 
 			Action Mobber
 
@@ -431,7 +433,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			Attributes MiniBoss
 			Attributes UseBossHealthBar
 			
-			Scale 1.9 
+			Scale 1.9
 
 			AddCond { Name "TF_COND_REPROGRAMMED" }
 
@@ -452,7 +454,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				Delay 0 //Delay before firing the input
 				Cooldown 1 //Cooldown between firing the input
 				Repeats 1 //How many times should the input be fired
-				IfHealthBelow 48000
+				IfHealthBelow 52000
 			}
 			FireInput [$SIGSEGV] 
 			{
@@ -461,7 +463,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				Delay 0 //Delay before firing the input
 				Cooldown 1 //Cooldown between firing the input
 				Repeats 1 //How many times should the input be fired
-				IfHealthBelow 32000
+				IfHealthBelow 36000
 			}
 			FireInput [$SIGSEGV] 
 			{
@@ -470,7 +472,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				Delay 0 //Delay before firing the input
 				Cooldown 1 //Cooldown between firing the input
 				Repeats 1 //How many times should the input be fired
-				IfHealthBelow 16000
+				IfHealthBelow 20000
 			}
 			EventChangeAttributes
 			{
@@ -1208,6 +1210,23 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 						Target "bombfella_hologram_3" //Entity name to use
 						Action "Disable" //Input to fire
 						Delay 0 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 1 //How many times should the input be fired
+					}
+					FireInput [$SIGSEGV]
+					{
+						Target "music_cancel_relay" //Entity name to use
+						Action "Trigger" //Input to fire
+						Delay 0 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 1 //How many times should the input be fired
+					}
+					FireInput [$SIGSEGV] 
+					{
+						Target "music_loop_case" //Entity name to use
+						Action "InValue" //Input to fire
+						Param 4
+						Delay 4 //Delay before firing the input
 						Cooldown 1 //Cooldown between firing the input
 						Repeats 1 //How many times should the input be fired
 					}
@@ -2292,13 +2311,13 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 			}	
 
-			logic_relay 
+			logic_relay
 			{
 				"targetname" "buster_det_checker"
 				"spawnflags" "2"
 
-				"OnTrigger" "buster_det_checker,Trigger,,0.1,-1"  
-				"OnTrigger" "filter_is_taunting,TestActivator,!activator,0,-1"    
+				"OnTrigger" "buster_det_checker,Trigger,,0.1,-1"
+				"OnTrigger" "filter_is_taunting,TestActivator,!activator,0,-1"
 			}
 		}
 		// Fake Icon Template
@@ -2311,6 +2330,40 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"OnSpawn" "!self,Kill"
 			}
 		}
+		FakeIcon_Hold
+		{
+			NoFixup 1
+			logic_relay
+			{
+				"targetname" "kill_perhaps"
+				"OnTrigger" "perhaps,Kill"
+			}
+			logic_relay
+			{
+				"targetname" "perhaps"
+				"OnTrigger" "!self,Kill"
+			}
+		}
+		FakeIcon_Hold2
+		{
+			NoFixup 1
+			logic_relay
+			{
+				"targetname" "kill_perhaps_all"
+				"OnTrigger" "perhaps,Kill"
+				"OnTrigger" "perhaps2,Kill"
+			}
+			logic_relay
+			{
+				"targetname" "kill_perhaps2"
+				"OnTrigger" "perhaps,Kill"
+			}
+			logic_relay
+			{
+				"targetname" "perhaps2"
+				"OnTrigger" "!self,Kill"
+			}
+		}
 		AddBotGlow
 		{
 			OnSpawnOutput
@@ -2319,6 +2372,18 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				Action "$SetProp$m_bGlowEnabled"
 				Delay 0
 				Param "1"
+			}
+		}
+		AddParticle
+		{
+			NoFixup 1
+			info_particle_system
+			{
+				"targetname" "particle_attack"
+				"origin" "0 0 160"
+				"effect_name" "indicator_attack"
+				"flag_as_weather" "0"
+				"start_active" "0"
 			}
 		}
 		Alternating_Burst
@@ -2843,7 +2908,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
 			}
 
-			logic_relay 
+			logic_relay
 			{
 				"targetname" "demo_automic_shapeshift"
 				"spawnflags" "2"
@@ -2854,9 +2919,9 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 				"OnTrigger" "!activator,$RemoveItem,Tyrant's Helm,0,-1"
 
-				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1"
 
-				"OnTrigger" "!activator,SetCustomModel,models/bots/demo_boss/bot_demo_boss.mdl,0.1,-1" 
+				"OnTrigger" "!activator,SetCustomModel,models/bots/demo_boss/bot_demo_boss.mdl,0.1,-1"
 
 				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,demo_giant,0.4,-1"
 
@@ -2876,7 +2941,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.11,-1" 
 
 				"OnTrigger" "!activator,SetCustomModel,models/bots/heavy_boss/bot_heavy_boss.mdl,0.1,-1" 
-				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,heavy_shotgun_burst_lite,0.4,-1"
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,heavy_shotgun_red_burst,0.4,-1"
 
 				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
 				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
@@ -4058,12 +4123,17 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				Action "Trigger"
 				Delay 6.9
 			}
-			
+			info_target
+			{
+				"targetname" "mark_rockethell"
+			}
+
 			logic_relay
 			{
 				"targetname" "rockethell_disable"
 				"OnTrigger" "!activator,$AddCond,52"
 				"OnTrigger" "!activator,$ChangeAttributes,Stunned"
+				"OnTrigger" "!activator,SetAnimation,PRIMARY_stun_middle"
 				"OnTrigger" "rockethell_pattern*,CancelPending"
 				"OnTrigger" "spellcard*,CancelPending"
 			}
@@ -5009,7 +5079,6 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"oncase03" "corporal,$RemoveCond,90,10,-1"
 			}
 		}
-
 		Wave4Duo_ChatMsg
 		{
 			OnSpawnOutput
@@ -5034,7 +5103,6 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				// Delay 0.2
 			}
 		}
-
 		Yakuza_Styles
 		{
 			NoFixup 1

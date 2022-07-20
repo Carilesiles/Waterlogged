@@ -1075,6 +1075,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Heavyweapons_Shotgun
+				ClassIcon heavy_shotgun_red
 				AddTemplate RedBot
 				SpawnTemplate "points_common_one"
 			}
@@ -1163,6 +1164,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Pyro_Flare_Spammer
+				ClassIcon pyro_flare_red
 				AddTemplate RedBot_Giant
 				SpawnTemplate "points_gdetonator"
 			}
@@ -1180,6 +1182,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Pyro_Flare_Spammer
+				ClassIcon pyro_flare_red
 				AddTemplate RedBot_Giant
 				SpawnTemplate "points_gdetonator"
 			}
@@ -1354,6 +1357,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Heavyweapons_Heavyweight_Champ_Fast
+				ClassIcon heavy_urgent
 				AddTemplate RedBot
 				SpawnTemplate "points_common_two"
 			}
@@ -1826,7 +1830,7 @@ WaveSchedule
 			{
 				Class Scout
 				Name "Armored Scout"
-				ClassIcon scout_armored_pda
+				ClassIcon scout_armored_red
 				Attributes MiniBoss
 				Skill Expert
 				Health 3000
@@ -1914,9 +1918,8 @@ WaveSchedule
 				SpawnTemplate AddBotGlow
 				SpawnTemplate AddParticle
 			}
-				
 		}
-		WaveSpawn 
+		WaveSpawn
 		{
 			Name "midphase2"
 			Where "spawnbot_arena_1"
@@ -1933,6 +1936,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Sniper_Huntsman_Spammer
+				ClassIcon sniper_bow_multi
 				AddTemplate RedBot
 				SpawnTemplate AddBotGlow
 				SpawnTemplate AddParticle
@@ -2012,6 +2016,7 @@ WaveSchedule
 				TFBot
 				{
 					Template T_TFBot_Heavyweapons_Shotgun
+					ClassIcon heavy_shotgun_red
 					AddTemplate RedBot
 				}
 				TFBot
@@ -2403,7 +2408,7 @@ WaveSchedule
 			MaxActive 4
 			SpawnCount 2
 			Support limited
-			TotalCurrency 120
+			TotalCurrency 145
 			WaitBeforeStarting 5
 			WaitBetweenSpawns 1
 			RandomChoice
@@ -3067,6 +3072,7 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Demo_Burst
+						ClassIcon demo_burst_red
 						AddTemplate RedBot
 					}
 				}
@@ -3089,31 +3095,23 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Giant_Pyro_ComboFlare
+						ClassIcon pyro_degreaser_flare_red
 						AddTemplate RedBot_Giant
 					}
 				}
-			}
-			FirstSpawnOutput
-			{
-				Target "perhaps"
-				Action Kill
-			}
-			LastSpawnOutput
-			{
-				Target "perhaps"
-				Action Kill
 			}
 		}
 		WaveSpawn
 		{
 			Name dummy
-			Where "spawnbot_hatch"
+			Where "spawnbot_hatchshield"
+			WaitForAllSpawned "w3_subwavetwo_boss"
 			TotalCount	2
 			SpawnCount	2
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
-				Name "FakeIcon_Hold"
-				ClassIcon pyro_degreaser_flare
+				Name "FakeIcon"
+				ClassIcon pyro_degreaser_flare_red
 				IsMiniBoss 1
 			}
 		}
@@ -3136,7 +3134,7 @@ WaveSchedule
 					{
 						Class Scout
 						Name "Armored Scout"
-						ClassIcon scout_armored_pda
+						ClassIcon scout_armored_red
 						Attributes MiniBoss
 						Skill Expert
 						Health 3000
@@ -3150,49 +3148,40 @@ WaveSchedule
 					}
 				}
 			}
-			FirstSpawnOutput
-			{
-				Target "perhaps"
-				Action Kill
-			}
-			LastSpawnOutput
-			{
-				Target "perhaps"
-				Action Kill
-			}
 		}
 		WaveSpawn
 		{
 			Name dummy
-			Where "spawnbot_hatch"
-			WaitForAllDead "w3_subwavethree_cfh"
+			Where "spawnbot_hatchshield"
+			WaitForAllSpawned "w3_subwavetwo_boss"
 			TotalCount	2
 			SpawnCount	2
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
-				Name "FakeIcon_Hold"
-				ClassIcon scout_armored_pda
+				Name "FakeIcon"
+				ClassIcon scout_armored_red
 				IsMiniBoss 1
 			}
 		}
-		WaveSpawn
-		{
-			Name "w3_subwavethree_bhh"
-			Where "spawnbot_hatch"
-			WaitForAllDead "w3_subwavethree_ash"
-			TotalCount 10
-			MaxActive 1
-			SpawnCount 1
-			TotalCurrency 50
-			WaitBeforeStarting 8
-			WaitBetweenSpawns 35
-			Support Limited
-			TFBot
-			{
-				Template T_TFBot_Giant_Boxing_Heavy
-				AddTemplate RedBot_Giant
-			}
-		}
+		//WaveSpawn
+		//{
+		//	Name "w3_subwavethree_bhh"
+		//	Where "spawnbot_hatch"
+		//	WaitForAllDead "w3_subwavethree_ash"
+		//	TotalCount 10
+		//	MaxActive 1
+		//	SpawnCount 1
+		//	TotalCurrency 50
+		//	WaitBeforeStarting 8
+		//	WaitBetweenSpawns 35
+		//	Support Limited
+		//	TFBot
+		//	{
+		//		Template T_TFBot_Giant_Boxing_Heavy
+		//		ClassIcon heavy_champ_red
+		//		AddTemplate RedBot_Giant
+		//	}
+		//}
 		WaveSpawn
 		{
 			Name "w3_subwavethree_cfg"
@@ -3210,31 +3199,23 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Giant_Pyro_ComboFlare
+						ClassIcon pyro_degreaser_flare_red
 						AddTemplate RedBot_Giant
 					}
 				}
-			}
-			FirstSpawnOutput
-			{
-				Target "perhaps2"
-				Action Kill
-			}
-			LastSpawnOutput
-			{
-				Target "perhaps2"
-				Action Kill
 			}
 		}
 		WaveSpawn
 		{
 			Name dummy
-			Where "spawnbot_garage"
+			Where "spawnbot_hatchshield"
+			WaitForAllSpawned "w3_subwavetwo_boss"
 			TotalCount	2
 			SpawnCount	2
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
-				Name "FakeIcon_Hold2"
-				ClassIcon pyro_degreaser_flare
+				Name "FakeIcon"
+				ClassIcon pyro_degreaser_flare_red
 				IsMiniBoss 1
 			}
 		}
@@ -3257,7 +3238,7 @@ WaveSchedule
 					{
 						Class Scout
 						Name "Armored Scout"
-						ClassIcon scout_armored_pda
+						ClassIcon scout_armored_red
 						Attributes MiniBoss
 						Skill Expert
 						Health 3000
@@ -3271,49 +3252,40 @@ WaveSchedule
 					}
 				}
 			}
-			FirstSpawnOutput
-			{
-				Target "perhaps2"
-				Action Kill
-			}
-			LastSpawnOutput
-			{
-				Target "perhaps2"
-				Action Kill
-			}
 		}
 		WaveSpawn
 		{
 			Name dummy
-			WaitForAllDead "w3_subwavethree_cfg"
+			Where "spawnbot_hatchshield"
+			WaitForAllSpawned "w3_subwavetwo_boss"
 			TotalCount	2
 			SpawnCount	2
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
-				Name "FakeIcon_Hold2"
-				ClassIcon scout_armored_pda
+				Name "FakeIcon"
+				ClassIcon scout_armored_red
 				IsMiniBoss 1
 			}
 		}
-		WaveSpawn
-		{
-			Name "w3_subwavethree_bhg"
-			Where "spawnbot_garage"
-			WaitForAllDead "w3_subwavethree_asg"
-			TotalCount 10
-			MaxActive 1
-			SpawnCount 1
-			TotalCurrency 50
-			WaitBeforeStarting 10
-			WaitBetweenSpawns 25
-			Support Limited
-			TFBot
-			{
-				Template T_TFBot_Giant_Boxing_Heavy
-				ClassIcon heavy_champ_red
-				AddTemplate RedBot_Giant
-			}
-		}
+		//WaveSpawn
+		//{
+		//	Name "w3_subwavethree_bhg"
+		//	Where "spawnbot_garage"
+		//	WaitForAllDead "w3_subwavethree_asg"
+		//	TotalCount 10
+		//	MaxActive 1
+		//	SpawnCount 1
+		//	TotalCurrency 50
+		//	WaitBeforeStarting 10
+		//	WaitBetweenSpawns 25
+		//	Support Limited
+		//	TFBot
+		//	{
+		//		Template T_TFBot_Giant_Boxing_Heavy
+		//		ClassIcon heavy_champ_red
+		//		AddTemplate RedBot_Giant
+		//	}
+		//}
 		WaveSpawn
 		{
 			Name "w3_subwavethree_support_dei"
@@ -3329,6 +3301,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Demo_Burst
+				ClassIcon demo_burst_red
 				AddTemplate RedBot
 			}
 		}
@@ -3351,6 +3324,7 @@ WaveSchedule
 					TFBot
 					{
 						Template T_TFBot_Demo_Burst
+						ClassIcon demo_burst_red
 						AddTemplate RedBot
 					}
 				}
@@ -3496,7 +3470,7 @@ WaveSchedule
 			MaxActive 1
 			SpawnCount 1
 			TotalCurrency 100
-			WaitBeforeStarting 5
+			WaitBeforeStarting 0.5
 			WaitBetweenSpawns 0
 			FirstSpawnOutput
 			{
@@ -3514,15 +3488,15 @@ WaveSchedule
 				AddTemplate RedBot_Giant
 			}
 		}
-		WaveSpawn
-		{
-			WaitForAllDead "w3_subwavetwo_boss"
-			DoneOutput
-			{
-				Target "music_cancel_relay"
-				Action Trigger
-			}
-		}
+		//WaveSpawn
+		//{
+		//	WaitForAllDead "w3_subwavetwo_boss"
+		//	DoneOutput
+		//	{
+		//		Target "music_cancel_relay"
+		//		Action Trigger
+		//	}
+		//}
 	}
 	Wave // Wave #4
 	{
@@ -3556,11 +3530,17 @@ WaveSchedule
 				Target chief_killed_relay
 				Action Trigger
 			}
-			TFBot
+			RandomChoice
 			{
-				SpawnTemplate Yakuza_Title_Card_Corporal
-				SpawnTemplate AddBotGlow
-				Template T_TFBot_Chief_Canteen
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate Yakuza_Title_Card_Corporal
+						SpawnTemplate AddBotGlow
+						Template T_TFBot_Chief_Canteen
+					}
+				}
 			}
 		}
 		WaveSpawn
@@ -3628,21 +3608,6 @@ WaveSchedule
 				}
 			}
 		}
-		WaveSpawn
-		{
-			Name dummy
-			WaitForAllDead "yakuza"
-			Where "spawnbot_boss"
-			TotalCount	1
-			SpawnCount	1
-			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
-			{
-				Name "FakeIcon"
-				ClassIcon boss_yakuza
-				IsCrit 1
-				IsMiniBoss 1
-			}
-		}
 		
 		WaveSpawn
 		{
@@ -3697,7 +3662,7 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
-			Name "w4_finalboss"
+			Name "w4_finalboss_canteen"
 			Where spawnbot_hatchshield
 			TotalCount 1
 			MaxActive 1
@@ -3705,16 +3670,36 @@ WaveSchedule
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
 			TotalCurrency 100
-			TFBot
+			RandomChoice
 			{
-				Template T_TFBot_Chief_Canteen
-				Health 15000
-				SpawnTemplate AddBotGlow
+				RandomChoice
+				{
+					TFBot
+					{
+						Template T_TFBot_Chief_Canteen
+						Health 15000
+						SpawnTemplate AddBotGlow
+					}
+				}
 			}
 		}
 		WaveSpawn
 		{
-			Name "w4_finalboss"
+			Name dummy
+			WaitForAllDead "w4_finalboss_canteen"
+			Where "spawnbot_boss"
+			TotalCount	2
+			SpawnCount	1
+			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
+			{
+				Name "FakeIcon"
+				ClassIcon heavy_shotgun_red_burst_giant
+				IsMiniBoss 1
+			}
+		}
+		WaveSpawn
+		{
+			Name "w4_finalboss_yakuza"
 			Where spawnbot_hatchshield
 			TotalCount 1
 			MaxActive 1
@@ -3735,6 +3720,21 @@ WaveSchedule
 						SpawnTemplate AddBotGlow
 					}
 				}
+			}
+		}
+		WaveSpawn
+		{
+			Name dummy
+			WaitForAllDead "w4_finalboss_yakuza"
+			Where "spawnbot_boss"
+			TotalCount	2
+			SpawnCount	1
+			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
+			{
+				Name "FakeIcon"
+				ClassIcon boss_yakuza
+				IsCrit 1
+				IsMiniBoss 1
 			}
 		}
 		WaveSpawn 
@@ -3802,6 +3802,16 @@ WaveSchedule
 				Template T_TFBot_Soldier_Escapeplan
 				AddTemplate RedBot
 			}
+		}
+		WaveSpawn
+		{
+			Name "w4_finalboss"
+			WaitForAllDead "w4_finalboss_yakuza"
+		}
+		WaveSpawn
+		{
+			Name "w4_finalboss"
+			WaitForAllDead "w4_finalboss_canteen"
 		}
 		WaveSpawn
 		{
@@ -4388,6 +4398,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Sniper_Huntsman_Spammer
+				ClassIcon sniper_bow_multi
 				AddTemplate RedBot
 				SpawnTemplate AddBotGlow
 				SpawnTemplate AddParticle
@@ -4523,10 +4534,7 @@ WaveSchedule
 		{
 			Name "main_midphase_three"
 			WaitForAllDead "midphase_three_start"
-			Where "spawnbot_arena_1"
 			Where "spawnbot_arena_2"
-			Where "spawnbot_arena_3"
-			Where "spawnbot_arena_4"
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
@@ -4548,9 +4556,6 @@ WaveSchedule
 		{
 			Name "main_midphase_three"
 			WaitForAllDead "midphase_three_start"
-			Where "spawnbot_arena_1"
-			Where "spawnbot_arena_2"
-			Where "spawnbot_arena_3"
 			Where "spawnbot_arena_4"
 			TotalCount 1
 			MaxActive 1
@@ -4615,6 +4620,11 @@ WaveSchedule
 		{
 			Name "midphase_three"
 			WaitForAllDead "main_midphase_three"
+			DoneOutput
+			{
+				Target "captower_sign_relay"
+				Action Trigger
+			}
 		}
 		WaveSpawn
 		{

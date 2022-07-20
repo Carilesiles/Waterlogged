@@ -10,6 +10,40 @@ WaveSchedule
 				"targetname" "tele_destination_gate1"
 				"origin" "-4712 -2304 1192"
 			}
+			logic_relay
+			{
+				"targetname" "cap_layout_standard"
+				"OnTrigger" "master_control_point,SetCapLayout,0 1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$0,1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$1,1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$2,0"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$3,0"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,0,0.05"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,1,0.1"
+			}
+			logic_relay
+			{
+				"targetname" "cap_layout_singletower"
+				"OnTrigger" "master_control_point,SetCapLayout,2"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$0,0"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$1,0"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$2,1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$3,0"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,0,0.05"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,1,0.1"
+			}
+			logic_relay
+			{
+				"targetname" "cap_layout_doubletower"
+				"OnTrigger" "master_control_point,SetCapLayout,3 2 1 0"
+				"OnTrigger" "master_control_point,SetCapLayout,3 2,0.1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$0,0"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$1,0"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$2,1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$3,1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,0,0.05"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,1,0.1"
+			}
 			logic_auto
 			{
 				"OnMapSpawn" "master_control_point,SetCapLayout,0 1 2 3 4"
@@ -24,6 +58,7 @@ WaveSchedule
 				"targetname" "general_setup_relay"
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger clearbuildings_trigger:Enable::0:-1"
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger clearbuildings_trigger:Disable::0.1:-1"
+				"OnTrigger" "cap_layout_standard,Trigger"
 				"OnTrigger" "clearbuildings_trigger,Enable"
 				"OnTrigger" "clearbuildings_trigger,Disable,,0.1"
 				"OnTrigger" "spyteleport*,AddOutput,spawnflags 1"
@@ -1311,7 +1346,7 @@ WaveSchedule
 				"OnTrigger" "spawnbot_hatch_extra,Enable"
 				"OnTrigger" "spawnbot_garage_extra,Enable"
 				"OnTrigger" "barrier_gate2_relay_disable,Trigger"
-				"OnTrigger" "doppler_sign,Show"
+				"OnTrigger" "doppler_sign,Show,,0.5"
 			}
 
 			math_counter
@@ -1452,6 +1487,7 @@ WaveSchedule
 				"OnSpawn" "gate1_bot_blocker,Disable"
 				"OnSpawn" "master_control_point,SetCapLayout,0 2"
 				"OnSpawn" "towers_phase,SetValue,1,0.1"
+				"OnSpawn" "cap_layout_singletower,Trigger,,0.1"
 				"OnSpawn" "towers_template,AddOutput,OnEntitySpawned tower_capzone:SetTeamCanCap:3 0:0:-1"
 				"OnSpawn" "brush_hatch_window,Disable"
 				"OnSpawn" "barrier_hatch_window,Enable"
@@ -1526,7 +1562,7 @@ WaveSchedule
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_side:Disable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 gate2_relay:Trigger::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 general_gate2_relay:Trigger::0:-1"
-				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_cancel_relay:Trigger::2:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_cancel_relay:Trigger::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_intro_case:InValue:3:4.77:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_hatchshield:Enable::22:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_hatch:Enable::22:-1"
@@ -1626,8 +1662,28 @@ WaveSchedule
 			}
 			logic_relay
 			{
+				"targetname" "captower_sign_relay"
+				"OnTrigger" "captower_1_sign,Show"
+				"OnTrigger" "captower_2_sign,Show"
+			}
+			training_annotation
+			{
+				"targetname" "captower_1_sign"
+				"origin" "-224 5312 -248"
+				"display_text" "Capture the towers!"
+				"lifetime"     "5"
+			}
+			training_annotation
+			{
+				"targetname" "captower_2_sign"
+				"origin" "-1968 5312 -248"
+				"display_text" "Capture the towers!"
+				"lifetime"     "5"
+			}
+			logic_relay
+			{
 				"targetname" "lower_heli_relay"
-				"OnTrigger" ""
+				"OnTrigger" "player,$FireUser5,-15,0.1"
 			}
 			logic_relay
 			{
@@ -1638,8 +1694,9 @@ WaveSchedule
 				"OnTrigger" "spawnbot_arena,Disable"
 				"OnTrigger" "spawnbot_arena_case,PickRandom"
 
-				//"OnTrigger" "arena_1_tower_capzone,$SetKey$area_time_to_cap,1,0.1"
+				"OnTrigger" "arena_1_tower_capzone,$SetKey$area_time_to_cap,8,0.1"
 				"OnTrigger" "arena_1_towers_phase,SetValue,2"
+				"OnTrigger" "cap_layout_singletower,Trigger"
 				"OnTrigger" "arena_1_tower_capzone,Enable,,0.01"
 				"OnTrigger" "meh,Trigger,,0.1"
 				//"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 midphase_end_relay:Trigger::0:-1,0.1"
@@ -1698,11 +1755,12 @@ WaveSchedule
 				"OnTrigger" "arena_indicator_4,AddOutput,skin 4"
 
 				"OnTrigger" "arena_doubletower_relay,Trigger,,6"
+				"OnTrigger" "cap_layout_doubletower,Trigger,,6"
 				"OnTrigger" "arena_2_tower_capzone,Enable,,6.01"
 				"OnTrigger" "arena_1_tower_capzone,Enable,,6.01"
 				"OnTrigger" "meh2,Trigger,,6.1"
-				//"OnTrigger" "arena_1_tower_capzone,$SetKey$area_time_to_cap,1,6.1"
-				//"OnTrigger" "arena_2_tower_capzone,$SetKey$area_time_to_cap,1,6.1"
+				"OnTrigger" "arena_1_tower_capzone,$SetKey$area_time_to_cap,8,6.1"
+				"OnTrigger" "arena_2_tower_capzone,$SetKey$area_time_to_cap,8,6.1"
 				//"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1,0.1"
 				//"OnTrigger" "arena_2_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1,0.1"
 			}
@@ -1721,6 +1779,7 @@ WaveSchedule
 				//"OnHitMax" "player,$ChangeAttributes,PatternRestart"
 				"OnHitMax" "end,Kill"
 				"OnHitMax" "attack_relay,Trigger"
+				"OnHitMax" "captower_sign_relay,Disable"
 			}
 			logic_relay
 			{
@@ -1825,6 +1884,7 @@ WaveSchedule
 			{
 				"OnSpawn" "collider,$SetCollisionFilter,filter_collider"
 				"OnSpawn" "prop_locker*,$SetCollisionFilter,filter_player_is_buster"
+				"OnSpawn" "bossroom_door,$SetCollisionFilter,filter_player_is_buster"
 				"OnSpawn" "bossroom_door_trigger,AddOutput,OnStartTouch !activator:$SetVar$inSpawn:1:0:-1"
 			}
 			func_forcefield
@@ -1943,7 +2003,7 @@ WaveSchedule
 		}
 		annotations
 		{
-			NoFixup 1	
+			NoFixup 1
 			training_annotation
 			{
 				"targetname" "gate2_upgrade_sign"

@@ -1762,7 +1762,9 @@ WaveSchedule
 			{
 				"targetname" "meh2"
 				"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1"
+				"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 captower_1_sign:Kill::0:-1"
 				"OnTrigger" "arena_2_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1"
+				"OnTrigger" "arena_2_tower_capzone,AddOutput,OnCapTeam2 captower_2_sign:Kill::0:-1"
 			}
 			math_counter
 			{

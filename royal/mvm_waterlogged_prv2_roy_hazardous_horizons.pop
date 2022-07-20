@@ -659,7 +659,7 @@ WaveSchedule
 		{
 			OriginalItemName "Upgradeable TF_WEAPON_MEDIGUN"
 
-			"mod weapon blocks healing" 1
+			// "mod weapon blocks healing" 1
 			"ubercharge rate penalty" 1
 
 			"paintkit_proto_def_index" 235 //skull study 

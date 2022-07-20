@@ -1303,6 +1303,18 @@ WaveSchedule
 				Target "popscript"
 				Action "$comfortablyNumbSpawn"
 			}
+			OnSpawnOutput 
+			{
+				Target "!activator"
+				Action "$AddPlayerAttribute"
+				Param "mod weapon blocks healing|1"
+			}
+			OnParentKilledOutput 
+			{
+				Target "!activator"
+				Action "$RemovePlayerAttribute"
+				Param "mod weapon blocks healing"
+			}
 			OnParentKilledOutput 
 			{
 				Target "popscript"

@@ -1987,7 +1987,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			SpawnTemplate "SmolBuster"
 
 			Class Demoman
-			Name "Smol Buster"
+			Name "Small Buster"
 			Skill Expert
 			Health 650
 			Scale 1.4
@@ -2054,7 +2054,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			SpawnTemplate test_mini_bot
 			SpawnTemplate Drone_Boy
 
-			Name "Drone man"
+			Name "Drone Boy"
 			Class Engineer
 
 			Health 2800
@@ -4133,14 +4133,26 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"targetname" "rockethell_disable"
 				"OnTrigger" "!activator,$AddCond,52"
 				"OnTrigger" "!activator,$ChangeAttributes,Stunned"
-				"OnTrigger" "!activator,SetAnimation,PRIMARY_stun_middle"
+				//"OnTrigger" "!activator,$PlaySequence,layer_PRIMARY_Stun_begin"
+				//"OnTrigger" "!activator,$PlaySequence,layer_PRIMARY_Stun_middle,,0.2"
 				"OnTrigger" "rockethell_pattern*,CancelPending"
 				"OnTrigger" "spellcard*,CancelPending"
+				"OnTrigger" "rockethell_stun,Trigger"
+			}
+			logic_relay
+			{
+				"targetname" "rockethell_stun"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$AddCond,71 5"
+				"OnTrigger" "!self,Trigger,,5.1"
 			}
 			logic_relay
 			{
 				"targetname" "rockethell_enable"
 				"OnTrigger" "!activator,$RemoveCond,52"
+				//"OnTrigger" "!activator,$RemoveCond,71"
+				"OnTrigger" "rockethell_stun,CancelPending"
 				"OnTrigger" "rockethell_pattern,Trigger,,0.1"
 				"OnTrigger" "spellcard,Trigger,,6.9"
 			}

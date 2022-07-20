@@ -57,8 +57,8 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			}
 			CharacterAttributes
 			{
-				"damage force reduction" 0.4
-				"airblast vulnerability multiplier" 0.4
+				"damage force reduction" 0.1
+				"airblast vulnerability multiplier" 0.1
 				"move speed bonus"	0.5
 				"override footstep sound set" 2
 			}
@@ -115,8 +115,8 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			CharacterAttributes
 			{
 				"move speed bonus"	0.5
-				"damage force reduction" 0.5
-				"airblast vulnerability multiplier" 0.5
+				"damage force reduction" 0.1
+				"airblast vulnerability multiplier" 0.1
 				"override footstep sound set" 4
 			}
 		}
@@ -175,8 +175,8 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			CharacterAttributes
 			{
 				"move speed bonus"	0.5
-				"damage force reduction" 0.1
-				"airblast vulnerability multiplier" 0.1
+				"damage force reduction" 0.001
+				"airblast vulnerability multiplier" 0.001
 				"override footstep sound set" 3
 				"airblast vertical vulnerability multiplier" 0.1
 				"blast dmg to self increased" 0
@@ -272,8 +272,8 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			CharacterAttributes
 			{
 				"move speed bonus"	0.5
-				"damage force reduction" 0.5
-				"airblast vulnerability multiplier" 0.5
+				"damage force reduction" 0.001
+				"airblast vulnerability multiplier" 0.001
 				"override footstep sound set" 4
 			}
 		}
@@ -354,8 +354,8 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"deploy time decreased" 0.1
 				"deploy time decreased" 0.1
 				"move speed bonus" 0.5
-				"damage force reduction" 0.5
-				"airblast vulnerability multiplier" 0.5
+				"damage force reduction" 0.001
+				"airblast vulnerability multiplier" 0.001
 				"rage giving scale" 0.5
 			}
 		}
@@ -440,8 +440,8 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			CharacterAttributes
 			{
 				"move speed bonus"	0.5
-				"damage force reduction" 0.1
-				"airblast vulnerability multiplier" 0.1
+				"damage force reduction" 0.001
+				"airblast vulnerability multiplier" 0.001
 				"override footstep sound set" 4
 				"blast dmg to self increased" 0
 				"force distribute currency on death" 1
@@ -733,6 +733,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			Action Mobber
 			Skill Expert
 			Attributes SuppressFire
+			UseMeleeThreatPrioritization 1
 
 			UseCustomModel "models/empty.mdl" 
 			Scale 0.3
@@ -792,6 +793,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 			Action Mobber
 			Skill Expert
+			UseMeleeThreatPrioritization 1
 
 			Health 1984
 
@@ -1145,7 +1147,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				{
 					Message 
 					{
-						Name "{blue}Bomb Fella {FFFFFF}has used their {9BBF4D}SELF HEAL {FFFFFF}Power Up Canteen!" 
+						Name "{blue}Bomb Fella {FFFFFF}has used their {9BBF4D}SELF HEAL {FFFFFF}Power Up Canteen!"
 						Delay 0
 						Repeats 1
 					}
@@ -1353,8 +1355,8 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"cancel falling damage" 1
 
 				"move speed bonus"	0.5
-				"damage force reduction" 0.1
-				"airblast vulnerability multiplier" 0.1
+				"damage force reduction" 0.001
+				"airblast vulnerability multiplier" 0.001
 			}
 
 			ItemAttributes
@@ -1501,8 +1503,8 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"cannot disguise" 1
 
 				"move speed bonus"	0.5
-				"damage force reduction" 0.1
-				"airblast vulnerability multiplier" 0.1
+				"damage force reduction" 0.001
+				"airblast vulnerability multiplier" 0.001
 			}
 
 			ItemAttributes
@@ -1611,8 +1613,8 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"cannot disguise" 1
 
 				"move speed bonus"	0.5
-				"damage force reduction" 0.1
-				"airblast vulnerability multiplier" 0.1
+				"damage force reduction" 0.001
+				"airblast vulnerability multiplier" 0.001
 			}
 
 			ItemAttributes
@@ -1710,8 +1712,8 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"cannot disguise" 1
 
 				"move speed bonus"	0.5
-				"damage force reduction" 0.4
-				"airblast vulnerability multiplier" 0.4
+				"damage force reduction" 0.001
+				"airblast vulnerability multiplier" 0.001
 			}
 
 			ItemAttributes
@@ -1753,8 +1755,8 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"cancel falling damage" 1
 
 				"move speed bonus"	0.5
-				"damage force reduction" 0.1
-				"airblast vulnerability multiplier" 0.1
+				"damage force reduction" 0.001
+				"airblast vulnerability multiplier" 0.001
 				
 				"crit mod disabled" 0
 				"force distribute currency on death" 1
@@ -2054,7 +2056,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			SpawnTemplate test_mini_bot
 			SpawnTemplate Drone_Boy
 
-			Name "Drone Boy"
+			Name "Drone Man"
 			Class Engineer
 
 			Health 2800
@@ -2095,9 +2097,9 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				Delay 0
 				Cooldown 0.1
 				Repeats 0 
-				IfSeeTarget 1 
-				Duration 0.5 
-				Type "Primary" 
+				IfSeeTarget 1
+				Duration 0.5
+				Type "Primary"
 			}
 		}
 	}

@@ -31,9 +31,9 @@
 #base robot_standard.pop
 #base robot_giant.pop
 #base robot_gatebot.pop
-#base reverse_waterlogged_robottemplates.pop
-#base reverse_waterlogged_wavelogic.pop
-#base reverse_waterlogged_custom.pop
+#base reverse_waterlogged_robottemplates_roy.pop
+#base reverse_waterlogged_wavelogic_roy.pop
+#base reverse_waterlogged_custom_roy.pop
 
 WaveSchedule
 {
@@ -2140,7 +2140,7 @@ WaveSchedule
 				Model "models/empty.mdl"
 				PingSound "misc/null.wav"
 				EngineLoopSound "misc/null.wav"
-				Gravity 0
+				// Gravity 0
 				DisableSmokestack 1
 				DisableTracks 1
 				DisableChildModels 1
@@ -2173,7 +2173,7 @@ WaveSchedule
 				Model "models/empty.mdl"
 				PingSound "misc/null.wav"
 				EngineLoopSound "misc/null.wav"
-				Gravity 0  
+				// Gravity 0  
 				DisableSmokestack 1
 				DisableTracks 1  
 				DisableChildModels 1  
@@ -2325,8 +2325,8 @@ WaveSchedule
 			TotalCount 6
 			MaxActive 2
 			SpawnCount 1
-			WaitBeforeStarting 10
-			WaitBetweenSpawns 15
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
 			Support Limited
 			DoneOutput
 			{
@@ -2754,9 +2754,9 @@ WaveSchedule
 			Where spawnbot_barrier_2
 			TotalCount 6
 			MaxActive 2
-			SpawnCount 1
-			WaitBeforeStarting 10
-			WaitBetweenSpawns 15
+			SpawnCount 2
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 10
 			Support 1
 		
 			DoneOutput
@@ -2843,7 +2843,7 @@ WaveSchedule
 		{
 			Name "w3_subwavetwo"
 			Where "spawnbot_balcony_drain"
-			Where "spawnbot_side"
+			// Where "spawnbot_side"
 			WaitForAllDead "w3_subwavetwo_hsb"
 			TotalCount 25
 			MaxActive 1
@@ -2873,12 +2873,12 @@ WaveSchedule
 		WaveSpawn 
 		{
 			Name "w3_subwavetwo_hsw"
-			Where "spawnbot_building"
+			Where "spawnbot_balcony_drain"
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
 			TotalCurrency 50
-			WaitBeforeStarting 0
+			WaitBeforeStarting 20
 			WaitBetweenSpawns 20
 			TFBot
 			{
@@ -2924,7 +2924,7 @@ WaveSchedule
 		WaveSpawn 
 		{
 			Name "w3_subwavetwo_boss"
-			Where "spawnbot_building_extra"
+			Where "spawnbot_dillweed"
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
@@ -2968,15 +2968,15 @@ WaveSchedule
 		WaveSpawn 
 		{
 			Name "areaone_done"
-			Where "spawnbot_balcony_drain"
-			Where "spawnbot_side"
+			// Where "spawnbot_balcony_drain"
+			// Where "spawnbot_side"
 			Where "spawnbot_building"
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
 			TotalCurrency 0
 			WaitBeforeStarting 0
-			WaitBetweenSpawns 5
+			WaitBetweenSpawns 0
 			Support Limited
 			RandomChoice
 			{
@@ -4721,14 +4721,16 @@ WaveSchedule
 	ExtraTankPath
 	{
 		Name "generator_one_path"
-		Node "-5020 135 127" 
-		Node "-4020 135 127"
+		Node "-5413 299 221" 
+		Node "-5413 542 221"
 	}
 	ExtraTankPath  
 	{
 		Name "generator_two_path"
-		Node "-2687 -61 63"
-		Node "-1000 -61 63"
+		// Node "-2687 -61 63"
+		// Node "-1000 -61 63"
+		Node "-3964 -1872 469"
+		Node "-4000 -1872 469"
 	}
 	ExtraTankPath  
 	{
@@ -4853,6 +4855,16 @@ WaveSchedule
 		X "-1128"
 		Y "8"
 		Z "127"
+	}
+	ExtraSpawnPoint
+	{
+		
+		Name "spawnbot_dillweed"
+		StartDisabled 1
+		TeamNum 2
+		X "-1527"
+		Y "-291"
+		Z "21"
 	}
 	ExtraSpawnPoint
 	{

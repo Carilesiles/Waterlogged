@@ -1263,6 +1263,7 @@ WaveSchedule
 				"OnTrigger" "player,$ChangeAttributes,CaptureGateTwo"
 				"OnTrigger" "changeattribute_state2,SetValueNoFire,2"
 				"OnTrigger" "spawnbot_building_extra,Disable"
+				"OnTrigger" "spawnbot_dillweed,Disable"
 				"OnTrigger" "spawnbot_side_extra,Disable"
 			}
 			logic_relay
@@ -1326,6 +1327,7 @@ WaveSchedule
 				"OnTrigger" "spawnbot_side,Disable"
 				"OnTrigger" "spawnbot_building,Disable"
 				"OnTrigger" "spawnbot_building_extra,Enable"
+				"OnTrigger" "spawnbot_dillweed,Enable"
 				"OnTrigger" "spawnbot_side_extra,Enable"
 				"OnTrigger" "spawnbot_balcony_drain_extra,Disable"
 			}
@@ -2024,7 +2026,7 @@ WaveSchedule
 			{
 				"targetname" "wave3_explanation"
 				"origin" "-9827 624 333"
-				"display_text" "Destroy the generators to draw out enemy chiefs!"
+				"display_text" "Destroy the generators to free our troops and draw out enemy chiefs!"
 				"lifetime"     "8"
 			}
 			logic_timer

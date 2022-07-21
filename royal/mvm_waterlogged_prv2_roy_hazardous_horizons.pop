@@ -201,50 +201,50 @@ WaveSchedule
 			}
 		}
 		//canteens
-		speed_can
-		{
-			Name "Speed Boost Canteen" 
+		// speed_can
+		// {
+		// 	Name "Speed Boost Canteen" 
 
-			//random attribute, preferably one that doesn't do anything nor show up on the player, basically just meant to index
-			Attribute "mvm completed challenges bitmask" 
-			Cap 5
-			Increment 1 
-			Cost 25
+		// 	//random attribute, preferably one that doesn't do anything nor show up on the player, basically just meant to index
+		// 	Attribute "mvm completed challenges bitmask" 
+		// 	Cap 5
+		// 	Increment 1 
+		// 	Cost 25
 
-			UIGroup 2
+		// 	UIGroup 2
 
-			AllowedWeapons
-			{
-				Classname "tf_powerup_bottle"
-			}
+		// 	AllowedWeapons
+		// 	{
+		// 		Classname "tf_powerup_bottle"
+		// 	}
 
-			DisallowedUpgrade {Upgrade re_can}
-			DisallowedUpgrade {Upgrade add_can}
-			DisallowedUpgrade {Upgrade ber_can}
-			DisallowedUpgrade {Upgrade cloak_can}
-			DisallowedUpgrade {Upgrade piss_can}
+		// 	DisallowedUpgrade {Upgrade re_can}
+		// 	DisallowedUpgrade {Upgrade add_can}
+		// 	DisallowedUpgrade {Upgrade ber_can}
+		// 	DisallowedUpgrade {Upgrade cloak_can}
+		// 	DisallowedUpgrade {Upgrade piss_can}
 			
-			OnUpgrade
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Gain a speed boost for 5 seconds|9,0"
+		// 	OnUpgrade
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "!activator,$AddItemAttribute,special item description|Consumable: Gain a speed boost for 5 seconds|9,0"
 
-				Output "!activator,$SetVar$canteenIndex,1,0"
-			}
+		// 		Output "!activator,$SetVar$canteenIndex,1,0"
+		// 	}
 
-			OnApply
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Gain a speed boost for 5 seconds|9,0"
-				Output "!activator,$SetVar$canteenIndex,1,0"
-			}
+		// 	OnApply
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "!activator,$AddItemAttribute,special item description|Consumable: Gain a speed boost for 5 seconds|9,0"
+		// 		Output "!activator,$SetVar$canteenIndex,1,0"
+		// 	}
 
-			OnDowngrade
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "on_canteen_empty,Trigger,,0"
-			}
-		}
+		// 	OnDowngrade
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "on_canteen_empty,Trigger,,0"
+		// 	}
+		// }
 
 		re_can
 		{
@@ -387,53 +387,53 @@ WaveSchedule
 			}
 		}
 
-		cloak_can
-		{
-			Name "Stealth Canteen" 
+		// cloak_can
+		// {
+		// 	Name "Stealth Canteen" 
 
-			Attribute "throwable particle trail only" 
-			Cap 3
-			Increment 1 
-			Cost 25
+		// 	Attribute "throwable particle trail only" 
+		// 	Cap 3
+		// 	Increment 1 
+		// 	Cost 25
 
-			Description "Cloak for up to 15 seconds, cloak is cancelled when attacking"
+		// 	Description "Cloak for up to 15 seconds, cloak is cancelled when attacking"
 
-			UIGroup 2
+		// 	UIGroup 2
 
-			AllowedWeapons
-			{
-				Classname "tf_powerup_bottle"
-			}
+		// 	AllowedWeapons
+		// 	{
+		// 		Classname "tf_powerup_bottle"
+		// 	}
 
-			DisallowedUpgrade {Upgrade re_can}
-			DisallowedUpgrade {Upgrade speed_can}
-			DisallowedUpgrade {Upgrade ber_can}
-			DisallowedUpgrade {Upgrade add_can}
-			DisallowedUpgrade {Upgrade knock_can}
-			DisallowedUpgrade {Upgrade piss_can}
+		// 	DisallowedUpgrade {Upgrade re_can}
+		// 	DisallowedUpgrade {Upgrade speed_can}
+		// 	DisallowedUpgrade {Upgrade ber_can}
+		// 	DisallowedUpgrade {Upgrade add_can}
+		// 	DisallowedUpgrade {Upgrade knock_can}
+		// 	DisallowedUpgrade {Upgrade piss_can}
 
-			OnUpgrade
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Cloak for up to 15 seconds|9,0"
+		// 	OnUpgrade
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "!activator,$AddItemAttribute,special item description|Consumable: Cloak for up to 15 seconds|9,0"
 
-				Output "!activator,$SetVar$canteenIndex,5,0"
-			}
+		// 		Output "!activator,$SetVar$canteenIndex,5,0"
+		// 	}
 
-			OnApply
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Cloak for up to 15 seconds|9,0"
+		// 	OnApply
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "!activator,$AddItemAttribute,special item description|Consumable: Cloak for up to 15 seconds|9,0"
 
-				Output "!activator,$SetVar$canteenIndex,5,0"
-			}
+		// 		Output "!activator,$SetVar$canteenIndex,5,0"
+		// 	}
 
-			OnDowngrade
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "on_canteen_empty,Trigger,,0"
-			}
-		}
+		// 	OnDowngrade
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "on_canteen_empty,Trigger,,0"
+		// 	}
+		// }
 
 		piss_can
 		{
@@ -483,53 +483,53 @@ WaveSchedule
 			}
 		}
 
-		knock_can
-		{
-			Name "Knockback Immunity Canteen" 
+		// knock_can
+		// {
+		// 	Name "Knockback Immunity Canteen" 
 
-			Attribute "elevate quality" 
-			Cap 3
-			Increment 1 
-			Cost 10
+		// 	Attribute "elevate quality" 
+		// 	Cap 3
+		// 	Increment 1 
+		// 	Cost 10
 
-			Description "Gain knockback resistance for 5 seconds"
+		// 	Description "Gain knockback resistance for 5 seconds"
 
-			UIGroup 2
+		// 	UIGroup 2
 
-			AllowedWeapons
-			{
-				Classname "tf_powerup_bottle"
-			}
+		// 	AllowedWeapons
+		// 	{
+		// 		Classname "tf_powerup_bottle"
+		// 	}
 
-			DisallowedUpgrade {Upgrade re_can}
-			DisallowedUpgrade {Upgrade speed_can}
-			DisallowedUpgrade {Upgrade ber_can}
-			DisallowedUpgrade {Upgrade add_can}
-			DisallowedUpgrade {Upgrade cloak_can}
-			DisallowedUpgrade {Upgrade piss_can}
+		// 	DisallowedUpgrade {Upgrade re_can}
+		// 	DisallowedUpgrade {Upgrade speed_can}
+		// 	DisallowedUpgrade {Upgrade ber_can}
+		// 	DisallowedUpgrade {Upgrade add_can}
+		// 	DisallowedUpgrade {Upgrade cloak_can}
+		// 	DisallowedUpgrade {Upgrade piss_can}
 
-			OnUpgrade
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Knockback resistance for 5 seconds|9,0"
+		// 	OnUpgrade
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "!activator,$AddItemAttribute,special item description|Consumable: Knockback resistance for 5 seconds|9,0"
 
-				Output "!activator,$SetVar$canteenIndex,69,0"
-			}
+		// 		Output "!activator,$SetVar$canteenIndex,69,0"
+		// 	}
 
-			OnApply
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Knockback resistance for 5 seconds|9,0"
+		// 	OnApply
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "!activator,$AddItemAttribute,special item description|Consumable: Knockback resistance for 5 seconds|9,0"
 
-				Output "!activator,$SetVar$canteenIndex,69,0"
-			}
+		// 		Output "!activator,$SetVar$canteenIndex,69,0"
+		// 	}
 
-			OnDowngrade
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "on_canteen_empty,Trigger,,0"
-			}
-		}
+		// 	OnDowngrade
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "on_canteen_empty,Trigger,,0"
+		// 	}
+		// }
 	}
 
 	SpawnTemplate DirectHit_Rework_Global

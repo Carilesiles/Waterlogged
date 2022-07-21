@@ -3548,13 +3548,14 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
-			Where spawnbot_tank
+			Name "canteen_boy"
+			Where spawnbot_canteen
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
-			TotalCurrency 250
+			TotalCurrency 200
 			DoneOutput
 			{
 				Target chief_killed_relay
@@ -3573,6 +3574,57 @@ WaveSchedule
 				}
 			}
 		}
+
+		WaveSpawn
+		{
+			Where spawnbot_breadcrumb1
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 25
+
+			Support Limited
+
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons
+				AddTemplate RedBot
+
+				CharacterAttributes
+				{
+					"no_jump" 1
+					"move speed bonus" 0.0001
+				}
+			}
+		}
+
+		WaveSpawn
+		{
+			Where spawnbot_breadcrumb2
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 25
+
+			Support Limited
+
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons
+				AddTemplate RedBot
+
+				CharacterAttributes
+				{
+					"no_jump" 1
+					"move speed bonus" 0.0001
+				}
+			}
+		}
+
 		WaveSpawn
 		{
 			Name "w4_subwaveone"
@@ -3610,10 +3662,60 @@ WaveSchedule
 				AddTemplate RedBot
 			}
 		}
+
+		WaveSpawn
+		{
+			WaitForAllSpawned "drone_bread"
+			Name "w4_receiver_bread"
+			Where "spawnbot_factory_one"
+			TotalCount 5
+			MaxActive 5
+			SpawnCount 5
+			Support limited
+			TotalCurrency 0
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TFBot
+			{
+				Class Heavyweapons
+				Name "Burst Fire Shotgun Heavy"
+				ClassIcon heavy_shotgun_red_burst
+				WeaponRestrictions SecondaryOnly
+				Attributes HoldFireUntilFullReload
+				Item "Panic Attack Shotgun"
+				ItemAttributes
+				{
+					ItemName "Panic Attack Shotgun"
+					"faster reload rate" 0.65
+					"fire rate bonus" 0.25
+					"damage bonus" 0.65
+					"clip size upgrade atomic" 4
+				}
+				AddTemplate RedBot
+			}
+		}
+
+		WaveSpawn
+		{
+			Name "drone_bread"
+			Where "spawnbot_scaffold"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			Support limited
+			TotalCurrency 25
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TFBot
+			{
+				Template T_TFBot_Droneboy
+				AddTemplate RedBot_Giant
+			}
+		}
 		WaveSpawn
 		{
 			Name "yakuza"
-			Where spawnbot_side
+			Where spawnbot_receiver
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
@@ -3645,12 +3747,13 @@ WaveSchedule
 			Where "spawnbot_side"
 			Where "spawnbot_building"
 			Where "spawnbot_balcony_drain"
+			WaitForAllDead "w4_receiver_bread"
 			TotalCount 36
 			MaxActive 4
 			SpawnCount 2
 			Support limited
 			TotalCurrency 100
-			WaitBeforeStarting 1
+			WaitBeforeStarting 0
 			WaitBetweenSpawns 6
 			TFBot
 			{
@@ -3677,12 +3780,13 @@ WaveSchedule
 			Where "spawnbot_side"
 			Where "spawnbot_building"
 			Where "spawnbot_balcony_drain"
+			WaitForAllSpawned "drone_bread"
 			TotalCount 20
 			MaxActive 2
 			SpawnCount 1
 			Support limited
-			TotalCurrency 100
-			WaitBeforeStarting 1
+			TotalCurrency 75
+			WaitBeforeStarting 6
 			WaitBetweenSpawns 14
 			TFBot
 			{
@@ -4869,6 +4973,44 @@ WaveSchedule
 	ExtraSpawnPoint
 	{
 		
+		Name "spawnbot_breadcrumb1"
+		TeamNum 2
+		X "-5934"
+		Y "812"
+		Z "312"
+	}
+
+	ExtraSpawnPoint
+	{
+		
+		Name "spawnbot_breadcrumb2"
+		TeamNum 2
+		X "-6837"
+		Y "1434"
+		Z "128"
+	}
+
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_canteen"
+		TeamNum 2
+		X "-7923"
+		Y "1003"
+		Z "128"
+	}
+
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_receiver"
+		StartDisabled 1
+		TeamNum 2
+		X "-3613"
+		Y "419"
+		Z "119"
+	}
+
+	ExtraSpawnPoint
+	{
 		Name "spawnbot_building_doppler"
 		TeamNum 2
 		X "-1128"

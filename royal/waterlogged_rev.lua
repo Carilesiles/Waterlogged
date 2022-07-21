@@ -105,7 +105,7 @@ function comfortablyNumbSpawn(_, activator)
 				if propeties.m_bChargeRelease == 0 then
 					local numbChargeToAdd = clamp(damageInfo.Damage / (NUMB_CHARGE_RATIO * 100), 0, 1)
 
-					data.Charge = data.Charge + numbChargeToAdd
+					data.Charge = math.max(data.Charge + numbChargeToAdd, 1)
 				else 
 					--deflect n heal
 					local deflectDmgInfo = {

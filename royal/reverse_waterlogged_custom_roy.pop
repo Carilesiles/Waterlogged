@@ -753,7 +753,7 @@ WaveSchedule
 				Delay 0
 			}
 
-			filter_activator_tfteam 
+			filter_activator_tfteam
 			{
 				"targetname" "filter_is_blu"
 				"Negated" "0"
@@ -780,8 +780,8 @@ WaveSchedule
 			{
 				"targetname" "stickybomb_buff"
 				"origin" "0 0 0"
-				"mins" "-200 -200 -200"
-				"maxs" "200 200 200"
+				"mins" "-256 -256 -256"
+				"maxs" "256 256 256"
 				"spawnflags" "1"
 
 				"filtername" "filter_is_blu"
@@ -795,8 +795,8 @@ WaveSchedule
 			{
 				"targetname" "stickybomb_unapply_buff" //unapply buffs on surrounding player on explosion
 				"origin" "0 0 0"
-				"mins" "-200 -200 -200"
-				"maxs" "200 200 200"
+				"mins" "-256 -256 -256"
+				"maxs" "256 256 256"
 				"spawnflags" "1"
 
 				"StartDisabled" "1"
@@ -2362,7 +2362,7 @@ WaveSchedule
 			}
 			ambient_generic
 			{
-				"targetname" "rpg_impact_sound"            
+				"targetname" "rpg_impact_sound"
 				"health"     "4"
 				"message"    "rpg_sounds/rpg_explode.wav"
 				"pitch"      "100"
@@ -2408,8 +2408,8 @@ WaveSchedule
 				//"$onKilled" "discharge_sfx,playsound,,0.1,-1"
 				//"$onKilled" "discharge_sfx,stopsound,,4.8,-1"
 				//"$onKilled" "discharge_sfx,kill,,5,-1"
-				"$onKilled" "discharge_particle,kill,,1,-1"
-				"$onKilled" "discharge_pulse,kill,,1,-1"
+				"$onKilled" "discharge_particle,kill,,1.5,-1"
+				"$onKilled" "discharge_pulse,kill,,1.5,-1"
 				"$onKilled" "discharge_damage,kill,,1.5,-1"
 			}
 			logic_timer

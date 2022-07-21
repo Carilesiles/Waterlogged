@@ -2102,7 +2102,7 @@ WaveSchedule
 		Explanation [$SIGSEGV]  //Dispayed once the wave is initialized
 		{
 			Line "{66abff}JN-10R: {reset}Well done! Glad to see that bolt thief get what he deserves."
-			Line "{66abff}JN-10R: {reset}Though, while you were busy slapping him around, another red chief has arrived and taken control of the situation."
+			Line "{66abff}JN-10R: {reset}Though while you were busy slapping him around, another red chief has arrived and taken control of the situation."
 			Line "{66abff}JN-10R: {reset}He's locked up some of our troops and set up some odd looking towers. I recommend not finding out what they do when they're fully charged."
 		}
 		SpawnTemplate wave3_logic

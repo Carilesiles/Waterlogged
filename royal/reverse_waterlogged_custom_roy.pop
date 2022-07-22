@@ -753,7 +753,7 @@ WaveSchedule
 				Delay 0
 			}
 
-			filter_activator_tfteam 
+			filter_activator_tfteam
 			{
 				"targetname" "filter_is_blu"
 				"Negated" "0"
@@ -780,8 +780,8 @@ WaveSchedule
 			{
 				"targetname" "stickybomb_buff"
 				"origin" "0 0 0"
-				"mins" "-200 -200 -200"
-				"maxs" "200 200 200"
+				"mins" "-256 -256 -256"
+				"maxs" "256 256 256"
 				"spawnflags" "1"
 
 				"filtername" "filter_is_blu"
@@ -795,8 +795,8 @@ WaveSchedule
 			{
 				"targetname" "stickybomb_unapply_buff" //unapply buffs on surrounding player on explosion
 				"origin" "0 0 0"
-				"mins" "-200 -200 -200"
-				"maxs" "200 200 200"
+				"mins" "-256 -256 -256"
+				"maxs" "256 256 256"
 				"spawnflags" "1"
 
 				"StartDisabled" "1"
@@ -1350,7 +1350,7 @@ WaveSchedule
 				Target "!activator"
 				Action "$RemoveItemAttribute"
 				Param "explosive bullets|0"
-				Delay 0.1
+				// Delay 0.1
 			}
 
 			OnParentKilledOutput 
@@ -1358,7 +1358,7 @@ WaveSchedule
 				Target "!activator"
 				Action "$RemoveItemAttribute"
 				Param "explosion particle|0"
-				Delay 0.1
+				// Delay 0.1
 			}
 
 			// dispenser_touch_trigger
@@ -1436,8 +1436,8 @@ WaveSchedule
 
 				//effect remove
 				//"OnHitMin" "heavy_dispenser_trigger,Disable,,0,-1"
-				"OnHitMin" "!activator,$RemoveItemAttribute,explosive bullets|0,0,-1"
-				"OnHitMin" "!activator,$RemoveItemAttribute,explosion particle|0,0,-1"
+				"OnHitMin" "!activator,$RemoveItemAttribute,explosive bullets|0,0.1,-1"
+				"OnHitMin" "!activator,$RemoveItemAttribute,explosion particle|0,0.1,-1"
 
 				"OnHitMin" "!activator,$ResetClientProp$m_bRageDraining,0,0,-1"
 				"OnHitMin" "!activator,$ResetClientProp$m_flRageMeter,,0.03,-1"
@@ -1447,7 +1447,7 @@ WaveSchedule
 
 				"OnGetValue" "rage_meter,$SetVar$tempRageHolder,,0,-1"
 				"OnGetValue" "!activator,$SetClientProp$m_flRageMeter,$$=rage_meter.tempRageHolder,0.01,-1"
-				"OnGetValue" "!activator,$SetProp$m_flRageMeter,-1000,0,-1" //prevent rage from being reused while active somehow
+				"OnGetValue" "!activator,$SetProp$m_flRageMeter,-100000,0,-1" //prevent rage from being reused while active somehow
 
 				"OnUser1" "!self,Subtract,1.3,0,-1" //drain per interval
 				"OnUser1" "!self,GetValue,,0.01,-1"
@@ -2362,7 +2362,7 @@ WaveSchedule
 			}
 			ambient_generic
 			{
-				"targetname" "rpg_impact_sound"            
+				"targetname" "rpg_impact_sound"
 				"health"     "4"
 				"message"    "rpg_sounds/rpg_explode.wav"
 				"pitch"      "100"
@@ -2408,8 +2408,8 @@ WaveSchedule
 				//"$onKilled" "discharge_sfx,playsound,,0.1,-1"
 				//"$onKilled" "discharge_sfx,stopsound,,4.8,-1"
 				//"$onKilled" "discharge_sfx,kill,,5,-1"
-				"$onKilled" "discharge_particle,kill,,1,-1"
-				"$onKilled" "discharge_pulse,kill,,1,-1"
+				"$onKilled" "discharge_particle,kill,,1.5,-1"
+				"$onKilled" "discharge_pulse,kill,,1.5,-1"
 				"$onKilled" "discharge_damage,kill,,1.5,-1"
 			}
 			logic_timer

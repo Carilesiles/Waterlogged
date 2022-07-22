@@ -1263,6 +1263,7 @@ WaveSchedule
 				"OnTrigger" "player,$ChangeAttributes,CaptureGateTwo"
 				"OnTrigger" "changeattribute_state2,SetValueNoFire,2"
 				"OnTrigger" "spawnbot_building_extra,Disable"
+				"OnTrigger" "spawnbot_dillweed,Disable"
 				"OnTrigger" "spawnbot_side_extra,Disable"
 			}
 			logic_relay
@@ -1326,6 +1327,7 @@ WaveSchedule
 				"OnTrigger" "spawnbot_side,Disable"
 				"OnTrigger" "spawnbot_building,Disable"
 				"OnTrigger" "spawnbot_building_extra,Enable"
+				"OnTrigger" "spawnbot_dillweed,Enable"
 				"OnTrigger" "spawnbot_side_extra,Enable"
 				"OnTrigger" "spawnbot_balcony_drain_extra,Disable"
 			}
@@ -1535,7 +1537,8 @@ WaveSchedule
 				"OnTrigger" "tower_capzone_prop,Enable"
 				"OnTrigger" "tower1_cappable_sign,Show"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_invasion:Disable::0:-1"
-				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_side:Enable::8:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_receiver:Enable::8:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_scaffold:Enable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_building:Enable::8:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_balcony_drain:Enable::8:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 barrier_gate1_relay_disable:Enable::8:-1"
@@ -1676,7 +1679,7 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "lower_heli_relay"
-				"OnTrigger" "player,$FireUser5,-15,0.1"
+				"OnTrigger" "player,$FireUser5,-20,0.1"
 			}
 			logic_relay
 			{
@@ -1762,7 +1765,9 @@ WaveSchedule
 			{
 				"targetname" "meh2"
 				"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1"
+				"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 captower_1_sign:Kill::0:-1"
 				"OnTrigger" "arena_2_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1"
+				"OnTrigger" "arena_2_tower_capzone,AddOutput,OnCapTeam2 captower_2_sign:Kill::0:-1"
 			}
 			math_counter
 			{
@@ -2022,7 +2027,7 @@ WaveSchedule
 			{
 				"targetname" "wave3_explanation"
 				"origin" "-9827 624 333"
-				"display_text" "Destroy the generators to draw out enemy chiefs!"
+				"display_text" "Destroy the generators to free our troops and draw out enemy chiefs!"
 				"lifetime"     "8"
 			}
 			logic_timer

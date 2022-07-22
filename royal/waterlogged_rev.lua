@@ -105,7 +105,7 @@ function comfortablyNumbSpawn(_, activator)
 				if propeties.m_bChargeRelease == 0 then
 					local numbChargeToAdd = clamp(damageInfo.Damage / (NUMB_CHARGE_RATIO * 100), 0, 1)
 
-					data.Charge = data.Charge + numbChargeToAdd
+					data.Charge = math.max(data.Charge + numbChargeToAdd, 1)
 				else 
 					--deflect n heal
 					local deflectDmgInfo = {
@@ -244,6 +244,8 @@ function _register(shieldEnt, level, ownerTeamnum, activator)
 				return
 			end
 
+			local visualHitPos = hitPos + Vector(0, 0, 50)
+
 			local targetHandle = target:GetHandleIndex()
 
 			local nextAllowedDamageTickOnTarget = registeredShields[handle][targetHandle] or -1
@@ -265,9 +267,9 @@ function _register(shieldEnt, level, ownerTeamnum, activator)
 				Damage = levelInfo.Damage,
 				DamageType = DMG_SHOCK,
 				DamageCustom = 0,
-				DamagePosition = hitPos,
+				DamagePosition = visualHitPos,
 				DamageForce = Vector(0, 0, 0),
-				ReportedPosition = hitPos
+				ReportedPosition = visualHitPos
 			}
 
 			local dmg = target:TakeDamage(damageInfo)

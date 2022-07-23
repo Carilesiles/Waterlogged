@@ -13,24 +13,26 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "cap_layout_standard"
-				"OnTrigger" "master_control_point,SetCapLayout,0 1"
+				"OnTrigger" "master_control_point,SetCapLayout,0 1 2 3"
+				"OnTrigger" "master_control_point,SetCapLayout,0 1,0.1"
 				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$0,1"
 				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$1,1"
 				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$2,0"
 				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$3,0"
-				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,0,0.05"
-				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,1,0.1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,0,0.1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,1,0.2"
 			}
 			logic_relay
 			{
 				"targetname" "cap_layout_singletower"
-				"OnTrigger" "master_control_point,SetCapLayout,2"
+				"OnTrigger" "master_control_point,SetCapLayout,2 3 1 0"
+				"OnTrigger" "master_control_point,SetCapLayout,2,0.1"
 				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$0,0"
 				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$1,0"
 				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$2,1"
 				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$3,0"
-				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,0,0.05"
-				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,1,0.1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,0,0.1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,1,0.2"
 			}
 			logic_relay
 			{
@@ -41,17 +43,18 @@ WaveSchedule
 				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$1,0"
 				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$2,1"
 				"OnTrigger" "tf_objective_resource,$SetProp$m_bCPIsVisible$3,1"
-				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,0,0.05"
-				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,1,0.1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,0,0.1"
+				"OnTrigger" "tf_objective_resource,$SetProp$m_bControlPointsReset,1,0.2"
 			}
 			logic_auto
 			{
-				"OnMapSpawn" "master_control_point,SetCapLayout,0 1 2 3 4"
-				"OnMapSpawn" "master_control_point,SetCapLayout,0 1,0.1"
+				"OnMapSpawn" "cap_layout_standard,Trigger"
 				"OnMapSpawn" "flagdetect_hatch,Kill"
 				"OnMapSpawn" "wave_finished_relay,AddOutput,OnTrigger music_cancel_relay:Trigger::0:-1"
 				"OnMapSpawn" "bots_win,AddOutput,OnRoundWin music_cancel_relay:Trigger::0:-1"
 				"OnMapSpawn" "red_win,AddOutput,OnRoundWin music_cancel_relay:Trigger::0:-1"
+				"OnMapSpawn" "gate1_door_trigger,AddOutput,OnCapTeam2 gate1_relay_alt:Trigger::0:-1"
+				"OnMapSpawn" "gate2_door_trigger,AddOutput,OnCapTeam2 gate2_relay_alt:Trigger::0:-1"
 			}
 			logic_relay
 			{
@@ -95,6 +98,7 @@ WaveSchedule
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger gate1_alarm_door_reset_relay:Enable::0:-1"
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger gate2_alarm_door_reset_relay:Enable::0:-1"
 			}
+
 			trigger_hurt
 			{
 				"targetname" "clearbuildings_trigger"
@@ -114,14 +118,18 @@ WaveSchedule
 			{
 				"targetname" "wave1_init_relay"
 				"OnTrigger" "general_setup_relay,Trigger"
+				"OnTrigger" "gate1_relay,Disable"
+				"OnTrigger" "gate2_relay,Disable"
+				"OnTrigger" "gate1_relay_alt,Enable"
+				"OnTrigger" "gate2_relay_alt,Enable"
 				
 				"OnTrigger" "intel,ShowTimer,80"
 				"OnTrigger" "intel,SetReturnTime,80"
 				"OnTrigger" "intel,AddOutput,OnReturn wave1_bombloss_relay:Trigger::0:-1"
 				"OnTrigger" "capturezone_blue,Disable"
 
-				"OnTrigger" "gate1_relay,AddOutput,OnTrigger general_gate1_relay:Trigger::0:-1"
-				"OnTrigger" "gate2_relay,AddOutput,OnTrigger general_gate2_relay:Trigger::0:-1"
+				"OnTrigger" "gate1_relay,AddOutput,OnTrigger standard_gate1_relay:Trigger::0:-1"
+				"OnTrigger" "gate2_relay,AddOutput,OnTrigger standard_gate2_relay:Trigger::0:-1"
 
 				"OnTrigger" "wave1_explanation_refire,Enable"
 				"OnTrigger" "wave1_explanation,Show"
@@ -142,6 +150,10 @@ WaveSchedule
 			{
 				"targetname" "wave3_init_relay"
 				"OnTrigger" "general_setup_relay,Trigger"
+				"OnTrigger" "gate1_relay,Disable"
+				"OnTrigger" "gate2_relay,Disable"
+				"OnTrigger" "gate1_relay_alt,Enable"
+				"OnTrigger" "gate2_relay_alt,Enable"
 				"OnTrigger" "intel,Disable"
 				"OnTrigger" "intel,ForceResetSilent"
 				"OnTrigger" "intel,SetParent,compass_train,0.1"
@@ -166,8 +178,8 @@ WaveSchedule
 				"OnTrigger" "towers_alt_activation_relay,AddOutput,OnTrigger towers_alt_deactivation_relay:Disable::180:-1"
 				"OnTrigger" "towers_alt_activation_relay,AddOutput,OnTrigger capturezone_blue:Disable::180:-1"
 				"OnTrigger" "capturezone_blue,AddOutput,OnTrigger towers_alt_deactivation_relay:Trigger::0:-1"
-				"OnTrigger" "gate1_relay,AddOutput,OnTrigger general_gate1_relay:Trigger::0:-1"
-				"OnTrigger" "gate2_relay,AddOutput,OnTrigger general_gate2_relay:Trigger::0:-1"
+				"OnTrigger" "gate1_relay,AddOutput,OnTrigger standard_gate1_relay:Trigger::0:-1"
+				"OnTrigger" "gate2_relay,AddOutput,OnTrigger standard_gate2_relay:Trigger::0:-1"
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger gate1_alarm_door_reset_relay:Enable::0:-1"
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger gate2_alarm_door_reset_relay:Enable::0:-1"
 				"OnTrigger" "gate1_door_trigger,$SetKey$area_time_to_cap,1"
@@ -176,6 +188,8 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "wave4_init_relay"
+				"OnTrigger" "gate2_relay,Enable"
+				"OnTrigger" "gate2_relay_alt,Disable"
 				"OnTrigger" "general_setup_relay,Trigger"
 				"OnTrigger" "teleport_spawn_gate1,Enable,,0.5"
 				"OnTrigger" "barrier_factory_relay_disable,Trigger,,0.1"
@@ -202,7 +216,7 @@ WaveSchedule
 			}
 			logic_relay
 			{
-				"targetname" "general_gate1_relay"
+				"targetname" "standard_gate1_relay"
 				"OnTrigger" "spawnbot_scaffold,Disable"
 				"OnTrigger" "spawnbot_balcony,Disable"
 				"OnTrigger" "bot_stun_reprogram,Enable"
@@ -223,7 +237,7 @@ WaveSchedule
 			}
 			logic_relay
 			{
-				"targetname" "general_gate2_relay"
+				"targetname" "standard_gate2_relay"
 				"OnTrigger" "spawnbot_balcony_drain,Disable"
 				"OnTrigger" "bot_stun_reprogram,Enable"
 				"OnTrigger" "bot_stun_reprogram,Disable,,0.1"
@@ -240,6 +254,116 @@ WaveSchedule
 
 				"OnTrigger" "spawnbot_hatch,Enable,,21"
 				"OnTrigger" "spawnbot_garage,Enable,,21"
+
+				"OnTrigger" "wave1_gate2_relay,Trigger"
+				"OnTrigger" "wave3_gate2_relay,Trigger"
+			}
+			
+			logic_relay
+			{
+				"targetname" "gate1_relay_alt"
+				"StartDisabled" "1"
+				
+				"OnTrigger" "gate1_spawn_door,Open,,0,-1"
+				"OnTrigger" "pop_interface,PauseBotSpawning,,0,-1"
+				"OnTrigger" "pop_interface,UnpauseBotSpawning,,10,-1"
+				"OnTrigger" "gate1_alarm_timer,Disable,,1,-1"
+				"OnTrigger" "gate_pathing,Disable,,0,-1"
+				"OnTrigger" "vo_security_alert,PlaySound,,0,-1"
+				"OnTrigger" "gate1_bot_blocker,Disable,,0,-1"
+				"OnTrigger" "gate1_door_alarm,Disable,,0,-1"
+				"OnTrigger" "spawnbot_mission_sentrybuster,Disable,,10,-1"
+				"OnTrigger" "spawnbot_mission_spy,Disable,,0,-1"
+				"OnTrigger" "gate1_spawn_door,Open,,1,-1"
+				"OnTrigger" "spawnbot_mission_sniper,Disable,,1,-1"
+				"OnTrigger" "sentry_nest_main_disable,Trigger,,0,-1"
+				"OnTrigger" "sentry_nest_middle,Trigger,,0,-1"
+				"OnTrigger" "nav_refresh,RecomputeBlockers,,12,-1"
+				"OnTrigger" "nav_refresh,RecomputeBlockers,,11,-1"
+				"OnTrigger" "gate_pathing2,Disable,,0,-1"
+				"OnTrigger" "steam_whistle,Trigger,,10,-1"
+				"OnTrigger" "gate_pathing_capture,Disable,,0,-1"
+				"OnTrigger" "robot_radio_waves_beep,PlaySound,,0,-1"
+				"OnTrigger" "robot_radio_waves_beep,StopSound,,10,-1"
+				"OnTrigger" "robot_bootup_beeps,PlaySound,,8,-1"
+				"OnTrigger" "robot_bootup_beeps2,PlaySound,,8.5,-1"
+				"OnTrigger" "gate_prereq_move_giant,Enable,,0,-1"
+				"OnTrigger" "gate_prereq_move_giant,Disable,,10,-1"
+				"OnTrigger" "gate_giant_wait,Enable,,0,-1"
+				"OnTrigger" "gate_giant_wait,Disable,,10,-1"
+				"OnTrigger" "gate2_enable,Trigger,,10,-1"
+				"OnTrigger" "nav_refresh,RecomputeBlockers,,1,-1"
+				"OnTrigger" "teleport_spawn_gate1,Enable,,0,-1"
+				
+				
+				"OnTrigger" "spawnbot_scaffold,Disable"
+				"OnTrigger" "spawnbot_balcony,Disable"
+				"OnTrigger" "bot_stun_reprogram_alt,Enable"
+				"OnTrigger" "bot_stun_reprogram_alt,Disable,,0.1"
+				
+				"OnTrigger" "gate1_alarm_door_reset_relay,Disable"
+
+				"OnTrigger" "player,$AddCond,32"
+				"OnTrigger" "player,$RemoveCond,32,10"
+				"OnTrigger" "gate1sign_refire,Disable"
+				"OnTrigger" "gate1sign_refire,Disable,,1"
+				"OnTrigger" "gate1_upgrade_sign_alt,Show"
+				"OnTrigger" "gate2_door_trigger,Disable,,12"
+				"OnTrigger" "barrier_gate1_disable_relay,Trigger,,10"
+
+				"OnTrigger" "wave1_gate1_relay,Trigger"
+				"OnTrigger" "wave3_gate1_relay,Trigger"
+			}
+
+			logic_relay
+			{
+				"targetname" "gate2_relay_alt"
+				"StartDisabled" "1"
+
+				"OnTrigger" "gate1_spawn_door,Close,,10,-1"
+				"OnTrigger" "pop_interface,PauseBotSpawning,,0,-1"
+				"OnTrigger" "pop_interface,UnpauseBotSpawning,,10,-1"
+				"OnTrigger" "gate2_alarm_timer,Disable,,1,-1"
+				"OnTrigger" "vo_security_alert,PlaySound,,0,-1"
+				"OnTrigger" "gate2_bot_blocker,Disable,,10,-1"
+				"OnTrigger" "gate2_door_trigger,Disable,,0,-1"
+				"OnTrigger" "gate2_spawn_door,Open,,1,-1"
+				"OnTrigger" "sentry_nest_middle_disable,Trigger,,0,-1"
+				"OnTrigger" "sentry_nest_forward,Trigger,,0,-1"
+				"OnTrigger" "gate2_door_alarm,Disable,,0,-1"
+				"OnTrigger" "nav_refresh,RecomputeBlockers,,11,-1"
+				"OnTrigger" "nav_refresh,RecomputeBlockers,,12,-1"
+				"OnTrigger" "steam_whistle,Trigger,,10,-1"
+				"OnTrigger" "robot_radio_waves_beep2,StopSound,,10,-1"
+				"OnTrigger" "robot_radio_waves_beep2,PlaySound,,0,-1"
+				"OnTrigger" "robot_bootup_beeps2,PlaySound,,8.5,-1"
+				"OnTrigger" "robot_bootup_beeps,PlaySound,,8,-1"
+				"OnTrigger" "gate_prereq_move_giant2,Enable,,0,-1"
+				"OnTrigger" "gate_prereq_move_giant2,Disable,,10,-1"
+				"OnTrigger" "nav_refresh,RecomputeBlockers,,15,-1"
+				"OnTrigger" "gate1_alarm_blue_off,Trigger,,0,-1"
+				"OnTrigger" "gate2_relay_spawnbot_enable,Trigger,,0,-1"
+				"OnTrigger" "gate2_vent_door,Open,,0,-1"
+				"OnTrigger" "teleport_gate1,Enable,,0,-1"
+				"OnTrigger" "teleport_spawn_gate2,Enable,,0,-1"
+				"OnTrigger" "teleport_spawn_gate1,Disable,,0,-1"
+				
+
+				"OnTrigger" "spawnbot_balcony_drain,Disable"
+				"OnTrigger" "bot_stun_reprogram_alt,Enable"
+				"OnTrigger" "bot_stun_reprogram_alt,Disable,,0.1"
+				
+				"OnTrigger" "gate2_alarm_door_reset_relay,Disable"
+				
+				"OnTrigger" "player,$AddCond,32"
+				"OnTrigger" "player,$RemoveCond,32,10"
+				"OnTrigger" "gate2sign_refire,Disable"
+				"OnTrigger" "gate2sign_refire,Disable,,1"
+				"OnTrigger" "gate2_upgrade_sign_alt,Show"
+				"OnTrigger" "barrier_gate2_disable_relay,Trigger,,10"
+
+				"OnTrigger" "spawnbot_hatch,Enable,,9"
+				"OnTrigger" "spawnbot_garage,Enable,,9"
 
 				"OnTrigger" "wave1_gate2_relay,Trigger"
 				"OnTrigger" "wave3_gate2_relay,Trigger"
@@ -347,6 +471,18 @@ WaveSchedule
 				"tags" "bomb_fella"
 				"negated" "1"
 				"targetname" "filter_fella_negated"
+			}
+			trigger_add_tf_player_condition
+			{
+				"targetname" "bot_stun_reprogram_alt"
+				"condition" "71"
+				"duration" "10"
+				"filtername" "filter_bot_small_red"
+				"origin" "-4878 1552 952"
+				"mins" "-7150 -4880 -2376"
+				"maxs" "7150 4880 2376"
+				"spawnflags" "3"
+				"startdisabled" "1"
 			}
 			trigger_add_tf_player_condition
 			{
@@ -495,8 +631,8 @@ WaveSchedule
 			{
 				"targetname" "end_facade_relay"
 				"OnTrigger" "wave1_loss_relay,Disable"
-				"OnTrigger" "bot_stun_reprogram_alt,Enable"
-				"OnTrigger" "bot_stun_reprogram_alt,Disable,,0.1"
+				"OnTrigger" "bot_stun_reprogram_short,Enable"
+				"OnTrigger" "bot_stun_reprogram_short,Disable,,0.1"
 				"OnTrigger" "hatchshield,Enable,,8.2"
 				"OnTrigger" "hatchshield_collision,Enable,,8.2"
 				"OnTrigger" "hatchshield_collision_stuckfix,Enable,,8.2"
@@ -567,15 +703,15 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "wave1_gate1_relay"
-				"OnTrigger" "spawnbot_balcony_extra,Enable,22"
-				"OnTrigger" "spawnbot_balcony_drain_extra,Enable,,27"
+				"OnTrigger" "spawnbot_balcony_extra,Enable,10"
+				"OnTrigger" "spawnbot_balcony_drain_extra,Enable,,15"
 				"OnTrigger" "killtrigger_scaffold,Enable"
 				"OnTrigger" "player,$ChangeAttributes,GateOne_Capped"
 			}
 			logic_relay
 			{
 				"targetname" "wave1_gate2_relay"
-				"OnTrigger" "barrier_gate2_relay_disable,Trigger,,22"
+				"OnTrigger" "barrier_gate2_relay_disable,Trigger,,10"
 				"OnTrigger" "player,$ChangeAttributes,GateTwo_Capped,1"
 				"OnTrigger" "gate2_done_relay,Trigger"
 				"OnTrigger" "gate2_upgrade_sign2,Show,,2"
@@ -669,7 +805,7 @@ WaveSchedule
 			}
 			trigger_add_tf_player_condition
 			{
-				"targetname" "bot_stun_reprogram_alt"
+				"targetname" "bot_stun_reprogram_short"
 				"condition" "71"
 				"duration" "5.5"
 				"filtername" "filter_bot_small_red"
@@ -1205,35 +1341,35 @@ WaveSchedule
 				"targetname" "wave3_gate1_relay"
 				"OnTrigger" "spawnbot_balcony_extra,Disable"
 				"OnTrigger" "spawnbot_scaffold_extra,Disable"
-				"OnTrigger" "spawnbot_balcony_drain,Enable,,22"
-				"OnTrigger" "spawnbot_building,Enable,,22"
-				"OnTrigger" "spawnbot_barrier_2,Enable,,22"
-				"OnTrigger" "spawnbot_extra,Enable,,22"
-				"OnTrigger" "spawnbot_extra,Disable,,23"
+				"OnTrigger" "spawnbot_balcony_drain,Enable,,10"
+				"OnTrigger" "spawnbot_building,Enable,,10"
+				"OnTrigger" "spawnbot_barrier_2,Enable,,10"
+				"OnTrigger" "spawnbot_extra,Enable,,10"
+				"OnTrigger" "spawnbot_extra,Disable,,11"
 
 				"OnTrigger" "towers_alt_deactivation_relay,Trigger"
-				"OnTrigger" "towers_alt_phase,SetValue,2,22"
-				"OnTrigger" "generator_prop_two,Kill,,22"
-				"OnTrigger" "generator_prop_three,Kill,,22"
+				"OnTrigger" "towers_alt_phase,SetValue,2,10"
+				"OnTrigger" "generator_prop_two,Kill,,10"
+				"OnTrigger" "generator_prop_three,Kill,,10"
 
-				"OnTrigger" "barrier_gate1_right,Disable,,22"
+				"OnTrigger" "barrier_gate1_right,Disable,,10"
 				"OnTrigger" "player,$ChangeAttributes,BarrierDown"
 				"OnTrigger" "changeattribute_state,SetValueNoFire,1"
 			}
 			logic_relay
 			{
 				"targetname" "wave3_gate2_relay"
-				"OnTrigger" "spawnbot_extra,Enable,,22"
-				"OnTrigger" "spawnbot_extra,Disable,,23"
+				"OnTrigger" "spawnbot_extra,Enable,,10"
+				"OnTrigger" "spawnbot_extra,Disable,,11"
 
-				"OnTrigger" "generator_prop_four,Kill,,22"
-				"OnTrigger" "generator_prop_five,Kill,,22"
-				"OnTrigger" "generator_prop_six,Kill,,22"
+				"OnTrigger" "generator_prop_four,Kill,,10"
+				"OnTrigger" "generator_prop_five,Kill,,10"
+				"OnTrigger" "generator_prop_six,Kill,,10"
 
 				"OnTrigger" "towers_alt_deactivation_relay,Trigger"
-				"OnTrigger" "towers_alt_phase,SetValue,3,22"
+				"OnTrigger" "towers_alt_phase,SetValue,3,10"
 
-				"OnTrigger" "barrier_gate2_relay_disable,Trigger,22"
+				"OnTrigger" "barrier_gate2_relay_disable,Trigger,10"
 				"OnTrigger" "player,$ChangeAttributes,BarrierDown2"
 				"OnTrigger" "changeattribute_state2,SetValueNoFire,1"
 			}
@@ -1539,6 +1675,7 @@ WaveSchedule
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_invasion:Disable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_receiver:Enable::8:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_scaffold:Enable::0:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_side:Enable::8:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_building:Enable::8:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_balcony_drain:Enable::8:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 barrier_gate1_relay_disable:Enable::8:-1"
@@ -1557,7 +1694,7 @@ WaveSchedule
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_building:Disable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_side:Disable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 gate2_relay:Trigger::0:-1"
-				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 general_gate2_relay:Trigger::0:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 standard_gate2_relay:Trigger::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_cancel_relay:Trigger::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_intro_case:InValue:3:4.77:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_hatchshield:Enable::22:-1"
@@ -2095,10 +2232,24 @@ WaveSchedule
 			}
 			training_annotation
 			{
+				"targetname" "gate1_upgrade_sign_alt"
+				"origin" "-6418.7 2833.5 516.4"
+				"display_text" "Come one come all! Get your upgrades here!"
+				"lifetime"     "10"
+			}
+			training_annotation
+			{
+				"targetname" "gate2_upgrade_sign_alt"
+				"origin" "-4982.9 -2107.0 1184.9"
+				"display_text" "Hey fellas I'm back, come get your upgrades!"
+				"lifetime"     "10"
+			}
+			training_annotation
+			{
 				"targetname" "gate2_upgrade_sign2"
 				"origin" " -4071.288574 -1997.408813 505.022308"
 				"display_text" "You can get to the shop through this nifty little vent here."
-				"lifetime"     "18"
+				"lifetime"     "8"
 			}
 		}
 		speedtriggers

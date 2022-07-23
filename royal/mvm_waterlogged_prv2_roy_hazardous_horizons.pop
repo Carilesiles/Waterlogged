@@ -114,9 +114,6 @@ WaveSchedule
 	PrecacheModel "models/mvm/barrier/barrier_oneway_red1.mdl"
 	PrecacheModel "models/mvm/barrier/barrier_oneway_red2.mdl"
 
-	LuaScript"function vitasawOnHit(_, activat, calle) local teamCheckInstance = ents.FindByName('vitasaw_team_check'); teamCheckInstance:AcceptInput('TestActivator',_,calle,activat); activat:SetName('vitasaw_caller');
-	end"
-
 	LuaScriptFile "scripts/freelance_mercenary_logic.lua"
 	LuaScriptFile "scripts/waterlogged_rev.lua"
 
@@ -1647,6 +1644,7 @@ WaveSchedule
 			Where spawnbot
 			TotalCount 0
 			WaitBeforeStarting 9999
+
 			RandomChoice
 			{
 				RandomChoice
@@ -2903,6 +2901,8 @@ WaveSchedule
 			TotalCurrency 25
 			WaitBeforeStarting 10
 			WaitBetweenSpawns 35
+
+			Support limited
 			RandomChoice
 			{
 				RandomChoice
@@ -2936,6 +2936,8 @@ WaveSchedule
 				Target chief_killed_relay
 				Action Trigger
 			}
+
+			Support limited
 			RandomChoice
 			{
 				RandomChoice
@@ -2957,6 +2959,7 @@ WaveSchedule
 			SpawnCount	1
 			TotalCurrency 0
 			WaitBeforeStarting	1
+
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "FakeIcon"
@@ -3112,6 +3115,8 @@ WaveSchedule
 			TotalCurrency 50
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 15
+
+			Support limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3132,6 +3137,7 @@ WaveSchedule
 			WaitForAllSpawned "w3_subwavetwo_boss"
 			TotalCount	2
 			SpawnCount	2
+
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "FakeIcon"
@@ -3150,6 +3156,7 @@ WaveSchedule
 			TotalCurrency 50
 			WaitBeforeStarting 4
 			WaitBetweenSpawns 15
+			Support limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3180,6 +3187,7 @@ WaveSchedule
 			WaitForAllSpawned "w3_subwavetwo_boss"
 			TotalCount	2
 			SpawnCount	2
+
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "FakeIcon"
@@ -3216,6 +3224,8 @@ WaveSchedule
 			TotalCurrency 50
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 15
+
+			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3236,6 +3246,7 @@ WaveSchedule
 			WaitForAllSpawned "w3_subwavetwo_boss"
 			TotalCount	2
 			SpawnCount	2
+
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "FakeIcon"
@@ -3254,6 +3265,8 @@ WaveSchedule
 			TotalCurrency 50
 			WaitBeforeStarting 5
 			WaitBetweenSpawns 15
+
+			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3284,6 +3297,7 @@ WaveSchedule
 			WaitForAllSpawned "w3_subwavetwo_boss"
 			TotalCount	2
 			SpawnCount	2
+
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "FakeIcon"
@@ -3341,6 +3355,8 @@ WaveSchedule
 			TotalCurrency 20
 			WaitBeforeStarting 14
 			WaitBetweenSpawns 3
+
+			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3366,6 +3382,8 @@ WaveSchedule
 			TotalCurrency 20
 			WaitBeforeStarting 10
 			WaitBetweenSpawns 3
+
+			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3390,6 +3408,8 @@ WaveSchedule
 			TotalCurrency 20
 			WaitBeforeStarting 10
 			WaitBetweenSpawns 3
+
+			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3556,6 +3576,8 @@ WaveSchedule
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
 			TotalCurrency 200
+
+			Support Limited
 			DoneOutput
 			{
 				Target chief_killed_relay
@@ -3722,6 +3744,8 @@ WaveSchedule
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
 			TotalCurrency 250
+
+			Support Limited
 			DoneOutput
 			{
 				Target chief2_killed_relay
@@ -3804,6 +3828,8 @@ WaveSchedule
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
 			TotalCurrency 100
+
+			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3841,6 +3867,8 @@ WaveSchedule
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
 			TotalCurrency 100
+
+			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3962,6 +3990,8 @@ WaveSchedule
 			Where spawnbot
 			TotalCount 0
 			WaitBeforeStarting 9999
+
+			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -4101,6 +4131,8 @@ WaveSchedule
 			SpawnCount	1
 			TotalCurrency 0
 			WaitBeforeStarting	0
+
+			Support Limited
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "PlaceHolder_Start"
@@ -4286,6 +4318,8 @@ WaveSchedule
 			SpawnCount	1
 			TotalCurrency 0
 			WaitBeforeStarting	3
+
+			Support Limited
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "PlaceHolder_End"
@@ -4310,6 +4344,8 @@ WaveSchedule
 			SpawnCount	1
 			TotalCurrency 0
 			WaitBeforeStarting	0
+
+			Support Limited
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "PlaceHolder_Start"
@@ -4660,6 +4696,8 @@ WaveSchedule
 			SpawnCount	1
 			TotalCurrency 0
 			WaitBeforeStarting	0
+
+			Support Limited
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "PlaceHolder_Start"
@@ -4746,6 +4784,8 @@ WaveSchedule
 			SpawnCount	1
 			TotalCurrency 0
 			WaitBeforeStarting	3
+			
+			Support Limited
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "PlaceHolder_End"
@@ -4775,6 +4815,7 @@ WaveSchedule
 			SpawnCount	1
 			TotalCurrency 0
 			WaitBeforeStarting	0
+			Support Limited
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "PlaceHolder_Start"
@@ -4952,7 +4993,6 @@ WaveSchedule
 	}
 	ExtraSpawnPoint
 	{
-		
 		Name "spawnbot_building_extra"
 		StartDisabled 1
 		TeamNum 2
@@ -4962,17 +5002,15 @@ WaveSchedule
 	}
 	ExtraSpawnPoint
 	{
-		
 		Name "spawnbot_dillweed"
 		StartDisabled 1
 		TeamNum 2
-		X "-1527"
-		Y "-291"
-		Z "21"
+		X "-1665"
+		Y "-258"
+		Z "337"
 	}
 	ExtraSpawnPoint
-	{
-		
+	{	
 		Name "spawnbot_breadcrumb1"
 		TeamNum 2
 		X "-5934"
@@ -4982,7 +5020,6 @@ WaveSchedule
 
 	ExtraSpawnPoint
 	{
-		
 		Name "spawnbot_breadcrumb2"
 		TeamNum 2
 		X "-6837"

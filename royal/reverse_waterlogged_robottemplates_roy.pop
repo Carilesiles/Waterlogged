@@ -1067,7 +1067,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 					{
 						Name "TF_COND_MVM_BOT_STUN_RADIOWAVE"
 						Delay 0
-						Duration 22
+						Duration 10
 					}
 					FireInput [$SIGSEGV] 
 					{
@@ -1079,7 +1079,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 					}
 					ChangeAttributes [$SIGSEGV]  //Periodically changes bot attributes, defined in EventChangeAttributes
 					{
-						Delay 22 //Time before the first bot attribute change (Default: 10)
+						Delay 10 //Time before the first bot attribute change (Default: 10)
 						Cooldown 1 //Time between each bot attribute change (Default: 10)
 						Repeats 1 //How many times should bot change attributes in total (Default: 0 - Infinite)
 						Name "SubwaveTwo" // Name of the bot attributes listed in EventChangeAttributes
@@ -1155,7 +1155,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 					{
 						Name "TF_COND_MVM_BOT_STUN_RADIOWAVE"
 						Delay 0
-						Duration 21
+						Duration 9
 					}
 					FireInput [$SIGSEGV] 
 					{
@@ -1167,7 +1167,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 					}
 					ChangeAttributes [$SIGSEGV]  //Periodically changes bot attributes, defined in EventChangeAttributes
 					{
-						Delay 22 //Time before the first bot attribute change (Default: 10)
+						Delay 10 //Time before the first bot attribute change (Default: 10)
 						Cooldown 1 //Time between each bot attribute change (Default: 10)
 						Repeats 1 //How many times should bot change attributes in total (Default: 0 - Infinite)
 						Name "SubwaveThree" // Name of the bot attributes listed in EventChangeAttributes

@@ -4180,6 +4180,12 @@ WaveSchedule
 			TotalCurrency 0
 			WaitForAllDead "midphase_one_start"
 
+			DoneOutput
+			{
+				Target midphase_one_heli_died
+				Action Trigger
+			}
+
 			Tank
 			{
 				SpawnTemplate "Helicopter_Tank_Init"
@@ -4801,7 +4807,7 @@ WaveSchedule
 			WaitForAllDead "main_midphase_three"
 			DoneOutput
 			{
-				Target "captower_sign_relay"
+				Target "shapeshifts_death"
 				Action Trigger
 			}
 		}

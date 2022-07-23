@@ -1604,11 +1604,12 @@ WaveSchedule
 				"OnTrigger" "!activator,$SetVar$playerIsBuster,1"
 
 				"OnTrigger" "!activator,$AddCond,41,0,-1"
+				"OnTrigger" "!activator,$AddCond,32,0,-1"
 				"OnTrigger" "!activator,$AddCond,85,0,-1"
 				"OnTrigger" "!activator,$RemoveCond,85,0.01,-1"
 				"OnTrigger" "caber_taunt_checker,Trigger,,0.1,-1"
 
-				"OnTrigger" "!activator,AddOutput,modelscale 1.75,0.11,-1"
+				"OnTrigger" "!activator,AddOutput,modelscale 1.25,0.11,-1"
 				//"OnTrigger" "!activator,SetCustomModel,models/bots/demo/bot_sentry_buster.mdl,0.2,-1"
 				//"OnTrigger" "@f@filter_is_robot_wearable@tf_wearable,$HideToAll,,0.11,-1"
 				"OnTrigger" "@c@!activator,$HideToAll,,0.11,-1"

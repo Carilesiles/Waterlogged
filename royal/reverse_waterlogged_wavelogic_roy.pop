@@ -1605,7 +1605,7 @@ WaveSchedule
 				"targetname" "go_win_sign"
 				"origin" "-1190 2126 284"
 				"display_text" "Jump through!"
-				"lifetime"     "10"
+				"lifetime"     "5"
 			}
 			logic_relay
 			{

@@ -3991,7 +3991,6 @@ WaveSchedule
 			TotalCount 0
 			WaitBeforeStarting 9999
 
-			Support Limited
 			RandomChoice
 			{
 				RandomChoice

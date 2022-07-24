@@ -100,12 +100,17 @@ function comfortablyNumbSpawn(_, activator)
 		ID = activator:AddCallback(
 			4,
 			function(_, damageInfo)
+				if damageInfo.Attacker.m_iTeamNum == activator.m_iTeamNum then
+					return
+				end
+
 				local propeties = medigun:DumpProperties()
 
 				if propeties.m_bChargeRelease == 0 then
 					local numbChargeToAdd = clamp(damageInfo.Damage / (NUMB_CHARGE_RATIO * 100), 0, 1)
 
-					data.Charge = math.max(data.Charge + numbChargeToAdd, 1)
+					data.Charge = clamp(propeties.m_flChargeLevel + numbChargeToAdd, 0, 1)
+					medigun:AcceptInput("$SetProp$m_flChargeLevel", data.Charge)
 				else 
 					--deflect n heal
 					local deflectDmgInfo = {
@@ -131,14 +136,13 @@ function comfortablyNumbSpawn(_, activator)
 		timer.Create(
 		0.05,
 		function()
-			-- medigun:AcceptInput("$SetProp$m_flChargeLevel", data.Charge)
 			local propeties = medigun:DumpProperties()
 
 			if propeties.m_bChargeRelease == 0 then
-				activator:AcceptInput("$SetVar$numbCharge", math.floor(data.Charge * 100))
-				applier:FireUser5(_, activator)
+				-- activator:AcceptInput("$SetVar$numbCharge", math.floor(data.Charge * 100))
+				-- applier:FireUser5(_, activator)
 			else
-				--ubercharging 
+				--ubercharging effects
 				data.Charge = propeties.m_flChargeLevel
 				activator:AddCond(20, 0.1)
 				activator:AddCond(36, 0.1)
@@ -149,12 +153,12 @@ function comfortablyNumbSpawn(_, activator)
 end
 
 --for debugging
-function forceSetNumbCharge(charge, activator)
-	print(charge)
-	local handle = activator:GetHandleIndex()
+-- function forceSetNumbCharge(charge, activator)
+-- 	print(charge)
+-- 	local handle = activator:GetHandleIndex()
 
-	comfortablyNumbUsers[handle].Charge = charge
-end
+-- 	comfortablyNumbUsers[handle].Charge = charge
+-- end
 
 function comfortablyNumbUnspawn(_, activator)
 	local handle = activator:GetHandleIndex()

@@ -1475,7 +1475,18 @@ WaveSchedule
 				Param "!activator"
 				Delay 0
 			}
-
+			OnSpawnOutput 
+			{
+				Target "!activator"
+				Action "$AddPlayerAttribute"
+				Param "mod weapon blocks healing|1"
+			}
+			OnParentKilledOutput 
+			{
+				Target "!activator"
+				Action "$RemovePlayerAttribute"
+				Param "mod weapon blocks healing"
+			}
 			// OnSpawnOutput
 			// {
 			// 	Target "!activator"
@@ -1664,6 +1675,7 @@ WaveSchedule
 				"OnPass" "!activator,$Regenerate,,0,-1"
 				"OnPass" "!activator,AddOutput,BaseVelocity 0 0 1000,0,-1"
 				"OnPass" "!activator,$RemovePlayerAttribute,move speed penalty,0,-1"
+				"OnPass" "!activator,$RemovePlayerAttribute,mod weapon blocks healing,0,-1"
 				"OnPass" "!activator,$RemovePlayerAttribute,no resupply,0,-1"
 				"OnPass" "!activator,$RemoveItemAttribute,damage force reduction|2,0,-1"
 				"OnPass" "!activator,$RemoveItemAttribute,always allow taunt|2,0,-1"

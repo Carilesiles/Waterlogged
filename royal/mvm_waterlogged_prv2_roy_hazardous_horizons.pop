@@ -3533,6 +3533,15 @@ WaveSchedule
 				AddTemplate RedBot_Giant
 			}
 		}
+
+		WaveSpawn
+		{
+			Where spawnbot
+			TotalCount 0
+			WaitBeforeStarting 9999
+
+			TFBot { Class Scout ClassIcon hellmet_blank }
+		}
 		//WaveSpawn
 		//{
 		//	WaitForAllDead "w3_subwavetwo_boss"

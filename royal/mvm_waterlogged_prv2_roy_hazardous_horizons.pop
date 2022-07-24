@@ -543,6 +543,7 @@ WaveSchedule
 
 			//"clip size penalty" 0.1
 			"can headshot" 1
+			"crit kill will gib" 1
 			"fire rate bonus" 1
 			"scattergun has knockback" 0
 			"is australium item" 1

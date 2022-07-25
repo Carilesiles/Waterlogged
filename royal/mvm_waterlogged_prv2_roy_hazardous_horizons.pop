@@ -2851,10 +2851,10 @@ WaveSchedule
 			TotalCurrency 25
 			WaitBeforeStarting 10
 			WaitBetweenSpawns 35
-			RandomChoice
-			{
-				RandomChoice
-				{
+			// RandomChoice
+			// {
+			// 	RandomChoice
+			// 	{
 					TFBot
 					{
 						Template T_TFBot_Giant_Heavyweapons_Shotgun
@@ -2866,8 +2866,8 @@ WaveSchedule
 						}
 						AddTemplate RedBot_Giant
 					}
-				}
-			}
+			// 	}
+			// }
 		}
 		WaveSpawn 
 		{

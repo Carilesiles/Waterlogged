@@ -1399,6 +1399,7 @@ WaveSchedule
 				"OnTrigger" "player,$ChangeAttributes,CaptureGateTwo"
 				"OnTrigger" "changeattribute_state2,SetValueNoFire,2"
 				"OnTrigger" "spawnbot_building_extra,Disable"
+				"OnTrigger" "spawnbot_dillweed,Disable"
 				"OnTrigger" "spawnbot_side_extra,Disable"
 			}
 			logic_relay
@@ -1462,6 +1463,7 @@ WaveSchedule
 				"OnTrigger" "spawnbot_side,Disable"
 				"OnTrigger" "spawnbot_building,Disable"
 				"OnTrigger" "spawnbot_building_extra,Enable"
+				"OnTrigger" "spawnbot_dillweed,Enable"
 				"OnTrigger" "spawnbot_side_extra,Enable"
 				"OnTrigger" "spawnbot_balcony_drain_extra,Disable"
 			}
@@ -1603,7 +1605,7 @@ WaveSchedule
 				"targetname" "go_win_sign"
 				"origin" "-1190 2126 284"
 				"display_text" "Jump through!"
-				"lifetime"     "10"
+				"lifetime"     "5"
 			}
 			logic_relay
 			{
@@ -1671,6 +1673,8 @@ WaveSchedule
 				"OnTrigger" "tower_capzone_prop,Enable"
 				"OnTrigger" "tower1_cappable_sign,Show"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_invasion:Disable::0:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_receiver:Enable::8:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_scaffold:Enable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_side:Enable::8:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_building:Enable::8:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 spawnbot_balcony_drain:Enable::8:-1"
@@ -1724,6 +1728,7 @@ WaveSchedule
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 barrier_hatch_window:Disable::0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 brush_portal_hatchwindow:$SetCollisionFilter:filter_redteam:0:-1"
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 go_win_sign:Show::0:-1"
+				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 go_win_sign:Kill::5:-1" //nuclear option in an attempt to fix overflow
 				//"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 music_cancel_relay:Trigger::5:-1"
 
 				"OnTrigger" "tower_capzone,AddOutput,OnCapTeam2 towers_activation_relay:CancelPending::0:-1"
@@ -1797,6 +1802,13 @@ WaveSchedule
 			}
 			training_annotation
 			{
+				"targetname" "captower_midphase1_sign"
+				"origin" "-1085 3652 -216"
+				"display_text" "Capture the tower!"
+				"lifetime"     "5"
+			}
+			training_annotation
+			{
 				"targetname" "captower_1_sign"
 				"origin" "-224 5312 -248"
 				"display_text" "Capture the towers!"
@@ -1812,7 +1824,15 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "lower_heli_relay"
-				"OnTrigger" "player,$FireUser5,-20,0.1"
+				"OnTrigger" "player,$FireUser5,-3,0.1"
+			}
+			logic_relay
+			{
+				"targetname" "midphase_one_heli_died"
+
+				"OnTrigger" "arena_1_tower_capzone,SetTeamCanCap,3 1,0"
+				"OnTrigger" "arena_1_tower_capzone,$SetKey$area_time_to_cap,1,0.1"
+				"OnTrigger" "captower_midphase1_sign,Show,,0"
 			}
 			logic_relay
 			{
@@ -1820,10 +1840,13 @@ WaveSchedule
 				"OnTrigger" "start,Kill"
 				"OnTrigger" "rockethell_disable*,Trigger"
 
+				"OnTrigger" "rockethell_midphase2_annotation*,Show,0,-1"
+
 				"OnTrigger" "spawnbot_arena,Disable"
 				"OnTrigger" "spawnbot_arena_case,PickRandom"
 
-				"OnTrigger" "arena_1_tower_capzone,$SetKey$area_time_to_cap,8,0.1"
+				// "OnTrigger" "arena_1_tower_capzone,$SetKey$area_time_to_cap,8,0.1"
+				"OnTrigger" "arena_1_tower_capzone,SetTeamCanCap,3 0,0.02"
 				"OnTrigger" "arena_1_towers_phase,SetValue,2"
 				"OnTrigger" "cap_layout_singletower,Trigger"
 				"OnTrigger" "arena_1_tower_capzone,Enable,,0.01"
@@ -1855,6 +1878,8 @@ WaveSchedule
 				
 				"OnTrigger" "rockethell_disable*,Trigger"
 
+				"OnTrigger" "rockethell_midphase2_annotation*,Show,0,-1"
+
 				//"OnTrigger" "spawnbot_arena_case,PickRandom"
 				"OnTrigger" "spawnbot_arena,Disable"
 
@@ -1885,15 +1910,27 @@ WaveSchedule
 
 				"OnTrigger" "arena_doubletower_relay,Trigger,,6"
 				"OnTrigger" "cap_layout_doubletower,Trigger,,6"
+				"OnTrigger" "arena_2_tower_capzone,SetTeamCanCap,3 0,6.02"
+				"OnTrigger" "arena_1_tower_capzone,SetTeamCanCap,3 0,6.02"
 				"OnTrigger" "arena_2_tower_capzone,Enable,,6.01"
 				"OnTrigger" "arena_1_tower_capzone,Enable,,6.01"
 				"OnTrigger" "meh2,Trigger,,6.1"
-				"OnTrigger" "arena_1_tower_capzone,$SetKey$area_time_to_cap,8,6.1"
-				"OnTrigger" "arena_2_tower_capzone,$SetKey$area_time_to_cap,8,6.1"
+				"OnTrigger" "arena_1_tower_capzone,$SetKey$area_time_to_cap,2,6.1"
+				"OnTrigger" "arena_2_tower_capzone,$SetKey$area_time_to_cap,2,6.1"
+				// "OnTrigger" "arena_1_tower_capzone,$SetKey$area_time_to_cap,8,6.1"
+				// "OnTrigger" "arena_2_tower_capzone,$SetKey$area_time_to_cap,8,6.1"
 				//"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1,0.1"
 				//"OnTrigger" "arena_2_tower_capzone,AddOutput,OnCapTeam2 doubletower_counter:Add:1:0:-1,0.1"
 			}
 			
+			logic_relay
+			{
+				"targetname" "shapeshifts_death"
+
+				"OnTrigger" "arena_2_tower_capzone,SetTeamCanCap,3 1,0.1"
+				"OnTrigger" "arena_1_tower_capzone,SetTeamCanCap,3 1,0.11"
+				"OnTrigger" "captower_sign_relay,Trigger,,0"
+			}
 			logic_relay
 			{
 				"targetname" "meh2"
@@ -2160,7 +2197,7 @@ WaveSchedule
 			{
 				"targetname" "wave3_explanation"
 				"origin" "-9827 624 333"
-				"display_text" "Destroy the generators to draw out enemy chiefs!"
+				"display_text" "Destroy the generators to free our troops and draw out enemy chiefs!"
 				"lifetime"     "8"
 			}
 			logic_timer

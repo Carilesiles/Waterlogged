@@ -4131,6 +4131,14 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"targetname" "mark_rockethell"
 			}
 
+			training_annotation
+			{
+				"targetname" "rockethell_midphase_annotation"
+				"origin" "0 0 0"
+				"display_text" "Defeat the marked targets to make him vulnerable!"
+				"lifetime"     "8"
+			}
+
 			logic_relay
 			{
 				"targetname" "rockethell_disable"

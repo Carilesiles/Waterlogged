@@ -114,9 +114,6 @@ WaveSchedule
 	PrecacheModel "models/mvm/barrier/barrier_oneway_red1.mdl"
 	PrecacheModel "models/mvm/barrier/barrier_oneway_red2.mdl"
 
-	LuaScript"function vitasawOnHit(_, activat, calle) local teamCheckInstance = ents.FindByName('vitasaw_team_check'); teamCheckInstance:AcceptInput('TestActivator',_,calle,activat); activat:SetName('vitasaw_caller');
-	end"
-
 	LuaScriptFile "scripts/freelance_mercenary_logic.lua"
 	LuaScriptFile "scripts/waterlogged_rev.lua"
 
@@ -151,12 +148,12 @@ WaveSchedule
 		Origin "0 0 0"
 	}
 
-	DisallowUpgrade	
-	{
-		Upgrade	"ubercharge rate bonus"
-		MaxLevel 0
-		ItemName "Comfortably Numb" 
-	}
+	// DisallowUpgrade	
+	// {
+	// 	Upgrade	"ubercharge rate bonus"
+	// 	MaxLevel 0
+	// 	ItemName "Comfortably Numb" 
+	// }
 	
 	DisallowUpgrade	
 	{
@@ -201,50 +198,50 @@ WaveSchedule
 			}
 		}
 		//canteens
-		speed_can
-		{
-			Name "Speed Boost Canteen" 
+		// speed_can
+		// {
+		// 	Name "Speed Boost Canteen" 
 
-			//random attribute, preferably one that doesn't do anything nor show up on the player, basically just meant to index
-			Attribute "mvm completed challenges bitmask" 
-			Cap 5
-			Increment 1 
-			Cost 25
+		// 	//random attribute, preferably one that doesn't do anything nor show up on the player, basically just meant to index
+		// 	Attribute "mvm completed challenges bitmask" 
+		// 	Cap 5
+		// 	Increment 1 
+		// 	Cost 25
 
-			UIGroup 2
+		// 	UIGroup 2
 
-			AllowedWeapons
-			{
-				Classname "tf_powerup_bottle"
-			}
+		// 	AllowedWeapons
+		// 	{
+		// 		Classname "tf_powerup_bottle"
+		// 	}
 
-			DisallowedUpgrade {Upgrade re_can}
-			DisallowedUpgrade {Upgrade add_can}
-			DisallowedUpgrade {Upgrade ber_can}
-			DisallowedUpgrade {Upgrade cloak_can}
-			DisallowedUpgrade {Upgrade piss_can}
+		// 	DisallowedUpgrade {Upgrade re_can}
+		// 	DisallowedUpgrade {Upgrade add_can}
+		// 	DisallowedUpgrade {Upgrade ber_can}
+		// 	DisallowedUpgrade {Upgrade cloak_can}
+		// 	DisallowedUpgrade {Upgrade piss_can}
 			
-			OnUpgrade
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Gain a speed boost for 5 seconds|9,0"
+		// 	OnUpgrade
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "!activator,$AddItemAttribute,special item description|Consumable: Gain a speed boost for 5 seconds|9,0"
 
-				Output "!activator,$SetVar$canteenIndex,1,0"
-			}
+		// 		Output "!activator,$SetVar$canteenIndex,1,0"
+		// 	}
 
-			OnApply
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Gain a speed boost for 5 seconds|9,0"
-				Output "!activator,$SetVar$canteenIndex,1,0"
-			}
+		// 	OnApply
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "!activator,$AddItemAttribute,special item description|Consumable: Gain a speed boost for 5 seconds|9,0"
+		// 		Output "!activator,$SetVar$canteenIndex,1,0"
+		// 	}
 
-			OnDowngrade
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "on_canteen_empty,Trigger,,0"
-			}
-		}
+		// 	OnDowngrade
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "on_canteen_empty,Trigger,,0"
+		// 	}
+		// }
 
 		re_can
 		{
@@ -387,53 +384,53 @@ WaveSchedule
 			}
 		}
 
-		cloak_can
-		{
-			Name "Stealth Canteen" 
+		// cloak_can
+		// {
+		// 	Name "Stealth Canteen" 
 
-			Attribute "throwable particle trail only" 
-			Cap 3
-			Increment 1 
-			Cost 25
+		// 	Attribute "throwable particle trail only" 
+		// 	Cap 3
+		// 	Increment 1 
+		// 	Cost 25
 
-			Description "Cloak for up to 15 seconds, cloak is cancelled when attacking"
+		// 	Description "Cloak for up to 15 seconds, cloak is cancelled when attacking"
 
-			UIGroup 2
+		// 	UIGroup 2
 
-			AllowedWeapons
-			{
-				Classname "tf_powerup_bottle"
-			}
+		// 	AllowedWeapons
+		// 	{
+		// 		Classname "tf_powerup_bottle"
+		// 	}
 
-			DisallowedUpgrade {Upgrade re_can}
-			DisallowedUpgrade {Upgrade speed_can}
-			DisallowedUpgrade {Upgrade ber_can}
-			DisallowedUpgrade {Upgrade add_can}
-			DisallowedUpgrade {Upgrade knock_can}
-			DisallowedUpgrade {Upgrade piss_can}
+		// 	DisallowedUpgrade {Upgrade re_can}
+		// 	DisallowedUpgrade {Upgrade speed_can}
+		// 	DisallowedUpgrade {Upgrade ber_can}
+		// 	DisallowedUpgrade {Upgrade add_can}
+		// 	DisallowedUpgrade {Upgrade knock_can}
+		// 	DisallowedUpgrade {Upgrade piss_can}
 
-			OnUpgrade
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Cloak for up to 15 seconds|9,0"
+		// 	OnUpgrade
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "!activator,$AddItemAttribute,special item description|Consumable: Cloak for up to 15 seconds|9,0"
 
-				Output "!activator,$SetVar$canteenIndex,5,0"
-			}
+		// 		Output "!activator,$SetVar$canteenIndex,5,0"
+		// 	}
 
-			OnApply
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Cloak for up to 15 seconds|9,0"
+		// 	OnApply
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "!activator,$AddItemAttribute,special item description|Consumable: Cloak for up to 15 seconds|9,0"
 
-				Output "!activator,$SetVar$canteenIndex,5,0"
-			}
+		// 		Output "!activator,$SetVar$canteenIndex,5,0"
+		// 	}
 
-			OnDowngrade
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "on_canteen_empty,Trigger,,0"
-			}
-		}
+		// 	OnDowngrade
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "on_canteen_empty,Trigger,,0"
+		// 	}
+		// }
 
 		piss_can
 		{
@@ -483,53 +480,53 @@ WaveSchedule
 			}
 		}
 
-		knock_can
-		{
-			Name "Knockback Immunity Canteen" 
+		// knock_can
+		// {
+		// 	Name "Knockback Immunity Canteen" 
 
-			Attribute "elevate quality" 
-			Cap 3
-			Increment 1 
-			Cost 10
+		// 	Attribute "elevate quality" 
+		// 	Cap 3
+		// 	Increment 1 
+		// 	Cost 10
 
-			Description "Gain knockback resistance for 5 seconds"
+		// 	Description "Gain knockback resistance for 5 seconds"
 
-			UIGroup 2
+		// 	UIGroup 2
 
-			AllowedWeapons
-			{
-				Classname "tf_powerup_bottle"
-			}
+		// 	AllowedWeapons
+		// 	{
+		// 		Classname "tf_powerup_bottle"
+		// 	}
 
-			DisallowedUpgrade {Upgrade re_can}
-			DisallowedUpgrade {Upgrade speed_can}
-			DisallowedUpgrade {Upgrade ber_can}
-			DisallowedUpgrade {Upgrade add_can}
-			DisallowedUpgrade {Upgrade cloak_can}
-			DisallowedUpgrade {Upgrade piss_can}
+		// 	DisallowedUpgrade {Upgrade re_can}
+		// 	DisallowedUpgrade {Upgrade speed_can}
+		// 	DisallowedUpgrade {Upgrade ber_can}
+		// 	DisallowedUpgrade {Upgrade add_can}
+		// 	DisallowedUpgrade {Upgrade cloak_can}
+		// 	DisallowedUpgrade {Upgrade piss_can}
 
-			OnUpgrade
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Knockback resistance for 5 seconds|9,0"
+		// 	OnUpgrade
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "!activator,$AddItemAttribute,special item description|Consumable: Knockback resistance for 5 seconds|9,0"
 
-				Output "!activator,$SetVar$canteenIndex,69,0"
-			}
+		// 		Output "!activator,$SetVar$canteenIndex,69,0"
+		// 	}
 
-			OnApply
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "!activator,$AddItemAttribute,special item description|Consumable: Knockback resistance for 5 seconds|9,0"
+		// 	OnApply
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "!activator,$AddItemAttribute,special item description|Consumable: Knockback resistance for 5 seconds|9,0"
 
-				Output "!activator,$SetVar$canteenIndex,69,0"
-			}
+		// 		Output "!activator,$SetVar$canteenIndex,69,0"
+		// 	}
 
-			OnDowngrade
-			{
-				Output "canteen_count_update,$FireUser5,"
-				Output "on_canteen_empty,Trigger,,0"
-			}
-		}
+		// 	OnDowngrade
+		// 	{
+		// 		Output "canteen_count_update,$FireUser5,"
+		// 		Output "on_canteen_empty,Trigger,,0"
+		// 	}
+		// }
 	}
 
 	SpawnTemplate DirectHit_Rework_Global
@@ -546,12 +543,13 @@ WaveSchedule
 
 			//"clip size penalty" 0.1
 			"can headshot" 1
+			"crit kill will gib" 1
 			"fire rate bonus" 1
 			"scattergun has knockback" 0
 			"is australium item" 1
 			"item style override" 1
-			"bullets per shot bonus" 2
-			"fire rate penalty" 1.3
+			"bullets per shot bonus" 1.2
+			"fire rate penalty HIDDEN" 1.3
 			//"move accuracy mult" 1.5
 
 			"special item description" "Curse of The Decommissioned: Cannot be overhealed"
@@ -660,7 +658,7 @@ WaveSchedule
 			OriginalItemName "Upgradeable TF_WEAPON_MEDIGUN"
 
 			//"mod weapon blocks healing" 1
-			"ubercharge rate penalty" 1
+			// "ubercharge rate penalty" 1
 
 			"paintkit_proto_def_index" 235 //skull study 
 			"set_item_texture_wear" 0
@@ -668,7 +666,7 @@ WaveSchedule
 			"effect cond override" 12 //just here to remove default uber
 
 			"special item description" "UberCharge deals 5 times the amount of damage taken back to the attacker and heal for half the damage taken (effects do not apply to heal target)"
-			"special item description 2" "UberCharge can only be built by taking damage at a 3:1 ratio"
+			"special item description 2" "UberCharge is increased by taking damage at a 3:1 ratio"
 			"special item description 3" "UberCharge remains active when switching to other weapons"
 		}
 		"Kirin's Ascension"
@@ -1647,6 +1645,7 @@ WaveSchedule
 			Where spawnbot
 			TotalCount 0
 			WaitBeforeStarting 9999
+
 			RandomChoice
 			{
 				RandomChoice
@@ -2140,7 +2139,7 @@ WaveSchedule
 				Model "models/empty.mdl"
 				PingSound "misc/null.wav"
 				EngineLoopSound "misc/null.wav"
-				Gravity 0
+				// Gravity 0
 				DisableSmokestack 1
 				DisableTracks 1
 				DisableChildModels 1
@@ -2173,7 +2172,7 @@ WaveSchedule
 				Model "models/empty.mdl"
 				PingSound "misc/null.wav"
 				EngineLoopSound "misc/null.wav"
-				Gravity 0  
+				// Gravity 0  
 				DisableSmokestack 1
 				DisableTracks 1  
 				DisableChildModels 1  
@@ -2325,8 +2324,8 @@ WaveSchedule
 			TotalCount 6
 			MaxActive 2
 			SpawnCount 1
-			WaitBeforeStarting 10
-			WaitBetweenSpawns 15
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
 			Support Limited
 			DoneOutput
 			{
@@ -2754,9 +2753,9 @@ WaveSchedule
 			Where spawnbot_barrier_2
 			TotalCount 6
 			MaxActive 2
-			SpawnCount 1
-			WaitBeforeStarting 10
-			WaitBetweenSpawns 15
+			SpawnCount 2
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 10
 			Support 1
 		
 			DoneOutput
@@ -2843,7 +2842,7 @@ WaveSchedule
 		{
 			Name "w3_subwavetwo"
 			Where "spawnbot_balcony_drain"
-			Where "spawnbot_side"
+			// Where "spawnbot_side"
 			WaitForAllDead "w3_subwavetwo_hsb"
 			TotalCount 25
 			MaxActive 1
@@ -2852,10 +2851,10 @@ WaveSchedule
 			TotalCurrency 25
 			WaitBeforeStarting 10
 			WaitBetweenSpawns 35
-			RandomChoice
-			{
-				RandomChoice
-				{
+			// RandomChoice
+			// {
+			// 	RandomChoice
+			// 	{
 					TFBot
 					{
 						Template T_TFBot_Giant_Heavyweapons_Shotgun
@@ -2867,18 +2866,18 @@ WaveSchedule
 						}
 						AddTemplate RedBot_Giant
 					}
-				}
-			}
+			// 	}
+			// }
 		}
 		WaveSpawn 
 		{
 			Name "w3_subwavetwo_hsw"
-			Where "spawnbot_building"
+			Where "spawnbot_balcony_drain"
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
 			TotalCurrency 50
-			WaitBeforeStarting 0
+			WaitBeforeStarting 20
 			WaitBetweenSpawns 20
 			TFBot
 			{
@@ -2903,6 +2902,8 @@ WaveSchedule
 			TotalCurrency 25
 			WaitBeforeStarting 10
 			WaitBetweenSpawns 35
+
+			Support limited
 			RandomChoice
 			{
 				RandomChoice
@@ -2924,7 +2925,7 @@ WaveSchedule
 		WaveSpawn 
 		{
 			Name "w3_subwavetwo_boss"
-			Where "spawnbot_building_extra"
+			Where "spawnbot_dillweed"
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
@@ -2936,6 +2937,8 @@ WaveSchedule
 				Target chief_killed_relay
 				Action Trigger
 			}
+
+			Support limited
 			RandomChoice
 			{
 				RandomChoice
@@ -2957,6 +2960,7 @@ WaveSchedule
 			SpawnCount	1
 			TotalCurrency 0
 			WaitBeforeStarting	1
+
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "FakeIcon"
@@ -2968,15 +2972,15 @@ WaveSchedule
 		WaveSpawn 
 		{
 			Name "areaone_done"
-			Where "spawnbot_balcony_drain"
-			Where "spawnbot_side"
+			// Where "spawnbot_balcony_drain"
+			// Where "spawnbot_side"
 			Where "spawnbot_building"
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
 			TotalCurrency 0
 			WaitBeforeStarting 0
-			WaitBetweenSpawns 5
+			WaitBetweenSpawns 0
 			Support Limited
 			RandomChoice
 			{
@@ -3112,6 +3116,8 @@ WaveSchedule
 			TotalCurrency 50
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 15
+
+			Support limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3132,6 +3138,7 @@ WaveSchedule
 			WaitForAllSpawned "w3_subwavetwo_boss"
 			TotalCount	2
 			SpawnCount	2
+
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "FakeIcon"
@@ -3150,6 +3157,7 @@ WaveSchedule
 			TotalCurrency 50
 			WaitBeforeStarting 4
 			WaitBetweenSpawns 15
+			Support limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3180,6 +3188,7 @@ WaveSchedule
 			WaitForAllSpawned "w3_subwavetwo_boss"
 			TotalCount	2
 			SpawnCount	2
+
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "FakeIcon"
@@ -3216,6 +3225,8 @@ WaveSchedule
 			TotalCurrency 50
 			WaitBeforeStarting 0
 			WaitBetweenSpawns 15
+
+			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3236,6 +3247,7 @@ WaveSchedule
 			WaitForAllSpawned "w3_subwavetwo_boss"
 			TotalCount	2
 			SpawnCount	2
+
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "FakeIcon"
@@ -3254,6 +3266,8 @@ WaveSchedule
 			TotalCurrency 50
 			WaitBeforeStarting 5
 			WaitBetweenSpawns 15
+
+			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3284,6 +3298,7 @@ WaveSchedule
 			WaitForAllSpawned "w3_subwavetwo_boss"
 			TotalCount	2
 			SpawnCount	2
+
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "FakeIcon"
@@ -3341,6 +3356,8 @@ WaveSchedule
 			TotalCurrency 20
 			WaitBeforeStarting 14
 			WaitBetweenSpawns 3
+
+			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3366,6 +3383,8 @@ WaveSchedule
 			TotalCurrency 20
 			WaitBeforeStarting 10
 			WaitBetweenSpawns 3
+
+			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3390,6 +3409,8 @@ WaveSchedule
 			TotalCurrency 20
 			WaitBeforeStarting 10
 			WaitBetweenSpawns 3
+
+			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3512,6 +3533,15 @@ WaveSchedule
 				AddTemplate RedBot_Giant
 			}
 		}
+
+		WaveSpawn
+		{
+			Where spawnbot
+			TotalCount 0
+			WaitBeforeStarting 9999
+
+			TFBot { Class Scout ClassIcon hellmet_blank }
+		}
 		//WaveSpawn
 		//{
 		//	WaitForAllDead "w3_subwavetwo_boss"
@@ -3548,13 +3578,16 @@ WaveSchedule
 		}
 		WaveSpawn
 		{
-			Where spawnbot_tank
+			Name "canteen_boy"
+			Where spawnbot_canteen
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
-			TotalCurrency 250
+			TotalCurrency 200
+
+			Support Limited
 			DoneOutput
 			{
 				Target chief_killed_relay
@@ -3573,6 +3606,57 @@ WaveSchedule
 				}
 			}
 		}
+
+		WaveSpawn
+		{
+			Where spawnbot_breadcrumb1
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 25
+
+			Support Limited
+
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons
+				AddTemplate RedBot
+
+				CharacterAttributes
+				{
+					"no_jump" 1
+					"move speed bonus" 0.0001
+				}
+			}
+		}
+
+		WaveSpawn
+		{
+			Where spawnbot_breadcrumb2
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 25
+
+			Support Limited
+
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons
+				AddTemplate RedBot
+
+				CharacterAttributes
+				{
+					"no_jump" 1
+					"move speed bonus" 0.0001
+				}
+			}
+		}
+
 		WaveSpawn
 		{
 			Name "w4_subwaveone"
@@ -3610,16 +3694,68 @@ WaveSchedule
 				AddTemplate RedBot
 			}
 		}
+
+		WaveSpawn
+		{
+			WaitForAllSpawned "drone_bread"
+			Name "w4_receiver_bread"
+			Where "spawnbot_factory_one"
+			TotalCount 5
+			MaxActive 5
+			SpawnCount 5
+			Support limited
+			TotalCurrency 0
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TFBot
+			{
+				Class Heavyweapons
+				Name "Burst Fire Shotgun Heavy"
+				ClassIcon heavy_shotgun_red_burst
+				WeaponRestrictions SecondaryOnly
+				Attributes HoldFireUntilFullReload
+				Item "Panic Attack Shotgun"
+				ItemAttributes
+				{
+					ItemName "Panic Attack Shotgun"
+					"faster reload rate" 0.65
+					"fire rate bonus" 0.25
+					"damage bonus" 0.65
+					"clip size upgrade atomic" 4
+				}
+				AddTemplate RedBot
+			}
+		}
+
+		WaveSpawn
+		{
+			Name "drone_bread"
+			Where "spawnbot_scaffold"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			Support limited
+			TotalCurrency 25
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TFBot
+			{
+				Template T_TFBot_Droneboy
+				AddTemplate RedBot_Giant
+			}
+		}
 		WaveSpawn
 		{
 			Name "yakuza"
-			Where spawnbot_side
+			Where spawnbot_receiver
 			TotalCount 1
 			MaxActive 1
 			SpawnCount 1
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
 			TotalCurrency 250
+
+			Support Limited
 			DoneOutput
 			{
 				Target chief2_killed_relay
@@ -3645,12 +3781,13 @@ WaveSchedule
 			Where "spawnbot_side"
 			Where "spawnbot_building"
 			Where "spawnbot_balcony_drain"
+			WaitForAllDead "w4_receiver_bread"
 			TotalCount 36
 			MaxActive 4
 			SpawnCount 2
 			Support limited
 			TotalCurrency 100
-			WaitBeforeStarting 1
+			WaitBeforeStarting 0
 			WaitBetweenSpawns 6
 			TFBot
 			{
@@ -3677,12 +3814,13 @@ WaveSchedule
 			Where "spawnbot_side"
 			Where "spawnbot_building"
 			Where "spawnbot_balcony_drain"
+			WaitForAllSpawned "drone_bread"
 			TotalCount 20
 			MaxActive 2
 			SpawnCount 1
 			Support limited
-			TotalCurrency 100
-			WaitBeforeStarting 1
+			TotalCurrency 75
+			WaitBeforeStarting 6
 			WaitBetweenSpawns 14
 			TFBot
 			{
@@ -3700,6 +3838,8 @@ WaveSchedule
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
 			TotalCurrency 100
+
+			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3737,6 +3877,8 @@ WaveSchedule
 			WaitBetweenSpawns 0
 			WaitBeforeStarting 0
 			TotalCurrency 100
+
+			Support Limited
 			RandomChoice
 			{
 				RandomChoice
@@ -3858,6 +4000,7 @@ WaveSchedule
 			Where spawnbot
 			TotalCount 0
 			WaitBeforeStarting 9999
+
 			RandomChoice
 			{
 				RandomChoice
@@ -3997,6 +4140,8 @@ WaveSchedule
 			SpawnCount	1
 			TotalCurrency 0
 			WaitBeforeStarting	0
+
+			Support Limited
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "PlaceHolder_Start"
@@ -4044,6 +4189,12 @@ WaveSchedule
 			WaitBeforeStarting 0
 			TotalCurrency 0
 			WaitForAllDead "midphase_one_start"
+
+			DoneOutput
+			{
+				Target midphase_one_heli_died
+				Action Trigger
+			}
 
 			Tank
 			{
@@ -4182,6 +4333,8 @@ WaveSchedule
 			SpawnCount	1
 			TotalCurrency 0
 			WaitBeforeStarting	3
+
+			Support Limited
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "PlaceHolder_End"
@@ -4206,6 +4359,8 @@ WaveSchedule
 			SpawnCount	1
 			TotalCurrency 0
 			WaitBeforeStarting	0
+
+			Support Limited
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "PlaceHolder_Start"
@@ -4556,6 +4711,8 @@ WaveSchedule
 			SpawnCount	1
 			TotalCurrency 0
 			WaitBeforeStarting	0
+
+			Support Limited
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "PlaceHolder_Start"
@@ -4642,6 +4799,8 @@ WaveSchedule
 			SpawnCount	1
 			TotalCurrency 0
 			WaitBeforeStarting	3
+			
+			Support Limited
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "PlaceHolder_End"
@@ -4658,7 +4817,7 @@ WaveSchedule
 			WaitForAllDead "main_midphase_three"
 			DoneOutput
 			{
-				Target "captower_sign_relay"
+				Target "shapeshifts_death"
 				Action Trigger
 			}
 		}
@@ -4671,6 +4830,7 @@ WaveSchedule
 			SpawnCount	1
 			TotalCurrency 0
 			WaitBeforeStarting	0
+			Support Limited
 			PointTemplate   // PointTemplate spawner. Counts as alive until all entites in the template are removed
 			{
 				Name "PlaceHolder_Start"
@@ -4721,14 +4881,16 @@ WaveSchedule
 	ExtraTankPath
 	{
 		Name "generator_one_path"
-		Node "-5020 135 127" 
-		Node "-4020 135 127"
+		Node "-5413 299 221" 
+		Node "-5413 542 221"
 	}
 	ExtraTankPath  
 	{
 		Name "generator_two_path"
-		Node "-2687 -61 63"
-		Node "-1000 -61 63"
+		// Node "-2687 -61 63"
+		// Node "-1000 -61 63"
+		Node "-3964 -1872 469"
+		Node "-4000 -1872 469"
 	}
 	ExtraTankPath  
 	{
@@ -4846,7 +5008,6 @@ WaveSchedule
 	}
 	ExtraSpawnPoint
 	{
-		
 		Name "spawnbot_building_extra"
 		StartDisabled 1
 		TeamNum 2
@@ -4856,7 +5017,52 @@ WaveSchedule
 	}
 	ExtraSpawnPoint
 	{
-		
+		Name "spawnbot_dillweed"
+		StartDisabled 1
+		TeamNum 2
+		X "-1665"
+		Y "-258"
+		Z "337"
+	}
+	ExtraSpawnPoint
+	{	
+		Name "spawnbot_breadcrumb1"
+		TeamNum 2
+		X "-5934"
+		Y "812"
+		Z "312"
+	}
+
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_breadcrumb2"
+		TeamNum 2
+		X "-6837"
+		Y "1434"
+		Z "128"
+	}
+
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_canteen"
+		TeamNum 2
+		X "-7923"
+		Y "1003"
+		Z "128"
+	}
+
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_receiver"
+		StartDisabled 1
+		TeamNum 2
+		X "-3613"
+		Y "419"
+		Z "119"
+	}
+
+	ExtraSpawnPoint
+	{
 		Name "spawnbot_building_doppler"
 		TeamNum 2
 		X "-1128"

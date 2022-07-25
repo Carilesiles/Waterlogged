@@ -1350,7 +1350,7 @@ WaveSchedule
 				Target "!activator"
 				Action "$RemoveItemAttribute"
 				Param "explosive bullets|0"
-				Delay 0.1
+				// Delay 0.1
 			}
 
 			OnParentKilledOutput 
@@ -1358,7 +1358,7 @@ WaveSchedule
 				Target "!activator"
 				Action "$RemoveItemAttribute"
 				Param "explosion particle|0"
-				Delay 0.1
+				// Delay 0.1
 			}
 
 			// dispenser_touch_trigger
@@ -1436,8 +1436,8 @@ WaveSchedule
 
 				//effect remove
 				//"OnHitMin" "heavy_dispenser_trigger,Disable,,0,-1"
-				"OnHitMin" "!activator,$RemoveItemAttribute,explosive bullets|0,0,-1"
-				"OnHitMin" "!activator,$RemoveItemAttribute,explosion particle|0,0,-1"
+				"OnHitMin" "!activator,$RemoveItemAttribute,explosive bullets|0,0.1,-1"
+				"OnHitMin" "!activator,$RemoveItemAttribute,explosion particle|0,0.1,-1"
 
 				"OnHitMin" "!activator,$ResetClientProp$m_bRageDraining,0,0,-1"
 				"OnHitMin" "!activator,$ResetClientProp$m_flRageMeter,,0.03,-1"
@@ -1447,7 +1447,7 @@ WaveSchedule
 
 				"OnGetValue" "rage_meter,$SetVar$tempRageHolder,,0,-1"
 				"OnGetValue" "!activator,$SetClientProp$m_flRageMeter,$$=rage_meter.tempRageHolder,0.01,-1"
-				"OnGetValue" "!activator,$SetProp$m_flRageMeter,-1000,0,-1" //prevent rage from being reused while active somehow
+				"OnGetValue" "!activator,$SetProp$m_flRageMeter,-100000,0,-1" //prevent rage from being reused while active somehow
 
 				"OnUser1" "!self,Subtract,1.3,0,-1" //drain per interval
 				"OnUser1" "!self,GetValue,,0.01,-1"
@@ -1475,7 +1475,18 @@ WaveSchedule
 				Param "!activator"
 				Delay 0
 			}
-
+			OnSpawnOutput 
+			{
+				Target "!activator"
+				Action "$AddPlayerAttribute"
+				Param "mod weapon blocks healing|1"
+			}
+			OnParentKilledOutput 
+			{
+				Target "!activator"
+				Action "$RemovePlayerAttribute"
+				Param "mod weapon blocks healing"
+			}
 			// OnSpawnOutput
 			// {
 			// 	Target "!activator"
@@ -1604,11 +1615,12 @@ WaveSchedule
 				"OnTrigger" "!activator,$SetVar$playerIsBuster,1"
 
 				"OnTrigger" "!activator,$AddCond,41,0,-1"
+				"OnTrigger" "!activator,$AddCond,32,0,-1"
 				"OnTrigger" "!activator,$AddCond,85,0,-1"
 				"OnTrigger" "!activator,$RemoveCond,85,0.01,-1"
 				"OnTrigger" "caber_taunt_checker,Trigger,,0.1,-1"
 
-				"OnTrigger" "!activator,AddOutput,modelscale 1.75,0.11,-1"
+				"OnTrigger" "!activator,AddOutput,modelscale 1.25,0.11,-1"
 				//"OnTrigger" "!activator,SetCustomModel,models/bots/demo/bot_sentry_buster.mdl,0.2,-1"
 				//"OnTrigger" "@f@filter_is_robot_wearable@tf_wearable,$HideToAll,,0.11,-1"
 				"OnTrigger" "@c@!activator,$HideToAll,,0.11,-1"
@@ -1663,6 +1675,7 @@ WaveSchedule
 				"OnPass" "!activator,$Regenerate,,0,-1"
 				"OnPass" "!activator,AddOutput,BaseVelocity 0 0 1000,0,-1"
 				"OnPass" "!activator,$RemovePlayerAttribute,move speed penalty,0,-1"
+				"OnPass" "!activator,$RemovePlayerAttribute,mod weapon blocks healing,0,-1"
 				"OnPass" "!activator,$RemovePlayerAttribute,no resupply,0,-1"
 				"OnPass" "!activator,$RemoveItemAttribute,damage force reduction|2,0,-1"
 				"OnPass" "!activator,$RemoveItemAttribute,always allow taunt|2,0,-1"

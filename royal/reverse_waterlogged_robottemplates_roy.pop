@@ -2906,6 +2906,9 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 				"OnTrigger" "!activator,$ChangeAttributes,Punchie,0,-1"
 
+				"OnTrigger" "!activator,$AddPlayerAttribute,no_attack|1,0.1,-1" //prevent jumpscare
+				"OnTrigger" "!activator,$RemovePlayerAttribute,no_attack,1.5,-1"
+
 				"OnTrigger" "!activator,$AddCond,40,0.1,-1"
 				"OnTrigger" "!activator,$WeaponSwitchSlot,2,0.11,-1" 
 				

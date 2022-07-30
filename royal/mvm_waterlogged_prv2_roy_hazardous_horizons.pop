@@ -1832,6 +1832,94 @@ WaveSchedule
 		}
 		WaveSpawn 
 		{
+			Name "stationary"
+			Where "spawnbot_stationary_arena_catwalk" 
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 0
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TFBot
+			{
+				SpawnTemplate AddBotGlow
+				Template T_TFBot_Giant_Heavyweapons
+
+				CharacterAttributes
+				{
+					"no_jump" 1
+					"move speed bonus" 0.0001
+				}
+
+				AddTemplate RedBot_Giant
+			}
+		}
+		WaveSpawn 
+		{
+			Name "stationary"
+			Where "spawnbot_stationary_arena_right" 
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 0
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TFBot
+			{
+				SpawnTemplate AddBotGlow
+				Template T_TFBot_Giant_Heavyweapons
+				Item "Tomislav"
+
+				ItemAttributes
+				{
+					ItemName "Tomislav"
+
+					"damage bonus" 1.25
+				}
+
+				CharacterAttributes
+				{
+					"no_jump" 1
+					"move speed bonus" 0.0001
+				}
+
+				AddTemplate RedBot_Giant
+			}
+		}
+		WaveSpawn 
+		{
+			Name "stationary"
+			Where "spawnbot_stationary_arena_left" 
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 0
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TFBot
+			{
+				SpawnTemplate AddBotGlow
+				Template T_TFBot_Giant_Heavyweapons
+				Item "Tomislav"
+
+				ItemAttributes
+				{
+					ItemName "Tomislav"
+
+					"damage bonus" 1.25
+				}
+
+				CharacterAttributes
+				{
+					"no_jump" 1
+					"move speed bonus" 0.0001
+				}
+
+				AddTemplate RedBot_Giant
+			}
+		}
+		WaveSpawn 
+		{
 			Name "midphase1"
 			Where "spawnbot_arena_1"
 			Where "spawnbot_arena_2"
@@ -2009,8 +2097,8 @@ WaveSchedule
 			Where "spawnbot_arena_4"
 			WaitForAllDead "midphase2"
 			TotalCount 100
-			MaxActive 5
-			SpawnCount 1
+			MaxActive 6
+			SpawnCount 2
 			WaitBeforeStarting 5
 			WaitBetweenSpawns 2
 		
@@ -2851,10 +2939,10 @@ WaveSchedule
 			TotalCurrency 25
 			WaitBeforeStarting 10
 			WaitBetweenSpawns 35
-			// RandomChoice
-			// {
-			// 	RandomChoice
-			// 	{
+			RandomChoice
+			{
+				RandomChoice
+				{
 					TFBot
 					{
 						Template T_TFBot_Giant_Heavyweapons_Shotgun
@@ -2866,8 +2954,8 @@ WaveSchedule
 						}
 						AddTemplate RedBot_Giant
 					}
-			// 	}
-			// }
+				}
+			}
 		}
 		WaveSpawn 
 		{
@@ -3540,7 +3628,13 @@ WaveSchedule
 			TotalCount 0
 			WaitBeforeStarting 9999
 
-			TFBot { Class Scout ClassIcon hellmet_blank }
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot { Class Scout ClassIcon hellmet_blank }
+				}
+			}
 		}
 		//WaveSpawn
 		//{
@@ -4113,6 +4207,108 @@ WaveSchedule
 				AddCond {Name "TF_COND_REPROGRAMMED" }
 			}
 		}
+
+				WaveSpawn 
+		{
+			Name "stationary"
+			Where "spawnbot_stationary_arena_catwalk" 
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 0
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TFBot
+			{
+				SpawnTemplate AddBotGlow
+				Template T_TFBot_Giant_Heavyweapons
+				Item "The Brass Beast"
+
+				ItemAttributes
+				{
+					ItemName "The Brass Beast"
+
+					"damage bonus" 1.75
+				}
+
+				CharacterAttributes
+				{
+					"no_jump" 1
+					"move speed bonus" 0.0001
+				}
+
+				AddTemplate RedBot_Giant
+			}
+		}
+		WaveSpawn 
+		{
+			Name "stationary"
+			Where "spawnbot_stationary_arena_right" 
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 0
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TFBot
+			{
+				SpawnTemplate AddBotGlow
+				Template T_TFBot_Giant_Heavyweapons
+				Item "Tomislav"
+
+				Attributes AlwaysCrit
+
+				ItemAttributes
+				{
+					ItemName "Tomislav"
+
+					"damage bonus" 1.25
+				}
+
+				CharacterAttributes
+				{
+					"no_jump" 1
+					"move speed bonus" 0.0001
+				}
+
+				AddTemplate RedBot_Giant
+			}
+		}
+		WaveSpawn 
+		{
+			Name "stationary"
+			Where "spawnbot_stationary_arena_left" 
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			TotalCurrency 0
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TFBot
+			{
+				SpawnTemplate AddBotGlow
+				Template T_TFBot_Giant_Heavyweapons
+				Item "Tomislav"
+
+				Attributes AlwaysCrit
+
+				ItemAttributes
+				{
+					ItemName "Tomislav"
+
+					"damage bonus" 1.25
+				}
+
+				CharacterAttributes
+				{
+					"no_jump" 1
+					"move speed bonus" 0.0001
+				}
+
+				AddTemplate RedBot_Giant
+			}
+		}
+
 		WaveSpawn
 		{
 			Name "w4_busters"
@@ -4951,6 +5147,30 @@ WaveSchedule
 		X "-9662"
 		Y "1875"
 		Z "193"
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_stationary_arena_catwalk"
+		TeamNum 3
+		X "-1091" 
+		Y "4031"
+		Z "-319"
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_stationary_arena_right"
+		TeamNum 3 
+		X "-1991"
+		Y "5315"
+		Z "-239"
+	}
+	ExtraSpawnPoint
+	{
+		Name "spawnbot_stationary_arena_left"
+		TeamNum 3
+		X "-197"
+		Y "5299"
+		Z "-239"
 	}
 	ExtraSpawnPoint
 	{

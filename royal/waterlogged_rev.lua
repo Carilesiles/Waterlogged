@@ -67,6 +67,18 @@ function OnGameTick()
 	replaceAllMedigunShields()
 end
 
+function removeAllCosmetics(_, activator)
+	local cosmetics = {
+		activator:GetPlayerItemBySlot(7),
+		activator:GetPlayerItemBySlot(8),
+		activator:GetPlayerItemBySlot(10),
+	}
+
+	for _, wearable in pairs(cosmetics) do
+		wearable:Remove()
+	end
+end
+
 local comfortablyNumbUsers = {}
 
 function clamp(number, min, max)

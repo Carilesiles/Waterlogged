@@ -916,11 +916,13 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "midphase_start_relay"
-				"OnTrigger" "necromancer_summon*,Disable"
-				"OnTrigger" "!activator,$AddCond,4,0,-1"
-				"OnTrigger" "teleport_shapeshift,Enable,,1"
-				"OnTrigger" "shapeshift_retreat_sign*,Show"
-				"OnTrigger" "shapeshift_retreat_sign*,Hide,,7"
+				// "OnTrigger" "necromancer_summon*,Disable"
+				// "OnTrigger" "!activator,$AddCond,4,0,-1"
+				// "OnTrigger" "teleport_shapeshift,Enable,,1"
+				"OnTrigger" "shapeshift_captain_punch_start*,Trigger,,0,-1"
+				"OnTrigger" "shapeshift_midphase_start_sign*,Show"
+				// "OnTrigger" "shapeshift_retreat_sign*,Show"
+				// "OnTrigger" "shapeshift_retreat_sign*,Hide,,7"
 				"OnTrigger" "spawnbot_arena_case2,PickRandom,,1.5"
 				"OnTrigger" "spawnbot_arena_*,Disable,,3"
 				"OnTrigger" "player,$PlaySoundToSelf,mvm/mvm_tele_activate.wav"
@@ -928,14 +930,16 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "midphase_end_relay"
-				"OnTrigger" "necromancer_summon*,Enable,0.1"
+				// "OnTrigger" "necromancer_summon*,Enable,0.1"
+				"OnTrigger" "shapeshift_captain_punch_end*,Trigger,,0,-1"
 				"OnTrigger" "arena_indicator*,SetAnimation,idle"
 				"OnTrigger" "arena_indicator*,AddOutput,skin 1"
-				"OnTrigger" "!activator,$RemoveCond,4,0.1,-1"
-				"Ontrigger" "teleport_shapeshift,Disable"
-				"OnTrigger" "teleport_shapeshift_back,Enable"
-				"OnTrigger" "teleport_shapeshift_back,Disable,,0.1"
-				"OnTrigger" "shapeshift_return_sign*,Show,,0.2"
+				// "OnTrigger" "!activator,$RemoveCond,4,0.1,-1"
+				// "Ontrigger" "teleport_shapeshift,Disable"
+				// "OnTrigger" "teleport_shapeshift_back,Enable"
+				// "OnTrigger" "teleport_shapeshift_back,Disable,,0.1"
+				// "OnTrigger" "shapeshift_return_sign*,Show,,0.2"
+				"OnTrigger" "shapeshift_midphase_end_sign*,Show,,0.2"
 				"OnTrigger" "player,$PlaySoundToSelf,ambient/machines/teleport1.wav"
 			}
 			logic_relay
@@ -1851,7 +1855,7 @@ WaveSchedule
 				"OnTrigger" "cap_layout_singletower,Trigger"
 				"OnTrigger" "arena_1_tower_capzone,Enable,,0.01"
 				"OnTrigger" "meh,Trigger,,0.1"
-				//"OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 midphase_end_relay:Trigger::0:-1,0.1"
+				// "OnTrigger" "arena_1_tower_capzone,AddOutput,OnCapTeam2 midphase_end_relay:Trigger::0:-1,0.1"
 			}
 			logic_relay
 			{

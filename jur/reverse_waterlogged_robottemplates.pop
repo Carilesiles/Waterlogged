@@ -418,6 +418,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 		T_TFBot_Ranger_Rockethell
 		{
 			SpawnTemplate Yakuza_Title_Card_Rockethell
+			SpawnTemplate Rockethell_Shield
 			SpawnTemplate Rockethell_Logic
 
 			Class Soldier
@@ -1829,6 +1830,23 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 					}
 				}
 
+				Punchie
+				{
+					Attributes Miniboss
+
+					Item "War Head"
+					Item "Fists of Steel"
+
+					WeaponRestrictions MeleeOnly
+
+					ItemAttributes
+					{
+						ItemName "Fists of Steel"
+						"fire rate bonus" 0.6
+						"damage bonus" 5
+					}
+				}
+
 				Scout 
 				{
 					Attributes MiniBoss
@@ -2782,7 +2800,46 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			//	Action "AddOutput"
 			//	Param "targetname "
 			//}
+
+			logic_relay
+			{
+				"targetname" "shapeshift_captain_punch_start"
+				"spawnflags" "2"
+
+				"OnTrigger" "shapeshift_global,Trigger,,0,-1"
+
+				"OnTrigger" "popscript,$removeAllCosmetics,,0,-1"
+				"OnTrigger" "!activator,$AddCond,52,0.5,-1"
+				"OnTrigger" "punch_shapeshift,Trigger,,0.5,-1"
+
+				"OnTrigger" "shapeshift_loop,$CancelPending,,0,-1"
+			}
 			
+			logic_relay
+			{
+				"targetname" "shapeshift_captain_punch_end"
+				"spawnflags" "2"
+
+				"OnTrigger" "popscript,$removeAllCosmetics,,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,52,0,-1"
+
+				"OnTrigger" "shapeshift_loop,Trigger,,0.5,-1"
+			}
+			
+			training_annotation
+			{
+				"targetname" "shapeshift_midphase_start_sign"
+				//"origin" "-1164 5462 -379"
+				"display_text" "Defeat the subordinates to make him vulnerable!"
+				"lifetime"     "4.5"
+			}
+			training_annotation
+			{
+				"targetname" "shapeshift_midphase_end_sign"
+				//"origin" "-1164 5462 -379"
+				"display_text" "The shapeshifter is vulnerable!"
+				"lifetime"     "4.5"
+			}
 			training_annotation
 			{
 				"targetname" "shapeshift_retreat_sign"
@@ -2840,6 +2897,27 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"spawnflags" "2"
 
 				"OnTrigger" "!activator,$AddCond,4,0,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "punch_shapeshift"
+				"spawnflags" "2"
+
+				"OnTrigger" "!activator,$ChangeAttributes,Punchie,0,-1"
+
+				"OnTrigger" "!activator,$AddPlayerAttribute,no_attack|1,0.1,-1" //prevent jumpscare
+				"OnTrigger" "!activator,$RemovePlayerAttribute,no_attack,1.5,-1"
+
+				"OnTrigger" "!activator,$AddCond,40,0.1,-1"
+				"OnTrigger" "!activator,$WeaponSwitchSlot,2,0.11,-1" 
+				
+				"OnTrigger" "!activator,SetCustomModel,models/bots/heavy_boss/bot_heavy_boss.mdl,0.1,-1"
+
+				"OnTrigger" "!activator,$SetProp$m_iszClassIcon,heavy_chief,0.4,-1"
+
+				"OnTrigger" "!activator,$AddCond,4,0.5,-1"
+				"OnTrigger" "!activator,$RemoveCond,4,0.55,-1"
 			}
 
 			logic_relay 
@@ -4166,6 +4244,8 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"OnTrigger" "rockethell_stun,CancelPending"
 				"OnTrigger" "rockethell_pattern,Trigger,,0.1"
 				"OnTrigger" "spellcard,Trigger,,6.9"
+
+				"OnTrigger" "ranger_start_shield,Trigger,,0,-1" //get shield after first intermission
 			}
 			game_text
 			{
@@ -4270,6 +4350,85 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				//"OnTrigger" "!self,Trigger,,44.7,-1"
 
 				"OnTrigger" "!self,Trigger,,60,-1"
+			}
+		}
+
+		Rockethell_Shield
+		{
+			NoFixup 1
+
+			OnSpawnOutput
+			{
+				Target "rotate"
+				Action "StartForward"
+			}
+
+			OnSpawnOutput
+			{
+				Target "rotate_position"
+				Action "Trigger"
+			}
+
+			OnSpawnOutput
+			{
+				Target "rotate"
+				Action "SetParent"
+				Param ""
+			}
+
+			OnSpawnOutput
+			{
+				Target "ranger_projectile_shield"
+				Action "$SetModel"
+				Param "models/empty.mdl"
+			}
+
+			logic_relay 
+			{
+				"targetname" "ranger_start_shield"
+				"spawnflags" "2"
+
+				"OnTrigger" "player,$DisplayTextChat,{blue}Injecting dopplerModule.DLL ...,0,-1"
+				"OnTrigger" "player,$DisplayTextChat,{red}dopplerModule.DLL initiated. Shield online.,1,-1"
+				"OnTrigger" "ranger_projectile_shield,Enable,,1,-1"
+				"OnTrigger" "ranger_projectile_shield,$SetModel,models/props_mvm/mvm_player_shield.mdl,1,-1"
+				"OnTrigger" "popscript,$registerShieldDoppler,ranger_projectile_shield,1,-1"
+				// "OnTrigger" "!self,Disable,,1.1,-1"
+			}
+
+			logic_relay
+			{
+				"targetname" "rotate_position"
+				"spawnflags" "2"
+
+				"OnTrigger" "rotate,$TeleportToEntity,!activator,0,-1"
+
+				"OnTrigger" "!self,Trigger,,0.01,-1"
+			}
+
+			entity_medigun_shield
+			{
+				"parentname" "rotate"
+				"targetname" "ranger_projectile_shield"
+				"StartDisabled" "1"
+				"origin" "100 0 0"
+				"spawnflags" "1"
+				"teamnum" "2"
+			}
+
+			func_rotating
+			{
+				"targetname" "rotate"
+				"origin" "0 0 0"
+
+				"mins" "-0.1 -0.1 -0.1"
+				"maxs" "0.1 0.1 0.1"
+
+				"dmg" "0"
+				"fanfriction" "100" 
+				"maxspeed" "30"
+				"spawnflags" "64"
+				"volume" "0"
 			}
 		}
 		LeftSwayRocket

@@ -133,6 +133,12 @@ WaveSchedule
 
 				"OnTrigger" "wave1_explanation_refire,Enable"
 				"OnTrigger" "wave1_explanation,Show"
+
+				"OnTrigger" "player,$DisplayTextCenter,{f5c542}This mission features custom music!"
+				"OnTrigger" "player,$DisplayTextCenter,{f5c542}Make sure your music is on | snd_musicvolume 1 or the music slider in audio options"
+				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Howdy, my callsign is JN-10R, but you can call me Junior. I'll be your designated worker drone for the duration of your mission here."
+				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Your objective is simple: Guard the bomb carrier on his way to the hatch.,1.5"
+				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}His attachment module seems to be on the fritz, not even our best worker drone has been able to get the bomb off his back. Keep him alive or we'll end up having to withdraw.,3"
 			}
 			logic_relay
 			{
@@ -145,6 +151,12 @@ WaveSchedule
 				"OnTrigger" "spawnbot_arena_*,Disable"
 				"OnTrigger" "arena_indicator*,SetAnimation,idle"
 				"OnTrigger" "arena_indicator*,AddOutput,skin 1"
+				
+				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Probably should've seen that one coming, guy's always been a jerk. Took the bolts right off of my lunch tray once."
+				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Anyway, he's set his systems to maintain the shield covering the hatch. The only way to continue our mission here is to decommission him.,1.5"
+				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Good luck, I doubt he'll make it easy.,3"
+				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Oh right I should tell you, on account of how far we are past enemy lines we're limited on the number of reinforcements we can receive. So don't get careless, you hear?,4.5"
+				"OnTrigger" "player,$DisplayTextCenter,{f5c542}Lives are limited on this wave!"
 			}
 			logic_relay
 			{
@@ -184,6 +196,11 @@ WaveSchedule
 				"OnTrigger" "reset_wave_relay,AddOutput,OnTrigger gate2_alarm_door_reset_relay:Enable::0:-1"
 				"OnTrigger" "gate1_door_trigger,$SetKey$area_time_to_cap,1"
 				"OnTrigger" "gate2_door_trigger,$SetKey$area_time_to_cap,1"
+
+				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Nicely done. Seeing that bolt burglar go down put a real big smile on my face."
+				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Well, it would have, if my model's designer had deemed it necessary to include one alongside the 'Authentic Human Emotions Module'. Prick.,1"
+				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}By the by, while you were busy taking care of Mr. Trojan Horse down there, another red chief cropped up and took command of the enemy garrison.,2.5"
+				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}He's locked up some of our troops and brought in some funny looking towers, I recommend not finding out what they do when they're fully charged.,4"
 			}
 			logic_relay
 			{
@@ -197,6 +214,10 @@ WaveSchedule
 				//"OnTrigger" "cap_hatch_destroy_animated_prop,Enable"
 				"OnTrigger" "wave4_explanation_refire,Enable"
 				"OnTrigger" "wave4_explanation,Show"
+
+				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}So, turns out those radio towers just so happen to send out a signal that converts all bots around it to the enemy's side."
+				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}And while we were plugging away at our mission, one of the reds set up one in the carrier's mess hall. Sergeant Receiver and some of our other specialized units are on their side now.,1.5"
+				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}You won't find me saying the outlook is positive here, but you need to find whatever is responsible for making those towers and shut it down.,3"
 			}
 			logic_relay
 			{
@@ -213,6 +234,10 @@ WaveSchedule
 				"OnTrigger" "spawnbot_arena_*,Disable"
 				"OnTrigger" "arena_indicator*,SetAnimation,idle"
 				"OnTrigger" "arena_indicator*,AddOutput,skin 1"
+
+				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}We've found our guy. Designated Ranger Rockethell, this unit was originally designed to be a very skilled technician for our side. Name's a bit on the nose frankly but he's responsible for creating the advanced units you've seen here."
+				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Not entirely clear on how he was turned in the first place, but regardless we kinda don't want him to keep bolstering the enemy's forces with ours. Last stretch here fellas, you know what to do.,1.5"
+				"OnTrigger" "player,$DisplayTextCenter,{f5c542}Lives are limited on this wave!"
 			}
 			logic_relay
 			{

@@ -1876,13 +1876,6 @@ WaveSchedule
 
 					"damage bonus" 1.25
 				}
-
-				CharacterAttributes
-				{
-					"no_jump" 1
-					"move speed bonus" 0.0001
-				}
-
 				AddTemplate RedBot_Giant
 			}
 		}
@@ -1908,13 +1901,6 @@ WaveSchedule
 
 					"damage bonus" 1.25
 				}
-
-				CharacterAttributes
-				{
-					"no_jump" 1
-					"move speed bonus" 0.0001
-				}
-
 				AddTemplate RedBot_Giant
 			}
 		}
@@ -4265,12 +4251,6 @@ WaveSchedule
 					"damage bonus" 1.25
 				}
 
-				CharacterAttributes
-				{
-					"no_jump" 1
-					"move speed bonus" 0.0001
-				}
-
 				AddTemplate RedBot_Giant
 			}
 		}
@@ -4297,12 +4277,6 @@ WaveSchedule
 					ItemName "Tomislav"
 
 					"damage bonus" 1.25
-				}
-
-				CharacterAttributes
-				{
-					"no_jump" 1
-					"move speed bonus" 0.0001
 				}
 
 				AddTemplate RedBot_Giant

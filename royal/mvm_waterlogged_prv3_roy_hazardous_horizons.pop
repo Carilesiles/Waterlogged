@@ -5151,7 +5151,7 @@ WaveSchedule
 	ExtraSpawnPoint
 	{
 		Name "spawnbot_stationary_arena_catwalk"
-		TeamNum 3
+		TeamNum 2
 		X "-1091" 
 		Y "4031"
 		Z "-319"
@@ -5159,7 +5159,7 @@ WaveSchedule
 	ExtraSpawnPoint
 	{
 		Name "spawnbot_stationary_arena_right"
-		TeamNum 3 
+		TeamNum 2 
 		X "-1991"
 		Y "5315"
 		Z "-239"
@@ -5167,7 +5167,7 @@ WaveSchedule
 	ExtraSpawnPoint
 	{
 		Name "spawnbot_stationary_arena_left"
-		TeamNum 3
+		TeamNum 2
 		X "-197"
 		Y "5299"
 		Z "-239"

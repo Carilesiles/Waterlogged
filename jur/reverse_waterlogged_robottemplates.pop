@@ -310,12 +310,12 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			AddCond { Name "TF_COND_REPROGRAMMED" }
 
 			//ubercharge on spawn
-			FireWeapon
-			{
-				Delay 1
-				Repeats 1
-				Type "Action"
-			}
+			// FireWeapon
+			// {
+			// 	Delay 1
+			// 	Repeats 1
+			// 	Type "Action"
+			// }
 
 			FireInput 
 			{
@@ -326,12 +326,12 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				Repeats 0 
 			} 
 
-			ItemAttributes
-			{
-				ItemName "Battery Canteens"
-				"ubercharge" 1
-				"powerup charges" 1
-			}
+			// ItemAttributes
+			// {
+			// 	ItemName "Battery Canteens"
+			// 	"ubercharge" 1
+			// 	"powerup charges" 1
+			// }
 
 			ItemAttributes
 			{
@@ -580,14 +580,40 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 					}
 				}
 
-				Orb
+				Masterspark
 				{
 					Attributes AlwaysFireWeapon
+
+					Item TF_WEAPON_ROCKETLAUNCHER
 
 					ItemAttributes
 					{
 						ItemName TF_WEAPON_ROCKETLAUNCHER
-						"override projectile type extra" "mechanicalarmorb"
+						"fire rate bonus" 0.1
+						"reload time decreased" 0.01
+						"override projectile type" 13
+					}
+				}
+
+				Spellcard_Wavelength
+				{
+					Attributes AlwaysFireWeapon
+
+					Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"fire rate bonus" 0.25
+						"reload time decreased" 0.01
+						"override projectile type" 13
+
+						"projectile trail particle" "eyeboss_projectile"
+						"mod projectile heat seek power" 360
+						"mod projectile heat aim time" 10
+						"mod projectile heat aim error" 0
+						"mod projectile heat no predict target speed" 1
+						"Projectile speed increased" 0.25
 					}
 				}
 
@@ -608,6 +634,61 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 					ShootTemplate
 					{
 						Name RocketMasteryConstant
+						AttachToProjectile 1
+					}
+				}
+
+				Spellcard_BloomRapid
+				{
+					Attributes AlwaysFireWeapon
+					Attributes HoldFireUntilFullReload
+					
+					Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"fire rate bonus" 0.6
+						"projectile trail particle" "eyeboss_projectile"
+						"mod projectile heat seek power" 360
+						"mod projectile heat aim time" 10
+						"mod projectile heat aim error" 0
+						"mod projectile heat no predict target speed" 1
+						"damage bonus" 2.5
+						"Projectile speed increased" 0.15
+						"reload time decreased" 0.01
+					}
+
+					ShootTemplate
+					{
+						Name HomingCircleBlow
+						AttachToProjectile 1
+					}
+				}
+
+				Spellcard_AmonDrones
+				{
+					Attributes AlwaysFireWeapon
+					
+					Item TF_WEAPON_ROCKETLAUNCHER
+
+					ItemAttributes
+					{
+						ItemName TF_WEAPON_ROCKETLAUNCHER
+						"fire rate bonus" 0.65
+						"projectile spread angle penalty" 70
+						"mod projectile heat seek power" 360
+						"mod projectile heat aim time" 10
+						"mod projectile heat aim error" 0
+						"mod projectile heat no predict target speed" 1
+						"damage bonus" 2
+						"Projectile speed increased" 0.15
+						"reload time decreased" 0.01
+					}
+
+					ShootTemplate
+					{
+						Name SentryRanger
 						AttachToProjectile 1
 					}
 				}
@@ -2115,7 +2196,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			{
 				Delay 0
 				Cooldown 0.1
-				Repeats 0
+				Repeats 0 
 				IfSeeTarget 1
 				Duration 0.5
 				Type "Primary"
@@ -3340,6 +3421,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"OnTrigger" "le_sentry,$SetProp$m_nSolidType,0,0,-1" 
 				"OnTrigger" "le_sentry,$SetModelOverride,models/rcat/rcat_level2.mdl,0,-1" 
 				"OnTrigger" "le_sentry,$SetProp$m_nSkin,2,0,-1"
+				"OnTrigger" "le_sentry,SetHealth,50,0,-1"
 			}
 
 			obj_sentrygun
@@ -3348,7 +3430,9 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"teamnum" "2"
 				"defaultupgrade" "0"
 				"SolidToPlayer" "0"
-				"spawnflags" "10"
+				"spawnflags" "8"
+
+				"$OnKilled" "@p@le_sentry,Kill,,-1,-1"
 			}
 		}
 
@@ -4254,11 +4338,14 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			logic_relay
 			{
 				"targetname" "rockethell_disable"
-				"OnTrigger" "!activator,$AddCond,52"
-				"OnTrigger" "!activator,$ChangeAttributes,Stunned"
+				"OnTrigger" "!parent,$AddCond,52"
+				"OnTrigger" "rockethell_midphase_annotation,Show"
+				"OnTrigger" "!parent,$ChangeAttributes,Stunned"
 				//"OnTrigger" "!activator,$PlaySequence,layer_PRIMARY_Stun_begin"
 				//"OnTrigger" "!activator,$PlaySequence,layer_PRIMARY_Stun_middle,,0.2"
 				"OnTrigger" "rockethell_pattern*,CancelPending"
+				"OnTrigger" "phase3_spellcards,$CancelPending"
+				"OnTrigger" "phase2_spellcards,$CancelPending"
 				"OnTrigger" "spellcard*,CancelPending"
 				"OnTrigger" "rockethell_stun,Trigger"
 			}
@@ -4267,19 +4354,22 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"targetname" "rockethell_stun"
 				"spawnflags" "2"
 
-				"OnTrigger" "!activator,$AddCond,71 5"
+				"OnTrigger" "!parent,$AddCond,71 5"
 				"OnTrigger" "!self,Trigger,,5.1"
 			}
 			logic_relay
 			{
 				"targetname" "rockethell_enable"
-				"OnTrigger" "!activator,$RemoveCond,52"
-				//"OnTrigger" "!activator,$RemoveCond,71"
+				"OnTrigger" "!parent,$RemoveCond,52"
+				//"OnTrigger" "!parent,$RemoveCond,71"
 				"OnTrigger" "rockethell_stun,CancelPending"
-				"OnTrigger" "rockethell_pattern,Trigger,,0.1"
-				"OnTrigger" "spellcard,Trigger,,6.9"
-
-				"OnTrigger" "ranger_start_shield,Trigger,,0,-1" //get shield after first intermission
+				// "OnTrigger" "rockethell_pattern,Trigger,,0.1"
+				// "OnTrigger" "spellcard,Trigger,,6.9"
+				"OnTrigger" "2nd_phase_spellcard,Trigger,,6.9"
+				"OnTrigger" "3rd_phase_spellcard,Trigger,,6.9"
+				
+				"OnTrigger" "ranger_start_shield_step1,Trigger,,0,-1" 
+				"OnTrigger" "ranger_start_shield_step2,Trigger,,0,-1" //get shield after 2nd intermission
 			}
 			game_text
 			{
@@ -4302,14 +4392,14 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"targetname" "rockethell_pattern"
 				"spawnflags" "2"
 
-				"OnTrigger" "!activator,$ChangeAttributes,LeftSway,0,-1"
-				"OnTrigger" "!activator,$ChangeAttributes,RightSway,2,-1"
+				"OnTrigger" "!parent,$ChangeAttributes,LeftSway,0,-1"
+				"OnTrigger" "!parent,$ChangeAttributes,RightSway,2,-1"
 
-				"OnTrigger" "!activator,$ChangeAttributes,Bloom,4,-1"
-				"OnTrigger" "!activator,$ChangeAttributes,Homing,5.5,-1"
-				"OnTrigger" "!activator,$AddCond,36,5.5,-1"
+				"OnTrigger" "!parent,$ChangeAttributes,Bloom,4,-1"
+				"OnTrigger" "!parent,$ChangeAttributes,Homing,5.5,-1"
+				"OnTrigger" "!parent,$AddCond,36,5.5,-1"
 				
-				"OnTrigger" "!activator,$RemoveCond,36,7,-1"
+				"OnTrigger" "!parent,$RemoveCond,36,7,-1"
 		
 				"OnTrigger" "!self,Trigger,,7,-1"
 			}
@@ -4318,15 +4408,15 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"targetname" "spellcard1_relay"
 				"spawnflags" "2"
 
-				"OnTrigger" "!activator,$RemoveCond,36,0,-1"
+				"OnTrigger" "!parent,$RemoveCond,36,0,-1"
 				"OnTrigger" "rockethell_pattern,$CancelPending,,0,-1"
-				"OnTrigger" "!activator,$ChangeAttributes,Spellcard_1,0.01,-1"
+				"OnTrigger" "!parent,$ChangeAttributes,Spellcard_1,0.01,-1"
 
 				"OnTrigger" "spellcard_text,AddOutput,message Stream Sign ~ World of Rockets & Stripes,0,-1"
 				"OnTrigger" "spellcard_text,Display,,0.01,-1"
 
-				"OnTrigger" "!activator,$AddPlayerAttribute,no_attack|1,0.02,-1"
-				"OnTrigger" "!activator,$RemovePlayerAttribute,no_attack,1,-1"
+				"OnTrigger" "!parent,$AddPlayerAttribute,no_attack|1,0.02,-1"
+				"OnTrigger" "!parent,$RemovePlayerAttribute,no_attack,1,-1"
 
 				"OnTrigger" "rockethell_pattern,Trigger,,8,-1" //spellcard duration
 			}
@@ -4336,16 +4426,16 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"targetname" "spellcard2_relay"
 				"spawnflags" "2"
 
-				"OnTrigger" "!activator,$RemoveCond,36,0,-1"
+				"OnTrigger" "!parent,$RemoveCond,36,0,-1"
 				"OnTrigger" "rockethell_pattern,$CancelPending,,0,-1"
 
 				"OnTrigger" "spellcard_text,AddOutput,message Barrage Sign ~ Machine Gun Kiss,0,-1"
 				"OnTrigger" "spellcard_text,Display,,0.01,-1"
 
-				"OnTrigger" "!activator,$ChangeAttributes,Spellcard_2_1,0.01,-1"
-				"OnTrigger" "!activator,$ChangeAttributes,Spellcard_2_2,2.4,-1"
-				"OnTrigger" "!activator,$ChangeAttributes,Spellcard_2_1,4.8,-1"
-				"OnTrigger" "!activator,$ChangeAttributes,Spellcard_2_2,7.2,-1"
+				"OnTrigger" "!parent,$ChangeAttributes,Spellcard_2_1,0.01,-1"
+				"OnTrigger" "!parent,$ChangeAttributes,Spellcard_2_2,2.4,-1"
+				"OnTrigger" "!parent,$ChangeAttributes,Spellcard_2_1,4.8,-1"
+				"OnTrigger" "!parent,$ChangeAttributes,Spellcard_2_2,7.2,-1"
 
 				"OnTrigger" "rockethell_pattern,Trigger,,8,-1" //spellcard duration
 			}
@@ -4355,15 +4445,15 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"targetname" "spellcard3_relay"
 				"spawnflags" "2"
 
-				"OnTrigger" "!activator,$AddCond,36,0,-1"
+				"OnTrigger" "!parent,$AddCond,36,0,-1"
 				"OnTrigger" "rockethell_pattern,$CancelPending,,0,-1"
 
 				"OnTrigger" "spellcard_text,AddOutput,message Homing Sign ~ Right Combination,0,-1"
 				"OnTrigger" "spellcard_text,Display,,0.01,-1"
 
-				"OnTrigger" "!activator,$ChangeAttributes,Spellcard_3,0.01,-1"
+				"OnTrigger" "!parent,$ChangeAttributes,Spellcard_3,0.01,-1"
 
-				"OnTrigger" "!activator,$RemoveCond,36,8,-1"
+				"OnTrigger" "!parent,$RemoveCond,36,8,-1"
 				"OnTrigger" "rockethell_pattern,Trigger,,8,-1" //spellcard duration
 			}
 
@@ -4384,6 +4474,120 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				//"OnTrigger" "!self,Trigger,,44.7,-1"
 
 				"OnTrigger" "!self,Trigger,,60,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "2nd_phase_spellcard"
+				"spawnflags" "2"
+
+				"OnTrigger" "phase2_spellcards,Trigger,6.9,-1"
+				"OnTrigger" "spellcard,$CancelPending"
+				"OnTrigger" "spellcard1,$CancelPending"
+				"OnTrigger" "spellcard2,$CancelPending"
+				"OnTrigger" "spellcard3,$CancelPending"
+				"OnTrigger" "spellcard,Disable"
+				"OnTrigger" "3rd_phase_spellcard,Enable,,0.5,-1"
+				"OnTrigger" "!self,Disable,,1,-1"
+			}
+
+			// logic_relay 
+			// {
+			// 	"targetname" "spellcard_masterspark"
+			// 	"spawnflags" "2"
+
+			// 	"OnTrigger" "!parent,$RemoveCond,36,0,-1"
+			// 	"OnTrigger" "rockethell_pattern,$CancelPending,,0,-1"
+
+			// 	"OnTrigger" "spellcard_text,AddOutput,message Oil-Colored Electric Spark,0,-1"
+			// 	"OnTrigger" "spellcard_text,Display,,0.01,-1"
+
+			// 	"OnTrigger" "!parent,$ChangeAttributes,Masterspark,0.01,-1"
+
+			// 	"OnTrigger" "rockethell_pattern,Trigger,,6.9,-1" //spellcard duration
+			// }
+			logic_relay 
+			{
+				"targetname" "spellcard_wavelength"
+				"spawnflags" "2"
+
+				"OnTrigger" "!parent,$RemoveCond,36,0,-1"
+				"OnTrigger" "rockethell_pattern,$CancelPending,,0,-1"
+
+				"OnTrigger" "spellcard_text,AddOutput,message Frequency Sign ~ Unwavering Wavelength,0,-1"
+				"OnTrigger" "spellcard_text,Display,,0.01,-1"
+
+				"OnTrigger" "!parent,$ChangeAttributes,Spellcard_Wavelength,0.01,-1"
+
+				"OnTrigger" "rockethell_pattern,Trigger,,6,-1" //spellcard duration
+			}
+
+			logic_relay 
+			{
+				"targetname" "spellcard_bloom"
+				"spawnflags" "2"
+
+				"OnTrigger" "!parent,$RemoveCond,36,0,-1"
+				"OnTrigger" "rockethell_pattern,$CancelPending,,0,-1"
+
+				"OnTrigger" "spellcard_text,AddOutput,message Blooming Rockets ~ Booming Rockets,0,-1"
+				"OnTrigger" "spellcard_text,Display,,0.01,-1"
+
+				"OnTrigger" "!parent,$ChangeAttributes,Spellcard_BloomRapid,0.01,-1"
+
+				"OnTrigger" "rockethell_pattern,Trigger,,6,-1" //spellcard duration
+			}
+
+			logic_relay 
+			{
+				"targetname" "phase2_spellcards"
+				"spawnflags" "2"
+
+				"OnTrigger" "spellcard_wavelength,Trigger,,0,-1"
+
+				"OnTrigger" "spellcard_bloom,Trigger,,12.9,-1" //6 + 6.9
+
+				"OnTrigger" "!self,Trigger,,25.8,-1" //12.9 + 6 + 6.9
+			}
+
+			logic_relay 
+			{
+				"targetname" "3rd_phase_spellcard"
+				"spawnflags" "2"
+				"StartDisabled" "1"
+
+				"OnTrigger" "phase3_spellcards,Trigger,0,-1"
+				// "OnTrigger" "!self,Disable,,0.1,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "spellcard_drone"
+				"spawnflags" "2"
+
+				"OnTrigger" "!parent,$RemoveCond,36,0,-1"
+				"OnTrigger" "rockethell_pattern,$CancelPending,,0,-1"
+
+				"OnTrigger" "spellcard_text,AddOutput,message Amon Technique ~ Rolling Drones,0,-1"
+				"OnTrigger" "spellcard_text,Display,,0.01,-1"
+
+				"OnTrigger" "!parent,$ChangeAttributes,Spellcard_AmonDrones,0.01,-1"
+
+				"OnTrigger" "rockethell_pattern,Trigger,,6,-1" //spellcard duration
+			}
+
+			logic_relay 
+			{
+				"targetname" "phase3_spellcards"
+				"spawnflags" "2"
+
+				"OnTrigger" "spellcard_drone,Trigger,,0,-1"
+
+				"OnTrigger" "spellcard_bloom,Trigger,,12.9,-1" //6 + 6.9
+
+				"OnTrigger" "spellcard_wavelength,Trigger,,25.8,-1" //12.9 + 6 + 6.9
+				
+				"OnTrigger" "!self,Trigger,,38.7.8,-1" //25.8 + 6 + 6.9
 			}
 		}
 
@@ -4419,15 +4623,25 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 
 			logic_relay 
 			{
-				"targetname" "ranger_start_shield"
+				"targetname" "ranger_start_shield_step1"
 				"spawnflags" "2"
+
+				"OnTrigger" "ranger_start_shield_step2,Enable,,0.5,-1"
+				"OnTrigger" "!self,Disable,,1.1,-1"
+			}
+
+			logic_relay 
+			{
+				"targetname" "ranger_start_shield_step2"
+				"spawnflags" "2"
+				"StartDisabled" "1"
 
 				"OnTrigger" "player,$DisplayTextChat,{blue}Injecting dopplerModule.DLL ...,0,-1"
 				"OnTrigger" "player,$DisplayTextChat,{red}dopplerModule.DLL initiated. Shield online.,1,-1"
 				"OnTrigger" "ranger_projectile_shield,Enable,,1,-1"
 				"OnTrigger" "ranger_projectile_shield,$SetModel,models/props_mvm/mvm_player_shield.mdl,1,-1"
 				"OnTrigger" "popscript,$registerShieldDoppler,ranger_projectile_shield,1,-1"
-				// "OnTrigger" "!self,Disable,,1.1,-1"
+				"OnTrigger" "!self,Disable,,1.1,-1"
 			}
 
 			logic_relay

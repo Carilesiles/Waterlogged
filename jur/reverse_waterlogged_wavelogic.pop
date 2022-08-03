@@ -156,7 +156,7 @@ WaveSchedule
 				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Anyway, he\'s set his systems to maintain the shield covering the hatch. The only way to continue our mission here is to decommission him.'),3"
 				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Good luck, I doubt he\'ll make it easy.'),5.5"
 				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Oh right I should tell you, on account of how far we are past enemy lines we\'re limited on the number of reinforcements we can receive. So don\'t get careless, you hear?'),8.5"
-				"OnTrigger" "player,$DisplayTextCenter,$$=string('{f5c542}Lives are limited on this wave!')"
+				"OnTrigger" "player,$DisplayTextCenter,Lives are limited on this wave!"
 				"OnTrigger" "player,$DisplayTextChat,{f5c542}Lives are limited on this wave!,8.55"
 			}
 			logic_relay
@@ -240,7 +240,7 @@ WaveSchedule
 				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Name\'s a bit on the nose frankly, but he\'s responsible for creating the advanced units you\'ve seen here.'),2.5"
 				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Not entirely clear on how he was turned in the first place, but regardless we don\'t want him to keep bolstering the enemy\'s forces with ours.'),5"
 				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Last stretch here fellas, you know what to do.'),7.5"
-				"OnTrigger" "player,$DisplayTextCenter,$$=('{f5c542}Lives are limited on this wave!')"
+				"OnTrigger" "player,$DisplayTextCenter,Lives are limited on this wave!"
 				"OnTrigger" "player,$DisplayTextChat,{f5c542}Lives are limited on this wave!,7.6"
 			}
 			logic_relay
@@ -464,7 +464,7 @@ WaveSchedule
 			trigger_multiple
 			{
 				"targetname" "trigger_that_does_nothing_arena"
-				"origin" "-1088 3536 -144"
+				"origin" "-1183 3674 -477"
 				"mins" "-208 -208 -176"
 				"maxs" "208 208 176"
 			}

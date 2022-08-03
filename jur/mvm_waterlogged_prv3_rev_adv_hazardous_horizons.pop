@@ -44,7 +44,7 @@ WaveSchedule
 	FixedRespawnWaveTimeBlue 		1
 	AddSentryBusterWhenDamageDealtExceeds 0
 
-	CustomUpgradesFile mvm_upgrades_tomboy_reverse_test4.txt //remember to rename this on release :)
+	CustomUpgradesFile mvm_upgrades_tomboy_reverse_test5.txt //remember to rename this on release :)
 
 	//Reverse KVs
 	ReverseWinConditions 1
@@ -1879,13 +1879,6 @@ WaveSchedule
 
 					"damage bonus" 1.25
 				}
-
-				CharacterAttributes
-				{
-					"no_jump" 1
-					"move speed bonus" 0.0001
-				}
-
 				AddTemplate RedBot_Giant
 			}
 		}
@@ -1910,12 +1903,6 @@ WaveSchedule
 					ItemName "Tomislav"
 
 					"damage bonus" 1.25
-				}
-
-				CharacterAttributes
-				{
-					"no_jump" 1
-					"move speed bonus" 0.0001
 				}
 
 				AddTemplate RedBot_Giant
@@ -4276,13 +4263,6 @@ WaveSchedule
 
 					"damage bonus" 1.25
 				}
-
-				CharacterAttributes
-				{
-					"no_jump" 1
-					"move speed bonus" 0.0001
-				}
-
 				AddTemplate RedBot_Giant
 			}
 		}
@@ -4310,13 +4290,6 @@ WaveSchedule
 
 					"damage bonus" 1.25
 				}
-
-				CharacterAttributes
-				{
-					"no_jump" 1
-					"move speed bonus" 0.0001
-				}
-
 				AddTemplate RedBot_Giant
 			}
 		}
@@ -5154,7 +5127,7 @@ WaveSchedule
 	ExtraSpawnPoint
 	{
 		Name "summon_illusion"
-		TeamNum 3
+		TeamNum 2
 		X "-3098.7"
 		Y "-1490.0"
 		Z "276.6"
@@ -5172,7 +5145,7 @@ WaveSchedule
 	ExtraSpawnPoint
 	{
 		Name "spawnbot_stationary_arena_catwalk"
-		TeamNum 3
+		TeamNum 2
 		X "-1091" 
 		Y "4031"
 		Z "-319"
@@ -5180,7 +5153,7 @@ WaveSchedule
 	ExtraSpawnPoint
 	{
 		Name "spawnbot_stationary_arena_right"
-		TeamNum 3 
+		TeamNum 2
 		X "-1991"
 		Y "5315"
 		Z "-239"
@@ -5188,7 +5161,7 @@ WaveSchedule
 	ExtraSpawnPoint
 	{
 		Name "spawnbot_stationary_arena_left"
-		TeamNum 3
+		TeamNum 2
 		X "-197"
 		Y "5299"
 		Z "-239"

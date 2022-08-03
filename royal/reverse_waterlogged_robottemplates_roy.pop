@@ -244,7 +244,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			ClassIcon medic_shield_red
 			Name "Doctor Doppler"
 			Skill Expert
-			Health 20000
+			Health 16000
 
 			Action Mobber
 
@@ -1055,6 +1055,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				ItemName TF_WEAPON_ROCKETLAUNCHER
 				"damage bonus" 1.75
 				"blast radius increased" 1.5
+				"faster reload rate" 1.23 //fix for spy inheriting revolver's reload rate when given rocket launcher
 			}
 
 			CharacterAttributes
@@ -1297,23 +1298,6 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 						Cooldown 1 //Cooldown between firing the input
 						Repeats 1 //How many times should the input be fired
 					}
-					FireInput [$SIGSEGV]
-					{
-						Target "music_cancel_relay" //Entity name to use
-						Action "Trigger" //Input to fire
-						Delay 0 //Delay before firing the input
-						Cooldown 1 //Cooldown between firing the input
-						Repeats 1 //How many times should the input be fired
-					}
-					FireInput [$SIGSEGV] 
-					{
-						Target "music_loop_case" //Entity name to use
-						Action "InValue" //Input to fire
-						Param 4
-						Delay 4 //Delay before firing the input
-						Cooldown 1 //Cooldown between firing the input
-						Repeats 1 //How many times should the input be fired
-					}
 					Message 
 					{
 						Name "{blue}Threat sufficiently neutralized. Proceeding..." 
@@ -1406,6 +1390,23 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 						Name "{red}Primary Directive Reacquired: Eliminate BLU."
 						Delay 7.5
 						Repeats 1
+					}
+					FireInput [$SIGSEGV]
+					{
+						Target "music_cancel_relay" //Entity name to use
+						Action "Trigger" //Input to fire
+						Delay 0 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 1 //How many times should the input be fired
+					}
+					FireInput [$SIGSEGV] 
+					{
+						Target "music_loop_case" //Entity name to use
+						Action "InValue" //Input to fire
+						Param 4
+						Delay 6 //Delay before firing the input
+						Cooldown 1 //Cooldown between firing the input
+						Repeats 1 //How many times should the input be fired
 					}
 				}
 			}
@@ -2199,6 +2200,39 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				IfSeeTarget 1
 				Duration 0.5
 				Type "Primary"
+			}
+		}
+		T_TFBot_Giant_Soldier_RocketShotgun_Weaker // Health regen on hit
+		{
+			Class Soldier
+			ClassIcon soldier_blackbox_giant
+			Name "Giant Black Box Soldier"
+			Health 4200
+
+			Item "The Black Box"
+			Skill Expert
+			Attributes MiniBoss
+			WeaponRestrictions PrimaryOnly
+			Attributes HoldFireUntilFullReload
+			ItemAttributes
+			{
+				ItemName "The Black Box"
+				"damage bonus" 0.45
+				"fire rate bonus" 0.001
+				"clip size upgrade atomic" 0
+				"faster reload rate" 1.6
+				"blast radius increased" 1.25
+				"Projectile speed increased" 0.8
+				"projectile spread angle penalty" 4
+				"heal on hit for rapidfire" 500
+			}
+			CharacterAttributes
+			{
+				"move speed bonus"	0.5
+				"damage force reduction" 0.4
+				"airblast vulnerability multiplier" 0.4
+				"override footstep sound set" 3
+				"Projectile speed increased" 0.9
 			}
 		}
 	}

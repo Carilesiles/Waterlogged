@@ -780,8 +780,8 @@ WaveSchedule
 			{
 				"targetname" "stickybomb_buff"
 				"origin" "0 0 0"
-				"mins" "-256 -256 -256"
-				"maxs" "256 256 256"
+				"mins" "-200 -200 -200"
+				"maxs" "200 200 200"
 				"spawnflags" "1"
 
 				"filtername" "filter_is_blu"

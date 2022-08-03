@@ -766,7 +766,10 @@ WaveSchedule
 	{
 		ItemName "Baby Face's Blaster"
 
+		"hype resets on jump" 50
+		"lose hype on take damage" 2
 		"special item description" "Initial Scout: Gain increase to reload and fire rate while at full boost"
+		"special item description 2" "Lessened boost reduction on air jump and when hit"
 	}
 	
 	PlayerItemEquipSpawnTemplate
@@ -1014,14 +1017,14 @@ WaveSchedule
 	SpawnTemplate "general_logic"
 	Wave // Wave #1
 	{
-		Explanation [$SIGSEGV]  //Dispayed once the wave is initialized
-		{
-			Line "{f5c542}This mission features custom music!"
-			Line "{f5c542}Make sure your music is on | snd_musicvolume 1 or the music slider in audio options"
-			Line "{66abff}JN-10R: {reset}Howdy fellas, my callsign is JN-10R, but you can call me Junior. I'll be your designated worker drone for the duration of your mission here."
-			Line "{66abff}JN-10R: {reset}Your objective is simple: Guard the bomb carrier on his way to the hatch."
-			Line "{66abff}JN-10R: {reset}His attachment module seems to be on the fritz, not even our best worker drone has been able to get the bomb off his back. Keep him alive or we'll be forced to withdraw."
-		}
+		// Explanation [$SIGSEGV]  //Dispayed once the wave is initialized
+		// {
+		// 	Line "{f5c542}This mission features custom music!"
+		// 	Line "{f5c542}Make sure your music is on | snd_musicvolume 1 or the music slider in audio options"
+		// 	Line "{66abff}JN-10R: {reset}Howdy fellas, my callsign is JN-10R, but you can call me Junior. I'll be your designated worker drone for the duration of your mission here."
+		// 	Line "{66abff}JN-10R: {reset}Your objective is simple: Guard the bomb carrier on his way to the hatch."
+		// 	Line "{66abff}JN-10R: {reset}His attachment module seems to be on the fritz, not even our best worker drone has been able to get the bomb off his back. Keep him alive or we'll be forced to withdraw."
+		// }
 		PlayerAttributes  
 		{
 			"cannot pick up intelligence" 1
@@ -1660,14 +1663,14 @@ WaveSchedule
 	SpawnTemplate "PlayersLeftLogic"
 	Wave //Wave #2
 	{
-		Explanation [$SIGSEGV]  //Dispayed once the wave is initialized
-		{
-			Line "{66abff}JN-10R: {reset}Probably should've seen that one coming, guy's always been a jerk. Took the bolts right off of my lunch tray once."
-			Line "{66abff}JN-10R: {reset}Personal grievances aside, he's set his systems to maintain the shield covering the hatch. The only way to continue our mission here is to deactivate him. Forcefully."
-			Line "{66abff}JN-10R: {reset}Good luck, I doubt he'll make it easy."
-			Line "{66abff}JN-10R: {reset}Due to how far we are past enemy lines we're limited on the number of reinforcements we can receive. Don't let yourself get destroyed unnecessarily."
-			Line "{f5c542}Lives are limited on this wave!"
-		}
+		// Explanation [$SIGSEGV]  //Dispayed once the wave is initialized
+		// {
+		// 	Line "{66abff}JN-10R: {reset}Probably should've seen that one coming, guy's always been a jerk. Took the bolts right off of my lunch tray once."
+		// 	Line "{66abff}JN-10R: {reset}Personal grievances aside, he's set his systems to maintain the shield covering the hatch. The only way to continue our mission here is to deactivate him. Forcefully."
+		// 	Line "{66abff}JN-10R: {reset}Good luck, I doubt he'll make it easy."
+		// 	Line "{66abff}JN-10R: {reset}Due to how far we are past enemy lines we're limited on the number of reinforcements we can receive. Don't let yourself get destroyed unnecessarily."
+		// 	Line "{f5c542}Lives are limited on this wave!"
+		// }
 		SpawnTemplate "wave2_logic"
 		SpawnTemplate "PlayerResInput"
 		PlayerAttributes  
@@ -2004,7 +2007,7 @@ WaveSchedule
 			WaitBetweenSpawns 0
 			TFBot
 			{
-				Template T_TFBot_Giant_Soldier_RocketShotgun
+				Template T_TFBot_Giant_Soldier_RocketShotgun_Weaker
 				AddTemplate RedBot_Giant
 				SpawnTemplate AddBotGlow
 				SpawnTemplate AddParticle
@@ -2172,12 +2175,12 @@ WaveSchedule
 	}
 	Wave // Wave #3
 	{
-		Explanation [$SIGSEGV]  //Dispayed once the wave is initialized
-		{
-			Line "{66abff}JN-10R: {reset}Well done! Glad to see that bolt thief get what he deserves."
-			Line "{66abff}JN-10R: {reset}Though while you were busy slapping him around, another red chief has arrived and taken control of the situation."
-			Line "{66abff}JN-10R: {reset}He's locked up some of our troops and set up some odd looking towers. I recommend not finding out what they do when they're fully charged."
-		}
+		// Explanation [$SIGSEGV]  //Dispayed once the wave is initialized
+		// {
+		// 	Line "{66abff}JN-10R: {reset}Well done! Glad to see that bolt thief get what he deserves."
+		// 	Line "{66abff}JN-10R: {reset}Though while you were busy slapping him around, another red chief has arrived and taken control of the situation."
+		// 	Line "{66abff}JN-10R: {reset}He's locked up some of our troops and set up some odd looking towers. I recommend not finding out what they do when they're fully charged."
+		// }
 		SpawnTemplate wave3_logic
 		StartWaveOutput
 		{
@@ -3605,6 +3608,15 @@ WaveSchedule
 			{
 				Template T_TFBot_Ranger_Doctor_Doppler
 				AddTemplate RedBot_Giant
+				InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
+				{
+					Target "-1124 720 32"
+					Delay 0.1 // Time before the first task starts (Default: 10)
+					Repeats 1 // How many times should bot do the task in total (Default: 0 - Infinite)
+					Cooldown 5 //Time between each task (Default: 10)
+					Duration 1 // How long should the ai be interrupted
+					WaitUntilDone 1
+				}
 			}
 		}
 
@@ -3634,12 +3646,12 @@ WaveSchedule
 	}
 	Wave // Wave #4
 	{
-		Explanation [$SIGSEGV]  //Dispayed once the wave is initialized
-		{
-			Line "{66abff}JN-10R: {reset}Those towers... they send out a signal that converts all bots in proximity to the enemy's side."
-			Line "{66abff}JN-10R: {reset}While we were away one of the chiefs set one up in the carrier's mess hall. Sergeant Receiver instantly turned, as well as some of our other specialized units."
-			Line "{66abff}JN-10R: {reset}This is very bad. We need to find the one responsible for making the towers and put an end to this."
-		}
+		// Explanation [$SIGSEGV]  //Dispayed once the wave is initialized
+		// {
+		// 	Line "{66abff}JN-10R: {reset}Those towers... they send out a signal that converts all bots in proximity to the enemy's side."
+		// 	Line "{66abff}JN-10R: {reset}While we were away one of the chiefs set one up in the carrier's mess hall. Sergeant Receiver instantly turned, as well as some of our other specialized units."
+		// 	Line "{66abff}JN-10R: {reset}This is very bad. We need to find the one responsible for making the towers and put an end to this."
+		// }
 		SpawnTemplate "wave4_logic"
 		StartWaveOutput
 		{
@@ -4092,12 +4104,12 @@ WaveSchedule
 	}
 	Wave //Wave #5
 	{
-		Explanation [$SIGSEGV]  //Dispayed once the wave is initialized
-		{
-			Line "{66abff}JN-10R: {reset}We've found our guy. Ranger Rockethell, originally designed to be a very skilled technician for our side. He's responsible for creating the advanced units you've seen here."
-			Line "{66abff}JN-10R: {reset}It's unclear how he was turned in the first place, but on the enemy side he is far too dangerous to be left alive. You know what to do."
-			Line "{f5c542}Lives are limited on this wave!"
-		}
+		// Explanation [$SIGSEGV]  //Dispayed once the wave is initialized
+		// {
+		// 	Line "{66abff}JN-10R: {reset}We've found our guy. Ranger Rockethell, originally designed to be a very skilled technician for our side. He's responsible for creating the advanced units you've seen here."
+		// 	Line "{66abff}JN-10R: {reset}It's unclear how he was turned in the first place, but on the enemy side he is far too dangerous to be left alive. You know what to do."
+		// 	Line "{f5c542}Lives are limited on this wave!"
+		// }
 		SpawnTemplate "wave5_logic"
 		SpawnTemplate "PlayerResInput"
 		//SpawnTemplate "test"
@@ -4424,6 +4436,15 @@ WaveSchedule
 						Template T_TFBot_Helicopter_Base
 						AddCond { Name "TF_COND_REPROGRAMMED" }
 						tag no_reprogram
+						InterruptAction [$SIGSEGV] // Stop current bot ai and force the bot to move to a location
+						{
+							Target "trigger_that_does_nothing_arena"
+							Delay 1 // Time before the first task starts (Default: 10)
+							Repeats 0 // How many times should bot do the task in total (Default: 0 - Infinite)
+							Cooldown 5 //Time between each task (Default: 10)
+							Duration 300 // How long should the ai be interrupted
+							WaitUntilDone 1
+						}
 					}
 				}
 			}

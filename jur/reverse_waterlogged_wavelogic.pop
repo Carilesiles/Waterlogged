@@ -134,11 +134,11 @@ WaveSchedule
 				"OnTrigger" "wave1_explanation_refire,Enable"
 				"OnTrigger" "wave1_explanation,Show"
 
-				"OnTrigger" "player,$DisplayTextCenter,{f5c542}This mission features custom music!"
-				"OnTrigger" "player,$DisplayTextCenter,{f5c542}Make sure your music is on | snd_musicvolume 1 or the music slider in audio options"
-				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Howdy, my callsign is JN-10R, but you can call me Junior. I'll be your designated worker drone for the duration of your mission here."
-				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Your objective is simple: Guard the bomb carrier on his way to the hatch.,1.5"
-				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}His attachment module seems to be on the fritz, not even our best worker drone has been able to get the bomb off his back. Keep him alive or we'll end up having to withdraw.,3"
+				"OnTrigger" "player,$DisplayTextCenter,$$=string('{f5c542}This mission features custom music!')"
+				"OnTrigger" "player,$DisplayTextCenter,$$=string('{f5c542}Make sure your music is on | snd_musicvolume 1 or the music slider in audio options"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Howdy, my callsign is JN-10R, but you can call me Junior. I\'ll be your designated worker drone for the duration of your mission here.'),1"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Your objective is simple: Guard the bomb carrier on his way to the hatch.'),3"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}His attachment module seems to be on the fritz, not even our best worker drone was able to get that bomb off his back. Keep him alive or we\'ll end up having to withdraw.'),5"
 			}
 			logic_relay
 			{
@@ -152,11 +152,12 @@ WaveSchedule
 				"OnTrigger" "arena_indicator*,SetAnimation,idle"
 				"OnTrigger" "arena_indicator*,AddOutput,skin 1"
 				
-				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Probably should've seen that one coming, guy's always been a jerk. Took the bolts right off of my lunch tray once."
-				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Anyway, he's set his systems to maintain the shield covering the hatch. The only way to continue our mission here is to decommission him.,1.5"
-				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Good luck, I doubt he'll make it easy.,3"
-				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Oh right I should tell you, on account of how far we are past enemy lines we're limited on the number of reinforcements we can receive. So don't get careless, you hear?,4.5"
-				"OnTrigger" "player,$DisplayTextCenter,{f5c542}Lives are limited on this wave!"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Probably should\'ve seen that one coming, guy\'s always been a jerk. Took the bolts right off of my lunch tray once.'),1"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Anyway, he\'s set his systems to maintain the shield covering the hatch. The only way to continue our mission here is to decommission him.'),3"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Good luck, I doubt he\'ll make it easy.'),5.5"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Oh right I should tell you, on account of how far we are past enemy lines we\'re limited on the number of reinforcements we can receive. So don\'t get careless, you hear?'),8.5"
+				"OnTrigger" "player,$DisplayTextCenter,$$=string('{f5c542}Lives are limited on this wave!')"
+				"OnTrigger" "player,$DisplayTextChat,{f5c542}Lives are limited on this wave!,8.55"
 			}
 			logic_relay
 			{
@@ -197,10 +198,10 @@ WaveSchedule
 				"OnTrigger" "gate1_door_trigger,$SetKey$area_time_to_cap,1"
 				"OnTrigger" "gate2_door_trigger,$SetKey$area_time_to_cap,1"
 
-				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Nicely done. Seeing that bolt burglar go down put a real big smile on my face."
-				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Well, it would have, if my model's designer had deemed it necessary to include one alongside the 'Authentic Human Emotions Module'. Prick.,1"
-				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}By the by, while you were busy taking care of Mr. Trojan Horse down there, another red chief cropped up and took command of the enemy garrison.,2.5"
-				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}He's locked up some of our troops and brought in some funny looking towers, I recommend not finding out what they do when they're fully charged.,4"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Nicely done, seeing that bolt burglar go down put a real big smile on my face.'),1"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Well, it would have, if my model\'s designer had deemed it necessary to include one alongside the \'Authentic Human Emotions Module\'. Prick.'),3"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}By the way, while you were busy taking care of Mr. Trojan Horse down there, another red chief cropped up and took command of the enemy garrison.'),6.5"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}He\'s locked up some of our troops and brought in some funny looking towers, I recommend not finding out what they do when they\'re fully charged.'),9.5"
 			}
 			logic_relay
 			{
@@ -215,9 +216,9 @@ WaveSchedule
 				"OnTrigger" "wave4_explanation_refire,Enable"
 				"OnTrigger" "wave4_explanation,Show"
 
-				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}So, turns out those radio towers just so happen to send out a signal that converts all bots around it to the enemy's side."
-				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}And while we were plugging away at our mission, one of the reds set up one in the carrier's mess hall. Sergeant Receiver and some of our other specialized units are on their side now.,1.5"
-				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}You won't find me saying the outlook is positive here, but you need to find whatever is responsible for making those towers and shut it down.,3"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}So, turns out those radio towers just so happen to send out a signal that converts all blue bots around it to red.'),1"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}And while we were plugging away at our mission, one of the reds set up one in the carrier\'s mess hall. Sergeant Receiver and some of our other specialized units are on their side now.'),3.25"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}You won\'t find me saying the outlook is positive here, but you need to find whatever is responsible for constructing those towers and shut it down. Good luck.'),6.75"
 			}
 			logic_relay
 			{
@@ -235,9 +236,12 @@ WaveSchedule
 				"OnTrigger" "arena_indicator*,SetAnimation,idle"
 				"OnTrigger" "arena_indicator*,AddOutput,skin 1"
 
-				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}We've found our guy. Designated Ranger Rockethell, this unit was originally designed to be a very skilled technician for our side. Name's a bit on the nose frankly but he's responsible for creating the advanced units you've seen here."
-				"OnTrigger" "player,$DisplayTextChat,{66abff}JN-10R: {reset}Not entirely clear on how he was turned in the first place, but regardless we kinda don't want him to keep bolstering the enemy's forces with ours. Last stretch here fellas, you know what to do.,1.5"
-				"OnTrigger" "player,$DisplayTextCenter,{f5c542}Lives are limited on this wave!"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}We\'ve found our guy. Designated Ranger Rockethell, this unit was originally designed to be a very skilled technician for our side.'),1"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Name\'s a bit on the nose frankly, but he\'s responsible for creating the advanced units you\'ve seen here.'),2.5"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Not entirely clear on how he was turned in the first place, but regardless we don\'t want him to keep bolstering the enemy\'s forces with ours.'),5"
+				"OnTrigger" "player,$DisplayTextChat,$$=string('{66abff}JN-10R: {reset}Last stretch here fellas, you know what to do.'),7.5"
+				"OnTrigger" "player,$DisplayTextCenter,$$=('{f5c542}Lives are limited on this wave!')"
+				"OnTrigger" "player,$DisplayTextChat,{f5c542}Lives are limited on this wave!,7.6"
 			}
 			logic_relay
 			{
@@ -445,6 +449,13 @@ WaveSchedule
 			}
 			trigger_multiple
 			{
+				"targetname" "trigger_that_does_nothing"
+				"origin" "-5424 1424 416"
+				"mins" "-464 -112 -24"
+				"maxs" "464 112 24"
+			}
+			trigger_multiple
+			{
 				"targetname" "trigger_that_does_nothing2"
 				"origin" "-3175.55 -1999.91 197"
 				"mins" "-489 -212 -37"
@@ -452,10 +463,10 @@ WaveSchedule
 			}
 			trigger_multiple
 			{
-				"targetname" "trigger_that_does_nothing"
-				"origin" "-5424 1424 416"
-				"mins" "-464 -112 -24"
-				"maxs" "464 112 24"
+				"targetname" "trigger_that_does_nothing_arena"
+				"origin" "-1088 3536 -144"
+				"mins" "-208 -208 -176"
+				"maxs" "208 208 176"
 			}
 			func_forcefield
 			{
@@ -1853,7 +1864,7 @@ WaveSchedule
 			logic_relay
 			{
 				"targetname" "lower_heli_relay"
-				"OnTrigger" "player,$FireUser5,-3,0.1"
+				"OnTrigger" "player,$FireUser5,-6,0.1"
 			}
 			logic_relay
 			{
@@ -2408,22 +2419,22 @@ WaveSchedule
 				"flag_as_weather" "0"
 				"start_active" "1"
 			}
-			info_particle_system
-			{
-				"targetname" "generator_particle_1"
-				"origin" "-48 0 -15"
-				"effect_name" "utaunt_electricity_cloud_electricity_WY"
-				"flag_as_weather" "0"
-				"start_active" "1"
-			}
-			info_particle_system
-			{
-				"targetname" "generator_particle_2"
-				"origin" "16 0 -10"
-				"effect_name" "utaunt_electricity_cloud_electricity_WY"
-				"flag_as_weather" "0"
-				"start_active" "1"
-			}
+			//info_particle_system
+			//{
+			//	"targetname" "generator_particle_1"
+			//	"origin" "-48 0 -15"
+			//	"effect_name" "utaunt_electricity_cloud_electricity_WY"
+			//	"flag_as_weather" "0"
+			//	"start_active" "1"
+			//}
+			//info_particle_system
+			//{
+			//	"targetname" "generator_particle_2"
+			//	"origin" "16 0 -10"
+			//	"effect_name" "utaunt_electricity_cloud_electricity_WY"
+			//	"flag_as_weather" "0"
+			//	"start_active" "1"
+			//}
 		}
 
 		PlayerResInput

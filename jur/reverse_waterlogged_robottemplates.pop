@@ -974,6 +974,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				ItemName TF_WEAPON_ROCKETLAUNCHER
 				"damage bonus" 1.75
 				"blast radius increased" 1.5
+				"faster reload rate" 1.23 //fix for spy inheriting revolver's reload rate when given rocket launcher
 			}
 
 			CharacterAttributes

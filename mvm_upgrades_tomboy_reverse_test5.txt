@@ -45,8 +45,8 @@
             "attribute"    "fire rate bonus"    // attrib to hook
             "icon"        "achievements/tf_scout_dodge_damage"
             "increment"    "-0.15"                // percent
-            "cap"        "0.55"                // percent
-            "cost"        "400"
+            "cap"        "0.85"                // percent
+            "cost"        "500"
             "quality"    "1"                    // allows varying usage cases without cloning attributes
                                             // 1 = low, 2 = normal (default), 3 = high
         }

@@ -2505,7 +2505,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			{
 				Target "!activator"
 				Action "$SetProp$m_bGlowEnabled"
-				Delay 0
+				Delay 0.1
 				Param "1"
 			}
 		}
@@ -3418,7 +3418,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			{
 				"targetname" "droneModel"
 
-				"OnTrigger" "le_sentry,$SetProp$m_nSolidType,0,0,-1" 
+				//"OnTrigger" "le_sentry,$SetProp$m_nSolidType,0,0,-1" 
 				"OnTrigger" "le_sentry,$SetModelOverride,models/rcat/rcat_level2.mdl,0,-1" 
 				"OnTrigger" "le_sentry,$SetProp$m_nSkin,2,0,-1"
 				"OnTrigger" "le_sentry,SetHealth,50,0,-1"
@@ -4354,8 +4354,8 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 				"targetname" "rockethell_stun"
 				"spawnflags" "2"
 
-				"OnTrigger" "!parent,$AddCond,71 5"
-				"OnTrigger" "!self,Trigger,,5.1"
+				"OnTrigger" "!parent,$AddCond,71 2.5"
+				"OnTrigger" "!self,Trigger,,2.6"
 			}
 			logic_relay
 			{

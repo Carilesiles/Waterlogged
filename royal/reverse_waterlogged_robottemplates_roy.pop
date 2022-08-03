@@ -4339,6 +4339,7 @@ ThisHasThePointTemplatesOfTheRobotsInItToo
 			{
 				"targetname" "rockethell_disable"
 				"OnTrigger" "!parent,$AddCond,52"
+				"OnTrigger" "rockethell_midphase_annotation,Show"
 				"OnTrigger" "!parent,$ChangeAttributes,Stunned"
 				//"OnTrigger" "!activator,$PlaySequence,layer_PRIMARY_Stun_begin"
 				//"OnTrigger" "!activator,$PlaySequence,layer_PRIMARY_Stun_middle,,0.2"

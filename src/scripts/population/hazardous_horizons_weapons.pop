@@ -1,0 +1,166 @@
+#base reverse_waterlogged_custom.pop
+
+WaveSchedule
+{
+
+	DisallowUpgrade	
+	{
+		Upgrade	"rocket specialist"
+		MaxLevel 0
+		ItemName "Direct Hit V2" 
+	}
+	//DisallowUpgrade	
+	//{
+	//	Upgrade	"damage bonus"
+	//	MaxLevel 2
+	//	ItemName "Direct Hit V2" 
+	//}
+
+	CustomWeapon 
+	{
+		"Baby Face's Blaster V2"
+		{
+			OriginalItemName "Baby Face's Blaster"
+
+			"hype resets on jump" 50
+			"lose hype on take damage" 2
+			"special item description" "Initial Scout: Gain increase to reload and fire rate while at full boost"
+			"special item description 2" "Lessened boost reduction on air jump and when hit"
+		}
+		"Direct Hit V2" 
+		{
+			OriginalItemName "The Direct Hit"
+			"fire input on hit" "direct_hit_on_hit^Trigger^"
+			"clip size penalty" 0.25
+			//"damage bonus" 1
+			"Reload time increased" 1.3
+
+			"special item description" "On Hit: Reload one rocket"
+		}
+
+		"Anti-Aircraft Launcher"
+		{
+			OriginalItemName "The Liberty Launcher"
+			"cannot be upgraded" 1
+			"mod projectile heat follow crosshair" 1
+			"mod projectile heat seek power" 180
+			"Projectile speed increased" 0.2
+			"fire rate bonus hidden" 2
+			"fire rate bonus" 0.6
+			"damage penalty" 1
+			"damage bonus hidden" 3
+			"faster reload rate" 0.4
+			"clip size bonus" .25
+			"projectile acceleration" 5000
+			"projectile acceleration time" .1
+			"projectile acceleration start time" .5
+			"custom weapon fire sound" "=50|rpg_sounds/rocketfire1.wav"
+			"mod projectile heat aim time" 10
+			"custom impact sound" "misc/null.wav"
+			"special item description" "+200% damage bonus"
+		}
+		"National Pride"
+		{
+			OriginalItemName "Upgradeable TF_WEAPON_PIPEBOMBLAUNCHER"
+			
+			"provide on active" 1 //for no_attack
+
+			"paintkit_proto_def_index" 209 //clover camo'd
+			"set_item_texture_wear" 0
+
+			"stickybomb fizzle time" 10
+			"clip size penalty" 0.1
+			"Reload time increased" 1.7
+			"max pipebombs decreased" -7
+			"sticky arm time penalty" 5000
+			"damage penalty" 0
+
+			"special item description" "Stickybombs grant minicrit to nearby teammates"
+			"special item description 2" "Cannot detonate. only 1 sticky can be active at a time"
+			//"special item description 3" "-30% damage on primary weapon when at least 1 stickybomb is active"
+		}
+		"Short Circuit V2"
+		{
+			OriginalItemName "The Short Circuit"
+
+			"damage bonus HIDDEN" 6
+			"override projectile type" 2
+			"alt-fire disabled" 1
+			"fire rate penalty" 9
+			"mod ammo per shot" 65
+			"projectile gravity" 1200
+			"self dmg push force increased" 4
+			"blast dmg to self increased" 4
+			"custom projectile model" "models/empty.mdl"
+			"explosion particle" "drg_cow_explosioncore_charged_blue"
+			"projectile trail particle" "drg_cow_rockettrail_normal_blue"
+			"custom impact sound" "weapons/cow_mangler_explosion_normal_01.wav"
+			"special item description" "Launches an energy ball that leaves behind a damaging electricity field"
+			"special item description 2" "Alt-fire is disabled"
+			//"custom weapon fire sound" "weapons/cow_mangler_main_shot.wav"
+		}
+	}
+
+	ExtraLoadoutItems
+	{
+		Scout 
+		{
+			Primary {Item "Baby Face's Blaster V2"}
+		}
+		Soldier
+		{
+			Primary {Item  "Direct Hit V2"}
+		}
+		Demoman 
+		{
+			Secondary {Item "National Pride"}
+			// Melee {Item "Murasama"}
+		}
+		Engineer 
+		{
+			Secondary {Item "Short Circuit V2"}
+		}
+	}
+
+	SpawnTemplate DirectHit_Rework_Global
+
+	
+	PlayerItemEquipSpawnTemplate 
+	{
+		Name BabyFace_Spawn
+		ItemName "Baby Face's Blaster"
+	}
+
+	PlayerShootTemplate
+	{
+		Name rpg_shoottemplate
+		ItemName "Anti-Aircraft Launcher"
+		AttachToProjectile 1
+	}
+
+	PlayerItemEquipSpawnTemplate
+	{
+		Name DirectHit_Spawn
+		ItemName "The Direct Hit"
+	}
+
+	PlayerShootTemplate
+	{
+		Name BannerSticky
+		AttachToProjectile 1
+		ItemName "National Pride"
+	}
+
+	PlayerItemEquipSpawnTemplate
+	{
+		Name NationalPride_Spawn
+		ItemName "National Pride"
+	}
+	
+	PlayerShootTemplate
+	{
+		Name shortcircuit_rebalance
+		AttachToProjectile 1
+		ItemName "Short Circuit V2"
+	}
+}

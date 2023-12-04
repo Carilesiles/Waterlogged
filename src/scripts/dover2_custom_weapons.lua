@@ -510,7 +510,11 @@ function SeducerHit(_, activator, caller)
 
 	controlled[handle] = caller
 
-	caller:AddCond(TF_COND_REPROGRAMMED)
+	if caller:InCond(TF_COND_REPROGRAMMED) then
+		caller:RemoveCond(TF_COND_REPROGRAMMED)
+	else
+		caller:AddCond(TF_COND_REPROGRAMMED)
+	end
 	caller:AddCond(TF_COND_CRITBOOSTED_CARD_EFFECT)
 
 	local secondary = activator:GetPlayerItemBySlot(1)

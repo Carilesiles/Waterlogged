@@ -124,7 +124,6 @@ WaveSchedule
 	PrecacheModel "models/mvm/barrier/barrier_oneway_red1.mdl"
 	PrecacheModel "models/mvm/barrier/barrier_oneway_red2.mdl"
 
-	LuaScriptFile "scripts/freelance_mercenary_logic.lua"
 	LuaScriptFile "scripts/waterlogged_rev.lua"
 
 	SpawnTemplate bossroom_collision
@@ -164,30 +163,6 @@ WaveSchedule
 	//	MaxLevel 2
 	//	ItemName "The Direct Hit" 
 	//}
-	ExtendedUpgrades
-	{ 
-		newRage 
-		{
-			Name "Explosive Rage"
-			Cap 1
-			Increment 1 
-			Cost 300
-
-			Description "Deal damage to charge up your rage meter. When fully charged, press the Special-Attack key to fire explosive rounds for 8 seconds"
-
-			Attribute "generate rage on damage" 
-
-			AllowedWeapons
-			{
-				Classname "TF_WEAPON_MINIGUN"
-			}
-
-			SecondaryAttributes 
-			{
-				"special item description" "Deal damage to charge up your rage meter. When fully charged, press the Special-Attack key to fire explosive rounds for 8 seconds"
-			}
-		}
-	}
 
 	// SpawnTemplate DirectHit_Rework_Global
 	// SpawnTemplate Axe_Rework_Global

@@ -2,6 +2,7 @@
 
 WaveSchedule
 {
+	LuaScriptFile "scripts/knockback_rage_waterlogged.lua"
 
 	DisallowUpgrade	
 	{
@@ -98,6 +99,38 @@ WaveSchedule
 			"special item description" "Launches an energy ball that leaves behind a damaging electricity field"
 			"special item description 2" "Alt-fire is disabled"
 			//"custom weapon fire sound" "weapons/cow_mangler_main_shot.wav"
+		}
+	}
+
+	ExtendedUpgrades
+	{ 
+		newRage
+		{
+			Name "Explosive Rage"
+			Description "Deal damage to charge up your rage meter. When fully charged, press the Special-Attack key to fire explosive rounds for 8 seconds" 
+			Attribute "generate rage on damage"
+			Cap 1 
+			Increment 1
+			Cost 300
+
+			AllowedWeapons 
+			{
+				ClassName "TF_WEAPON_MINIGUN"
+			}			
+			SecondaryAttributes 
+			{
+				"throwable fire speed" 1 // flag for lua file
+				"special item description" "Deal damage to charge up your rage meter. When fully charged, press the Special-Attack key to fire explosive rounds for 8 seconds"
+			}
+
+			OnApply
+			{
+				Output "popscript,$KnockbackRageStart,,0.1"
+			}
+			OnDowngrade
+			{
+				Output "popscript,$KnockbackRageStop,,0"
+			}
 		}
 	}
 

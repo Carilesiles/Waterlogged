@@ -10,7 +10,7 @@ local canteens = {
 		-- Effect function
 		Effect = function(activator)
 			activator:AddCond(TF_COND_SPEED_BOOST, 5, activator)
-		end
+		end,
 	},
 	{
 		Display = "BULLET RESIST",
@@ -18,7 +18,7 @@ local canteens = {
 		Description = "Consumable: Gain resistance to bullets for 5 seconds",
 		Effect = function(activator)
 			activator:AddCond(TF_COND_MEDIGUN_UBER_BULLET_RESIST, 5, activator)
-		end
+		end,
 	},
 	{
 		Display = "BESERK",
@@ -32,18 +32,23 @@ local canteens = {
 			activator:SetAttributeValue("CARD: damage bonus", 1.25)
 			activator:SetAttributeValue("melee attack rate bonus", 0.8)
 
+			-- (note): spy doesn't have a primary
 			local primary = activator:GetPlayerItemBySlot(LOADOUT_POSITION_PRIMARY)
-			-- force minigun to stop reving & sniper rifle to unscope 
-			primary:SetAttributeValue("alt-fire disabled", 1)
+			if primary then
+				-- force minigun to stop reving & sniper rifle to unscope
+				primary:SetAttributeValue("alt-fire disabled", 1)
+			end
 
 			timer.Simple(5, function()
 				activator:RemoveCond(TF_COND_CANNOT_SWITCH_FROM_MELEE)
 				activator:RemoveCond(TF_COND_SNIPERCHARGE_RAGE_BUFF)
 				activator:SetAttributeValue("CARD: damage bonus", nil)
 				activator:SetAttributeValue("melee attack rate bonus", nil)
-				primary:SetAttributeValue("alt-fire disabled", nil)
+				if primary then
+					primary:SetAttributeValue("alt-fire disabled", nil)
+				end
 			end)
-		end
+		end,
 	},
 	{
 		Display = "REPROGRAM",
@@ -74,7 +79,7 @@ local canteens = {
 					end)
 				end
 			end
-		end
+		end,
 	},
 	{
 		Display = "STEALTH",
@@ -82,7 +87,7 @@ local canteens = {
 		Description = "Consumable: Cloak for up to 15 seconds, cloak is cancelled when attacking",
 		Effect = function(activator)
 			activator:AddCond(TF_COND_STEALTHED_USER_BUFF, 15, activator)
-		end
+		end,
 	},
 }
 

@@ -1526,7 +1526,7 @@ end
 local diverCallbacks = {}
 function WormholeDiverEquip(_, activator)
 	-- fix weird quirk with template being spawned after you switch to a different class
-	if classIndices_Internal[activator:DumpProperties().m_iClass] ~= "Pyro" then
+	if classIndices_Internal[activator.m_iClass] ~= "Pyro" then
 		return
 	end
 

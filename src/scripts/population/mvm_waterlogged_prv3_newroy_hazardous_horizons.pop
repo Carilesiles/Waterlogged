@@ -74,7 +74,7 @@ WaveSchedule
 	FastEntityNameLookup 1
 	FastWholeMapTriggers 1
 	NoReanimators 1
-	MaxSpectators 1
+	// MaxSpectators 1
 	RobotLimit 24
 	NoRomevisionCosmetics 1
 	BluHumanInfiniteAmmo 0

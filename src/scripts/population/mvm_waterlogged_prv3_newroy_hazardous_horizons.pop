@@ -330,6 +330,11 @@ WaveSchedule
 		// 	"special item description" "Press the Action key to switch between classes on the fly. 5 second cooldown between uses"
 		// }
 	}
+
+	// PlayerSpawnTemplate
+	// {
+	// 	Name ApplyRobotModel
+	// }
 	
 	// ExtraLoadoutItems
 	// {

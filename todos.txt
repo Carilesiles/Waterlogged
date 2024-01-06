@@ -1,6 +1,4 @@
 == TODOs ==
-* Update Droneslinger with lua
-* Look into a different way of allowing player animation with robot without problem with ubered viewmodel (SetCustomModelWithClassAnimations)
 * Change sergeant receiver health bar icon based on style, remove style change text
 * Make dillweed burst phase have alwaysfire
 * Give generators no shake

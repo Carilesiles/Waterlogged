@@ -33,13 +33,9 @@
 #base robot_gatebot.pop
 #base reverse_waterlogged_robottemplates_roy.pop
 #base reverse_waterlogged_wavelogic_roy.pop
-#base reverse_waterlogged_custom_roy.pop
 
 #base hazardous_horizons_weapons.pop
-
-// Placeholder dover 2 weapons
 #base rotating_shield_whitecliff.pop
-#base dover2_weapons.pop
 
 // Load canteens
 #base template_custom_canteen.pop

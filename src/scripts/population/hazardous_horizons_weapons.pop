@@ -10,6 +10,8 @@ WaveSchedule
     PrecacheModel "models/bots/demo/red_sentry_buster.mdl"
 	PrecacheModel "models/rcat/rcat_level2.mdl"
 
+	LuaScriptFile "scripts/hazardous_horizons_custom_weapons.lua"
+
 	LuaScriptFile "scripts/freelance_mercenary_logic.lua"
 	LuaScriptFile "scripts/dover2_custom_weapons.lua"
 
@@ -113,10 +115,10 @@ WaveSchedule
 		{
 			OriginalItemName "The Gunslinger"
 
-			"cannot pick up buildings" 1
-			"build rate bonus" 0.2
-			"upgrade rate decrease" 4
-			"special item description" "Placed Mini-Sentries are converted into drones that will float alongside you"
+			// "cannot pick up buildings" 1
+			// "build rate bonus" 0.2
+			// "upgrade rate decrease" 4
+			"special item description" "Replaces sentry with a drone that will float alongside you"
 		}
 
 		// Dover 2 Weapons
@@ -372,6 +374,7 @@ WaveSchedule
 		Engineer 
 		{
 			Secondary {Item "Avalanche"}
+			Melee {Item "Droneslinger"}
 		}
 	}
 
@@ -454,7 +457,14 @@ WaveSchedule
 		Name NationalPride_Spawn
 		ItemName "National Pride"
 	}
-	
+
+	// superseded by lua version
+	// PlayerItemEquipSpawnTemplate
+	// {
+	// 	Name "test_mini"
+	// 	ItemName "Droneslinger"
+	// }
+
 	PlayerShootTemplate
 	{
 		Name shortcircuit_rebalance
@@ -758,6 +768,13 @@ WaveSchedule
 		}
     }
 
+	BuildingSpawnTemplate
+	{
+		Name DroneslingerBuilt
+		BuildingType "Sentry"
+		ItemName "Droneslinger"
+	}
+
 	PlayerItemEquipSpawnTemplate 
 	{
 		Name FreelanceMercenary_Logic
@@ -792,18 +809,18 @@ WaveSchedule
 		BuildingType "Teleporter Exit" 
 	}
 	
-	PlayerShootTemplate
-	{
-		Name DroneWalker_Shoot
-		ItemName "Drone Walker"
-		AttachToProjectile 1
-	}
+	// PlayerShootTemplate
+	// {
+	// 	Name DroneWalker_Shoot
+	// 	ItemName "Drone Walker"
+	// 	AttachToProjectile 1
+	// }
 
-	PlayerItemEquipSpawnTemplate 
-	{
-		Name DroneWalker_Equip
-		ItemName "Drone Walker"
-	}
+	// PlayerItemEquipSpawnTemplate 
+	// {
+	// 	Name DroneWalker_Equip
+	// 	ItemName "Drone Walker"
+	// }
 
 	PlayerItemEquipSpawnTemplate 
 	{

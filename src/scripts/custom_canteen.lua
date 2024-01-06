@@ -33,12 +33,17 @@ local function hasVanillaCharges(canteen)
 end
 
 function CanteenSpawn(_, activator)
+	local canteen = activator:GetPlayerItemBySlot(LOADOUT_POSITION_ACTION)
+
+	if not canteen then
+		return
+	end
+
 	local index = activator:GetHandleIndex()
 	canteenPlayers[index] = {
 		CustomCanteenData = nil
 	}
 
-	local canteen = activator:GetPlayerItemBySlot(LOADOUT_POSITION_ACTION)
 	canteen.i_LastCanteenCharges = canteen.m_usNumCharges
 
 	local think

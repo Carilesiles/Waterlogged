@@ -2294,6 +2294,15 @@ WaveSchedule
 			}
 		}
 
+		DroneslingerBuilt
+		{
+			OnSpawnOutput
+			{
+				Target "popscript"
+				Action "$DronePlaced"
+			}
+		}
+
 		// mini buddy template
 		filters_mini
 		{

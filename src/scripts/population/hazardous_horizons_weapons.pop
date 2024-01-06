@@ -469,7 +469,7 @@ WaveSchedule
 	{
 		Name shortcircuit_rebalance
 		AttachToProjectile 1
-		ItemName "Short Circuit V2"
+		ItemName "Avalanche"
 	}
 
 	// Dover 2
